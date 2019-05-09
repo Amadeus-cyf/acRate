@@ -22,7 +22,6 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, "client", "build")))
 
 require('./routes/')(app);
 require('./connection/connection.js')();
