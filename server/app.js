@@ -4,10 +4,11 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     session = require('express-session'),
     passport = require('passport'),
-    flash = require('connect-flash');
+    flash = require('connect-flash'),
+    logger = require('morgan'),
+    cookieParser = require('cookie-parser');
 
 var app = express();
-
 //solve cross domain issue
 var allowCrossDomain =  function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -17,22 +18,30 @@ var allowCrossDomain =  function (req, res, next) {
 }
 
 app.use(express.static(__dirname + '/public'));
-app.use(session({secret: "cat"}));
-app.use(passport.initialize());
-app.use(passport.session());
-require('./config/passport');
-
 app.use(allowCrossDomain);
+
 app.use(bodyParser.urlencoded({
     extended: true,
 }));
 app.use(bodyParser.json());
+
+app.use(logger('dev'));
+app.use(cookieParser());
 app.use(flash());
 
 require('./models/userSchema');
-//require('./config/passport');
+app.use(session({
+    secret: 'secret',
+    saveUninitialized: true,
+    resave: true,
+}));
+require('./config/passport');
+app.use(passport.initialize());
+app.use(passport.session());
+
 require('./routes/')(app, router);
-require('./connection/connection.js')();
+
+require('./connection/connection')();
 
 var port = 4000;
 app.listen(port);

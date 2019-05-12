@@ -1,14 +1,17 @@
 const mongoose = require('mongoose');
 const crypto = require('crypto');
+const uniqueValidator = require('mongoose-unique-validator');
 
 var UserSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true,
+        unique: true,
     },
     email: {
         type: String,
         required: true,
+        unique: true,
     },
     //use salt and hash to store password
     salt:{
@@ -17,12 +20,12 @@ var UserSchema = new mongoose.Schema({
     hash: {
         type: String,
     },
-    //record is an array of object containing game, score and comments; score and comments both contain date
-    record: {
+    //commentAnime is an array of object, each object contains comment and anime;
+    commentAnime: {
         type: Array,
         default: [],
     },
-    //name of anime scored, used for recommendation
+    //score anime is an array of object, each object contains anime and score;
     scoreAnime: {
         type: Array,
         default: [],
@@ -37,6 +40,7 @@ var UserSchema = new mongoose.Schema({
     }
 })
 
+//set password for user
 UserSchema.methods.setPassword = function(password) {
     this.salt = crypto.randomBytes(16).toString('hex');
     this.hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
@@ -47,5 +51,7 @@ UserSchema.methods.validPassword = function(password) {
     let hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
     return hash === this.hash;
 }
+
+UserSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model('User', UserSchema);
