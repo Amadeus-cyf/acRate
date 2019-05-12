@@ -1,6 +1,6 @@
- var express = require('express'),
+var express = require('express'),
     mongoose = require('mongoose'),
-    secrets = require('./config/secrets');
+    secrets = require('../config/secrets');
 
 //Connect to Mongodb
 module.exports = function() {
