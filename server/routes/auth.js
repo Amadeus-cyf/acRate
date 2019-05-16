@@ -4,30 +4,25 @@ const User = require('../models/userSchema');
 const router = express.Router();
 const passport = require('passport');
 
-/*router.post('/login', 
-  passport.authenticate('local', { successRedirect: '/', 
-  failureRedirect: '/login', failureFlash: 'Incorrect email or password'})
-);*/
-
+//login
 router.post('/login', (req, res, next) => {
     passport.authenticate('local', function(err, user, info) {
       if (err) {
           return next(err);
       }
       if (!user) {
-          return res.status(401).json({
-              err: info,
+          return res.json({
+                status: "Could not find user"
           });
       }
       req.logIn(user, function(err) {
-  
           if (err) {
               return res.status(500).json({
-                  err: 'Could not log in user'
+                  status: "Server error"
               });
           }
           res.status(200).json({
-              status: 'Login successful!'
+              status: 'Successfully Login'
           });
   
       });
@@ -60,21 +55,19 @@ router.post('/signup', (req, res) => {
     User.findOne({'username': username}).exec()
     .then(user => {
         if (user) {
-            return res.status(404).json({message: 'Username already exists', data:{}});
+            return res.json({message: 'Username already exists', data:{}});
         }
     }).catch(err => {
         res.status(500).send(err);
     })
-    //ensure unique email
     User.findOne({'email': email})
     .then(user => {
         if (user) {
-            return res.status(404).json({message: 'Email already exists', data:{}});
+            return res.json({message: 'Email already exists', data:{}});
         }
     }).catch(err => {
         res.status(500).send(err);
     })
-    //ensure unique username
     user.username = req.body.username;
     user.email = req.body.email;
     user.setPassword(req.body.password);
