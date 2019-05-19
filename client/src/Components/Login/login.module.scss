@@ -11,17 +11,18 @@
 }
 
 .container {
+    padding-bottom: 18%;
     background-color: white;
     display: flex;
     justify-content: space-evenly;
 }
 
 .imageStyle {
-    width: 30%;
-    margin-top: 10%;
-    margin-left: 5%;
+    margin-top: 5%;
+    margin-left: 15%;
+    width: 35%;
     background-image: url('./background.jpg');
-    background-size: auto 100%;
-    background-attachment: relative;
+    background-size: auto 60%;
+    background-position: center;
     background-repeat: no-repeat;
 }

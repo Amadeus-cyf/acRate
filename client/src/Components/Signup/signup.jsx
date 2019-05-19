@@ -91,12 +91,7 @@ class Signup extends Component {
             'font-size': '15pt',
             'text-align': 'center',
             background: 'white',
-            margin: '5% 5% 5% 2%',
-        }
-        let inputStyle = {
-            display: 'block',
-            margin: '0 auto',
-            width: '100%',
+            margin: '5% 30% 5% 1%',
         }
         let buttonStyle = {
             'font-family': "'PT Sans Caption', sans-serif",
@@ -115,22 +110,22 @@ class Signup extends Component {
                             Username
                         </div>
                         <Input size = 'big' name = 'username' value = {this.state.username}
-                            onChange = {this.usernameHandler} type = 'text' placeholder = 'please enter your username' style = {inputStyle}/>
+                            onChange = {this.usernameHandler} type = 'text' placeholder = 'please enter your username'/>
                         <div className = {subtitle}>
                             Email
                         </div>
                             <Input size = 'big' name = 'email' value = {this.state.email}
-                            onChange = {this.emailHandler} type = 'text' placeholder = 'please enter your email address' style = {inputStyle}/>
+                            onChange = {this.emailHandler} type = 'text' placeholder = 'please enter your email address'/>
                         <div className = {subtitle}>
                             Password
                         </div>
                         <Input size = 'big' name = "password" value = {this.state.password}
-                        onChange = {this.passwordHandler} type = 'password' placeholder = 'password must be at least 8 characters' style = {inputStyle}/>
+                        onChange = {this.passwordHandler} type = 'password' placeholder = 'password must be at least 8 characters'/>
                         <div className = {subtitle}>
                             Confirm your Password
                         </div>
                         <Input size = 'big' name = "confirm password" value = {this.state.confirmPassword}
-                        onChange = {this.confirmHandler} type = 'password' placeholder = 'enter password again' style = {inputStyle}/>
+                        onChange = {this.confirmHandler} type = 'password' placeholder = 'enter password again'/>
                     </Form.Field>
                     <Button disabled={isvalid} type = 'submit' style = {buttonStyle}>Create Account</Button>
                     <Button style = {buttonStyle} onClick = {this.cancelHandler}>Cancel</Button>
