@@ -32,9 +32,9 @@ router.post('/login', (req, res, next) => {
 //get current loggin user
 router.get('/currentUser', (req, res, next) => {
     if (req.isAuthenticated()) {
-       return res.send(req.user)
+       return res.json({message:'success', data: req.user})
     }
-    return res.send('not login');
+    return res.json({message:'not login', data: undefined});
 })
 
 //sign up an account

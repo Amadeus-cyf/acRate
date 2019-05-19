@@ -1,0 +1,27 @@
+.title {
+    color: rgba(60, 60, 60, 0.7);
+    font-family: 'PT Sans Caption', sans-serif;
+    font-size: 30pt;
+    padding-top: 30px;
+}
+
+.subtitle {
+    padding-top: 3%;
+    padding-bottom: 1.5%;
+}
+
+.container {
+    background-color: white;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.imageStyle {
+    width: 40%;
+    margin-top: 5%;
+    padding-bottom: 20%;
+    background-image: url('./background.jpg');
+    background-size: auto 100%;
+    background-attachment: relative;
+    background-repeat: no-repeat;
+}

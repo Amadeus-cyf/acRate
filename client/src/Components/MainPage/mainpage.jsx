@@ -12,9 +12,15 @@ class MainPage extends Component {
     componentDidMount() {
         axios.get('api/auth/currentUser')
         .then(response => {
-            this.setState({
-                username: response.data.username,
-            })
+            if (response.data.data !== undefined) {
+                this.setState({
+                    username: response.data.data.username,
+                })
+            } else {
+                this.setState({
+                    username: undefined,
+                })
+            }
         }).catch(err => {
             alert(err);
         })
