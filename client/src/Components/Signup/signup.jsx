@@ -91,7 +91,7 @@ class Signup extends Component {
             'font-size': '15pt',
             'text-align': 'center',
             background: 'white',
-            margin: '5% 30% 5% 1%',
+            margin: '5% 17% 5% 0.5%',
         }
         let buttonStyle = {
             'font-family': "'PT Sans Caption', sans-serif",

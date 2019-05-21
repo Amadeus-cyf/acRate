@@ -81,8 +81,9 @@ router.post('/signup', (req, res) => {
 
 //logout
 router.post('/logout', (req, res) => {
+    let user = req.user;
     req.logOut();
-    res.send('logout')
+    res.json({message:'Log Out Successfully', data: {user}})
 })
 
 module.exports = router;

@@ -57,7 +57,7 @@ class Login extends Component {
         let formStyle = {
             'font-family': "'PT Sans Caption', sans-serif",
             'font-size': '15pt',
-            margin: '10% 30% 10% 2%',
+            margin: '10% 20% 10% 2%',
             'text-align': 'center',
         }
         let buttonStyle = {
