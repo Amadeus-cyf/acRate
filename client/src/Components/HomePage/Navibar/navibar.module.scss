@@ -14,7 +14,9 @@
     transition: transform 0.5s;
 }
 
-.imageStyle:hover{
+.usermenuStyle:hover{
     cursor: pointer;
-    transform: scale(1.6, 1.6) translateY(50%);
+    .imageStyle {
+        transform: scale(2, 2) translateY(50%);
+    }
 }

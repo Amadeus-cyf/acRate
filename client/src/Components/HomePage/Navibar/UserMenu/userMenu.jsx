@@ -29,10 +29,11 @@ class UserMenu extends Component {
             let labelstyle = {
                 display: 'block',
                 position: 'absolute',
-                width: '250px',
+                'box-shadow': '0px 1px 5px 2px rgba(225, 225, 225, 0.5)',
+                width: '300px',
                 background: 'white',
-                right: '145px',
-                'padding-top': '45px',
+                right: '120px',
+                'padding-top': '60px',
                 'z-index': '1',
             }
             let buttonstyle = {
@@ -57,10 +58,11 @@ class UserMenu extends Component {
         let labelStyle = {
             display: 'block',
             position: 'absolute',
-            width: '250px',
+            'box-shadow': '0px 1px 5px 2px rgba(225, 225, 225, 0.5)',
+            width: '275px',
             background: 'white',
-            right: '45px',
-            'padding-top': '45px',
+            right: '30px',
+            'padding-top': '60px',
             'z-index': '1',
         }
         let buttonStyle = {

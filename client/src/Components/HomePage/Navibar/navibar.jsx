@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {Button, Image} from 'semantic-ui-react';
-import {navibarStyle, imageStyle} from './navibar.module.scss';
+import {navibarStyle, imageStyle, usermenuStyle} from './navibar.module.scss';
 import defaultAvatar from './defaultAvatar.jpg';
 import UserMenu from './UserMenu/userMenu.jsx';
 
@@ -18,7 +18,6 @@ class Navibar extends Component {
             avatarStyle : {},
         }
         this.avatarEnter = this.avatarEnter.bind(this);
-        this.avatarLeave = this.avatarLeave.bind(this);
         this.menuLeave = this.menuLeave.bind(this);
     }
 
@@ -49,18 +48,11 @@ class Navibar extends Component {
         })
     }
 
-    avatarLeave() {
-        this.setState({
-            avatarStyle: {
-                transform: 'scale(1.6, 1.6) translateY(50%)',
-            }
-        })
-    }
-
     menuLeave() {
         this.setState({
             menuDisplay: 'none',
-            avatarStyle : {},
+            avatarStyle : {
+            },
         })
     }
 
@@ -109,13 +101,15 @@ class Navibar extends Component {
                     <Button onClick = {this.props.signupHandler} style = {signupStyle}>Sign Up</Button>
                     <Button onClick = {this.props.loginHandler} style = {loginStyle}>Log In</Button>
                     <Button onClick = {this.props.logoutHandler} style = {logoutStyle}>Log Out</Button>
-                    <Image className = {imageStyle} style = {this.state.avatarStyle} onMouseEnter = {this.avatarEnter} onMouseLeave = {this.avatarLeave} avatar src = {this.state.avatar}/>
-                </div>
-                <div style = {menuStyle} onMouseLeave = {this.menuLeave}>
-                    <UserMenu 
-                    loginHandler = {this.props.loginHandler}
-                    signupHandler = {this.props.signupHandler}
-                    logoutHandler = {this.props.logoutHandler}/>
+                    <span className = {usermenuStyle} onMouseEnter = {this.avatarEnter} onMouseLeave = {this.menuLeave}>
+                        <Image className = {imageStyle} style = {this.state.avatarStyle}  avatar src = {this.state.avatar}/>
+                        <div style = {menuStyle}>
+                            <UserMenu 
+                            loginHandler = {this.props.loginHandler}
+                            signupHandler = {this.props.signupHandler}
+                            logoutHandler = {this.props.logoutHandler}/>
+                        </div>
+                    </span>
                 </div>
             </div>
         )
