@@ -15,7 +15,6 @@ class Navibar extends Component {
             logoutDisplay: 'none',
             avatar: defaultAvatar,
             menuDisplay: 'none',
-            avatarStyle : {},
         }
         this.avatarEnter = this.avatarEnter.bind(this);
         this.menuLeave = this.menuLeave.bind(this);
@@ -51,8 +50,6 @@ class Navibar extends Component {
     menuLeave() {
         this.setState({
             menuDisplay: 'none',
-            avatarStyle : {
-            },
         })
     }
 
