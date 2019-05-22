@@ -34,7 +34,7 @@ router.get('/currentUser', (req, res, next) => {
     if (req.isAuthenticated()) {
        return res.json({message:'success', data: req.user})
     }
-    return res.json({message:'not login', data: undefined});
+    return res.json({message:'not login', data: {}});
 })
 
 //sign up an account

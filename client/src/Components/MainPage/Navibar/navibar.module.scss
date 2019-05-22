@@ -3,3 +3,16 @@
     height: auto;
     background: rgba(255, 120, 195, 1);
 }
+
+.imageStyle {
+    font-size: 13pt;
+    display: inline;
+    float: right;
+    margin: 1% 2% 1% 0%;
+    transition: transform 0.5s;
+}
+
+.imageStyle:hover{
+    cursor: pointer;
+    transform: scale(1.6, 1.6) translateY(50%);
+}

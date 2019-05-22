@@ -18,13 +18,13 @@ class MainPage extends Component {
     componentDidMount() {
         axios.get('api/auth/currentUser')
         .then(response => {
-            if (response.data.data !== undefined) {
+            if (response.data.message === 'success') {
                 this.setState({
                     username: response.data.data.username,
                 })
-            } else {
+            } else if (response.data.message === 'not login') {
                 this.setState({
-                    username: undefined,
+                    username: 'no user',
                 })
             }
         }).catch(err => {
@@ -59,7 +59,7 @@ class MainPage extends Component {
                     signupHandler = {this.signupHandler}
                     logoutHandler = {this.logoutHandler}/>
                     <div className = {pageContainer}>
-                        <img className = {imageStyle} src="http://b-ssl.duitang.com/uploads/item/201701/20/20170120164701_Zjuwi.thumb.224_0.gif"/>
+                        <img className = {imageStyle} src="http://b-ssl.duitang.com/uploads/item/201701/20/20170120164701_Zjuwi.thumb.224_0.gif" alt = 'loading'/>
                         <p className = {textStyle}>
                             Loading ... 
                         </p>
