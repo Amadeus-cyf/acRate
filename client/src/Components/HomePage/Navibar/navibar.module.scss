@@ -5,6 +5,8 @@
 }
 
 .imageStyle {
+    position: absolute;
+    z-index: 2;
     font-size: 13pt;
     display: inline;
     float: right;

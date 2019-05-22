@@ -25,47 +25,47 @@ class UserMenu extends Component {
     }
 
     render() {
-        if (this.state.currentUser === undefined) {
-            return (<p>LOADING...</p>)
-        }
         if (this.state.currentUser === 'undefined') {
             let labelstyle = {
-                'display': 'block',
+                display: 'block',
+                position: 'absolute',
                 width: '250px',
                 background: 'white',
-                float: 'right',
-                'margin-right': '145px',
+                right: '145px',
                 'padding-top': '45px',
+                'z-index': '1',
             }
             let buttonstyle = {
                 'display': 'block',
                'margin': '10px auto',
             }
-            return( 
-            <Label style = {labelstyle}>
-                <span className = {textStyle}> When you log in, you can:</span>
-                <ol> 
-                    <li className = {listStyle}>Score bangumi and manga</li>
-                    <li className = {listStyle}>Comments</li>
-                    <li className = {listStyle}>Following others</li>
-                    <li className = {listStyle}>Select avatar and background image</li>
-                </ol>
-                <Button style = {buttonstyle} onClick = {this.props.loginHandler}>Log In</Button>
-                    <p className = {textStyle}>Does not have an account?</p>
-                    <p className = {clickStyle} onClick = {this.props.signupHandler}>Click to sign up</p>
-            </Label>)
+            return(
+                <Label style = {labelstyle}>
+                    <span className = {textStyle}> When you log in, you can:</span>
+                    <ol> 
+                        <li className = {listStyle}>Score bangumi and manga</li>
+                        <li className = {listStyle}>Comments</li>
+                        <li className = {listStyle}>Following others</li>
+                        <li className = {listStyle}>Select avatar and background image</li>
+                    </ol>
+                    <Button style = {buttonstyle} onClick = {this.props.loginHandler}>Log In</Button>
+                        <p className = {textStyle}>Does not have an account?</p>
+                        <p className = {clickStyle} onClick = {this.props.signupHandler}>Click to sign up</p>
+                </Label>
+            )
         }
         let labelStyle = {
-            'display': 'block',
+            display: 'block',
+            position: 'absolute',
             width: '250px',
             background: 'white',
-            float: 'right',
-            'margin-right': '45px',
+            right: '45px',
             'padding-top': '45px',
+            'z-index': '1',
         }
         let buttonStyle = {
             'display': 'block',
-           'margin': '10px auto',
+           'margin': '15px auto',
         }
         return(
             <div>
@@ -73,6 +73,7 @@ class UserMenu extends Component {
                     <p className = {textStyle}>{this.state.currentUser.username}</p>
                     <p className = {textStyle}>{this.state.currentUser.email}</p>
                     <Button style = {buttonStyle} onClick = {this.props.logoutHandler}>Log Out</Button>
+                    <Button style = {buttonStyle} onClick = {this.props.loginHandler}>Switch Account</Button>
                 </Label>
             </div>
         )

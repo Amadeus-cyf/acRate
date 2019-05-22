@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import Navibar from './Navibar/navibar.jsx';
-import {pageContainer, imageStyle, textStyle} from './mainpage.module.scss';
+import Searchbar from './Searchbar/searchbar.jsx';
+import {pageContainer, imageStyle, textStyle} from './homepage.module.scss';
 
-class MainPage extends Component {
+
+class HomePage extends Component {
     constructor() {
         super();
         this.state = {
@@ -74,9 +76,10 @@ class MainPage extends Component {
                 loginHandler = {this.loginHandler}
                 signupHandler = {this.signupHandler}
                 logoutHandler = {this.logoutHandler}/>
+                <Searchbar/>
             </div>
         )
     }
 }
 
-export default MainPage;
+export default HomePage;
