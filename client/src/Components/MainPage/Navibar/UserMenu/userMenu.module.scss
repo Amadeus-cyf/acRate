@@ -1,0 +1,23 @@
+.textStyle {
+    font-family: 'PT Sans Caption', sans-serif;
+    text-align: center;
+    font-size: 12pt;
+}
+
+.clickStyle {
+    font-family: 'PT Sans Caption', sans-serif;
+    text-align: center;
+    font-size: 10pt;
+    text-decoration: underline;
+}
+
+.clickStyle:hover{
+    color: blue;
+}
+
+
+.listStyle {
+    font-family: 'PT Sans Caption', sans-serif;
+    font-size: 10pt;
+    line-height: 1.5em;
+}
