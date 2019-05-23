@@ -1,0 +1,25 @@
+.navibarStyle {
+    width: 100%;
+    height: auto;
+    background: rgba(255, 120, 195, 1);
+}
+
+.imageStyle {
+    position: absolute;
+    z-index: 2;
+    font-size: 13pt;
+    display: inline;
+    float: right;
+    margin: 1% 2% 1% 0%;
+    transition: transform 0.5s;
+}
+
+.imageStyle:hover{
+    cursor: pointer;
+}
+
+.usermenuStyle:hover{
+    .imageStyle {
+        transform: scale(2, 2) translateY(50%);
+    }
+}
