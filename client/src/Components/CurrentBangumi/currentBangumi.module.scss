@@ -1,8 +1,11 @@
-.bangumiSection {
-    margin: 1% 14% 1% 14%;
-    font-family: 'PT Sans Caption', sans-serif;
+.bangumiContainer {
+    background: white;
 }
 
+.bangumiSection {
+    padding: 2% 14% 2% 14%;
+    font-family: 'PT Sans Caption', sans-serif;
+}
 .bangumiStyle {
     display: flex;
     flex-wrap: wrap;
@@ -18,11 +21,15 @@
     cursor: pointer;
 }
 
-.viewMoreStyle {
-    font-size: 12pt;
+.numberlistStyle {
+    font-size: 13pt;
+    font-family: 'PT Sans Caption', sans-serif;
+    padding: 2% 15% 0% 15%;
+    display: flex;
+    justify-content: space-around;
 }
 
-.viewMoreStyle:hover {
+.numberStyle:hover {
     cursor: pointer;
     color: blue;
     text-decoration: underline;

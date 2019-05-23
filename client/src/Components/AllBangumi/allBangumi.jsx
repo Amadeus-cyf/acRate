@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import MainMenu from '../HomePage/MainMenu/mainMenu.jsx';
+import MainMenu from '../MainMenu/mainMenu.jsx';
 
 class Bangumi extends Component {
     constructor() {

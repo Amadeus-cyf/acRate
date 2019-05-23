@@ -18,6 +18,8 @@ class HomePage extends Component {
         this.loginHandler = this.loginHandler.bind(this);
         this.signupHandler = this.signupHandler.bind(this);
         this.logoutHandler = this.logoutHandler.bind(this);
+        this.currentViewMore = this.currentViewMore.bind(this);
+        this.pastViewMore = this.pastViewMore.bind(this);
     }
 
     componentDidMount() {
@@ -61,6 +63,18 @@ class HomePage extends Component {
         this.props.history.push('/logout');
     }
 
+    currentViewMore() {
+        this.props.history.push('/recentbangumi');
+    }
+
+    pastViewMore() {
+        this.props.history.push('/pastbangumi');
+    }
+
+    /*upcomingViewMore() {
+        this.props.history.push('/upcomingBangumi');
+    }*/
+
     render() {
         if (this.state.username === 'undefined') {
             return(
@@ -90,7 +104,7 @@ class HomePage extends Component {
                 logoutHandler = {this.logoutHandler}
                 toBangumi = {this.toBangumi}
                 toManga = {this.toManga}/>
-                <RecentBangumi/>
+                <RecentBangumi currentViewMore = {this.currentViewMore} pastViewMore = {this.pastViewMore}/>
                 <div className = {footer}>
                     <h3>Aniscore</h3>
                 </div>

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {Image, Label} from 'semantic-ui-react';
-import {bangumiSection, bangumiStyle, hoverPart} from './recentBangumi.module.scss';
+import {bangumiSection, bangumiStyle, hoverPart, viewMoreStyle} from './recentBangumi.module.scss';
 
 class RecentBangumi extends Component {
     constructor() {
@@ -22,12 +22,13 @@ class RecentBangumi extends Component {
         let pastYear = year;
         let month = date.getMonth();
         let season = 'winter';
-        let past = 'autumn';
+        let past = 'fall';
         if (month >= 1 && month < 4) {
             season = 'winter';
             if (month < 3) {
-                past = 'autumn';
+                past = 'fall';
                 pastYear -= 1;
+                alert(pastYear)
                 this.setState({
                     pastMonth: 10,
                     pastYear: pastYear
@@ -45,16 +46,16 @@ class RecentBangumi extends Component {
         } else if (month >= 7 && month < 10) {
             season = 'summer';
            if (month < 9) {
-                past = 'summer';
+                past = 'spring';
                 this.setState({
                     pastMonth: 4,
                     pastYear: pastYear
                 })
             }
         } else if (month >= 10) {
-            season = 'autumn';
+            season = 'fall';
             if (month < 12) {
-                past = 'autumn';
+                past = 'summer';
                 this.setState({
                     pastMonth: 7,
                     pastYear: pastYear
@@ -137,18 +138,37 @@ class RecentBangumi extends Component {
                 </Label>
             )
         })
-        return (
-        <div className = {bangumiSection}>
-            <h3>{this.state.date.getFullYear()}年{this.state.date.getMonth()}月新番</h3>
-            <div className = {bangumiStyle}>
-                {currentList}
-            </div>
-            <span>View More</span>
-           <h3>{this.state.pastYear}年{this.state.pastMonth}月番</h3>
-           <div className = {bangumiStyle}>
-                {listItems}
-           </div>
-        </div>)
+        if (this.state.upcomingBangumi.length === 0) {
+            return (
+                <div className = {bangumiSection}>
+                    <h3>{this.state.date.getFullYear()}年{this.state.date.getMonth()}月新番</h3>
+                    <div className = {bangumiStyle}>
+                        {currentList}
+                    </div>
+                    <span className = {viewMoreStyle} onClick = {this.props.currentViewMore}>View More</span>
+                   <h3>{this.state.pastYear}年{this.state.pastMonth}月番</h3>
+                   <div className = {bangumiStyle}>
+                        {listItems}
+                   </div>
+                   <span className = {viewMoreStyle} onClick = {this.props.pastViewMore}>View More</span>
+                </div>
+            )
+        } else {
+            return (
+                <div className = {bangumiSection}>
+                    <h3>{this.state.date.getFullYear()}年{this.state.date.getMonth()}月新番</h3>
+                    <div className = {bangumiStyle}>
+                        {currentList}
+                    </div>
+                    <span className = {viewMoreStyle} onClick = {this.props.currentViewMore}>View More</span>
+                   <h3>{this.state.pastYear}年{this.state.pastMonth}月番</h3>
+                   <div className = {bangumiStyle}>
+                        {listItems}
+                   </div>
+                   <span className = {viewMoreStyle} onClick = {this.props.upcomingViewMore}>View More</span>
+                </div>
+            )
+        }
     }
 }
 
