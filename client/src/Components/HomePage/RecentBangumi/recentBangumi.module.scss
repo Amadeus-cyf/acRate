@@ -1,0 +1,19 @@
+.bangumiSection {
+    margin: 1% 14% 1% 14%;
+    font-family: 'PT Sans Caption', sans-serif;
+}
+
+.bangumiStyle {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+.hoverPart {
+    font-size: 11pt;
+}
+
+.hoverPart:hover {
+    cursor: pointer;
+}

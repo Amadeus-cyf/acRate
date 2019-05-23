@@ -20,6 +20,9 @@ class Logout extends Component {
                 <div className = {logoutStyle}>
                     You have Succesfully Logged Out
                 </div>
+                <div className = {logoutStyle}>
+                    Redirecting to Main Page
+                </div>
             </div>
         )
     }

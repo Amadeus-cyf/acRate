@@ -1,0 +1,155 @@
+import React, {Component} from 'react';
+import axios from 'axios';
+import {Image, Label} from 'semantic-ui-react';
+import {bangumiSection, bangumiStyle, hoverPart} from './recentBangumi.module.scss';
+
+class RecentBangumi extends Component {
+    constructor() {
+        super();
+        this.state = {
+            pastBangumi: [],
+            bangumi: [],
+            upcomingBangumi: [],
+            date: new Date(),
+            pastYear: '',
+            pastMonth: '',
+        }
+    }
+
+    componentDidMount() {
+        let date = new Date();
+        let year = date.getFullYear();
+        let pastYear = year;
+        let month = date.getMonth();
+        let season = 'winter';
+        let past = 'autumn';
+        if (month >= 1 && month < 4) {
+            season = 'winter';
+            if (month < 3) {
+                past = 'autumn';
+                pastYear -= 1;
+                this.setState({
+                    pastMonth: 10,
+                    pastYear: pastYear
+                })
+            }
+        } else if (month >= 4 && month < 7) {
+            season = 'spring';
+            if (month < 6) {
+                past = 'winter';
+                this.setState({
+                    pastMonth: 1,
+                    pastYear: pastYear
+                })
+            }
+        } else if (month >= 7 && month < 10) {
+            season = 'summer';
+           if (month < 9) {
+                past = 'summer';
+                this.setState({
+                    pastMonth: 4,
+                    pastYear: pastYear
+                })
+            }
+        } else if (month >= 10) {
+            season = 'autumn';
+            if (month < 12) {
+                past = 'autumn';
+                this.setState({
+                    pastMonth: 7,
+                    pastYear: pastYear
+                })
+            }
+        }
+        //get current season anime
+        axios.get('https://api.jikan.moe/v3/season/' + year + '/' + season)
+        .then(response => {
+            this.setState({
+                bangumi: response.data.anime,
+            })
+        }).catch(err => {
+            alert(err);
+        })
+        //get upcoming season anime
+        if (!past) {
+            axios.get('https://api.jikan.moe/v3/season/later')
+            .then(response => {
+                this.setState({
+                    upcomingBangumi: response.data.anime,
+                })
+            }).catch(err => {
+                alert(err);
+            })
+        } else {
+            // get previous season anime
+            axios.get('https://api.jikan.moe/v3/season/' + pastYear + '/' + past)
+            .then(response => {
+                this.setState({
+                    pastBangumi: response.data.anime,
+                })
+            }).catch(err => {
+                alert(err);
+            })
+        }
+    }
+
+    render() {
+        if (this.state.bangumi.length === 0) {
+            return <div></div>
+        }
+        let imageStyle = {
+            'max-width': '175px',
+            height: 'auto',
+        }
+        let labelStyle = {
+            'max-width': '200px',
+            'height': 'auto',
+            background: 'white',
+        }
+        let listItems = [];
+        if (this.state.upcomingBangumi.length === 0) {
+            let pastBangumi = this.state.pastBangumi.slice(0, 15);
+            listItems = pastBangumi.map(bangumi => {
+                return(
+                    <Label style = {labelStyle}>
+                        <Image className = {hoverPart} style = {imageStyle} src = {bangumi.image_url} />
+                        <p className = {hoverPart}>{bangumi.title}</p>
+                    </Label>
+                )
+            })
+        } else {
+            let upcomingBangumi = this.state.upcomingBangumi.slice(0, 15);
+            listItems = upcomingBangumi.map(bangumi => {
+                return(
+                    <Label style = {labelStyle}>
+                        <Image className = {hoverPart} style = {imageStyle} src = {bangumi.image_url} />
+                        <p className = {hoverPart}>{bangumi.title}</p>
+                    </Label>
+                )
+            })
+        }
+        let bangumi = this.state.bangumi.slice(0, 15);
+        let currentList = bangumi.map(bangumi => {
+            return(
+                <Label style = {labelStyle}>
+                    <Image className = {hoverPart} style = {imageStyle} src = {bangumi.image_url} />
+                    <p className = {hoverPart}>{bangumi.title}</p>
+                </Label>
+            )
+        })
+        return (
+        <div className = {bangumiSection}>
+            <h3>{this.state.date.getFullYear()}年{this.state.date.getMonth()}月新番</h3>
+            <div className = {bangumiStyle}>
+                {currentList}
+            </div>
+            <span>View More</span>
+           <h3>{this.state.pastYear}年{this.state.pastMonth}月番</h3>
+           <div className = {bangumiStyle}>
+                {listItems}
+           </div>
+        </div>)
+    }
+}
+
+export default RecentBangumi;
