@@ -28,15 +28,20 @@ class PastBangumi extends Component {
         let year = date.getFullYear();
         let month = date.getMonth();
         let pastSeason = 'winter';
+        let pastMonth = month;
         if (month >= 1 && month < 4) {
             year -= 1;
             pastSeason = 'fall';
+            pastMonth = 10;
         } else if (month >= 4 && month < 7) {
             pastSeason = 'winter';
+            pastMonth = 1;
         } else if (month >= 7 && month < 10) {
-            pastSeason = 'spring';
+            pastSeason = ';spring';
+            pastMonth = 4
         } else if (month >= 10) {
             pastSeason = 'summer';
+            pastMonth = 7;
         }
         //get current season anime
         axios.get('https://api.jikan.moe/v3/season/' + year + '/' + pastSeason)
@@ -44,7 +49,7 @@ class PastBangumi extends Component {
             this.setState({
                 bangumi: response.data.anime,
                 year: year,
-                month: month,
+                month: pastMonth,
             })
             if (response.data.anime.length % 30) {
                 this.setState({
@@ -126,7 +131,7 @@ class PastBangumi extends Component {
             height: '250px',
         }
         let currentPageStyle = {
-            color: 'red',
+            color: 'blue',
         }
         let previousStyle = {
             display: 'inline',

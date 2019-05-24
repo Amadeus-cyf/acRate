@@ -121,7 +121,7 @@ class UpcomingBangumi extends Component {
             height: '250px',
         }
         let currentPageStyle = {
-            color: 'red',
+            color: 'blue',
         }
         let previousStyle = {
             display: 'inline',
