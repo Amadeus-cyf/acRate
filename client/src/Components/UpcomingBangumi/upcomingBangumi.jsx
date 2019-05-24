@@ -113,6 +113,7 @@ class UpcomingBangumi extends Component {
         }
         let labelStyle = {
             'max-width': '200px',
+            'min-width': '200px',
             'height': 'auto',
             background: 'white',
         }
