@@ -156,12 +156,12 @@ class RecentBangumi extends Component {
         } else {
             return (
                 <div className = {bangumiSection}>
-                    <h3>{this.state.date.getFullYear()}年{this.state.date.getMonth()}月新番</h3>
+                    <h3>{this.state.date.getFullYear()}年{this.state.date.getMonth()}月番</h3>
                     <div className = {bangumiStyle}>
                         {currentList}
                     </div>
                     <span className = {viewMoreStyle} onClick = {this.props.currentViewMore}>View More</span>
-                   <h3>{this.state.pastYear}年{this.state.pastMonth}月番</h3>
+                   <h3>{this.state.pastYear}年{this.state.pastMonth}月新番</h3>
                    <div className = {bangumiStyle}>
                         {listItems}
                    </div>
