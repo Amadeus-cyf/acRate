@@ -1,0 +1,38 @@
+.pageStyle {
+    background: white;
+}
+
+.bangumiSection {
+    padding: 2% 14% 2% 14%;
+    font-family: 'PT Sans Caption', sans-serif;
+}
+.bangumiStyle {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+.hoverPart {
+    font-size: 11pt;
+    padding-top: 10px;
+}
+
+.hoverPart:hover {
+    cursor: pointer;
+}
+
+.numberlistStyle {
+    font-size: 13pt;
+    font-family: 'PT Sans Caption', sans-serif;
+    padding: 2% 12% 0% 12%;
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.numberStyle:hover {
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+}
