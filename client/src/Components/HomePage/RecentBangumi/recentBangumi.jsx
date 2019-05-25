@@ -154,7 +154,7 @@ class RecentBangumi extends Component {
         }
         let listItems = [];
         if (this.state.upcomingBangumi.length === 0) {
-            let pastBangumi = this.state.pastBangumi.slice(0, 20);
+            let pastBangumi = this.state.pastBangumi.slice(0, 18);
             listItems = pastBangumi.map(bangumi => {
                 return(
                     <Label style = {labelStyle}>
@@ -164,8 +164,8 @@ class RecentBangumi extends Component {
                 )
             })
         } else {
-            if (this.state.upcomingBangumi.length > 20) {
-                let upcomingBangumi = this.state.upcomingBangumi.slice(0, 20);
+            if (this.state.upcomingBangumi.length > 18) {
+                let upcomingBangumi = this.state.upcomingBangumi.slice(0, 18);
                 listItems = upcomingBangumi.map(bangumi => {
                     return(
                         <Label style = {labelStyle}>
@@ -176,7 +176,10 @@ class RecentBangumi extends Component {
                 })
             }
         }
-        let bangumi = this.state.bangumi.slice(0, 20);
+        let bangumi = this.state.bangumi;
+        if (this.state.bangumi.length > 18) {
+            bangumi = this.state.bangumi.slice(0, 18);
+        }
         let currentList = bangumi.map(bangumi => {
             return(
                 <Label style = {labelStyle}>

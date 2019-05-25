@@ -54,7 +54,7 @@ class Navibar extends Component {
     }
 
     render() {
-        let mainStyle = {
+        let homeStyle = {
             'font-family': "'PT Sans Caption', sans-serif",
             'font-size': '15pt',
             color: 'rgba(255, 255, 255, 0.95)',
@@ -94,7 +94,7 @@ class Navibar extends Component {
         return(
             <div>
                 <div className = {navibarStyle}>
-                    <Button onClick = {this.props.toHomePage} style = {mainStyle}>Home</Button>
+                    <Button onClick = {this.props.toHomePage} style = {homeStyle}>Home</Button>
                     <Button onClick = {this.props.signupHandler} style = {signupStyle}>Sign Up</Button>
                     <Button onClick = {this.props.loginHandler} style = {loginStyle}>Log In</Button>
                     <Button onClick = {this.props.logoutHandler} style = {logoutStyle}>Log Out</Button>
