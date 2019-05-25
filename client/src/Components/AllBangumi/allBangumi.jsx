@@ -45,6 +45,8 @@ class Bangumi extends Component {
             ]
         }
         this.toHomePage = this.toHomePage.bind(this);
+        this.toBangumi = this.toBangumi.bind(this);
+        this.toUpcoming = this.toUpcoming.bind(this);
         this.loginHandler = this.loginHandler.bind(this);
         this.signupHandler = this.signupHandler.bind(this);
         this.logoutHandler = this.logoutHandler.bind(this);
@@ -62,12 +64,21 @@ class Bangumi extends Component {
         //get current season anime
         axios.get('https://api.jikan.moe/v3/season/' + year + '/' + season)
         .then(response => {
-            this.setState({
-                bangumi: response.data.anime,
-                currentBangumi: response.data.anime.slice(0, 30),
-                displayYear: year,
-                month: month,
-            })
+            if (response.data.anime.length > 30) {
+                this.setState({
+                    bangumi: response.data.anime,
+                    currentBangumi: response.data.anime.slice(0, 30),
+                    displayYear: year,
+                    month: month,
+                })
+            } else {
+                this.setState({
+                    bangumi: response.data.anime,
+                    currentBangumi: response.data.anime,
+                    displayYear: year,
+                    month: month,
+                })
+            }
             if (response.data.anime.length % 30) {
                 this.setState({
                     pageNumber: (response.data.anime.length-response.data.anime.length%30)/30 + 1
@@ -96,6 +107,14 @@ class Bangumi extends Component {
 
     toHomePage() {
         this.props.history.push('/');
+    }
+
+    toBangumi() {
+        this.props.history.push('/bangumi');
+    }
+
+    toUpcoming() {
+        this.props.history.push('/upcomingbangumi');
     }
 
     loginHandler() {
@@ -272,7 +291,8 @@ class Bangumi extends Component {
                  loginHandler = {this.loginHandler}
                  signupHandler = {this.signupHandler}
                  logoutHandler = {this.logoutHandler}
-                 toBangumi = {this.toBangumi}/>
+                 toBangumi = {this.toBangumi}
+                 toUpcoming = {this.toUpcoming}/>
                  <div className = {selectStyle}>
                     <Select className = {selectCss} placeholder="Select a Year" onChange = {this.yearHandler} options={this.state.yearOptions}/>
                     <Select placeholder='Select a Season' className = {selectCss} onChange = {this.seasonHandler} options={this.state.seasonOptions}/>

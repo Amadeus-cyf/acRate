@@ -7,6 +7,7 @@ class Subnavibar extends Component {
             <div className = {navibarStyle}>
                 <div onClick = {this.props.toHomePage}>Home Page</div>
                 <div onClick = {this.props.toBangumi}>Bangumi</div>
+                <div onClick = {this.props.toUpcoming}>Upcoming</div>
             </div>
         )
     }

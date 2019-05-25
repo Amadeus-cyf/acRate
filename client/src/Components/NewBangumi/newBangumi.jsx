@@ -3,10 +3,10 @@ import axios from 'axios';
 import {Label, Image} from 'semantic-ui-react';
 import Navibar from '../MainMenu/Navibar/navibar.jsx';
 import {pageContainer, textStyle, imageStyle} from '../HomePage/homepage.module.scss';
-import {bangumiSection, bangumiStyle, hoverPart, bangumiContainer, numberlistStyle, numberStyle} from './pastBangumi.module.scss';
+import {bangumiSection, bangumiStyle, hoverPart, bangumiContainer, numberlistStyle, numberStyle} from './newBangumi.module.scss';
 import loadingGif from '../loading.gif';
 
-class PastBangumi extends Component {
+class NewBangumi extends Component {
     constructor() {
         super();
         this.state = {
@@ -32,40 +32,30 @@ class PastBangumi extends Component {
         let date = new Date();
         let year = date.getFullYear();
         let month = date.getMonth() + 1;
-        let pastSeason = 'winter';
-        let pastMonth = month;
+        let upcomingSeason = 'winter';
+        let upcomingMonth = month;
         if (month >= 1 && month < 4) {
-            year -= 1;
-            pastSeason = 'fall';
-            pastMonth = 10;
+            upcomingSeason = 'spring';
+            upcomingMonth = 4;
         } else if (month >= 4 && month < 7) {
-            pastSeason = 'winter';
-            pastMonth = 1;
+            upcomingSeason = 'summer';
+            upcomingMonth = 7;
         } else if (month >= 7 && month < 10) {
-            pastSeason = 'spring';
-            pastMonth = 4
+            upcomingSeason = 'fall';
+            upcomingMonth = 10;
         } else if (month >= 10) {
-            pastSeason = 'summer';
-            pastMonth = 7;
+            upcomingSeason = 'winter';
+            upcomingMonth = 1;
         }
         //get current season anime
-        axios.get('https://api.jikan.moe/v3/season/' + year + '/' + pastSeason)
+        axios.get('https://api.jikan.moe/v3/season/' + year + '/' + upcomingSeason)
         .then(response => {
-            if (response.data.anime.length > 30) {
-                this.setState({
-                    bangumi: response.data.anime,
-                    currentBangumi: response.data.anime.slice(0, 30),
-                    year: year,
-                    month: pastMonth,
-                })
-            } else {
-                this.setState({
-                    bangumi: response.data.anime,
-                    currentBangumi: response.data.anime,
-                    year: year,
-                    month: pastMonth,
-                })
-            }
+            this.setState({
+                bangumi: response.data.anime,
+                currentBangumi: response.data.anime.slice(0, 30),
+                year: year,
+                month: upcomingMonth,
+            })
             if (response.data.anime.length % 30) {
                 this.setState({
                     pageNumber: (response.data.anime.length-response.data.anime.length%30)/30 + 1
@@ -229,4 +219,4 @@ class PastBangumi extends Component {
     }
 }
 
-export default PastBangumi;
+export default NewBangumi;

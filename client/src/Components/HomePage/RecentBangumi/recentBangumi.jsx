@@ -10,9 +10,12 @@ class RecentBangumi extends Component {
             pastBangumi: [],
             bangumi: [],
             upcomingBangumi: [],
-            date: new Date(),
+            year: '',
+            month: '',
             pastYear: '',
             pastMonth: '',
+            upcomingYear: '',
+            upcomingMonth: '',
         }
     }
 
@@ -20,18 +23,29 @@ class RecentBangumi extends Component {
         let date = new Date();
         let year = date.getFullYear();
         let pastYear = year;
-        let month = date.getMonth();
+        let upcomingYear = year;
+        let month = date.getMonth() + 1;
         let season = 'winter';
-        let past = 'fall';
+        let past = '';
+        let upcoming = '';
         if (month >= 1 && month < 4) {
             season = 'winter';
             if (month < 3) {
                 past = 'fall';
                 pastYear -= 1;
-                alert(pastYear)
                 this.setState({
+                    year: year,
+                    month: 1,
                     pastMonth: 10,
-                    pastYear: pastYear
+                    pastYear: pastYear,
+                })
+            } else {
+                upcoming = 'spring';
+                this.setState({
+                    year: year,
+                    month: 1,
+                    upcomingYear: upcomingYear,
+                    upcomingMonth: 4,
                 })
             }
         } else if (month >= 4 && month < 7) {
@@ -39,8 +53,18 @@ class RecentBangumi extends Component {
             if (month < 6) {
                 past = 'winter';
                 this.setState({
+                    year: year,
+                    month: 4,
                     pastMonth: 1,
                     pastYear: pastYear
+                })
+            } else {
+                upcoming = 'summer';
+                this.setState({
+                    year: year,
+                    month: 4,
+                    upcomingYear: upcomingYear,
+                    upcomingMonth: 7,
                 })
             }
         } else if (month >= 7 && month < 10) {
@@ -48,8 +72,18 @@ class RecentBangumi extends Component {
            if (month < 9) {
                 past = 'spring';
                 this.setState({
+                    year: year,
+                    month: 7,
                     pastMonth: 4,
                     pastYear: pastYear
+                })
+            } else {
+                upcoming = 'fall';
+                this.setState({
+                    year: year,
+                    month: 7,
+                    upcomingYear: upcomingYear,
+                    upcomingMonth: 10,
                 })
             }
         } else if (month >= 10) {
@@ -57,8 +91,19 @@ class RecentBangumi extends Component {
             if (month < 12) {
                 past = 'summer';
                 this.setState({
+                    year: year,
+                    month: 10,
                     pastMonth: 7,
                     pastYear: pastYear
+                })
+            } else {
+                upcoming = 'winter';
+                upcomingYear = year + 1;
+                this.setState({
+                    year: year,
+                    month: 10,
+                    upcomingYear: upcomingYear,
+                    upcomingMonth: 1,
                 })
             }
         }
@@ -73,7 +118,7 @@ class RecentBangumi extends Component {
         })
         //get upcoming season anime
         if (!past) {
-            axios.get('https://api.jikan.moe/v3/season/later')
+            axios.get('https://api.jikan.moe/v3/season/' + upcomingYear + '/' + upcoming)
             .then(response => {
                 this.setState({
                     upcomingBangumi: response.data.anime,
@@ -119,15 +164,17 @@ class RecentBangumi extends Component {
                 )
             })
         } else {
-            let upcomingBangumi = this.state.upcomingBangumi.slice(0, 20);
-            listItems = upcomingBangumi.map(bangumi => {
-                return(
-                    <Label style = {labelStyle}>
-                        <Image className = {hoverPart} style = {imageStyle} src = {bangumi.image_url} />
-                        <p className = {hoverPart}>{bangumi.title}</p>
-                    </Label>
-                )
-            })
+            if (this.state.upcomingBangumi.length > 20) {
+                let upcomingBangumi = this.state.upcomingBangumi.slice(0, 20);
+                listItems = upcomingBangumi.map(bangumi => {
+                    return(
+                        <Label style = {labelStyle}>
+                            <Image className = {hoverPart} style = {imageStyle} src = {bangumi.image_url} />
+                            <p className = {hoverPart}>{bangumi.title}</p>
+                        </Label>
+                    )
+                })
+            }
         }
         let bangumi = this.state.bangumi.slice(0, 20);
         let currentList = bangumi.map(bangumi => {
@@ -141,7 +188,7 @@ class RecentBangumi extends Component {
         if (this.state.upcomingBangumi.length === 0) {
             return (
                 <div className = {bangumiSection}>
-                    <h2>{this.state.date.getFullYear()}年{this.state.date.getMonth()}月新番</h2>
+                    <h2>{this.state.year}年{this.state.month}月新番</h2>
                     <div className = {bangumiStyle}>
                         {currentList}
                     </div>
@@ -156,12 +203,12 @@ class RecentBangumi extends Component {
         } else {
             return (
                 <div className = {bangumiSection}>
-                    <h2>{this.state.date.getFullYear()}年{this.state.date.getMonth()}月番</h2>
+                    <h2>{this.state.year}年{this.state.month}月番</h2>
                     <div className = {bangumiStyle}>
                         {currentList}
                     </div>
                     <span className = {viewMoreStyle} onClick = {this.props.currentViewMore}>View More</span>
-                   <h2>{this.state.pastYear}年{this.state.pastMonth}月新番</h2>
+                   <h2>{this.state.upcomingYear}年{this.state.upcomingMonth}月新番</h2>
                    <div className = {bangumiStyle}>
                         {listItems}
                    </div>

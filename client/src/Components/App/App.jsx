@@ -4,6 +4,7 @@ import HomePage from '../HomePage/homepage.jsx';
 import AllBangumi from '../AllBangumi/allBangumi.jsx';
 import CurrentBangumi from '../CurrentBangumi/currentBangumi.jsx';
 import PastBangumi from '../PastBangumi/pastBangumi.jsx';
+import NewBangumi from '../NewBangumi/newBangumi.jsx';
 import UpcomingBangumi from '../UpcomingBangumi/upcomingBangumi.jsx';
 import Login from '../Login/login.jsx';
 import  Signup from '../Signup/signup.jsx';
@@ -18,6 +19,7 @@ class App extends Component {
           <Route exact path = '/bangumi' component = {AllBangumi}/>
           <Route exact path = '/recentbangumi' component = {CurrentBangumi}/> 
           <Route exact path = '/pastbangumi' component = {PastBangumi}/> 
+          <Route exact path = '/newbangumi' component = {NewBangumi}/>
           <Route exact path = '/upcomingbangumi' component = {UpcomingBangumi}/> 
           <Route exact path = '/login' component = {Login}/>
           <Route exact path = '/signup' component = {Signup}/>

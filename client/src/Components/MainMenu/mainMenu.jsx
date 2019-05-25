@@ -14,7 +14,7 @@ class MainMenu extends Component {
                 signupHandler = {this.props.signupHandler}
                 logoutHandler = {this.props.logoutHandler}/>
                 <Searchbar/>
-                <Subnavibar toHomePage = {this.props.toHomePage} toBangumi = {this.props.toBangumi} toManga = {this.props.toManga}/>
+                <Subnavibar toHomePage = {this.props.toHomePage} toBangumi = {this.props.toBangumi} toUpcoming = {this.props.toUpcoming}/>
             </div>
         )
     }
