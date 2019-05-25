@@ -194,11 +194,23 @@ class Bangumi extends Component {
         let month = this.state.selectSeason.label;
         axios.get('https://api.jikan.moe/v3/season/' + year + '/' + season)
         .then(response => {
-            this.setState({
-                bangumi: response.data.anime,
-                displayYear: year,
-                month: month,
-            })
+            if (response.data.anime.length > 30) {
+                this.setState({
+                    bangumi: response.data.anime,
+                    currentBangumi: response.data.anime.slice(0, 30),
+                    displayYear: year,
+                    month: month,
+                    currentPage: 1,
+                })
+            } else {
+                this.setState({
+                    bangumi: response.data.anime,
+                    currentBangumi: response.data.anime,
+                    displayYear: year,
+                    month: month,
+                    currentPage: 1,
+                })
+            }
             if (response.data.anime.length % 30) {
                 this.setState({
                     pageNumber: (response.data.anime.length-response.data.anime.length%30)/30 + 1

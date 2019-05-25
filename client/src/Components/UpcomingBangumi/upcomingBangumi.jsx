@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {Label, Image} from 'semantic-ui-react';
+import MainMenu from '../MainMenu/mainMenu.jsx';
 import Navibar from '../MainMenu/Navibar/navibar.jsx';
 import {pageContainer, textStyle, imageStyle} from '../HomePage/homepage.module.scss';
 import {bangumiSection, bangumiStyle, hoverPart, bangumiContainer, numberlistStyle, numberStyle} from './upcomingBangumi.module.scss';
@@ -20,6 +21,8 @@ class UpcomingBangumi extends Component {
             },
         }
         this.toHomePage = this.toHomePage.bind(this);
+        this.toBangumi = this.toBangumi.bind(this);
+        this.toUpcoming = this.toUpcoming.bind(this);
         this.loginHandler = this.loginHandler.bind(this);
         this.signupHandler = this.signupHandler.bind(this);
         this.logoutHandler = this.logoutHandler.bind(this);
@@ -62,6 +65,14 @@ class UpcomingBangumi extends Component {
 
     toHomePage() {
         this.props.history.push('/');
+    }
+
+    toBangumi() {
+        this.props.history.push('/bangumi');
+    }
+
+    toUpcoming() {
+        this.props.history.push('/upcomingbangumi');
     }
 
     loginHandler() {
@@ -117,10 +128,10 @@ class UpcomingBangumi extends Component {
             return (
                 <div>
                     <Navibar
-                    toHomePage = {this.props.toHomePage}
-                    loginHandler = {this.props.loginHandler}
-                    signupHandler = {this.props.signupHandler}
-                    logoutHandler = {this.props.logoutHandler}/>
+                    toHomePage = {this.toHomePage}
+                    loginHandler = {this.loginHandler}
+                    signupHandler = {this.signupHandler}
+                    logoutHandler = {this.logoutHandler}/>
                     <div className = {pageContainer}>
                         <div>
                             <Image className = {imageStyle} src={loadingGif} alt = 'loading'/>
@@ -185,11 +196,13 @@ class UpcomingBangumi extends Component {
         })
         return(
             <div>
-                <Navibar
-                 toHomePage = {this.toHomePage}
-                 loginHandler = {this.loginHandler}
-                 signupHandler = {this.signupHandler}
-                 logoutHandler = {this.logoutHandler}/>
+                 <MainMenu
+                toHomePage = {this.toHomePage}
+                loginHandler = {this.loginHandler}
+                signupHandler = {this.signupHandler}
+                logoutHandler = {this.logoutHandler}
+                toBangumi = {this.toBangumi}
+                toUpcoming = {this.toUpcoming}/>
                 <div className = {bangumiContainer}>
                     <div className = {bangumiSection}>
                         <h3>{this.state.year}年新番</h3>
