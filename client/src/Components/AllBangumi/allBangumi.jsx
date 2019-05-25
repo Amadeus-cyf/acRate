@@ -5,8 +5,9 @@ import Navibar from '../MainMenu/Navibar/navibar.jsx';
 import {pageContainer,textStyle, imageStyle} from '../HomePage/homepage.module.scss';
 import {Label, Image, Button} from 'semantic-ui-react';
 import Select from 'react-select';
-import {pageStyle, bangumiSection, bangumiStyle, hoverPart, numberlistStyle, numberStyle} from './allBangumi.module.scss';
 import loadingGif from '../loading.gif';
+import {pageStyle, bangumiSection, bangumiStyle, 
+    hoverPart, numberlistStyle, numberStyle, selectStyle, selectCss} from './allBangumi.module.scss';
 
 class Bangumi extends Component {
     constructor() {
@@ -36,7 +37,7 @@ class Bangumi extends Component {
                 {
                     label: 10,
                     value: 'fall',
-                }
+                },
             ]
         }
         this.toHomePage = this.toHomePage.bind(this);
@@ -141,6 +142,13 @@ class Bangumi extends Component {
             alert('Please select a year');
             return;
         }
+        if (this.state.selectSeason.value === undefined) {
+            alert('Please select a season');
+            return;
+        }
+        this.setState({
+            bangumi: [],
+        })
         let year = this.state.selectYear.value;
         let season = this.state.selectSeason.value;
         let month = this.state.selectSeason.label;
@@ -166,7 +174,7 @@ class Bangumi extends Component {
     }
 
     render() {
-        if (this.state.displayYear === '' || this.state.bangumi.length === 0) {
+        if (this.state.displayYear === ''  || this.state.bangumi.length === 0) {
             return(
                 <div>
                 <Navibar
@@ -251,11 +259,12 @@ class Bangumi extends Component {
                  loginHandler = {this.loginHandler}
                  signupHandler = {this.signupHandler}
                  logoutHandler = {this.logoutHandler}
-                 toBangumi = {this.toBangumi}
-                 toManga = {this.toManga}/>
-                  <Select value = {this.state.selectYear} onChange = {this.yearHandler} options={this.state.yearOptions}/>
-                  <Select value = {this.state.selectSeason} onChange = {this.seasonHandler} options={this.state.seasonOptions}/>
-                  <Button onClick = {this.submitHandler}>Submit</Button>
+                 toBangumi = {this.toBangumi}/>
+                 <div className = {selectStyle}>
+                    <Select className = {selectCss} placeholder="Select a Year" onChange = {this.yearHandler} options={this.state.yearOptions}/>
+                    <Select placeholder='Select a Season' className = {selectCss} onChange = {this.seasonHandler} options={this.state.seasonOptions}/>
+                    <Button onClick = {this.submitHandler}>Search</Button>
+                </div>
                 <div>
                     <div className = {bangumiSection}>
                         <h3>{this.state.displayYear}年</h3>

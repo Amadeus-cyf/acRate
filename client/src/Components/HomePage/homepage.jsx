@@ -15,7 +15,6 @@ class HomePage extends Component {
         }
         this.toHomePage = this.toHomePage.bind(this);
         this.toBangumi = this.toBangumi.bind(this);
-        this.toManga = this.toManga.bind(this);
         this.loginHandler = this.loginHandler.bind(this);
         this.signupHandler = this.signupHandler.bind(this);
         this.logoutHandler = this.logoutHandler.bind(this);
@@ -47,10 +46,6 @@ class HomePage extends Component {
 
     toBangumi() {
         this.props.history.push('/bangumi');
-    }
-
-    toManga() {
-        this.props.history.push('/manga');
     }
 
     loginHandler() {
@@ -104,8 +99,7 @@ class HomePage extends Component {
                 loginHandler = {this.loginHandler}
                 signupHandler = {this.signupHandler}
                 logoutHandler = {this.logoutHandler}
-                toBangumi = {this.toBangumi}
-                toManga = {this.toManga}/>
+                toBangumi = {this.toBangumi}/>
                 <RecentBangumi currentViewMore = {this.currentViewMore} pastViewMore = {this.pastViewMore} upcomingViewMore = {this.upcomingViewMore}/>
                 <div className = {footer}>
                     <h3>Aniscore</h3>

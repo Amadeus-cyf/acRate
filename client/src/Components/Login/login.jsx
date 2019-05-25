@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import Navibar from '../MainMenu/Navibar/navibar.jsx';
 import {Button, Form, Input} from 'semantic-ui-react';
 import {container, title, subtitle, imageStyle} from './login.module.scss';
 
@@ -10,10 +11,29 @@ class Login extends Component {
             email: '',
             password: '',
         }
-        this.emailHandler = this.emailHandler.bind(this);
-        this.passwordHandler = this.passwordHandler.bind(this);
+        this.toHomePage = this.toHomePage.bind(this);
         this.loginHandler = this.loginHandler.bind(this);
         this.signupHandler = this.signupHandler.bind(this);
+        this.logoutHandler = this.logoutHandler.bind(this);
+        this.emailHandler = this.emailHandler.bind(this);
+        this.passwordHandler = this.passwordHandler.bind(this);
+        this.formloginHandler = this.formloginHandler.bind(this);
+    }
+
+    toHomePage() {
+        this.props.history.push('/');
+    }
+
+    loginHandler() {
+        this.props.history.push('/login');
+    }
+
+    signupHandler() {
+        this.props.history.push('/signup');
+    }
+
+    logoutHandler() {
+        this.props.history.push('/logout');
     }
 
     emailHandler(event) {
@@ -28,7 +48,7 @@ class Login extends Component {
         });
     }
 
-    loginHandler() {
+    formloginHandler() {
         axios('api/auth/login', {
             method: 'POST',
             headers: {
@@ -48,11 +68,7 @@ class Login extends Component {
             alert(err);
         })
     }
-
-    signupHandler() {
-        this.props.history.push('/signup');
-    }
-
+    
     render() {
         let formStyle = {
             'font-family': "'PT Sans Caption', sans-serif",
@@ -67,26 +83,33 @@ class Login extends Component {
         }
         let isvalid = (this.state.email === '' || this.state.password === '');
         return(
-            <div className = {container}>
-                <div className = {imageStyle}>
+            <div>
+                <Navibar
+                toHomePage = {this.toHomePage}
+                loginHandler = {this.loginHandler}
+                signupHandler = {this.signupHandler}
+                logoutHandler = {this.logoutHandler}/>
+                <div className = {container}>
+                    <div className = {imageStyle}>
+                    </div>
+                    <Form onSubmit = {this.formloginHandler} style = {formStyle}>
+                        <h3 className = {title}>Log In</h3>
+                        <Form.Field>
+                            <div className = {subtitle}>
+                                Email
+                            </div>
+                                <Input size = 'big' name = 'email' value = {this.state.email}
+                                onChange = {this.emailHandler} type = 'text' placeholder = 'your email'/>
+                            <div className = {subtitle}>
+                                Password
+                            </div>
+                            <Input size = 'big' name = "password" value = {this.state.password}
+                            onChange = {this.passwordHandler} type = 'password' placeholder = 'password'/>
+                        </Form.Field>
+                        <Button disabled={isvalid} type = 'submit' style= {buttonStyle}>Log in</Button>
+                        <Button onClick = {this.signupHandler} style = {buttonStyle}>Sign up</Button>
+                    </Form>
                 </div>
-                <Form onSubmit = {this.loginHandler} style = {formStyle}>
-                    <h3 className = {title}>Log In</h3>
-                    <Form.Field>
-                        <div className = {subtitle}>
-                            Email
-                        </div>
-                            <Input size = 'big' name = 'email' value = {this.state.email}
-                            onChange = {this.emailHandler} type = 'text' placeholder = 'your email'/>
-                        <div className = {subtitle}>
-                            Password
-                        </div>
-                        <Input size = 'big' name = "password" value = {this.state.password}
-                        onChange = {this.passwordHandler} type = 'password' placeholder = 'password'/>
-                    </Form.Field>
-                    <Button disabled={isvalid} type = 'submit' style= {buttonStyle}>Log in</Button>
-                    <Button onClick = {this.signupHandler} style = {buttonStyle}>Sign up</Button>
-                </Form>
             </div>
         )
     }

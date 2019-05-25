@@ -56,14 +56,14 @@ class Navibar extends Component {
     render() {
         let mainStyle = {
             'font-family': "'PT Sans Caption', sans-serif",
-            'font-size': '13pt',
+            'font-size': '15pt',
             color: 'rgba(255, 255, 255, 0.95)',
             'margin': '1% 0% 1% 2%',
             background: 'rgba(255, 120, 195, 1)',
         }
         let loginStyle = {
             'font-family': "'PT Sans Caption', sans-serif",
-            'font-size': '13pt',
+            'font-size': '15pt',
             color: 'rgba(255, 255, 255, 0.95)',
             display: this.state.loginDisplay,
             float: 'right',
@@ -72,7 +72,7 @@ class Navibar extends Component {
         }
         let signupStyle = {
             'font-family': "'PT Sans Caption', sans-serif",
-            'font-size': '13pt',
+            'font-size': '15pt',
             color: 'rgba(255, 255, 255, 0.95)',
             display: this.state.signupDisplay,
             float: 'right',
@@ -81,7 +81,7 @@ class Navibar extends Component {
         }
         let logoutStyle = {
             'font-family': "'PT Sans Caption', sans-serif",
-            'font-size': '13pt',
+            'font-size': '15pt',
             color: 'rgba(255, 255, 255, 0.95)',
             display: this.state.logoutDisplay,
             float: 'right',

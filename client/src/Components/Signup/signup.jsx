@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import Navibar from '../MainMenu/Navibar/navibar.jsx';
 import {Button, Form, Input} from 'semantic-ui-react';
 import {container, title, subtitle, imageStyle} from './signup.module.scss';
 
@@ -12,6 +13,10 @@ class Signup extends Component {
              password: '',
              confirmPassword: '',
          }
+         this.toHomePage = this.toHomePage.bind(this);
+         this.loginHandler = this.loginHandler.bind(this);
+         this.signupHandler = this.signupHandler.bind(this);
+         this.logoutHandler = this.logoutHandler.bind(this);
          this.usernameHandler = this.usernameHandler.bind(this);
          this.emailHandler = this.emailHandler.bind(this);
          this.passwordHandler = this.passwordHandler.bind(this);
@@ -19,6 +24,22 @@ class Signup extends Component {
          this.submitHandler = this.submitHandler.bind(this);
          this.cancelHandler = this.cancelHandler.bind(this);
      }
+
+    toHomePage() {
+        this.props.history.push('/');
+    }
+
+    loginHandler() {
+        this.props.history.push('/login');
+    }
+
+    signupHandler() {
+        this.props.history.push('/signup');
+    }
+
+    logoutHandler() {
+        this.props.history.push('/logout');
+    }
 
      usernameHandler(event) {
          this.setState({
@@ -100,36 +121,43 @@ class Signup extends Component {
         }
         let isvalid = (this.state.username === '' || this.state.email === '' || this.state.password === '' || this.state.confirmPassword === '');
         return(
-            <div className = {container}>
-                <div className = {imageStyle}>
+            <div>
+                <Navibar
+                toHomePage = {this.toHomePage}
+                loginHandler = {this.loginHandler}
+                signupHandler = {this.signupHandler}
+                logoutHandler = {this.logoutHandler}/>
+                <div className = {container}>
+                    <div className = {imageStyle}>
+                    </div>
+                    <Form onSubmit = {this.submitHandler} style = {formStyle}>
+                        <h3 className = {title}>Sign Up</h3>
+                        <Form.Field>
+                            <div className = {subtitle}>
+                                Username
+                            </div>
+                            <Input size = 'big' name = 'username' value = {this.state.username}
+                                onChange = {this.usernameHandler} type = 'text' placeholder = 'please enter your username'/>
+                            <div className = {subtitle}>
+                                Email
+                            </div>
+                                <Input size = 'big' name = 'email' value = {this.state.email}
+                                onChange = {this.emailHandler} type = 'text' placeholder = 'please enter your email address'/>
+                            <div className = {subtitle}>
+                                Password
+                            </div>
+                            <Input size = 'big' name = "password" value = {this.state.password}
+                            onChange = {this.passwordHandler} type = 'password' placeholder = 'password must be at least 8 characters'/>
+                            <div className = {subtitle}>
+                                Confirm your Password
+                            </div>
+                            <Input size = 'big' name = "confirm password" value = {this.state.confirmPassword}
+                            onChange = {this.confirmHandler} type = 'password' placeholder = 'enter password again'/>
+                        </Form.Field>
+                        <Button disabled={isvalid} type = 'submit' style = {buttonStyle}>Create Account</Button>
+                        <Button style = {buttonStyle} onClick = {this.cancelHandler}>Cancel</Button>
+                    </Form>
                 </div>
-                <Form onSubmit = {this.submitHandler} style = {formStyle}>
-                    <h3 className = {title}>Sign Up</h3>
-                    <Form.Field>
-                        <div className = {subtitle}>
-                            Username
-                        </div>
-                        <Input size = 'big' name = 'username' value = {this.state.username}
-                            onChange = {this.usernameHandler} type = 'text' placeholder = 'please enter your username'/>
-                        <div className = {subtitle}>
-                            Email
-                        </div>
-                            <Input size = 'big' name = 'email' value = {this.state.email}
-                            onChange = {this.emailHandler} type = 'text' placeholder = 'please enter your email address'/>
-                        <div className = {subtitle}>
-                            Password
-                        </div>
-                        <Input size = 'big' name = "password" value = {this.state.password}
-                        onChange = {this.passwordHandler} type = 'password' placeholder = 'password must be at least 8 characters'/>
-                        <div className = {subtitle}>
-                            Confirm your Password
-                        </div>
-                        <Input size = 'big' name = "confirm password" value = {this.state.confirmPassword}
-                        onChange = {this.confirmHandler} type = 'password' placeholder = 'enter password again'/>
-                    </Form.Field>
-                    <Button disabled={isvalid} type = 'submit' style = {buttonStyle}>Create Account</Button>
-                    <Button style = {buttonStyle} onClick = {this.cancelHandler}>Cancel</Button>
-                </Form>
             </div>
         )
     }

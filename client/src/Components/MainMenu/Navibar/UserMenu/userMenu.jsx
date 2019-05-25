@@ -32,7 +32,7 @@ class UserMenu extends Component {
                 'box-shadow': '0px 1px 5px 2px rgba(225, 225, 225, 0.5)',
                 width: '300px',
                 background: 'white',
-                right: '120px',
+                right: '160px',
                 'padding-top': '60px',
                 'z-index': '1',
             }

@@ -1,11 +1,12 @@
 .navibarStyle {
     width: 100%;
-    margin-bottom: 1%;
-    margin-top: 1%;
-    background-color: white;
+    color: white;
+    padding-bottom: 1%;
+    padding-top: 1%;
+    background: rgba(255, 120, 195, 0.9);
     display: flex;
     justify-content: space-around;
-    font-size: 11pt;
+    font-size: 12pt;
     font-family: 'PT Sans Caption', sans-serif;
 }
 
