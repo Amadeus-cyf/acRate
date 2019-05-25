@@ -14,6 +14,7 @@ class Bangumi extends Component {
         super();
         this.state = {
             bangumi: [], 
+            currentBangumi: [],
             selectYear: {},
             displayYear: '',
             selectSeason: {},
@@ -21,6 +22,9 @@ class Bangumi extends Component {
             pageNumber: 0,
             currentPage: 1,
             yearOptions: [],
+            currentPageStyle: {
+                color: 'blue',
+            },
             seasonOptions: [
                 {
                     label: 1,
@@ -60,6 +64,7 @@ class Bangumi extends Component {
         .then(response => {
             this.setState({
                 bangumi: response.data.anime,
+                currentBangumi: response.data.anime.slice(0, 30),
                 displayYear: year,
                 month: month,
             })
@@ -106,22 +111,38 @@ class Bangumi extends Component {
     }
 
     toPage(pageNumber) {
+        let currentBangumi = this.state.bangumi.slice((pageNumber-1)*30, pageNumber*30);
         this.setState({
             currentPage: pageNumber,
+            currentBangumi: currentBangumi,
         })
     }
 
     toPrevious() {
         let pageNumber = this.state.currentPage-1;
+        let currentBangumi = [];
+        if (30*pageNumber <= this.state.bangumi.length) {
+            currentBangumi = this.state.bangumi.slice(30*(pageNumber-1), 30*(this.state.currentPage));
+        } else {
+            currentBangumi = this.state.bangumi.slice(30*(pageNumber-1));
+        }
         this.setState({
             currentPage: pageNumber,
+            currentBangumi: currentBangumi,
         })
     }
 
     toNext() {
         let pageNumber = this.state.currentPage+1;
+        let currentBangumi = [];
+        if (30*pageNumber <= this.state.bangumi.length) {
+            currentBangumi = this.state.bangumi.slice(30*(pageNumber-1), 30*(pageNumber));
+        } else {
+            currentBangumi = this.state.bangumi.slice(30*(pageNumber-1));
+        }
         this.setState({
             currentPage: pageNumber,
+            currentBangumi: currentBangumi,
         })
     }
 
@@ -177,20 +198,20 @@ class Bangumi extends Component {
         if (this.state.displayYear === ''  || this.state.bangumi.length === 0) {
             return(
                 <div>
-                <Navibar
-                toHomePage = {this.props.toHomePage}
-                loginHandler = {this.props.loginHandler}
-                signupHandler = {this.props.signupHandler}
-                logoutHandler = {this.props.logoutHandler}/>
-                <div className = {pageContainer}>
-                    <div>
-                        <Image className = {imageStyle} src={loadingGif} alt = 'loading'/>
+                    <Navibar
+                    toHomePage = {this.props.toHomePage}
+                    loginHandler = {this.props.loginHandler}
+                    signupHandler = {this.props.signupHandler}
+                    logoutHandler = {this.props.logoutHandler}/>
+                    <div className = {pageContainer}>
+                        <div>
+                            <Image className = {imageStyle} src={loadingGif} alt = 'loading'/>
+                        </div>
+                        <p className = {textStyle}>
+                            Loading ... 
+                        </p>
                     </div>
-                    <p className = {textStyle}>
-                        Loading ... 
-                    </p>
                 </div>
-            </div>
             )
         }
         let labelStyle = {
@@ -202,9 +223,6 @@ class Bangumi extends Component {
         let imgStyle = {
             'max-width': '175px',
             height: '250px',
-        }
-        let currentPageStyle = {
-            color: 'blue',
         }
         let previousStyle = {
             display: 'inline',
@@ -222,13 +240,8 @@ class Bangumi extends Component {
                 display: 'none',
             }
         }
-        let currentBangumi = [];
-        if (30*(this.state.currentPage) <= this.state.bangumi.length) {
-            currentBangumi = this.state.bangumi.slice(30*(this.state.currentPage-1), 30*(this.state.currentPage));
-        } else {
-            currentBangumi = this.state.bangumi.slice(30*(this.state.currentPage-1));
-        }
         // process each bangumi
+        let currentBangumi = this.state.currentBangumi;
         let currentList = currentBangumi.map(bangumi => {
             return(
                 <Label style = {labelStyle}>
@@ -245,7 +258,7 @@ class Bangumi extends Component {
         let pageList = pageArr.map(page => {
             if (page === this.state.currentPage) {
                 return(
-                    <span className = {numberStyle} onClick = {this.toPage.bind(this, page)} style = {currentPageStyle}>{page}</span>
+                    <span className = {numberStyle} onClick = {this.toPage.bind(this, page)} style = {this.state.currentPageStyle}>{page}</span>
                 )
             }
             return(

@@ -9,10 +9,14 @@ class CurrentBangumi extends Component {
         super();
         this.state = {
             bangumi: [], 
+            currentBangumi: [],
             year: '',
             month: '',
             pageNumber: 0,
             currentPage: 1,
+            currentPageStyle: {
+                color: 'blue',
+            }
         }
         this.toHomePage = this.toHomePage.bind(this);
         this.loginHandler = this.loginHandler.bind(this);
@@ -41,6 +45,7 @@ class CurrentBangumi extends Component {
         .then(response => {
             this.setState({
                 bangumi: response.data.anime,
+                currentBangumi: response.data.anime.slice(0, 30),
                 year: year,
                 month: month,
             })
@@ -75,22 +80,38 @@ class CurrentBangumi extends Component {
     }
 
     toPage(pageNumber) {
+        let currentBangumi = this.state.bangumi.slice((pageNumber-1)*30, pageNumber*30);
         this.setState({
             currentPage: pageNumber,
+            currentBangumi: currentBangumi,
         })
     }
 
     toPrevious() {
         let pageNumber = this.state.currentPage-1;
+        let currentBangumi = [];
+        if (30*pageNumber <= this.state.bangumi.length) {
+            currentBangumi = this.state.bangumi.slice(30*(pageNumber-1), 30*(this.state.currentPage));
+        } else {
+            currentBangumi = this.state.bangumi.slice(30*(pageNumber-1));
+        }
         this.setState({
             currentPage: pageNumber,
+            currentBangumi: currentBangumi,
         })
     }
 
     toNext() {
         let pageNumber = this.state.currentPage+1;
+        let currentBangumi = [];
+        if (30*pageNumber <= this.state.bangumi.length) {
+            currentBangumi = this.state.bangumi.slice(30*(pageNumber-1), 30*(pageNumber));
+        } else {
+            currentBangumi = this.state.bangumi.slice(30*(pageNumber-1));
+        }
         this.setState({
             currentPage: pageNumber,
+            currentBangumi: currentBangumi,
         })
     }
 
@@ -104,9 +125,6 @@ class CurrentBangumi extends Component {
         let imageStyle = {
             'max-width': '175px',
             height: '250px',
-        }
-        let currentPageStyle = {
-            color: 'blue',
         }
         let previousStyle = {
             display: 'inline',
@@ -124,13 +142,8 @@ class CurrentBangumi extends Component {
                 display: 'none',
             }
         }
-        let currentBangumi = [];
-        if (30*(this.state.currentPage) <= this.state.bangumi.length) {
-            currentBangumi = this.state.bangumi.slice(30*(this.state.currentPage-1), 30*(this.state.currentPage));
-        } else {
-            currentBangumi = this.state.bangumi.slice(30*(this.state.currentPage-1));
-        }
         // process each bangumi
+        let currentBangumi = this.state.currentBangumi;
         let currentList = currentBangumi.map(bangumi => {
             return(
                 <Label style = {labelStyle}>
@@ -147,7 +160,7 @@ class CurrentBangumi extends Component {
         let pageList = pageArr.map(page => {
             if (page === this.state.currentPage) {
                 return(
-                    <span className = {numberStyle} onClick = {this.toPage.bind(this, page)} style = {currentPageStyle}>{page}</span>
+                    <span className = {numberStyle} onClick = {this.toPage.bind(this, page)} style = {this.state.currentPageStyle}>{page}</span>
                 )
             }
             return(
