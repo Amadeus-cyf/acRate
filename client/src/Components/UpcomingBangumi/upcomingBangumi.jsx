@@ -11,7 +11,6 @@ class UpcomingBangumi extends Component {
         this.state = {
             bangumi: [], 
             year: '',
-            month: '',
             pageNumber: 0,
             currentPage: 1,
         }
@@ -25,21 +24,13 @@ class UpcomingBangumi extends Component {
 
     componentDidMount() {
         let date = new Date();
-        let year = date.getFullYear();
-        let month = date.getMonth();
-        if (month > 10) {
-            year += 1;
-            month = 1;
-        } else {
-            month += 3;
-        }
+        let year = date.getFullYear()+1;
         //get current season anime
         axios.get('https://api.jikan.moe/v3/season/later')
         .then(response => {
             this.setState({
                 bangumi: response.data.anime,
                 year: year,
-                month: month,
             })
             if (response.data.anime.length % 30) {
                 this.setState({
@@ -179,7 +170,7 @@ class UpcomingBangumi extends Component {
                  logoutHandler = {this.logoutHandler}/>
                 <div className = {bangumiContainer}>
                     <div className = {bangumiSection}>
-                        <h3>{this.state.year}年{this.state.month}月番</h3>
+                        <h3>{this.state.year}年新番</h3>
                         <div className = {bangumiStyle}>
                             {currentList}
                         </div>

@@ -14,10 +14,29 @@ class Bangumi extends Component {
             bangumi: [], 
             selectYear: {},
             displayYear: '',
+            selectSeason: {},
             month: '',
             pageNumber: 0,
             currentPage: 1,
             yearOptions: [],
+            seasonOptions: [
+                {
+                    label: 1,
+                    value: 'winter',
+                },
+                {
+                    label: 4,
+                    value: 'spring',
+                },
+                {
+                    label: 7,
+                    value: 'summer',
+                },
+                {
+                    label: 10,
+                    value: 'fall',
+                }
+            ]
         }
         this.toHomePage = this.toHomePage.bind(this);
         this.loginHandler = this.loginHandler.bind(this);
@@ -27,6 +46,7 @@ class Bangumi extends Component {
         this.toNext = this.toNext.bind(this);
         this.yearHandler = this.yearHandler.bind(this);
         this.submitHandler = this.submitHandler.bind(this);
+        this.seasonHandler = this.seasonHandler.bind(this);
     }
 
     componentDidMount() {
@@ -53,8 +73,9 @@ class Bangumi extends Component {
         }).catch(err => {
             alert(err);
         })
+        let date = new Date();
         let yearList = [];
-        for (let i = 2019; i >= 2010; i--) {
+        for (let i = date.getFullYear(); i >= 2010; i--) {
             let currYear = {
                 label: i,
                 value: i,
@@ -108,14 +129,20 @@ class Bangumi extends Component {
         })
     }
 
+    seasonHandler(selectSeason) {
+        this.setState({
+            selectSeason:selectSeason,
+        })
+    }
+
     submitHandler() {
         if (this.state.selectYear.value === undefined) {
             alert('Please select a year');
             return;
         }
         let year = this.state.selectYear.value;
-        let season = 'winter';
-        let month = 1;
+        let season = this.state.selectSeason.value;
+        let month = this.state.selectSeason.label;
         axios.get('https://api.jikan.moe/v3/season/' + year + '/' + season)
         .then(response => {
             this.setState({
@@ -226,6 +253,7 @@ class Bangumi extends Component {
                  toBangumi = {this.toBangumi}
                  toManga = {this.toManga}/>
                   <Select value = {this.state.selectYear} onChange = {this.yearHandler} options={this.state.yearOptions}/>
+                  <Select value = {this.state.selectSeason} onChange = {this.seasonHandler} options={this.state.seasonOptions}/>
                   <Button onClick = {this.submitHandler}>Submit</Button>
                 <div>
                     <div className = {bangumiSection}>
