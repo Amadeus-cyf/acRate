@@ -98,7 +98,7 @@ class HomePage extends Component {
             )
         }
         return(
-            <div className = {homeStyle}>
+            <div>
                 <MainMenu 
                 toHomePage = {this.toHomePage}
                 loginHandler = {this.loginHandler}
@@ -106,9 +106,11 @@ class HomePage extends Component {
                 logoutHandler = {this.logoutHandler}
                 toBangumi = {this.toBangumi}
                 toUpcoming = {this.toUpcoming}/>
-                <RecentBangumi currentViewMore = {this.currentViewMore} pastViewMore = {this.pastViewMore} upcomingViewMore = {this.upcomingViewMore}/>
-                <div className = {footer}>
-                    <h3>Aniscore</h3>
+                 <div className = {homeStyle}>
+                    <RecentBangumi currentViewMore = {this.currentViewMore} pastViewMore = {this.pastViewMore} upcomingViewMore = {this.upcomingViewMore}/>
+                    <div className = {footer}>
+                        <h3>Aniscore</h3>
+                    </div>
                 </div>
             </div>
         )

@@ -297,31 +297,33 @@ class Bangumi extends Component {
             )
         })
         return(
-            <div className = {pageStyle}>
+            <div>
                  <MainMenu
-                 toHomePage = {this.toHomePage}
-                 loginHandler = {this.loginHandler}
-                 signupHandler = {this.signupHandler}
-                 logoutHandler = {this.logoutHandler}
-                 toBangumi = {this.toBangumi}
-                 toUpcoming = {this.toUpcoming}/>
-                 <div className = {selectStyle}>
-                    <Select className = {selectCss} placeholder="Select a Year" onChange = {this.yearHandler} options={this.state.yearOptions}/>
-                    <Select placeholder='Select a Season' className = {selectCss} onChange = {this.seasonHandler} options={this.state.seasonOptions}/>
-                    <Button onClick = {this.submitHandler}>Search</Button>
-                </div>
-                <div>
-                    <div className = {bangumiSection}>
-                        <h3>{this.state.displayYear}年</h3>
-                        <h3>{this.state.month}月</h3>
-                        <div className = {bangumiStyle}>
-                            {currentList}
-                        </div>
-                        <div className = {numberlistStyle} >
-                            <p>Page</p>
-                            <p className = {numberStyle} style = {previousStyle} onClick = {this.toPrevious}>Prev</p>
-                            {pageList}
-                            <p className = {numberStyle} style = {nextStyle} onClick = {this.toNext}>Next</p>
+                toHomePage = {this.toHomePage}
+                loginHandler = {this.loginHandler}
+                signupHandler = {this.signupHandler}
+                logoutHandler = {this.logoutHandler}
+                toBangumi = {this.toBangumi}
+                toUpcoming = {this.toUpcoming}/>
+                <div className = {pageStyle}>
+                    <div className = {selectStyle}>
+                        <Select className = {selectCss} placeholder="Select a Year" onChange = {this.yearHandler} options={this.state.yearOptions}/>
+                        <Select placeholder='Select a Season' className = {selectCss} onChange = {this.seasonHandler} options={this.state.seasonOptions}/>
+                        <Button onClick = {this.submitHandler}>Search</Button>
+                    </div>
+                    <div>
+                        <div className = {bangumiSection}>
+                            <h3>{this.state.displayYear}年</h3>
+                            <h3>{this.state.month}月</h3>
+                            <div className = {bangumiStyle}>
+                                {currentList}
+                            </div>
+                            <div className = {numberlistStyle} >
+                                <p>Page</p>
+                                <p className = {numberStyle} style = {previousStyle} onClick = {this.toPrevious}>Prev</p>
+                                {pageList}
+                                <p className = {numberStyle} style = {nextStyle} onClick = {this.toNext}>Next</p>
+                            </div>
                         </div>
                     </div>
                 </div>

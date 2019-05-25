@@ -196,7 +196,7 @@ class UpcomingBangumi extends Component {
         })
         return(
             <div>
-                 <MainMenu
+                <MainMenu
                 toHomePage = {this.toHomePage}
                 loginHandler = {this.loginHandler}
                 signupHandler = {this.signupHandler}

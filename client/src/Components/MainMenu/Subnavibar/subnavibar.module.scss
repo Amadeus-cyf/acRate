@@ -1,15 +1,14 @@
 .navibarStyle {
     width: 100%;
-    color: white;
     padding-bottom: 1%;
     padding-top: 1%;
-    background: rgba(255, 120, 195, 0.9);
     display: flex;
     justify-content: space-around;
-    font-size: 12pt;
+    font-size: 13pt;
     font-family: 'PT Sans Caption', sans-serif;
 }
 
-.navibarStyle:hover {
+.title:hover {
     cursor: pointer;
+    color: red;
 }
