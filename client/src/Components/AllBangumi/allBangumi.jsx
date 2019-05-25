@@ -6,6 +6,7 @@ import {pageContainer,textStyle, imageStyle} from '../HomePage/homepage.module.s
 import {Label, Image, Button} from 'semantic-ui-react';
 import Select from 'react-select';
 import {pageStyle, bangumiSection, bangumiStyle, hoverPart, numberlistStyle, numberStyle} from './allBangumi.module.scss';
+import loadingGif from '../loading.gif';
 
 class Bangumi extends Component {
     constructor() {
@@ -175,7 +176,7 @@ class Bangumi extends Component {
                 logoutHandler = {this.props.logoutHandler}/>
                 <div className = {pageContainer}>
                     <div>
-                        <Image className = {imageStyle} src="http://b-ssl.duitang.com/uploads/item/201701/20/20170120164701_Zjuwi.thumb.224_0.gif" alt = 'loading'/>
+                        <Image className = {imageStyle} src={loadingGif} alt = 'loading'/>
                     </div>
                     <p className = {textStyle}>
                         Loading ... 

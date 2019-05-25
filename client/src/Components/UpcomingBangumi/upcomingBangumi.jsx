@@ -4,6 +4,7 @@ import {Label, Image} from 'semantic-ui-react';
 import Navibar from '../MainMenu/Navibar/navibar.jsx';
 import {pageContainer, textStyle, imageStyle} from '../HomePage/homepage.module.scss';
 import {bangumiSection, bangumiStyle, hoverPart, bangumiContainer, numberlistStyle, numberStyle} from './upcomingBangumi.module.scss';
+import loadingGif from '../loading.gif';
 
 class UpcomingBangumi extends Component {
     constructor() {
@@ -93,7 +94,7 @@ class UpcomingBangumi extends Component {
                     logoutHandler = {this.props.logoutHandler}/>
                     <div className = {pageContainer}>
                         <div>
-                            <Image className = {imageStyle} src="http://b-ssl.duitang.com/uploads/item/201701/20/20170120164701_Zjuwi.thumb.224_0.gif" alt = 'loading'/>
+                            <Image className = {imageStyle} src={loadingGif} alt = 'loading'/>
                         </div>
                         <p className = {textStyle}>
                             Loading ... 
