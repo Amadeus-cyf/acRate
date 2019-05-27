@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
     .then((users) => {
         res.status(200).json({message: 'Successfully find all users', data: {users}});
     }).catch(err => {
-        res.status(500).send(err);
+        res.status(500).json({message: err})
     })
 })
 
@@ -23,7 +23,7 @@ router.delete('/:id', (req, res) => {
         }
         return res.status(200).json({message:'Successfully delete the user', data: {user}});
     }).catch(err => {
-        return res.send(err);
+        res.status(500).json({message: err})
     })
 });
 

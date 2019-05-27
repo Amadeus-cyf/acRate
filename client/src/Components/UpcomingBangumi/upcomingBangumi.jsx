@@ -36,26 +36,29 @@ class UpcomingBangumi extends Component {
         //get current season anime
         axios.get('https://api.jikan.moe/v3/season/later')
         .then(response => {
-            if (response.data.anime.length > 30) {
+            let animelist = response.data.anime.filter(anime => {
+                return !anime.r18 && !anime.kids;
+            })
+            if (animelist.length > 30) {
                 this.setState({
-                    bangumi: response.data.anime,
-                    currentBangumi: response.data.anime.slice(0, 30),
+                    bangumi: animelist,
+                    currentBangumi: animelist.slice(0, 30),
                     year: year,
                 })
             } else {
                 this.setState({
-                    bangumi: response.data.anime,
-                    currentBangumi: response.data.anime,
+                    bangumi: animelist,
+                    currentBangumi: animelist,
                     year: year,
                 })
             }
-            if (response.data.anime.length % 30) {
+            if (animelist.length % 30) {
                 this.setState({
-                    pageNumber: (response.data.anime.length-response.data.anime.length%30)/30 + 1
+                    pageNumber: (animelist.length-animelist.length%30)/30 + 1
                 })
             } else {
                 this.setState({
-                    pageNumber: response.data.anime.length/30,
+                    pageNumber: animelist.length/30,
                 })
             }
         }).catch(err => {

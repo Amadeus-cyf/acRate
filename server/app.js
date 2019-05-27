@@ -30,6 +30,7 @@ app.use(cookieParser());
 app.use(flash());
 
 require('./models/userSchema');
+require('./models/bangumiSchema');
 app.use(session({
     secret: 'secret',
     saveUninitialized: true,

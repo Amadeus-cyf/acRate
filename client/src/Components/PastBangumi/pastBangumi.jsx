@@ -49,30 +49,31 @@ class PastBangumi extends Component {
             pastMonth = 7;
         }
         //get current season anime
-        axios.get('https://api.jikan.moe/v3/season/' + year + '/' + pastSeason)
+        axios.get('api/bangumi/' + year + '/' + pastSeason)
         .then(response => {
-            if (response.data.anime.length > 30) {
+            let animelist = response.data.data.bangumiList;
+            if (animelist.length > 30) {
                 this.setState({
-                    bangumi: response.data.anime,
-                    currentBangumi: response.data.anime.slice(0, 30),
+                    bangumi: animelist,
+                    currentBangumi: animelist.slice(0, 30),
                     year: year,
                     month: pastMonth,
                 })
             } else {
                 this.setState({
-                    bangumi: response.data.anime,
-                    currentBangumi: response.data.anime,
+                    bangumi: animelist,
+                    currentBangumi: animelist,
                     year: year,
                     month: pastMonth,
                 })
             }
-            if (response.data.anime.length % 30) {
+            if (animelist.length % 30) {
                 this.setState({
-                    pageNumber: (response.data.anime.length-response.data.anime.length%30)/30 + 1
+                    pageNumber: (animelist.length-animelist.length%30)/30 + 1
                 })
             } else {
                 this.setState({
-                    pageNumber: response.data.anime.length/30,
+                    pageNumber: animelist.length/30,
                 })
             }
         }).catch(err => {

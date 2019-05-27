@@ -10,8 +10,8 @@ class Navibar extends Component {
         super();
         this.state = {
             currentUser: 'undefined',
-            loginDisplay: 'none',
-            signupDisplay: 'none',
+            loginDisplay: 'inline',
+            signupDisplay: 'inline',
             logoutDisplay: 'none',
             avatar: defaultAvatar,
             menuDisplay: 'none',
@@ -27,6 +27,8 @@ class Navibar extends Component {
                 this.setState({
                     currentUser: res.data.data,
                     logoutDisplay: 'inline',
+                    loginDisplay: 'none',
+                    signupDisplay: 'none',
                     avatar: res.data.data.avatar,
                     size: '13pt',
                 })
@@ -34,6 +36,7 @@ class Navibar extends Component {
                 this.setState({
                     loginDisplay: 'inline',
                     signupDisplay: 'inline',
+                    logoutDisplay: 'none',
                 })
             }
         }).catch(err => {

@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import {Label, Image} from 'semantic-ui-react';
 import Navibar from '../MainMenu/Navibar/navibar.jsx';
+import {pageContainer, textStyle, imageStyle} from '../HomePage/homepage.module.scss';
+import loadingGif from '../loading.gif';
 import {bangumiSection, bangumiStyle, hoverPart, bangumiContainer, numberlistStyle, numberStyle} from './currentBangumi.module.scss';
 
 class CurrentBangumi extends Component {
@@ -26,7 +28,7 @@ class CurrentBangumi extends Component {
         this.toNext = this.toNext.bind(this);
     }
 
-    componentDidMount() {
+    /*componentDidMount() {
         let date = new Date();
         let year = date.getFullYear();
         let month = date.getMonth();
@@ -43,28 +45,78 @@ class CurrentBangumi extends Component {
         //get current season anime
         axios.get('https://api.jikan.moe/v3/season/' + year + '/' + season)
         .then(response => {
-            if (response.data.anime.length > 30) {
+            let animelist = response.data.anime.filter(anime => {
+                return !anime.r18 && !anime.kids;
+            })
+            if (animelist.length > 30) {
                 this.setState({
-                    bangumi: response.data.anime,
-                    currentBangumi: response.data.anime.slice(0, 30),
+                    bangumi: animelist,
+                    currentBangumi: animelist.slice(0, 30),
                     year: year,
                     month: month,
                 })
             } else {
                 this.setState({
-                    bangumi: response.data.anime,
-                    currentBangumi: response.data.anime,
+                    bangumi: animelist,
+                    currentBangumi: animelist,
                     year: year,
                     month: month,
                 })
             }
-            if (response.data.anime.length % 30) {
+            if (animelist.length % 30) {
                 this.setState({
-                    pageNumber: (response.data.anime.length-response.data.anime.length%30)/30 + 1
+                    pageNumber: (animelist.length-animelist.length%30)/30 + 1
                 })
             } else {
                 this.setState({
-                    pageNumber: response.data.anime.length/30,
+                    pageNumber: animelist.length/30,
+                })
+            }
+        }).catch(err => {
+            alert(err);
+        })
+    }*/
+
+    componentDidMount() {
+        let date = new Date();
+        let year = date.getFullYear();
+        let month = date.getMonth();
+        let season = 'winter';
+        if (month >= 1 && month < 4) {
+            season = 'winter';
+        } else if (month >= 4 && month < 7) {
+            season = 'spring';
+        } else if (month >= 7 && month < 10) {
+            season = 'summer';
+        } else if (month >= 10) {
+            season = 'fall';
+        }
+        //get current season anime
+        axios.get('api/bangumi/' + year + '/' + season)
+        .then(response => {
+            let animelist = response.data.data.bangumiList;
+            if (animelist.length > 30) {
+                this.setState({
+                    bangumi: animelist,
+                    currentBangumi: animelist.slice(0, 30),
+                    year: year,
+                    month: month,
+                })
+            } else {
+                this.setState({
+                    bangumi: animelist,
+                    currentBangumi: animelist,
+                    year: year,
+                    month: month,
+                })
+            }
+            if (animelist.length % 30) {
+                this.setState({
+                    pageNumber: (animelist.length-animelist.length%30)/30 + 1
+                })
+            } else {
+                this.setState({
+                    pageNumber: animelist.length/30,
                 })
             }
         }).catch(err => {
@@ -125,13 +177,32 @@ class CurrentBangumi extends Component {
     }
 
     render() {
+        if (this.state.bangumi.length === 0){
+            return(
+                <div>
+                    <Navibar
+                    toHomePage = {this.props.toHomePage}
+                    loginHandler = {this.props.loginHandler}
+                    signupHandler = {this.props.signupHandler}
+                    logoutHandler = {this.props.logoutHandler}/>
+                    <div className = {pageContainer}>
+                        <div>
+                            <Image className = {imageStyle} src={loadingGif} alt = 'loading'/>
+                        </div>
+                        <p className = {textStyle}>
+                            Loading ... 
+                        </p>
+                    </div>
+                </div>
+            )
+        }
         let labelStyle = {
             'max-width': '200px',
             'min-width': '200px',
             'height': 'auto',
             background: 'white',
         }
-        let imageStyle = {
+        let imgStyle = {
             'max-width': '175px',
             height: '250px',
         }
@@ -156,7 +227,7 @@ class CurrentBangumi extends Component {
         let currentList = currentBangumi.map(bangumi => {
             return(
                 <Label style = {labelStyle}>
-                    <Image className = {hoverPart} style = {imageStyle} src = {bangumi.image_url} />
+                    <Image className = {hoverPart} style = {imgStyle} src = {bangumi.image_url} />
                     <p className = {hoverPart}>{bangumi.title}</p>
                 </Label>
             )
