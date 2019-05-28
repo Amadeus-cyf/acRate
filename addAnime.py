@@ -31,8 +31,7 @@ def getAnime(year, season):
                 genres = []
                 for genre in anime['genres']:
                     genres.append(genre['name'])
-            anime['genres'] = genres
-        
+            anime['genres'] = genres  
         return content['anime']
     else:
         return None
@@ -52,8 +51,15 @@ def postAnime(year, season):
     
 def main():
     seasons = ['spring', 'summer', 'fall', 'winter']
-    #2019 spring, winter
-    postAnime('2019', 'spring')
+    #2019 spring, winter; 2018 winter, fall, summer, spring; 2017 winter fall summer, spring
+    #2016 winter, fall, summer, spring
+    #2015 winter, fall, summer, spring
+    #2014 winter, fall, summer, spring
+    #2013 winter, fall, summer, spring
+    #2012 winter, fall, summer, spring
+    #2011 winter, fall, summer,spring
+    #2010 winter, fall, summer, 
+    ######################
 
 if __name__ == '__main__':
     main()

@@ -17,12 +17,21 @@ router.get('/', (req, res) => {
 router.get('/:year/:season', (req, res) => {
     let year = req.params.year;
     let season = req.params.season;
-    Bangumi.find().where({year: year, season: season})
-    .then(bangumiList => {
-        return res.status(200).json({message: 'Succesfully find all bangumi of corresponding time', data: {bangumiList}});
-    }).catch(err => {
-        return res.status(500).json({message: err})
-    })
+    if (season !== 'allyear') {
+        Bangumi.find().where({year: year, season: season})
+        .then(bangumiList => {
+            return res.status(200).json({message: 'Succesfully find all bangumi of corresponding time', data: {bangumiList}});
+        }).catch(err => {
+            return res.status(500).json({message: err})
+        })
+    } else {
+        Bangumi.find().where({year: year})
+        .then(bangumiList => {
+            return res.status(200).json({message: 'Succesfully find all bangumi of corresponding time', data: {bangumiList}});
+        }).catch(err => {
+            return res.status(500).json({message: err})
+        })
+    }
 })
 
 router.post('/', (req, res) => {

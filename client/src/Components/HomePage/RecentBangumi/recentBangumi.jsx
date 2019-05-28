@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {Image, Label} from 'semantic-ui-react';
+import Navibar from '../../MainMenu/Navibar/navibar.jsx';
+import {pageContainer, textStyle, imageStyle} from '../homepage.module.scss';
 import {bangumiSection, bangumiStyle, hoverPart, viewMoreStyle} from './recentBangumi.module.scss';
+import loadingGif from '../../loading.gif';
 
 class RecentBangumi extends Component {
     constructor() {
@@ -108,30 +111,30 @@ class RecentBangumi extends Component {
             }
         }
         //get current season anime
-        axios.get('https://api.jikan.moe/v3/season/' + year + '/' + season)
+        axios.get('api/bangumi/' + year + '/' + season)
         .then(response => {
             this.setState({
-                bangumi: response.data.anime,
+                bangumi: response.data.data.bangumiList,
             })
         }).catch(err => {
             alert(err);
         })
         //get upcoming season anime
         if (!past) {
-            axios.get('https://api.jikan.moe/v3/season/' + upcomingYear + '/' + upcoming)
+            axios.get('api/bangumi/' + upcomingYear + '/' + upcoming)
             .then(response => {
                 this.setState({
-                    upcomingBangumi: response.data.anime,
+                    upcomingBangumi: response.data.data.bangumiList,
                 })
             }).catch(err => {
                 alert(err);
             })
         } else {
             // get previous season anime
-            axios.get('https://api.jikan.moe/v3/season/' + pastYear + '/' + past)
+            axios.get('api/bangumi/' + pastYear + '/' + past)
             .then(response => {
                 this.setState({
-                    pastBangumi: response.data.anime,
+                    pastBangumi: response.data.data.bangumiList,
                 })
             }).catch(err => {
                 alert(err);
@@ -141,9 +144,27 @@ class RecentBangumi extends Component {
 
     render() {
         if (this.state.bangumi.length === 0) {
-            return <div></div>
+            return (
+                <div>
+                    <div>
+                        <Navibar
+                        toHomePage = {this.props.toHomePage}
+                        loginHandler = {this.props.loginHandler}
+                        signupHandler = {this.props.signupHandler}
+                        logoutHandler = {this.props.logoutHandler}/>
+                        <div className = {pageContainer}>
+                            <div>
+                                <Image className = {imageStyle} src={loadingGif} alt = 'loading'/>
+                            </div>
+                            <p className = {textStyle}>
+                                Loading ... 
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            )
         }
-        let imageStyle = {
+        let imgStyle = {
             'max-width': '175px',
             height: 'auto',
         }
@@ -158,7 +179,7 @@ class RecentBangumi extends Component {
             listItems = pastBangumi.map(bangumi => {
                 return(
                     <Label style = {labelStyle}>
-                        <Image className = {hoverPart} style = {imageStyle} src = {bangumi.image_url} />
+                        <Image className = {hoverPart} style = {imgStyle} src = {bangumi.image_url} />
                         <p className = {hoverPart}>{bangumi.title}</p>
                     </Label>
                 )
@@ -169,7 +190,7 @@ class RecentBangumi extends Component {
                 listItems = upcomingBangumi.map(bangumi => {
                     return(
                         <Label style = {labelStyle}>
-                            <Image className = {hoverPart} style = {imageStyle} src = {bangumi.image_url} />
+                            <Image className = {hoverPart} style = {imgStyle} src = {bangumi.image_url} />
                             <p className = {hoverPart}>{bangumi.title}</p>
                         </Label>
                     )
@@ -183,7 +204,7 @@ class RecentBangumi extends Component {
         let currentList = bangumi.map(bangumi => {
             return(
                 <Label style = {labelStyle}>
-                    <Image className = {hoverPart} style = {imageStyle} src = {bangumi.image_url} />
+                    <Image className = {hoverPart} style = {imgStyle} src = {bangumi.image_url} />
                     <p className = {hoverPart}>{bangumi.title}</p>
                 </Label>
             )

@@ -28,55 +28,6 @@ class CurrentBangumi extends Component {
         this.toNext = this.toNext.bind(this);
     }
 
-    /*componentDidMount() {
-        let date = new Date();
-        let year = date.getFullYear();
-        let month = date.getMonth();
-        let season = 'winter';
-        if (month >= 1 && month < 4) {
-            season = 'winter';
-        } else if (month >= 4 && month < 7) {
-            season = 'spring';
-        } else if (month >= 7 && month < 10) {
-            season = 'summer';
-        } else if (month >= 10) {
-            season = 'fall';
-        }
-        //get current season anime
-        axios.get('https://api.jikan.moe/v3/season/' + year + '/' + season)
-        .then(response => {
-            let animelist = response.data.anime.filter(anime => {
-                return !anime.r18 && !anime.kids;
-            })
-            if (animelist.length > 30) {
-                this.setState({
-                    bangumi: animelist,
-                    currentBangumi: animelist.slice(0, 30),
-                    year: year,
-                    month: month,
-                })
-            } else {
-                this.setState({
-                    bangumi: animelist,
-                    currentBangumi: animelist,
-                    year: year,
-                    month: month,
-                })
-            }
-            if (animelist.length % 30) {
-                this.setState({
-                    pageNumber: (animelist.length-animelist.length%30)/30 + 1
-                })
-            } else {
-                this.setState({
-                    pageNumber: animelist.length/30,
-                })
-            }
-        }).catch(err => {
-            alert(err);
-        })
-    }*/
-
     componentDidMount() {
         let date = new Date();
         let year = date.getFullYear();

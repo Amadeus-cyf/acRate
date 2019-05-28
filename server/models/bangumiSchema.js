@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const uniqueValidator = require('mongoose-unique-validator');
 
 var BangumiSchema = new mongoose.Schema({
     anime_id: {

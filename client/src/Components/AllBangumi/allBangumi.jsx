@@ -42,6 +42,10 @@ class Bangumi extends Component {
                     label: 10,
                     value: 'fall',
                 },
+                {
+                    label: 'All year',
+                    value: 'allyear',
+                }
             ]
         }
         this.toHomePage = this.toHomePage.bind(this);
@@ -62,11 +66,9 @@ class Bangumi extends Component {
         let month = 1;
         let season = 'winter';
         //get default season anime
-        axios.get('https://api.jikan.moe/v3/season/' + year + '/' + season)
+        axios.get('api/bangumi/' + year + '/' + season)
         .then(response => {
-            let animelist = response.data.anime.filter(anime => {
-                return !anime.r18 && !anime.kids;
-            })
+            let animelist = response.data.data.bangumiList
             if (animelist.length > 30) {
                 this.setState({
                     bangumi: animelist,
@@ -96,7 +98,7 @@ class Bangumi extends Component {
         })
         let date = new Date();
         let yearList = [];
-        for (let i = date.getFullYear(); i >= 2005; i--) {
+        for (let i = date.getFullYear(); i >= 2010; i--) {
             let currYear = {
                 label: i,
                 value: i,
@@ -189,46 +191,90 @@ class Bangumi extends Component {
             alert('Please select a season');
             return;
         }
-        this.setState({
-            bangumi: [],
-        })
         let year = this.state.selectYear.value;
         let season = this.state.selectSeason.value;
         let month = this.state.selectSeason.label;
-        axios.get('https://api.jikan.moe/v3/season/' + year + '/' + season)
-        .then(response => {
-            let animelist = response.data.anime.filter(anime => {
-                return !anime.r18&&!anime.kids;
-            })
-            if (animelist.length > 30) {
-                this.setState({
-                    bangumi: animelist,
-                    currentBangumi: animelist.slice(0, 30),
-                    displayYear: year,
-                    month: month,
-                    currentPage: 1,
-                })
-            } else {
-                this.setState({
-                    bangumi: animelist,
-                    currentBangumi: animelist,
-                    displayYear: year,
-                    month: month,
-                    currentPage: 1,
-                })
-            }
-            if (animelist.length % 30) {
-                this.setState({
-                    pageNumber: (animelist.length-animelist.length%30)/30 + 1
-                })
-            } else {
-                this.setState({
-                    pageNumber: animelist.length/30,
-                })
-            }
-        }).catch(err => {
-            alert(err);
+        let date = new Date();
+        let currentYear = date.getFullYear();
+        let currentMonth = date.getMonth()+1;
+        this.setState({
+            bangumi: [],
+            selectYear: {},
+            selectSeason: {},
         })
+        // upcoming bangumi
+        if (year === currentYear && month >= currentMonth) {
+            axios.get('https://api.jikan.moe/v3/season/' + year + '/' + season)
+            .then(response => {
+                let animelist = response.data.anime.filter(anime => {
+                    return !anime.r18&&!anime.kids;
+                })
+                if (animelist.length > 30) {
+                    this.setState({
+                        bangumi: animelist,
+                        currentBangumi: animelist.slice(0, 30),
+                        displayYear: year,
+                        month: month,
+                        currentPage: 1,
+                    })
+                } else {
+                    this.setState({
+                        bangumi: animelist,
+                        currentBangumi: animelist,
+                        displayYear: year,
+                        month: month,
+                        currentPage: 1,
+                        selectYear: {},
+                        selectSeason: {},
+                    })
+                }
+                if (animelist.length % 30) {
+                    this.setState({
+                        pageNumber: (animelist.length-animelist.length%30)/30 + 1
+                    })
+                } else {
+                    this.setState({
+                        pageNumber: animelist.length/30,
+                    })
+                }
+            }).catch(err => {
+                alert(err);
+            })
+        } else {
+            // current and past bangumi
+            axios.get('api/bangumi/' + year + '/' + season)
+            .then(response => {
+                let animelist = response.data.data.bangumiList;
+                if (animelist.length > 30) {
+                    this.setState({
+                        bangumi: animelist,
+                        currentBangumi: animelist.slice(0, 30),
+                        displayYear: year,
+                        month: month,
+                        currentPage: 1,
+                    })
+                } else {
+                    this.setState({
+                        bangumi: animelist,
+                        currentBangumi: animelist,
+                        displayYear: year,
+                        month: month,
+                        currentPage: 1,
+                    })
+                }
+                if (animelist.length % 30) {
+                    this.setState({
+                        pageNumber: (animelist.length-animelist.length%30)/30 + 1
+                    })
+                } else {
+                    this.setState({
+                        pageNumber: animelist.length/30,
+                    })
+                }
+            }).catch(err => {
+                alert(err);
+            })
+        }
     }
 
     render() {
@@ -266,6 +312,14 @@ class Bangumi extends Component {
         }
         let nextStyle = {
             display: 'inline',
+        }
+        let titleStyle = {
+            display: 'block',
+        }
+        if (this.state.month === 'All year') {
+            titleStyle = {
+                display: 'none',
+            }
         }
         if (this.state.currentPage === 1) {
             previousStyle = {
@@ -320,7 +374,7 @@ class Bangumi extends Component {
                     <div>
                         <div className = {bangumiSection}>
                             <h3>{this.state.displayYear}年</h3>
-                            <h3>{this.state.month}月</h3>
+                            <h3 style = {titleStyle}>{this.state.month}月</h3>
                             <div className = {bangumiStyle}>
                                 {currentList}
                             </div>
