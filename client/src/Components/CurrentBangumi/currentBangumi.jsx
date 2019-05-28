@@ -11,10 +11,10 @@ class CurrentBangumi extends Component {
     constructor() {
         super();
         this.state = {
-            bangumi: [], 
             currentBangumi: [],
             year: '',
             month: '',
+            season: '',
             pageNumber: 0,
             currentPage: 1,
             currentPageStyle: {
@@ -44,35 +44,31 @@ class CurrentBangumi extends Component {
             season = 'fall';
         }
         //get current season anime
-        axios.get('api/bangumi/' + year + '/' + season)
+        axios.get('api/bangumi/' + year + '/' + season + '/' + this.state.currentPage)
         .then(response => {
             let animelist = response.data.data.bangumiList;
-            if (animelist.length > 36) {
-                this.setState({
-                    bangumi: animelist,
-                    currentBangumi: animelist.slice(0, 36),
-                    year: year,
-                    month: month,
-                })
-            } else {
-                this.setState({
-                    bangumi: animelist,
-                    currentBangumi: animelist,
-                    year: year,
-                    month: month,
-                })
-            }
-            if (animelist.length % 36) {
-                this.setState({
-                    pageNumber: (animelist.length-animelist.length%36)/36 + 1
-                })
-            } else {
-                this.setState({
-                    pageNumber: animelist.length/36,
-                })
-            }
+            this.setState({
+                currentBangumi: animelist,
+                year: year,
+                month: month,
+                season: season,
+            })
         }).catch(err => {
             alert(err);
+        })
+        //get number of anime total
+        axios.get('api/bangumi/' + year + '/' + season + '/count')
+        .then(response => {
+            let bangumiNumber = response.data.data.bangumiNumber;
+            if (bangumiNumber % 36) {
+                this.setState({
+                    pageNumber: (bangumiNumber - bangumiNumber%36)/36 + 1
+                })
+            } else {
+                this.setState({
+                    pageNumber: bangumiNumber/36,
+                })
+            }
         })
     }
 
@@ -93,43 +89,63 @@ class CurrentBangumi extends Component {
     }
 
     toPage(pageNumber) {
-        let currentBangumi = this.state.bangumi.slice((pageNumber-1)*36, pageNumber*36);
+        let year = this.state.year;
+        let season = this.state.season;
         this.setState({
-            currentPage: pageNumber,
-            currentBangumi: currentBangumi,
+            currentBangumi: [],
+        })
+        axios.get('api/bangumi/' + year + '/' + season + '/' + pageNumber)
+        .then(response => {
+            let animelist = response.data.data.bangumiList;
+            this.setState({
+                currentBangumi: animelist,
+                currentPage: pageNumber,
+            })
+        }).catch(err => {
+            alert(err);
         })
     }
 
     toPrevious() {
         let pageNumber = this.state.currentPage-1;
-        let currentBangumi = [];
-        if (36*pageNumber <= this.state.bangumi.length) {
-            currentBangumi = this.state.bangumi.slice(36*(pageNumber-1), 36*(this.state.currentPage));
-        } else {
-            currentBangumi = this.state.bangumi.slice(36*(pageNumber-1));
-        }
+        let year = this.state.year;
+        let season = this.state.season;
         this.setState({
-            currentPage: pageNumber,
-            currentBangumi: currentBangumi,
+            currentBangumi: [],
+        })
+        axios.get('api/bangumi/' + year + '/' + season + '/' + pageNumber)
+        .then(response => {
+            let animelist = response.data.data.bangumiList;
+            this.setState({
+                currentBangumi: animelist,
+                currentPage: pageNumber,
+            })
+        }).catch(err => {
+            alert(err);
         })
     }
 
     toNext() {
         let pageNumber = this.state.currentPage+1;
-        let currentBangumi = [];
-        if (36*pageNumber <= this.state.bangumi.length) {
-            currentBangumi = this.state.bangumi.slice(36*(pageNumber-1), 36*(pageNumber));
-        } else {
-            currentBangumi = this.state.bangumi.slice(36*(pageNumber-1));
-        }
+        let year = this.state.year;
+        let season = this.state.season;
         this.setState({
-            currentPage: pageNumber,
-            currentBangumi: currentBangumi,
+            currentBangumi: [],
+        })
+        axios.get('api/bangumi/' + year + '/' + season + '/' + pageNumber)
+        .then(response => {
+            let animelist = response.data.data.bangumiList;
+            this.setState({
+                currentBangumi: animelist,
+                currentPage: pageNumber,
+            })
+        }).catch(err => {
+            alert(err);
         })
     }
 
     render() {
-        if (this.state.bangumi.length === 0){
+        if (this.state.currentBangumi.length === 0){
             return(
                 <div>
                     <Navibar
