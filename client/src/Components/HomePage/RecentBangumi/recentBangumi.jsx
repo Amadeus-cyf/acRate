@@ -120,7 +120,7 @@ class RecentBangumi extends Component {
         })
         //get upcoming season anime
         if (!past) {
-            axios.get('api/bangumi/' + upcomingYear + '/' + upcoming)
+            axios.get('https://api.jikan.moe/v3/season/' + upcomingYear + '/' + upcoming)
             .then(response => {
                 this.setState({
                     upcomingBangumi: response.data.data.bangumiList,

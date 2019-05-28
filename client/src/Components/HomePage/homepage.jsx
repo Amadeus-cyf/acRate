@@ -74,7 +74,7 @@ class HomePage extends Component {
     }
 
     upcomingViewMore() {
-        this.props.history.push('/upcomingbangumi');
+        this.props.history.push('/newbangumi');
     }
 
     render() {
