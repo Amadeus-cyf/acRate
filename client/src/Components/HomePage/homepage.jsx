@@ -110,11 +110,7 @@ class HomePage extends Component {
                     <RecentBangumi 
                     currentViewMore = {this.currentViewMore} 
                     pastViewMore = {this.pastViewMore} 
-                    upcomingViewMore = {this.upcomingViewMore}
-                    toHomePage = {this.toHomePage}
-                    loginHandler = {this.loginHandler}
-                    signupHandler = {this.signupHandler}
-                    logoutHandler = {this.logoutHandler}/>
+                    upcomingViewMore = {this.upcomingViewMore}/>
                     <div className = {footer}>
                         <h3>Aniscore</h3>
                     </div>

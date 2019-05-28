@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {Image, Label} from 'semantic-ui-react';
-import Navibar from '../../MainMenu/Navibar/navibar.jsx';
 import {pageContainer, textStyle, imageStyle} from '../homepage.module.scss';
 import {bangumiSection, bangumiStyle, hoverPart, viewMoreStyle} from './recentBangumi.module.scss';
 import loadingGif from '../../loading.gif';
@@ -147,11 +146,6 @@ class RecentBangumi extends Component {
             return (
                 <div>
                     <div>
-                        <Navibar
-                        toHomePage = {this.props.toHomePage}
-                        loginHandler = {this.props.loginHandler}
-                        signupHandler = {this.props.signupHandler}
-                        logoutHandler = {this.props.logoutHandler}/>
                         <div className = {pageContainer}>
                             <div>
                                 <Image className = {imageStyle} src={loadingGif} alt = 'loading'/>

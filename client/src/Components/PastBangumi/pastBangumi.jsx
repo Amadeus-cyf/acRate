@@ -138,10 +138,10 @@ class PastBangumi extends Component {
             return (
                 <div>
                     <Navibar
-                    toHomePage = {this.props.toHomePage}
-                    loginHandler = {this.props.loginHandler}
-                    signupHandler = {this.props.signupHandler}
-                    logoutHandler = {this.props.logoutHandler}/>
+                    toHomePage = {this.toHomePage}
+                    loginHandler = {this.loginHandler}
+                    signupHandler = {this.signupHandler}
+                    logoutHandler = {this.logoutHandler}/>
                     <div className = {pageContainer}>
                         <div>
                             <Image className = {imageStyle} src={loadingGif} alt = 'loading'/>
