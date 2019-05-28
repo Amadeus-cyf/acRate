@@ -24,8 +24,8 @@
 }
 
 .hoverPart {
-    font-size: 11pt;
-    padding-top: 10px;
+    font-size: 10pt;
+    margin-top: 10px;
 }
 
 .hoverPart:hover {
@@ -33,16 +33,34 @@
 }
 
 .numberlistStyle {
-    font-size: 13pt;
+    font-size: 12pt;
     font-family: 'PT Sans Caption', sans-serif;
     padding: 2% 10% 0% 10%;
     display: flex;
     justify-content: space-around;
 }
 
-
 .numberStyle:hover {
     cursor: pointer;
     color: blue;
     text-decoration: underline;
+}
+
+.pageContainer {
+    padding-bottom: 80%;
+    padding-top: 10%;
+    background-color: white;
+}
+
+.imageStyle {
+    display: block;
+    max-width: 250px;
+    height: auto;
+    margin: 0 auto;
+}
+
+.textStyle {
+    text-align: center;
+    font-size: 14pt;
+    width: 100%;
 }

@@ -104,7 +104,7 @@ class Navibar extends Component {
                     <span className = {usermenuStyle} onMouseEnter = {this.avatarEnter} onMouseLeave = {this.menuLeave}>
                         <Image className = {imageStyle} style = {this.state.avatarStyle}  avatar src = {this.state.avatar}/>
                         <div style = {menuStyle}>
-                            <UserMenu 
+                            <UserMenu currentUser = {this.state.currentUser}
                             loginHandler = {this.props.loginHandler}
                             signupHandler = {this.props.signupHandler}
                             logoutHandler = {this.props.logoutHandler}/>

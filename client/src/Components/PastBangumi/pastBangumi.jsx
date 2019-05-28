@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import {Label, Image} from 'semantic-ui-react';
 import Navibar from '../MainMenu/Navibar/navibar.jsx';
-import {pageContainer, textStyle, imageStyle} from '../HomePage/homepage.module.scss';
+import {pageContainer,textStyle, imageStyle} from '../AllBangumi/allBangumi.module.scss';
 import {bangumiSection, bangumiStyle, hoverPart, bangumiContainer, numberlistStyle, numberStyle} from './pastBangumi.module.scss';
 import loadingGif from '../loading.gif';
 
@@ -52,10 +52,10 @@ class PastBangumi extends Component {
         axios.get('api/bangumi/' + year + '/' + pastSeason)
         .then(response => {
             let animelist = response.data.data.bangumiList;
-            if (animelist.length > 30) {
+            if (animelist.length > 36) {
                 this.setState({
                     bangumi: animelist,
-                    currentBangumi: animelist.slice(0, 30),
+                    currentBangumi: animelist.slice(0, 36),
                     year: year,
                     month: pastMonth,
                 })
@@ -67,13 +67,13 @@ class PastBangumi extends Component {
                     month: pastMonth,
                 })
             }
-            if (animelist.length % 30) {
+            if (animelist.length % 36) {
                 this.setState({
-                    pageNumber: (animelist.length-animelist.length%30)/30 + 1
+                    pageNumber: (animelist.length-animelist.length%36)/36 + 1
                 })
             } else {
                 this.setState({
-                    pageNumber: animelist.length/30,
+                    pageNumber: animelist.length/36,
                 })
             }
         }).catch(err => {
@@ -98,7 +98,7 @@ class PastBangumi extends Component {
     }
 
     toPage(pageNumber) {
-        let currentBangumi = this.state.bangumi.slice((pageNumber-1)*30, pageNumber*30);
+        let currentBangumi = this.state.bangumi.slice((pageNumber-1)*36, pageNumber*36);
         this.setState({
             currentPage: pageNumber,
             currentBangumi: currentBangumi,
@@ -108,10 +108,10 @@ class PastBangumi extends Component {
     toPrevious() {
         let pageNumber = this.state.currentPage-1;
         let currentBangumi = [];
-        if (30*pageNumber <= this.state.bangumi.length) {
-            currentBangumi = this.state.bangumi.slice(30*(pageNumber-1), 30*pageNumber);
+        if (36*pageNumber <= this.state.bangumi.length) {
+            currentBangumi = this.state.bangumi.slice(36*(pageNumber-1), 36*pageNumber);
         } else {
-            currentBangumi = this.state.bangumi.slice(30*(pageNumber-1));
+            currentBangumi = this.state.bangumi.slice(36*(pageNumber-1));
         }
         this.setState({
             currentPage: pageNumber,
@@ -122,10 +122,10 @@ class PastBangumi extends Component {
     toNext() {
         let pageNumber = this.state.currentPage+1;
         let currentBangumi = [];
-        if (30*pageNumber <= this.state.bangumi.length) {
-            currentBangumi = this.state.bangumi.slice(30*(pageNumber-1), 30*(pageNumber));
+        if (36*pageNumber <= this.state.bangumi.length) {
+            currentBangumi = this.state.bangumi.slice(36*(pageNumber-1), 36*(pageNumber));
         } else {
-            currentBangumi = this.state.bangumi.slice(30*(pageNumber-1));
+            currentBangumi = this.state.bangumi.slice(36*(pageNumber-1));
         }
         this.setState({
             currentPage: pageNumber,
@@ -154,14 +154,15 @@ class PastBangumi extends Component {
             )
         }
         let labelStyle = {
-            'max-width': '200px',
-            'min-width': '200px',
+            'max-width': '170px',
+            'min-width': '170px',
             'height': 'auto',
             background: 'white',
         }
         let imgStyle = {
-            'max-width': '175px',
-            height: '250px',
+            'max-width': '150px',
+            'min-width': '150px',
+            height: '200px',
         }
         let previousStyle = {
             display: 'inline',
@@ -184,7 +185,7 @@ class PastBangumi extends Component {
         let currentList = currentBangumi.map(bangumi => {
             return(
                 <Label style = {labelStyle}>
-                    <Image className = {hoverPart} style = {imgStyle} src = {bangumi.image_url} />
+                    <Image className = {hoverPart} style = {imgStyle} src = {bangumi.image_url} rounded/>
                     <p className = {hoverPart}>{bangumi.title}</p>
                 </Label>
             )

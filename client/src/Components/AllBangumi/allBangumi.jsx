@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import MainMenu from '../MainMenu/mainMenu.jsx';
 import Navibar from '../MainMenu/Navibar/navibar.jsx';
-import {pageContainer,textStyle, imageStyle} from '../HomePage/homepage.module.scss';
+import {pageContainer,textStyle, imageStyle} from './allBangumi.module.scss';
 import {Label, Image, Button} from 'semantic-ui-react';
 import Select from 'react-select';
 import loadingGif from '../loading.gif';
@@ -69,10 +69,10 @@ class Bangumi extends Component {
         axios.get('api/bangumi/' + year + '/' + season)
         .then(response => {
             let animelist = response.data.data.bangumiList
-            if (animelist.length > 30) {
+            if (animelist.length > 36) {
                 this.setState({
                     bangumi: animelist,
-                    currentBangumi: animelist.slice(0, 30),
+                    currentBangumi: animelist.slice(0, 36),
                     displayYear: year,
                     month: month,
                 })
@@ -84,13 +84,13 @@ class Bangumi extends Component {
                     month: month,
                 })
             }
-            if (animelist.length % 30) {
+            if (animelist.length % 36) {
                 this.setState({
-                    pageNumber: (animelist.length-animelist.length%30)/30 + 1
+                    pageNumber: (animelist.length-animelist.length%36)/36 + 1
                 })
             } else {
                 this.setState({
-                    pageNumber: animelist.length/30,
+                    pageNumber: animelist.length/36,
                 })
             }
         }).catch(err => {
@@ -135,7 +135,7 @@ class Bangumi extends Component {
     }
 
     toPage(pageNumber) {
-        let currentBangumi = this.state.bangumi.slice((pageNumber-1)*30, pageNumber*30);
+        let currentBangumi = this.state.bangumi.slice((pageNumber-1)*36, pageNumber*36);
         this.setState({
             currentPage: pageNumber,
             currentBangumi: currentBangumi,
@@ -145,10 +145,10 @@ class Bangumi extends Component {
     toPrevious() {
         let pageNumber = this.state.currentPage-1;
         let currentBangumi = [];
-        if (30*pageNumber < this.state.bangumi.length) {
-            currentBangumi = this.state.bangumi.slice(30*(pageNumber-1), 30*pageNumber);
+        if (36*pageNumber < this.state.bangumi.length) {
+            currentBangumi = this.state.bangumi.slice(36*(pageNumber-1), 36*pageNumber);
         } else {
-            currentBangumi = this.state.bangumi.slice(30*(pageNumber-1));
+            currentBangumi = this.state.bangumi.slice(36*(pageNumber-1));
         }
         this.setState({
             currentPage: pageNumber,
@@ -159,10 +159,10 @@ class Bangumi extends Component {
     toNext() {
         let pageNumber = this.state.currentPage+1;
         let currentBangumi = [];
-        if (30*pageNumber < this.state.bangumi.length) {
-            currentBangumi = this.state.bangumi.slice(30*(pageNumber-1), 30*pageNumber);
+        if (36*pageNumber < this.state.bangumi.length) {
+            currentBangumi = this.state.bangumi.slice(36*(pageNumber-1), 36*pageNumber);
         } else {
-            currentBangumi = this.state.bangumi.slice(30*(pageNumber-1));
+            currentBangumi = this.state.bangumi.slice(36*(pageNumber-1));
         }
         this.setState({
             currentPage: pageNumber,
@@ -209,10 +209,10 @@ class Bangumi extends Component {
                 let animelist = response.data.anime.filter(anime => {
                     return !anime.r18&&!anime.kids;
                 })
-                if (animelist.length > 30) {
+                if (animelist.length > 36) {
                     this.setState({
                         bangumi: animelist,
-                        currentBangumi: animelist.slice(0, 30),
+                        currentBangumi: animelist.slice(0, 36),
                         displayYear: year,
                         month: month,
                         currentPage: 1,
@@ -228,13 +228,13 @@ class Bangumi extends Component {
                         selectSeason: {},
                     })
                 }
-                if (animelist.length % 30) {
+                if (animelist.length % 36) {
                     this.setState({
-                        pageNumber: (animelist.length-animelist.length%30)/30 + 1
+                        pageNumber: (animelist.length-animelist.length%36)/36 + 1
                     })
                 } else {
                     this.setState({
-                        pageNumber: animelist.length/30,
+                        pageNumber: animelist.length/36,
                     })
                 }
             }).catch(err => {
@@ -245,10 +245,10 @@ class Bangumi extends Component {
             axios.get('api/bangumi/' + year + '/' + season)
             .then(response => {
                 let animelist = response.data.data.bangumiList;
-                if (animelist.length > 30) {
+                if (animelist.length > 36) {
                     this.setState({
                         bangumi: animelist,
-                        currentBangumi: animelist.slice(0, 30),
+                        currentBangumi: animelist.slice(0, 36),
                         displayYear: year,
                         month: month,
                         currentPage: 1,
@@ -262,13 +262,13 @@ class Bangumi extends Component {
                         currentPage: 1,
                     })
                 }
-                if (animelist.length % 30) {
+                if (animelist.length % 36) {
                     this.setState({
-                        pageNumber: (animelist.length-animelist.length%30)/30 + 1
+                        pageNumber: (animelist.length-animelist.length%36)/36 + 1
                     })
                 } else {
                     this.setState({
-                        pageNumber: animelist.length/30,
+                        pageNumber: animelist.length/36,
                     })
                 }
             }).catch(err => {
@@ -298,14 +298,15 @@ class Bangumi extends Component {
             )
         }
         let labelStyle = {
-            'max-width': '200px',
-            'min-width': '200px',
+            'max-width': '170px',
+            'min-width': '170px',
             'height': 'auto',
             background: 'white',
         }
         let imgStyle = {
-            'max-width': '175px',
-            height: '250px',
+            'max-width': '150px',
+            'min-width': '150px',
+            height: '200px',
         }
         let previousStyle = {
             display: 'inline',
@@ -336,7 +337,7 @@ class Bangumi extends Component {
         let currentList = currentBangumi.map(bangumi => {
             return(
                 <Label style = {labelStyle}>
-                    <Image className = {hoverPart} style = {imgStyle} src = {bangumi.image_url} />
+                    <Image className = {hoverPart} style = {imgStyle} src = {bangumi.image_url} rounded/>
                     <p className = {hoverPart}>{bangumi.title}</p>
                 </Label>
             )
@@ -358,7 +359,7 @@ class Bangumi extends Component {
         })
         return(
             <div>
-                 <MainMenu
+                <MainMenu
                 toHomePage = {this.toHomePage}
                 loginHandler = {this.loginHandler}
                 signupHandler = {this.signupHandler}
@@ -369,7 +370,7 @@ class Bangumi extends Component {
                     <div className = {selectStyle}>
                         <Select className = {selectCss} placeholder="Select a Year" onChange = {this.yearHandler} options={this.state.yearOptions}/>
                         <Select placeholder='Select a Season' className = {selectCss} onChange = {this.seasonHandler} options={this.state.seasonOptions}/>
-                        <Button onClick = {this.submitHandler}>Search</Button>
+                        <Button onClick = {this.submitHandler}>Select</Button>
                     </div>
                     <div>
                         <div className = {bangumiSection}>

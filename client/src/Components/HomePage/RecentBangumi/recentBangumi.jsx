@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {Image, Label} from 'semantic-ui-react';
-import {pageContainer, textStyle, imageStyle} from '../homepage.module.scss';
+import {pageContainer, textStyle, imageStyle} from '../../AllBangumi/allBangumi.module.scss';
 import {bangumiSection, bangumiStyle, hoverPart, viewMoreStyle} from './recentBangumi.module.scss';
 import loadingGif from '../../loading.gif';
 
@@ -110,7 +110,7 @@ class RecentBangumi extends Component {
             }
         }
         //get current season anime
-        axios.get('api/bangumi/' + year + '/' + season)
+        axios.get('api/bangumi/' + year + '/' + season + '/limit')
         .then(response => {
             this.setState({
                 bangumi: response.data.data.bangumiList,
@@ -130,7 +130,7 @@ class RecentBangumi extends Component {
             })
         } else {
             // get previous season anime
-            axios.get('api/bangumi/' + pastYear + '/' + past)
+            axios.get('api/bangumi/' + pastYear + '/' + past + '/limit')
             .then(response => {
                 this.setState({
                     pastBangumi: response.data.data.bangumiList,
@@ -158,14 +158,15 @@ class RecentBangumi extends Component {
                 </div>
             )
         }
-        let imgStyle = {
-            'max-width': '175px',
-            height: 'auto',
-        }
         let labelStyle = {
-            'max-width': '200px',
+            'max-width': '170px',
+            'min-width': '170px',
             'height': 'auto',
             background: 'white',
+        }
+        let imgStyle = {
+            'max-width': '170px',
+            height: '200px',
         }
         let listItems = [];
         if (this.state.upcomingBangumi.length === 0) {
@@ -173,7 +174,7 @@ class RecentBangumi extends Component {
             listItems = pastBangumi.map(bangumi => {
                 return(
                     <Label style = {labelStyle}>
-                        <Image className = {hoverPart} style = {imgStyle} src = {bangumi.image_url} />
+                        <Image className = {hoverPart} style = {imgStyle} src = {bangumi.image_url} rounded/>
                         <p className = {hoverPart}>{bangumi.title}</p>
                     </Label>
                 )
@@ -184,7 +185,7 @@ class RecentBangumi extends Component {
                 listItems = upcomingBangumi.map(bangumi => {
                     return(
                         <Label style = {labelStyle}>
-                            <Image className = {hoverPart} style = {imgStyle} src = {bangumi.image_url} />
+                            <Image className = {hoverPart} style = {imgStyle} src = {bangumi.image_url} rounded/>
                             <p className = {hoverPart}>{bangumi.title}</p>
                         </Label>
                     )
@@ -198,7 +199,7 @@ class RecentBangumi extends Component {
         let currentList = bangumi.map(bangumi => {
             return(
                 <Label style = {labelStyle}>
-                    <Image className = {hoverPart} style = {imgStyle} src = {bangumi.image_url} />
+                    <Image className = {hoverPart} style = {imgStyle} src = {bangumi.image_url} rounded/>
                     <p className = {hoverPart}>{bangumi.title}</p>
                 </Label>
             )

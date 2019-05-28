@@ -5,14 +5,13 @@ const router = express.Router();
 
 //get all bangumis
 router.get('/', (req, res) => {
-    Bangumi.find({})
+    Bangumi.find()
     .then(bangumiList => {
         return res.status(200).json({message: 'Successfully find all bangumis', data: {bangumiList}});
     }).catch(err => {
         return res.status(500).json({message: err})
     })
 })
-
 
 router.get('/:year/:season', (req, res) => {
     let year = req.params.year;
@@ -26,6 +25,26 @@ router.get('/:year/:season', (req, res) => {
         })
     } else {
         Bangumi.find().where({year: year})
+        .then(bangumiList => {
+            return res.status(200).json({message: 'Succesfully find all bangumi of corresponding time', data: {bangumiList}});
+        }).catch(err => {
+            return res.status(500).json({message: err})
+        })
+    }
+})
+
+router.get('/:year/:season/limit', (req, res) => {
+    let year = req.params.year;
+    let season = req.params.season;
+    if (season !== 'allyear') {
+        Bangumi.find().where({year: year, season: season}).limit(18)
+        .then(bangumiList => {
+            return res.status(200).json({message: 'Succesfully find all bangumi of corresponding time', data: {bangumiList}});
+        }).catch(err => {
+            return res.status(500).json({message: err})
+        })
+    } else {
+        Bangumi.find().where({year: year}).limit(18)
         .then(bangumiList => {
             return res.status(200).json({message: 'Succesfully find all bangumi of corresponding time', data: {bangumiList}});
         }).catch(err => {

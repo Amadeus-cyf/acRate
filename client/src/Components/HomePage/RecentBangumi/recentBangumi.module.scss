@@ -7,12 +7,11 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    align-items: flex-start;
 }
 
 .hoverPart {
-    font-size: 11pt;
-    padding-top: 10px;
+    font-size: 10pt;
+    margin-top: 10px;
 }
 
 .hoverPart:hover {
@@ -20,7 +19,7 @@
 }
 
 .viewMoreStyle {
-    font-size: 12pt;
+    font-size: 11pt;
 }
 
 .viewMoreStyle:hover {

@@ -1,31 +1,10 @@
 import React, {Component} from 'react';
-import axios from 'axios';
 import {Label, Button} from 'semantic-ui-react';
 import {textStyle, clickStyle, listStyle} from './userMenu.module.scss';
 
 class UserMenu extends Component {
-    constructor() {
-        super();
-        this.state = {
-            currentUser: 'undefined',
-        }
-    }
-
-    componentDidMount() {
-        axios.get('api/auth/currentUser')
-        .then(res => {
-            if (res.data.message === 'success') {
-                this.setState({
-                    currentUser: res.data.data,
-                })
-            }
-        }).catch(err => {
-            alert(err);
-        })
-    }
-
     render() {
-        if (this.state.currentUser === 'undefined') {
+        if (this.props.currentUser === 'undefined') {
             let labelstyle = {
                 display: 'block',
                 position: 'absolute',
@@ -67,13 +46,13 @@ class UserMenu extends Component {
         }
         let buttonStyle = {
             'display': 'block',
-           'margin': '15px auto',
+            'margin': '15px auto',
         }
         return(
             <div>
                 <Label style = {labelStyle}>
-                    <p className = {textStyle}>{this.state.currentUser.username}</p>
-                    <p className = {textStyle}>{this.state.currentUser.email}</p>
+                    <p className = {textStyle}>{this.props.currentUser.username}</p>
+                    <p className = {textStyle}>{this.props.currentUser.email}</p>
                     <Button style = {buttonStyle} onClick = {this.props.logoutHandler}>Log Out</Button>
                     <Button style = {buttonStyle} onClick = {this.props.loginHandler}>Switch Account</Button>
                 </Label>
