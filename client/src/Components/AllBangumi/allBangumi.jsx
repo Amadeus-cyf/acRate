@@ -3,13 +3,13 @@ import axios from 'axios';
 import MainMenu from '../MainMenu/mainMenu.jsx';
 import Navibar from '../MainMenu/Navibar/navibar.jsx';
 import {pageContainer,textStyle, imageStyle} from './allBangumi.module.scss';
-import {Label, Image, Button} from 'semantic-ui-react';
+import {Label, Image, Button, Input, Form} from 'semantic-ui-react';
 import Select from 'react-select';
 import loadingGif from '../loading.gif';
 import {pageStyle, bangumiSection, bangumiStyle, 
     hoverPart, numberlistStyle, selectStyle, selectCss, numberStyle} from './allBangumi.module.scss';
 
-class Bangumi extends Component {
+class AllBangumi extends Component {
     constructor() {
         super();
         this.state = {
@@ -21,6 +21,7 @@ class Bangumi extends Component {
             month: '',                  // month to display
             pageNumber: 0,
             currentPage: 1,
+            inputPage: '',
             yearOptions: [],
             seasonOptions: [
                 {
@@ -53,6 +54,7 @@ class Bangumi extends Component {
         this.logoutHandler = this.logoutHandler.bind(this);
         this.toPrevious = this.toPrevious.bind(this);
         this.toNext = this.toNext.bind(this);
+        this.pageHandler = this.pageHandler.bind(this);
         this.yearHandler = this.yearHandler.bind(this);
         this.submitHandler = this.submitHandler.bind(this);
         this.seasonHandler = this.seasonHandler.bind(this);
@@ -75,7 +77,7 @@ class Bangumi extends Component {
         //get first page of default season anime
         axios.get('api/bangumi/' + this.state.displayYear + '/' + this.state.displaySeason + '/' + this.state.currentPage)
         .then(response => {
-            let animelist = response.data.data.bangumiList
+            let animelist = response.data.data.bangumiList;
             this.setState({
                 currentBangumi: animelist,
                 month: month,
@@ -124,6 +126,9 @@ class Bangumi extends Component {
     }
 
     toPage(pageNumber) {
+        if (pageNumber === '') {
+            return;
+        }
         let year = this.state.displayYear;
         let season = this.state.displaySeason;
         this.setState({
@@ -176,6 +181,18 @@ class Bangumi extends Component {
             })
         }).catch(err => {
             alert(err);
+        })
+    }
+
+    pageHandler(event) {
+        if (event.target.value > this.state.pageNumber) {
+            this.setState({
+                inputPage: '',
+            });
+            return;
+        }
+        this.setState({
+            inputPage: parseInt(event.target.value),
         })
     }
 
@@ -437,6 +454,9 @@ class Bangumi extends Component {
                                 <Button basic color = 'blue' style = {previousStyle} onClick = {this.toPrevious}>Prev</Button>
                                 {pageList}
                                 <Button basic color = 'blue' style = {nextStyle} onClick = {this.toNext}>Next</Button>
+                                <Form onSubmit = {this.toPage.bind(this, this.state.inputPage)}>
+                                    <Input placeholder = 'Enter page number'onChange = {this.pageHandler}></Input>
+                                </Form>
                             </div>
                         </div>
                     </div>
@@ -446,4 +466,4 @@ class Bangumi extends Component {
     }
 }
 
-export default Bangumi;
+export default AllBangumi;

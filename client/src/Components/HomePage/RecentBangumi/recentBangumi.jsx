@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import {Image, Label} from 'semantic-ui-react';
+import {Image, Label, Button} from 'semantic-ui-react';
 import {pageContainer, textStyle, imageStyle} from '../../AllBangumi/allBangumi.module.scss';
-import {bangumiSection, bangumiStyle, hoverPart, viewMoreStyle} from './recentBangumi.module.scss';
+import {bangumiSection, bangumiStyle, hoverPart} from './recentBangumi.module.scss';
 import loadingGif from '../../loading.gif';
 
 class RecentBangumi extends Component {
@@ -211,12 +211,12 @@ class RecentBangumi extends Component {
                     <div className = {bangumiStyle}>
                         {currentList}
                     </div>
-                    <span className = {viewMoreStyle} onClick = {this.props.currentViewMore}>View More</span>
+                    <Button size = 'tiny' color = 'blue' onClick = {this.props.currentViewMore}>View More</Button>
                    <h2>{this.state.pastYear}年{this.state.pastMonth}月番</h2>
                    <div className = {bangumiStyle}>
                         {listItems}
                    </div>
-                   <span className = {viewMoreStyle} onClick = {this.props.pastViewMore}>View More</span>
+                   <Button size = 'tiny' color = 'blue' onClick = {this.props.pastViewMore}>View More</Button>
                 </div>
             )
         } else {
@@ -226,12 +226,12 @@ class RecentBangumi extends Component {
                     <div className = {bangumiStyle}>
                         {currentList}
                     </div>
-                    <span className = {viewMoreStyle} onClick = {this.props.currentViewMore}>View More</span>
-                   <h2>{this.state.upcomingYear}年{this.state.upcomingMonth}月新番</h2>
-                   <div className = {bangumiStyle}>
+                    <Button size = 'tiny' color = 'blue' onClick = {this.props.currentViewMore}>View More</Button>
+                    <h2>{this.state.upcomingYear}年{this.state.upcomingMonth}月新番</h2>
+                    <div className = {bangumiStyle}>
                         {listItems}
-                   </div>
-                   <span className = {viewMoreStyle} onClick = {this.props.upcomingViewMore}>View More</span>
+                    </div>
+                    <Button size = 'tiny' color = 'blue' onClick = {this.props.upcomingViewMore}>View More</Button>
                 </div>
             )
         }
