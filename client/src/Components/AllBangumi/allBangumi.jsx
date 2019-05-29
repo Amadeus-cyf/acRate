@@ -65,7 +65,7 @@ class Bangumi extends Component {
         let month = 1;
         let date = new Date();
         let yearList = [];
-        for (let i = date.getFullYear(); i >= 2010; i--) {
+        for (let i = date.getFullYear(); i >= 2007; i--) {
             let currYear = {
                 label: i,
                 value: i,
@@ -344,7 +344,7 @@ class Bangumi extends Component {
                     <div className = {selectStyle}>
                         <Select className = {selectCss} placeholder="Select a Year" onChange = {this.yearHandler} options={this.state.yearOptions}/>
                         <Select placeholder='Select a Season' className = {selectCss} onChange = {this.seasonHandler} options={this.state.seasonOptions}/>
-                        <Button onClick = {this.submitHandler}>Select</Button>
+                        <Button onClick = {this.submitHandler} color = 'blue'>Select</Button>
                     </div>
                     <div>
                         <div className = {bangumiSection}>

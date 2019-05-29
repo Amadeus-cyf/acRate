@@ -142,7 +142,7 @@ class RecentBangumi extends Component {
     }
 
     render() {
-        if (this.state.bangumi.length === 0) {
+        if (this.state.bangumi.length === 0 || (this.state.upcomingBangumi.length === 0 && this.state.pastBangumi.length === 0)) {
             return (
                 <div>
                     <div>

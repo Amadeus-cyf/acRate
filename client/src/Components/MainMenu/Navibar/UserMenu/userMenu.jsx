@@ -21,14 +21,14 @@ class UserMenu extends Component {
             }
             return(
                 <Label style = {labelstyle}>
-                    <span className = {textStyle}> When you log in, you can:</span>
+                    <p className = {textStyle}> When you log in, you can:</p>
                     <ol> 
                         <li className = {listStyle}>Score bangumi and manga</li>
                         <li className = {listStyle}>Comments</li>
                         <li className = {listStyle}>Following others</li>
                         <li className = {listStyle}>Select avatar and background image</li>
                     </ol>
-                    <Button style = {buttonstyle} onClick = {this.props.loginHandler}>Log In</Button>
+                    <Button style = {buttonstyle} onClick = {this.props.loginHandler} color = 'blue'>Log In</Button>
                         <p className = {textStyle}>Does not have an account?</p>
                         <p className = {clickStyle} onClick = {this.props.signupHandler}>Click to sign up</p>
                 </Label>
@@ -53,8 +53,8 @@ class UserMenu extends Component {
                 <Label style = {labelStyle}>
                     <p className = {textStyle}>{this.props.currentUser.username}</p>
                     <p className = {textStyle}>{this.props.currentUser.email}</p>
-                    <Button style = {buttonStyle} onClick = {this.props.logoutHandler}>Log Out</Button>
-                    <Button style = {buttonStyle} onClick = {this.props.loginHandler}>Switch Account</Button>
+                    <Button style = {buttonStyle} onClick = {this.props.logoutHandler} color = 'blue'>Log Out</Button>
+                    <Button style = {buttonStyle} onClick = {this.props.loginHandler} color = 'blue'>Switch Account</Button>
                 </Label>
             </div>
         )

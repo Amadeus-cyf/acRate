@@ -154,8 +154,8 @@ class Signup extends Component {
                             <Input size = 'big' name = "confirm password" value = {this.state.confirmPassword}
                             onChange = {this.confirmHandler} type = 'password' placeholder = 'enter password again'/>
                         </Form.Field>
-                        <Button disabled={isvalid} type = 'submit' style = {buttonStyle}>Create Account</Button>
-                        <Button style = {buttonStyle} onClick = {this.cancelHandler}>Cancel</Button>
+                        <Button type = 'submit' style = {buttonStyle} disabled={isvalid} color = 'blue'>Create Account</Button>
+                        <Button style = {buttonStyle} onClick = {this.cancelHandler} color = 'blue'>Cancel</Button>
                     </Form>
                 </div>
             </div>

@@ -69,7 +69,7 @@ class HomePage extends Component {
                     pastViewMore = {this.pastViewMore} 
                     upcomingViewMore = {this.upcomingViewMore}/>
                     <div className = {footer}>
-                        <h3>Aniscore</h3>
+                        <h2>Aniscore</h2>
                     </div>
                 </div>
             </div>

@@ -8,10 +8,9 @@
     position: absolute;
     z-index: 2;
     font-size: 15pt;
-    display: inline;
     float: right;
     margin: 1% 2% 1% 0%;
-    transition: transform 0.5s;
+    transition: transform 0.4s;
 }
 
 .imageStyle:hover{
@@ -20,6 +19,6 @@
 
 .usermenuStyle:hover{
     .imageStyle {
-        transform: scale(2, 2) translateY(45%);
+        transform: scale(1.8, 1.8) translateY(50%);
     }
 }

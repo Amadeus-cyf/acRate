@@ -106,8 +106,8 @@ class Login extends Component {
                             <Input size = 'big' name = "password" value = {this.state.password}
                             onChange = {this.passwordHandler} type = 'password' placeholder = 'password'/>
                         </Form.Field>
-                        <Button disabled={isvalid} type = 'submit' style= {buttonStyle}>Log in</Button>
-                        <Button onClick = {this.signupHandler} style = {buttonStyle}>Sign up</Button>
+                        <Button type = 'submit' style= {buttonStyle} disabled={isvalid} color = 'blue'>Log in</Button>
+                        <Button onClick = {this.signupHandler} style = {buttonStyle} color = 'blue'>Sign up</Button>
                     </Form>
                 </div>
             </div>
