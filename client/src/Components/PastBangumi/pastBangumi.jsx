@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import {Label, Image} from 'semantic-ui-react';
+import {Label, Image, Button} from 'semantic-ui-react';
 import Navibar from '../MainMenu/Navibar/navibar.jsx';
 import {pageContainer,textStyle, imageStyle} from '../AllBangumi/allBangumi.module.scss';
-import {bangumiSection, bangumiStyle, hoverPart, bangumiContainer, numberlistStyle, numberStyle} from './pastBangumi.module.scss';
+import {bangumiSection, bangumiStyle, hoverPart,
+     bangumiContainer, numberlistStyle} from './pastBangumi.module.scss';
 import loadingGif from '../loading.gif';
 
 class PastBangumi extends Component {
@@ -15,9 +16,6 @@ class PastBangumi extends Component {
             month: '',
             pageNumber: 0,
             currentPage: 1,
-            currentPageStyle: {
-                color: 'blue',
-            },
             pastSeason: '',
         }
         this.toHomePage = this.toHomePage.bind(this);
@@ -215,11 +213,13 @@ class PastBangumi extends Component {
         let pageList = pageArr.map(page => {
             if (page === this.state.currentPage) {
                 return(
-                    <span className = {numberStyle} onClick = {this.toPage.bind(this, page)} style = {this.state.currentPageStyle}>{page}</span>
+                    <Button onClick = {this.toPage.bind(this, page)} size = 'small' 
+                    color = 'blue'>{page}</Button>
                 )
             }
             return(
-                <span className = {numberStyle} onClick = {this.toPage.bind(this, page)}>{page}</span>
+                <Button onClick = {this.toPage.bind(this, page)}
+                size = 'small' basic color = 'blue'>{page}</Button>
             )
         })
         return(
@@ -236,10 +236,12 @@ class PastBangumi extends Component {
                             {currentList}
                         </div>
                         <div className = {numberlistStyle} >
-                            <p>Page</p>
-                            <p className = {numberStyle} style = {previousStyle} onClick = {this.toPrevious}>Prev</p>
+                            <Button color = 'blue' onClick = {this.toPage.bind(this, 1)}>Page</Button>
+                            <Button basic color = 'blue' style = {previousStyle} 
+                            onClick = {this.toPrevious}>Prev</Button>
                             {pageList}
-                            <p className = {numberStyle} style = {nextStyle} onClick = {this.toNext}>Next</p>
+                            <Button basic color = 'blue' style = {nextStyle} 
+                            onClick = {this.toNext}>Next</Button>
                         </div>
                     </div>
                 </div>

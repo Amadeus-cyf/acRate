@@ -33,17 +33,19 @@
 }
 
 .numberlistStyle {
-    font-size: 12pt;
-    font-family: 'PT Sans Caption', sans-serif;
-    padding: 2% 10% 0% 10%;
+    padding-top: 3%;
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.numberStyle {
+    font-size: 14pt;
 }
 
 .numberStyle:hover {
     cursor: pointer;
     color: blue;
-    text-decoration: underline;
 }
 
 .pageContainer {
