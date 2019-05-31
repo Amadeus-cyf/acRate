@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 const BangumiScore = require('../models/bangumiScoreSchema');
 const router = express.Router();
+var Promise = require('bluebird');
 
 // get the score info of an anime by anime_id
 router.get('/:anime_id', (req, res) => {
@@ -20,19 +21,19 @@ router.get('/:anime_id', (req, res) => {
 router.post('/', (req, res) => {
     let bangumiScore = new BangumiScore(req.body);
     let anime_id = req.body.anime_id;
-    BangumiScore.find({anime_id: anime_id}).exec()
-    .then(bangumiScore => {
-        if (bangumiScore.length > 0) {
-            return res.json({message: 'Bangumi already exists', data: {bangumiScore}});
+    BangumiScore.findOne({anime_id: anime_id}, (err, resultBangumiScore) => {
+        if (err) {
+            return res.json({message: err});
         }
-    }).catch(err => {
-        return res.status(500).json({message: err});
-    })
-    bangumiScore.save()
-    .then(() => {
-        return res.status(201).json({message: 'Succuesfully created the bangumiScore', data: {bangumiScore}})
-    }).catch(err => {
-        return res.status(500).json({message: err});
+        if (resultBangumiScore) {
+            return res.json({message: 'Bangumi already exists'});
+        }
+        bangumiScore.save()
+        .then(() => {
+            return res.status(201).json({message: 'Succuesfully created the bangumiScore', data: {bangumiScore}})
+        }).catch(err => {
+            return res.status(500).json({message: err});
+        })
     })
 })
 

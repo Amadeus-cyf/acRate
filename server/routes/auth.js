@@ -52,30 +52,26 @@ router.post('/signup', (req, res) => {
     let username = req.body.username;
     let email = req.body.email;
     //check if the username and email are unique and send message. unique validator is used to prevent data sent to database.
-    User.findOne({'username': username}).exec()
-    .then(user => {
-        if (user) {
-            return res.json({message: 'Username already exists', data:{}});
+    User.findOne({$or : [{username: username}, {email: email}]}, (err, resultUser) => {
+        if (err) {
+            return res.status(500).json({message: err});
         }
-    }).catch(err => {
-        res.status(500).send(err);
-    })
-    User.findOne({'email': email})
-    .then(user => {
-        if (user) {
-            return res.json({message: 'Email already exists', data:{}});
+        if (resultUser) {
+            if (resultUser.username === username) {
+                return res.json({message: 'Username already exists'});
+            } else if (resultUser.email === email) {
+                return res.json({message: 'Email already exists'});
+            }
         }
-    }).catch(err => {
-        res.status(500).send(err);
-    })
-    user.username = req.body.username;
-    user.email = req.body.email;
-    user.setPassword(req.body.password);
-    user.save()
-    .then(() => {
-        return res.status(200).json({message:'Account created', data:{user}});
-    }).catch(err => {
-        return res.status(500).json({message: "Error: creating a new user " + err});
+        user.username = req.body.username;
+        user.email = req.body.email;
+        user.setPassword(req.body.password);
+        user.save()
+        .then(() => {
+            return res.status(201).json({message:'Account created', data:{user}});
+        }).catch(err => {
+            return res.status(500).json({message: "Error: creating a new user " + err});
+        })
     })
 })
 

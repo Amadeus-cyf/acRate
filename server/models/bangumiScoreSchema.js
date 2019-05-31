@@ -4,7 +4,6 @@ var BangumiScoreSchema = new mongoose.Schema({
     anime_id: {
         type: String,
         unique: true,
-        dropDups: true,
         required: true,
     }, 
     animeScores: {

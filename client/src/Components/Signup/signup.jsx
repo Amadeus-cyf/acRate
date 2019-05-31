@@ -1,17 +1,53 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import Navibar from '../MainMenu/Navibar/navibar.jsx';
-import {Button, Form, Input} from 'semantic-ui-react';
+import {Button, Form} from 'semantic-ui-react';
 import {container, title, subtitle, imageStyle} from './signup.module.scss';
 
 class Signup extends Component {
      constructor() {
          super();
          this.state = {
-             username: '',
-             email: '',
-             password: '',
-             confirmPassword: '',
+            username: '',
+            email: '',
+            password: '',
+            confirmPassword: '',
+            messageDisplay: 'none',
+            emailExistError: 'none',
+            emailInvalidError: 'none',
+            usernameExistsError: 'none',
+            passwordInvalidError: 'none',
+            passwordSameError: 'none',
+            usernameStyle: {
+                'font-family': "'PT Sans Caption', sans-serif",
+                'font-size': '12pt',
+                'color': 'red',
+                display: 'none',
+            },
+            emailExistStyle: {
+                'font-family': "'PT Sans Caption', sans-serif",
+                'font-size': '12pt',
+                'color': 'red',
+                display: 'none',
+            },
+            emailInvalidStyle: {
+                'font-family': "'PT Sans Caption', sans-serif",
+                'font-size': '12pt',
+                'color': 'red',
+                display: 'none',
+            },
+            passwordInvalidStyle: {
+                'font-family': "'PT Sans Caption', sans-serif",
+                'font-size': '12pt',
+                'color': 'red',
+                display: 'none',
+            },
+            passwordSameStyle: {
+                'font-family': "'PT Sans Caption', sans-serif",
+                'font-size': '12pt',
+                'color': 'red',
+                display: 'none',
+            }
          }
          this.toHomePage = this.toHomePage.bind(this);
          this.loginHandler = this.loginHandler.bind(this);
@@ -44,38 +80,97 @@ class Signup extends Component {
      usernameHandler(event) {
          this.setState({
             username: event.target.value,
+            usernameStyle: {
+                'font-family': "'PT Sans Caption', sans-serif",
+                'font-size': '12pt',
+                'color': 'red',
+                display: 'none',
+            },
+            usernameExistsError: 'none',
          })
      }
 
      emailHandler(event) {
         this.setState({
-           email: event.target.value,
+            email: event.target.value,
+            emailExistStyle: {
+                'font-family': "'PT Sans Caption', sans-serif",
+                'font-size': '12pt',
+                'color': 'red',
+                display: 'none',
+            },
+            emailInvalidStyle: {
+                'font-family': "'PT Sans Caption', sans-serif",
+                'font-size': '12pt',
+                'color': 'red',
+                display: 'none',
+            },
+            emailExistError: 'none',
+            emailInvalidError: 'none',
         })
     }
 
     passwordHandler(event) {
         this.setState({
             password: event.target.value,
+            passwordInvalidStyle: {
+                'font-family': "'PT Sans Caption', sans-serif",
+                'font-size': '12pt',
+                'color': 'red',
+                display: 'none',
+            },
+            passwordInvalidError: 'none',
         })
     }
 
     confirmHandler(event) {
         this.setState({
             confirmPassword: event.target.value,
+            passwordSameStyle: {
+                'font-family': "'PT Sans Caption', sans-serif",
+                'font-size': '12pt',
+                'color': 'red',
+                display: 'none',
+            },
+            passwordSameError: 'none',
         })
     }
 
     submitHandler() {
         if (!this.state.email.includes('@')) {
-            alert('Invalid email address');
+            this.setState({
+                emailInvalidError: 'error',
+                emailInvalidStyle: {
+                    'font-family': "'PT Sans Caption', sans-serif",
+                    'font-size': '12pt',
+                    'color': 'red',
+                    display: 'block',
+                }
+            })
             return;
         }
         if (this.state.password.length < 8) {
-            alert('Password must be at least 8 characters');
+            this.setState({
+                passwordInvalidError: 'error',
+                passwordInvalidStyle: {
+                    'font-family': "'PT Sans Caption', sans-serif",
+                    'font-size': '12pt',
+                    'color': 'red',
+                    display: 'block',
+                }
+            })
             return;
         }
         if (this.state.password !== this.state.confirmPassword) {
-            alert('Password is not the same');
+            this.setState({
+                passwordSameError: 'error',
+                passwordSameStyle: {
+                    'font-family': "'PT Sans Caption', sans-serif",
+                    'font-size': '12pt',
+                    'color': 'red',
+                    display: 'block',
+                }
+            })
             return;
         }
         axios('api/auth/signup', {
@@ -90,9 +185,25 @@ class Signup extends Component {
             }
         }).then(response => {
             if (response.data.message === 'Username already exists') {
-                alert('Username already exists');
+                this.setState({
+                    usernameExistsError: 'error',
+                    usernameStyle: {
+                        'font-family': "'PT Sans Caption', sans-serif",
+                        'font-size': '12pt',
+                        'color': 'red',
+                        display: 'block',
+                    }
+                })
             } else if (response.data.message === 'Email already exists') {
-                alert('Email already exists');
+                this.setState({
+                    emailExistError: 'error',
+                    emailExistStyle: {
+                        'font-family': "'PT Sans Caption', sans-serif",
+                        'font-size': '12pt',
+                        'color': 'red',
+                        display: 'block',
+                    }
+                })
             } else {
                 alert('Account created');
                 this.props.history.push('/login');
@@ -119,7 +230,8 @@ class Signup extends Component {
             'font-size': '13pt',
             margin: '20px 25px 20px 25px',
         }
-        let isvalid = (this.state.username === '' || this.state.email === '' || this.state.password === '' || this.state.confirmPassword === '');
+        let isvalid = (this.state.username === '' || this.state.email === '' 
+        || this.state.password === '' || this.state.confirmPassword === '');
         return(
             <div>
                 <Navibar
@@ -136,23 +248,32 @@ class Signup extends Component {
                             <div className = {subtitle}>
                                 Username
                             </div>
-                            <Input size = 'big' name = 'username' value = {this.state.username}
-                                onChange = {this.usernameHandler} type = 'text' placeholder = 'please enter your username'/>
+                            <p style = {this.state.usernameStyle}>Username already exists</p>
+                            <Form.Input size = 'big' name = 'username' value = {this.state.username}
+                                onChange = {this.usernameHandler} type = 'text' placeholder = 'please enter your username'
+                                error = {this.state.usernameExistsError === 'error'}/>
                             <div className = {subtitle}>
                                 Email
                             </div>
-                                <Input size = 'big' name = 'email' value = {this.state.email}
-                                onChange = {this.emailHandler} type = 'text' placeholder = 'please enter your email address'/>
+                                <p style = {this.state.emailExistStyle}>Email address already exists</p>
+                                <p style = {this.state.emailInvalidStyle}>Invalid email address</p>
+                                <Form.Input size = 'big' name = 'email' value = {this.state.email}
+                                onChange = {this.emailHandler} type = 'text' placeholder = 'please enter your email address'
+                                error = {this.state.emailExistError === 'error' || this.state.emailInvalidError === 'error'}/>
                             <div className = {subtitle}>
                                 Password
                             </div>
-                            <Input size = 'big' name = "password" value = {this.state.password}
-                            onChange = {this.passwordHandler} type = 'password' placeholder = 'password must be at least 8 characters'/>
+                            <p style = {this.state.passwordInvalidStyle}>Password must have at least 8 characters</p>
+                            <Form.Input size = 'big' name = "password" value = {this.state.password}
+                            onChange = {this.passwordHandler} type = 'password' placeholder = 'password must be at least 8 characters'
+                            error = {this.state.passwordInvalidError === 'error'}/>
                             <div className = {subtitle}>
                                 Confirm your Password
                             </div>
-                            <Input size = 'big' name = "confirm password" value = {this.state.confirmPassword}
-                            onChange = {this.confirmHandler} type = 'password' placeholder = 'enter password again'/>
+                            <p style = {this.state.passwordSameStyle}>Passwords are not the same</p>
+                            <Form.Input size = 'big' name = "confirm password" value = {this.state.confirmPassword}
+                            onChange = {this.confirmHandler} type = 'password' placeholder = 'enter password again'
+                            error = {this.state.passwordSameError === 'error'}/>
                         </Form.Field>
                         <Button type = 'submit' style = {buttonStyle} disabled={isvalid} color = 'blue'>Create Account</Button>
                         <Button style = {buttonStyle} onClick = {this.cancelHandler} color = 'blue'>Cancel</Button>

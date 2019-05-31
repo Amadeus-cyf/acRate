@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const crypto = require('crypto');
-const uniqueValidator = require('mongoose-unique-validator');
 
 var UserSchema = new mongoose.Schema({
     username: {
@@ -51,7 +50,5 @@ UserSchema.methods.validPassword = function(password) {
     let hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
     return hash === this.hash;
 }
-
-UserSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model('User', UserSchema);
