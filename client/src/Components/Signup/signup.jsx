@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import Navibar from '../MainMenu/Navibar/navibar.jsx';
 import {Button, Form} from 'semantic-ui-react';
-import {container, title, subtitle, imageStyle} from './signup.module.scss';
+import {container, title, subtitle, imageStyle, textStyle} from './signup.module.scss';
 
 class Signup extends Component {
      constructor() {
@@ -19,33 +19,18 @@ class Signup extends Component {
             passwordInvalidError: 'none',
             passwordSameError: 'none',
             usernameStyle: {
-                'font-family': "'PT Sans Caption', sans-serif",
-                'font-size': '12pt',
-                'color': 'red',
                 display: 'none',
             },
             emailExistStyle: {
-                'font-family': "'PT Sans Caption', sans-serif",
-                'font-size': '12pt',
-                'color': 'red',
                 display: 'none',
             },
             emailInvalidStyle: {
-                'font-family': "'PT Sans Caption', sans-serif",
-                'font-size': '12pt',
-                'color': 'red',
                 display: 'none',
             },
             passwordInvalidStyle: {
-                'font-family': "'PT Sans Caption', sans-serif",
-                'font-size': '12pt',
-                'color': 'red',
                 display: 'none',
             },
             passwordSameStyle: {
-                'font-family': "'PT Sans Caption', sans-serif",
-                'font-size': '12pt',
-                'color': 'red',
                 display: 'none',
             }
          }
@@ -81,9 +66,6 @@ class Signup extends Component {
          this.setState({
             username: event.target.value,
             usernameStyle: {
-                'font-family': "'PT Sans Caption', sans-serif",
-                'font-size': '12pt',
-                'color': 'red',
                 display: 'none',
             },
             usernameExistsError: 'none',
@@ -94,15 +76,9 @@ class Signup extends Component {
         this.setState({
             email: event.target.value,
             emailExistStyle: {
-                'font-family': "'PT Sans Caption', sans-serif",
-                'font-size': '12pt',
-                'color': 'red',
                 display: 'none',
             },
             emailInvalidStyle: {
-                'font-family': "'PT Sans Caption', sans-serif",
-                'font-size': '12pt',
-                'color': 'red',
                 display: 'none',
             },
             emailExistError: 'none',
@@ -114,9 +90,6 @@ class Signup extends Component {
         this.setState({
             password: event.target.value,
             passwordInvalidStyle: {
-                'font-family': "'PT Sans Caption', sans-serif",
-                'font-size': '12pt',
-                'color': 'red',
                 display: 'none',
             },
             passwordInvalidError: 'none',
@@ -127,9 +100,6 @@ class Signup extends Component {
         this.setState({
             confirmPassword: event.target.value,
             passwordSameStyle: {
-                'font-family': "'PT Sans Caption', sans-serif",
-                'font-size': '12pt',
-                'color': 'red',
                 display: 'none',
             },
             passwordSameError: 'none',
@@ -141,9 +111,6 @@ class Signup extends Component {
             this.setState({
                 emailInvalidError: 'error',
                 emailInvalidStyle: {
-                    'font-family': "'PT Sans Caption', sans-serif",
-                    'font-size': '12pt',
-                    'color': 'red',
                     display: 'block',
                 }
             })
@@ -153,9 +120,6 @@ class Signup extends Component {
             this.setState({
                 passwordInvalidError: 'error',
                 passwordInvalidStyle: {
-                    'font-family': "'PT Sans Caption', sans-serif",
-                    'font-size': '12pt',
-                    'color': 'red',
                     display: 'block',
                 }
             })
@@ -165,9 +129,6 @@ class Signup extends Component {
             this.setState({
                 passwordSameError: 'error',
                 passwordSameStyle: {
-                    'font-family': "'PT Sans Caption', sans-serif",
-                    'font-size': '12pt',
-                    'color': 'red',
                     display: 'block',
                 }
             })
@@ -188,9 +149,6 @@ class Signup extends Component {
                 this.setState({
                     usernameExistsError: 'error',
                     usernameStyle: {
-                        'font-family': "'PT Sans Caption', sans-serif",
-                        'font-size': '12pt',
-                        'color': 'red',
                         display: 'block',
                     }
                 })
@@ -198,9 +156,6 @@ class Signup extends Component {
                 this.setState({
                     emailExistError: 'error',
                     emailExistStyle: {
-                        'font-family': "'PT Sans Caption', sans-serif",
-                        'font-size': '12pt',
-                        'color': 'red',
                         display: 'block',
                     }
                 })
@@ -248,29 +203,29 @@ class Signup extends Component {
                             <div className = {subtitle}>
                                 Username
                             </div>
-                            <p style = {this.state.usernameStyle}>Username already exists</p>
+                            <p style = {this.state.usernameStyle} className = {textStyle}>Username already exists</p>
                             <Form.Input size = 'big' name = 'username' value = {this.state.username}
                                 onChange = {this.usernameHandler} type = 'text' placeholder = 'please enter your username'
                                 error = {this.state.usernameExistsError === 'error'}/>
                             <div className = {subtitle}>
                                 Email
                             </div>
-                                <p style = {this.state.emailExistStyle}>Email address already exists</p>
-                                <p style = {this.state.emailInvalidStyle}>Invalid email address</p>
-                                <Form.Input size = 'big' name = 'email' value = {this.state.email}
-                                onChange = {this.emailHandler} type = 'text' placeholder = 'please enter your email address'
-                                error = {this.state.emailExistError === 'error' || this.state.emailInvalidError === 'error'}/>
+                            <p style = {this.state.emailExistStyle} className = {textStyle}>Email address already exists</p>
+                            <p style = {this.state.emailInvalidStyle} className = {textStyle}>Invalid email address</p>
+                            <Form.Input size = 'big' name = 'email' value = {this.state.email}
+                            onChange = {this.emailHandler} type = 'text' placeholder = 'please enter your email address'
+                            error = {this.state.emailExistError === 'error' || this.state.emailInvalidError === 'error'}/>
                             <div className = {subtitle}>
                                 Password
                             </div>
-                            <p style = {this.state.passwordInvalidStyle}>Password must have at least 8 characters</p>
+                            <p style = {this.state.passwordInvalidStyle} className = {textStyle}>Password must have at least 8 characters</p>
                             <Form.Input size = 'big' name = "password" value = {this.state.password}
                             onChange = {this.passwordHandler} type = 'password' placeholder = 'password must be at least 8 characters'
                             error = {this.state.passwordInvalidError === 'error'}/>
                             <div className = {subtitle}>
                                 Confirm your Password
                             </div>
-                            <p style = {this.state.passwordSameStyle}>Passwords are not the same</p>
+                            <p style = {this.state.passwordSameStyle} className = {textStyle}>Passwords are not the same</p>
                             <Form.Input size = 'big' name = "confirm password" value = {this.state.confirmPassword}
                             onChange = {this.confirmHandler} type = 'password' placeholder = 'enter password again'
                             error = {this.state.passwordSameError === 'error'}/>

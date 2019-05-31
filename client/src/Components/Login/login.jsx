@@ -65,7 +65,6 @@ class Login extends Component {
             if (response.data.status === 'Successfully Login') {
                 this.props.history.push('/');
             } else if (response.data.status === 'Could not find user') {
-                //alert('Incorrect username or password')
                 this.setState({
                     password: '',
                     message: 'error',
