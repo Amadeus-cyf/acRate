@@ -9,7 +9,6 @@ var express = require('express'),
     cookieParser = require('cookie-parser');
 
 var app = express();
-//solve cross domain issue
 var allowCrossDomain =  function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, authorization");
@@ -31,6 +30,10 @@ app.use(flash());
 
 require('./models/userSchema');
 require('./models/bangumiSchema');
+require('./models/bangumiScoreSchema');
+require('./models/commentSchema');
+require('./models/replySchema');
+
 app.use(session({
     secret: 'secret',
     saveUninitialized: true,

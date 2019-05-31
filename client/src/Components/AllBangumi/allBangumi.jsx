@@ -185,7 +185,7 @@ class AllBangumi extends Component {
     }
 
     pageHandler(event) {
-        if (event.target.value > this.state.pageNumber) {
+        if (event.target.value > this.state.pageNumber || event.target.value < 1) {
             this.setState({
                 inputPage: '',
             });
