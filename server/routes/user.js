@@ -5,7 +5,7 @@ const router = express.Router();
 
 //get all users
 router.get('/', (req, res) => {
-    User.find({}).exec()
+    User.find().exec()
     .then((users) => {
         res.status(200).json({message: 'Successfully find all users', data: {users}});
     }).catch(err => {

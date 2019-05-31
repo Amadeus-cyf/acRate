@@ -185,6 +185,14 @@ class AllBangumi extends Component {
     }
 
     pageHandler(event) {
+        for (let i = 0; i < event.target.value.length; i++) {
+            if (isNaN(parseInt(event.target.value[i]))) {
+                this.setState({
+                    inputPage: '',
+                });
+                return;
+            }
+        }
         if (event.target.value > this.state.pageNumber || event.target.value < 1) {
             this.setState({
                 inputPage: '',

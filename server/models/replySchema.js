@@ -13,6 +13,12 @@ var ReplySchema = new mongoose.Schema({
         type: String,
         default: '',
     }, 
+    // content of comment
+    repliedContent: {
+        type: String,
+        required: true,
+        default: '',
+    },
     // the username who replies the comment
     username: {
         type: String,

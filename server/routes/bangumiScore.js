@@ -5,10 +5,10 @@ const router = express.Router();
 
 // get the score info of an anime by anime_id
 router.get('/:anime_id', (req, res) => {
-    BangumiScore.find({anime_id: req.params.anime_id})
+    BangumiScore.find({anime_id: req.params.anime_id}).exec()
     .then(bangumiScore => {
         if (bangumiScore.length === 0) {
-            return res.status(404).json({message: 'Could not find the bangumi', data:{}});
+            return res.status(404).json({message: 'Bangumi not found', data:{}});
         }
         return res.status(200).json({message: 'Successfully find the score of bangumi', data: {bangumiScore}});
     }).catch(err => {
@@ -20,7 +20,7 @@ router.get('/:anime_id', (req, res) => {
 router.post('/', (req, res) => {
     let bangumiScore = new BangumiScore(req.body);
     let anime_id = req.body.anime_id;
-    BangumiScore.find({anime_id: anime_id})
+    BangumiScore.find({anime_id: anime_id}).exec()
     .then(bangumiScore => {
         if (bangumiScore.length > 0) {
             return res.json({message: 'Bangumi already exists', data: {bangumiScore}});
@@ -38,10 +38,10 @@ router.post('/', (req, res) => {
 
 //delete by id
 router.delete('/:id', (req, res) => {
-    BangumiScore.findByIdAndRemove(req.params.id)
+    BangumiScore.findByIdAndRemove(req.params.id).exec()
     .then(bangumiScore => {
         if (!bangumiScore) {
-            return res.status(404).json({message: 'Could not find the bangumi', data: {}});
+            return res.status(404).json({message: 'Bangumi not found', data: {}});
         }
         return res.status(200).json({message: 'Successfully delete all score info of the bangumi', data: {bangumiScore}})
     }).catch(err => {

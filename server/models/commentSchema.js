@@ -27,7 +27,6 @@ var CommentSchema = new mongoose.Schema({
     // date comments
     date: {
         type: Date,
-        required: true,
         default: new Date(),
     },
     like: {
