@@ -51,7 +51,7 @@ router.post('/signup', (req, res) => {
     }
     let username = req.body.username;
     let email = req.body.email;
-    //check if the username and email are unique and send message. unique validator is used to prevent data sent to database.
+    //check if the username and email are unique
     User.findOne({$or : [{username: username}, {email: email}]}, (err, resultUser) => {
         if (err) {
             return res.status(500).json({message: err});
