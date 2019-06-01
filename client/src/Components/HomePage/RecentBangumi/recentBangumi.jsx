@@ -27,12 +27,13 @@ class RecentBangumi extends Component {
         let pastYear = year;
         let upcomingYear = year;
         let month = date.getMonth() + 1;
+        let day = date.getDate()
         let season = 'winter';
         let past = '';
         let upcoming = '';
         if (month >= 1 && month < 4) {
             season = 'winter';
-            if (month < 3) {
+            if (month <= 3 || day <= 24) {
                 past = 'fall';
                 pastYear -= 1;
                 this.setState({
@@ -52,7 +53,7 @@ class RecentBangumi extends Component {
             }
         } else if (month >= 4 && month < 7) {
             season = 'spring';
-            if (month < 6) {
+            if (month < 6 || day <= 24) {
                 past = 'winter';
                 this.setState({
                     year: year,
@@ -71,7 +72,7 @@ class RecentBangumi extends Component {
             }
         } else if (month >= 7 && month < 10) {
             season = 'summer';
-           if (month < 9) {
+           if (month < 9 || day <= 24) {
                 past = 'spring';
                 this.setState({
                     year: year,
@@ -90,7 +91,7 @@ class RecentBangumi extends Component {
             }
         } else if (month >= 10) {
             season = 'fall';
-            if (month < 12) {
+            if (month < 12 || day <= 24) {
                 past = 'summer';
                 this.setState({
                     year: year,
@@ -123,7 +124,7 @@ class RecentBangumi extends Component {
             axios.get('https://api.jikan.moe/v3/season/' + upcomingYear + '/' + upcoming)
             .then(response => {
                 this.setState({
-                    upcomingBangumi: response.data.data.bangumiList,
+                    upcomingBangumi: response.data.anime,
                 })
             }).catch(err => {
                 alert(err);

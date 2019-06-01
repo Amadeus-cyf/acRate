@@ -1,14 +1,13 @@
 import json
 import requests
 import pandas as pd
-import numpy as np
 import bs4
 
 def getAnime(year, season):
     headers = {
         'Content-Type': 'application/json',
     }
-    api_url = ' https://api.jikan.moe/v3/season/' + year + '/' + season
+    api_url = 'https://api.jikan.moe/v3/season/' + year + '/' + season
     response = requests.get(api_url, headers = headers)
     if response.status_code == 200:
         content = json.loads(response.content.decode('utf-8'))
@@ -64,7 +63,7 @@ def main():
     #2009 winter, fall, summer, spring
     #2008 winter, fall, summer, spring
     #2007 winter, fall，summer, spring
-    postAnime('2007', 'spring')
+    postAnime('2019', 'spring')
 
 if __name__ == '__main__':
     main()

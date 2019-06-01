@@ -2,7 +2,16 @@ const mongoose = require('mongoose');
 const express = require('express');
 const BangumiScore = require('../models/bangumiScoreSchema');
 const router = express.Router();
-var Promise = require('bluebird');
+
+// get all bangumi and corresponding score
+router.get('/', (req, res) => {
+    BangumiScore.find().exec()
+    .then(bangumiScores => {
+        return res.status(200).json({message: 'Successfully find all scores', data: {bangumiScores}});
+    }).catch(err => {
+        return res.status(500).json({message: err});
+    })
+})
 
 // get the score info of an anime by anime_id
 router.get('/:anime_id', (req, res) => {

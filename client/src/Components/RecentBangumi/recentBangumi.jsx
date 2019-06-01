@@ -2,21 +2,21 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import {Label, Image, Button} from 'semantic-ui-react';
 import Navibar from '../MainMenu/Navibar/navibar.jsx';
-import {pageContainer,textStyle, imageStyle} from '../AllBangumi/allBangumi.module.scss';
-import {bangumiSection, bangumiStyle, hoverPart,
-     bangumiContainer, numberlistStyle} from './pastBangumi.module.scss';
+import {pageContainer, textStyle, imageStyle} from '../AllBangumi/allBangumi.module.scss';
 import loadingGif from '../loading.gif';
+import {bangumiSection, bangumiStyle, hoverPart, 
+    bangumiContainer, numberlistStyle} from './recentBangumi.module.scss';
 
-class PastBangumi extends Component {
+class CurrentBangumi extends Component {
     constructor() {
         super();
         this.state = {
             currentBangumi: [],
             year: '',
             month: '',
+            season: '',
             pageNumber: 0,
             currentPage: 1,
-            pastSeason: '',
         }
         this.toHomePage = this.toHomePage.bind(this);
         this.loginHandler = this.loginHandler.bind(this);
@@ -27,40 +27,31 @@ class PastBangumi extends Component {
     }
 
     componentDidMount() {
-        let date = new Date();
-        let year = date.getFullYear();
-        let month = date.getMonth() + 1;
-        let pastSeason = 'winter';
-        let pastMonth = month;
-        if (month >= 1 && month < 4) {
-            year -= 1;
-            pastSeason = 'fall';
-            pastMonth = 10;
-        } else if (month >= 4 && month < 7) {
-            pastSeason = 'winter';
-            pastMonth = 1;
-        } else if (month >= 7 && month < 10) {
-            pastSeason = 'spring';
-            pastMonth = 4
-        } else if (month >= 10) {
-            pastSeason = 'summer';
-            pastMonth = 7;
+        let year = this.props.match.params.year;
+        let season = this.props.match.params.season;
+        let startMonth = 1;
+        if (season === 'spring') {
+            startMonth = 4;
+        } else if (season === 'summer') {
+            startMonth = 7;
+        } else if (season === 'fall') {
+            startMonth = 10;
         }
-        //get past season anime of first page
-        axios.get('api/bangumi/' + year + '/' + pastSeason + '/' + this.state.currentPage)
+        //get current season anime
+        axios.get('api/bangumi/' + year + '/' + season + '/' + this.state.currentPage)
         .then(response => {
             let animelist = response.data.data.bangumiList;
             this.setState({
                 currentBangumi: animelist,
                 year: year,
-                month: pastMonth,
-                pastSeason: pastSeason,
+                month: startMonth,
+                season: season,
             })
         }).catch(err => {
             alert(err);
         })
-        //get total number of season anime
-        axios.get('api/bangumi/' + year + '/' + pastSeason + '/count')
+        //get number of anime total
+        axios.get('api/bangumi/' + year + '/' + season + '/count')
         .then(response => {
             let bangumiNumber = response.data.data.bangumiNumber;
             if (bangumiNumber % 36) {
@@ -92,13 +83,12 @@ class PastBangumi extends Component {
     }
 
     toPage(pageNumber) {
-        //get past season bangumi of clicked page
         let year = this.state.year;
-        let pastSeason = this.state.pastSeason;
+        let season = this.state.season;
         this.setState({
             currentBangumi: [],
         })
-        axios.get('api/bangumi/' + year + '/' + pastSeason + '/' + pageNumber)
+        axios.get('api/bangumi/' + year + '/' + season + '/' + pageNumber)
         .then(response => {
             let animelist = response.data.data.bangumiList;
             this.setState({
@@ -113,11 +103,11 @@ class PastBangumi extends Component {
     toPrevious() {
         let pageNumber = this.state.currentPage-1;
         let year = this.state.year;
-        let pastSeason = this.state.pastSeason;
+        let season = this.state.season;
         this.setState({
             currentBangumi: [],
         })
-        axios.get('api/bangumi/' + year + '/' + pastSeason + '/' + pageNumber)
+        axios.get('api/bangumi/' + year + '/' + season + '/' + pageNumber)
         .then(response => {
             let animelist = response.data.data.bangumiList;
             this.setState({
@@ -132,11 +122,11 @@ class PastBangumi extends Component {
     toNext() {
         let pageNumber = this.state.currentPage+1;
         let year = this.state.year;
-        let pastSeason = this.state.pastSeason;
+        let season = this.state.season;
         this.setState({
             currentBangumi: [],
         })
-        axios.get('api/bangumi/' + year + '/' + pastSeason + '/' + pageNumber)
+        axios.get('api/bangumi/' + year + '/' + season + '/' + pageNumber)
         .then(response => {
             let animelist = response.data.data.bangumiList;
             this.setState({
@@ -149,8 +139,8 @@ class PastBangumi extends Component {
     }
 
     render() {
-        if (this.state.currentBangumi.length === 0) {
-            return (
+        if (this.state.currentBangumi.length === 0){
+            return(
                 <div>
                     <Navibar
                     toHomePage = {this.toHomePage}
@@ -213,13 +203,11 @@ class PastBangumi extends Component {
         let pageList = pageArr.map(page => {
             if (page === this.state.currentPage) {
                 return(
-                    <Button onClick = {this.toPage.bind(this, page)} size = 'small' 
-                    color = 'blue'>{page}</Button>
+                    <Button onClick = {this.toPage.bind(this, page)} size = 'small' color = 'blue'>{page}</Button>
                 )
             }
             return(
-                <Button onClick = {this.toPage.bind(this, page)}
-                size = 'small' basic color = 'blue'>{page}</Button>
+                <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
             )
         })
         return(
@@ -237,11 +225,9 @@ class PastBangumi extends Component {
                         </div>
                         <div className = {numberlistStyle} >
                             <Button color = 'blue' onClick = {this.toPage.bind(this, 1)}>Page</Button>
-                            <Button basic color = 'blue' style = {previousStyle} 
-                            onClick = {this.toPrevious}>Prev</Button>
+                            <Button basic color = 'blue' style = {previousStyle} onClick = {this.toPrevious}>Prev</Button>
                             {pageList}
-                            <Button basic color = 'blue' style = {nextStyle} 
-                            onClick = {this.toNext}>Next</Button>
+                            <Button basic color = 'blue' style = {nextStyle} onClick = {this.toNext}>Next</Button>
                         </div>
                     </div>
                 </div>
@@ -250,4 +236,4 @@ class PastBangumi extends Component {
     }
 }
 
-export default PastBangumi;
+export default CurrentBangumi;

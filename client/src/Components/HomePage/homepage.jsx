@@ -42,11 +42,38 @@ class HomePage extends Component {
     }
 
     currentViewMore() {
-        this.props.history.push('/recentbangumi');
+        let season = 'winter';
+        let date = new Date();
+        let year = date.getFullYear();
+        let month = date.getMonth() + 1;
+        if (month >= 1 && month < 4) {
+            season = 'winter';
+        } else if (month >= 4 && month < 7) {
+            season = 'spring';
+        } else if (month >= 7 && month < 10) {
+            season = 'summer';
+        } else if (month >= 10) {
+            season = 'fall';
+        }
+        this.props.history.push('/bangumi/' + year + '/' + season);
     }
 
     pastViewMore() {
-        this.props.history.push('/pastbangumi');
+        let date = new Date();
+        let year = date.getFullYear();
+        let pastSeason = 'winter';
+        let month = date.getMonth() + 1;
+        if (month >= 1 && month < 4) {
+            year -= 1;
+            pastSeason = 'fall';
+        } else if (month >= 4 && month < 7) {
+            pastSeason = 'winter';
+        } else if (month >= 7 && month < 10) {
+            pastSeason = 'spring';
+        } else if (month >= 10) {
+            pastSeason = 'summer';
+        }
+        this.props.history.push('/bangumi/' + year + '/' + pastSeason);
     }
 
     upcomingViewMore() {

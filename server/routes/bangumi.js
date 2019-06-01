@@ -13,6 +13,18 @@ router.get('/', (req, res) => {
     })
 })
 
+router.get('/:anime_id', (req, res) => {
+    Bangumi.find({anime_id: req.params.anime_id}).exec()
+    .then(bangumiList => {
+        if (bangumiList.length === 0) {
+            return res.status(404).json({message: 'Bangumi not found', data: {}});
+        }
+        return res.status(200).json({message: 'Successfully find corresponding bangumi', data: {bangumiList}});
+    }).catch(err => {
+        return res.status(500).json({message: err});
+    })
+})
+
 router.get('/:year/:season', (req, res) => {
     let year = req.params.year;
     let season = req.params.season;
@@ -110,9 +122,19 @@ router.delete('/:id', (req, res) => {
     Bangumi.findOneAndRemove(req.params.id).exec()
     .then(bangumi => {
         if (!bangumi) {
-            return res.status(404).json({message: 'Could not find bangumi', data: {bangumi}});
+            return res.status(404).json({message: 'Bangumi not found', data: {bangumi}});
         }
         return res.status(200).json({message:'Successfully delete bangumi', data: {bangumi}});
+    }).catch(err => {
+        return res.status(500).json({message: err});
+    })
+})
+
+//remove all bangumis of the year and season
+router.delete('/removeAll/:year/:season', (req, res) => {
+    Bangumi.remove({year: req.params.year, season: req.params.season}).exec()
+    .then(bangumiList => {
+        return res.status(200).json({message: 'Successfully remove all bangumi of given date', data:{bangumiList}})
     }).catch(err => {
         return res.status(500).json({message: err});
     })
