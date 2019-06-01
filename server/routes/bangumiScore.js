@@ -47,8 +47,8 @@ router.post('/', (req, res) => {
 })
 
 //delete by id
-router.delete('/:id', (req, res) => {
-    BangumiScore.findByIdAndRemove(req.params.id).exec()
+router.delete('/:anime_id', (req, res) => {
+    BangumiScore.findOneAndRemove({anime_id: req.params.anime_id}).exec()
     .then(bangumiScore => {
         if (!bangumiScore) {
             return res.status(404).json({message: 'Bangumi not found', data: {}});
