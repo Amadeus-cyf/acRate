@@ -49,21 +49,14 @@ def postAnime(year, season):
 
     
 def main():
-    seasons = ['spring', 'summer', 'fall', 'winter']
-    #2019 winter, spring
-    #2018 winter, fall, summer, spring
-    #2017 winter fall summer, spring
-    #2016 winter, fall, summer, spring
-    #2015 winter, fall, summer, spring
-    #2014 winter, fall, summer, spring
-    #2013 winter, fall, summer, spring
-    #2012 winter, fall, summer, spring
-    #2011 winter, fall, summer,spring
-    #2010 winter, fall, summer, spring
-    #2009 winter, fall, summer, spring
-    #2008 winter, fall, summer, spring
-    #2007 winter, fall，summer, spring
-    postAnime('2019', 'spring')
+    postAnimeScore('2019', 'spring')
+    postAnimeScore('2019', 'winter')
+    seasons = ['winter', 'spring', 'summer', 'fall']
+    year = 2018
+    while year >= 2005:
+        for season in seasons:
+            postAnimeScore(str(year), season)
+        year -= 1
 
 if __name__ == '__main__':
     main()

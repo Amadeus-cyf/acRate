@@ -31,6 +31,7 @@ app.use(flash());
 require('./models/userSchema');
 require('./models/bangumiSchema');
 require('./models/bangumiScoreSchema');
+require('./models/bangumiListSchema');
 require('./models/commentSchema');
 require('./models/replySchema');
 

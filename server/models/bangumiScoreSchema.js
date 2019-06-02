@@ -6,16 +6,39 @@ var BangumiScoreSchema = new mongoose.Schema({
         unique: true,
         required: true,
     }, 
-    animeScores: {
-        type: Object,
-        // each score is an array of user id
-        default: {
-            "score_1": [],
-            "score_2": [],
-            "score_3": [],
-            "score_4": [],
-            "score_5": [],
-        }
+    //scores
+    1: {
+        type: Array,
+        default: [],
+    },
+    2: {
+        type: Array,
+        default: [],
+    },
+    3: {
+        type: Array,
+        default: [],
+    },
+    4: {
+        type: Array,
+        default: [],
+    },
+    5: {
+        type: Array,
+        default: [],
+    },
+    averageScore: {
+        type: Number,
+        default: 0.0,
+    },
+    userNumber: {
+        type: Number,
+        default: 0,
+    },
+    // sum of score for all users
+    totalScore: {
+        type: Number,
+        default: 0.0,
     }
 })
 

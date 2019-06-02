@@ -30,6 +30,17 @@ var ReplySchema = new mongoose.Schema({
         type: String,
         default: 'https://react.semantic-ui.com/images/avatar/small/daniel.jpg',
     },
+    // the username of the user being replied
+    // if the replied comment is the parent comment, then repliedUsername is ''
+    repliedUsername: {
+        type: String,
+        default: '',
+    },
+    //if the replied comment is the parent comment, then repliedAvatar is ''
+    repliedAvatar: {
+        type: String,
+        default: '',
+    },
     // the date where the replies send
     date: {
         type: Date,

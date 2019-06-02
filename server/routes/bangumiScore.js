@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const BangumiScore = require('../models/bangumiScoreSchema');
+const User = require('../models/userSchema');
 const router = express.Router();
 
 // get all bangumi and corresponding score
@@ -59,69 +60,69 @@ router.delete('/:anime_id', (req, res) => {
     })
 })
 
-//update score of the anime
+//update score of the anime and also update user score record
 router.put('/:anime_id', (req, res) => {
     let score = req.body.score;
     let user_id = req.body.user_id;
     if (!score || score > 5 || !user_id) {
         return res.status.json({message: 'Invalid score or user id'});
     }
-    if (score === '1') {
-        BangumiScore.findOneAndUpdate({anime_id: req.params.anime_id}, 
-            {$push: {'animeScores.score_1': user_id}},
-            { new: true },
-            (err, bangumi) => {
-                if (err) {
-                    return res.status(500).json({message: err});
-                }
-                return res.status(200).json({message: 'Succesfully update score of bangumi', data: {bangumi}});
+    User.findById(user_id).exec()
+    .then(user => {
+        if (!user) {
+            return res.status(404).json({message: 'User not found'});
+        }
+        // check whether user has scored anime before, if scored, update the score
+        for (let i = 0; i < user.scoreAnime.length; i++) {
+            if (user.scoreAnime[i].anime_id === req.params.anime_id) {
+                user.scoreAnime.splice(i, 1);
+                break;
             }
-        );
-    } else if (score === '2') {
-        BangumiScore.findOneAndUpdate({anime_id: req.params.anime_id}, 
-            {$push: {'animeScores.score_2': user_id}},
-            { new: true },
-            (err, bangumi) => {
-                if (err) {
-                    return res.status(500).json({message: err});
-                }
-                return res.status(200).json({message: 'Succesfully update score of bangumi', data: {bangumi}});
+        }
+        // user has not scored, push the anime to the scoreAnime array
+        let animeObject = {
+            anime_id: req.params.anime_id,
+            score: score,
+        }
+        user.scoreAnime.push(animeObject);
+        user.save()
+        .then().catch(err => {
+            return res.status(500).json({message: err});
+        })
+    }).catch(err => {
+        return res.status(500).json({message: err});
+    })
+    //update bangumiScore
+    BangumiScore.findOne({anime_id: req.params.anime_id}).exec()
+    .then(bangumiScore => {
+        if (!bangumiScore) {
+            return res.status(404).json({message: 'Bangumi not found', data:{}})
+        }
+        let originScore = 0;
+        for (var i = 1; i <= 5; i++) {
+            if (bangumiScore[i].includes(user_id)) {
+                let index = bangumiScore[i].indexOf(user_id);
+                bangumiScore[i].splice(index, 1);
+                originScore = i;
             }
-        );
-    } else if (score === '3') {
-        BangumiScore.findOneAndUpdate({anime_id: req.params.anime_id}, 
-            {$push: {'animeScores.score_3': user_id}},
-            { new: true },
-            (err, bangumi) => {
-                if (err) {
-                    return res.status(500).json({message: err});
-                }
-                return res.status(200).json({message: 'Succesfully update score of bangumi', data: {bangumi}});
-            }
-        );
-    } else if (score === '4') {
-        BangumiScore.findOneAndUpdate({anime_id: req.params.anime_id}, 
-            {$push: {'animeScores.score_4': user_id}},
-            { new: true },
-            (err, bangumi) => {
-                if (err) {
-                    return res.status(500).json({message: err});
-                }
-                return res.status(200).json({message: 'Succesfully update score of bangumi', data: {bangumi}});
-            }
-        );
-    } else if (score === '5') {
-        BangumiScore.findOneAndUpdate({anime_id: req.params.anime_id}, 
-            {$push: {'animeScores.score_5': user_id}},
-            { new: true },
-            (err, bangumi) => {
-                if (err) {
-                    return res.status(500).json({message: err});
-                }
-                return res.status(200).json({message: 'Succesfully update score of bangumi', data: {bangumi}});
-            }
-        );
-    }
+        }
+        bangumiScore[score].push(user_id);
+        if (originScore === 0) {
+           bangumiScore.userNumber += 1;
+        }
+        let totalScore = bangumiScore.totalScore + parseInt(score) - parseInt(originScore);
+        bangumiScore.totalScore = totalScore;
+        let userNumber = bangumiScore.userNumber;
+        bangumiScore.averageScore = (totalScore/userNumber).toFixed(1);
+        bangumiScore.save()
+        .then(() => {
+            return res.status(200).json({message: 'Succesfully upload the score', data: {bangumiScore}});
+        }).catch(err => {
+            return res.status(500).json({message: err});
+        })
+    }).catch(err => {
+        return res.status(500).json({message: err});
+    })
 })
 
 module.exports = router;

@@ -64,7 +64,7 @@ class AllBangumi extends Component {
         let month = 1;
         let date = new Date();
         let yearList = [];
-        for (let i = date.getFullYear(); i >= 2007; i--) {
+        for (let i = date.getFullYear(); i >= 2005; i--) {
             let currYear = {
                 label: i,
                 value: i,
@@ -432,6 +432,7 @@ class AllBangumi extends Component {
                         }
                     }
                 }
+                return '';
             })
         }
 
