@@ -25,10 +25,14 @@ def postAnimeList(year, season):
             continue
         anime_id = bangumi['mal_id']
         title = bangumi['title']
+        image_url = bangumi['image_url']
+        synopsis = bangumi['synopsis']
         airing_start = bangumi['airing_start']
         bangumi.clear()
         bangumi['anime_id'] = anime_id
         bangumi['title'] = title
+        bangumi['image_url'] = image_url
+        bangumi['synopsis'] = synopsis
         bangumi['airing_start'] = airing_start
         requests.post(database_url, bangumi)
 
@@ -41,7 +45,5 @@ def main():
         for season in seasons:
             postAnimeList(str(year), season)
         year -= 1
-
 if __name__ == '__main__':
     main()
-    

@@ -15,10 +15,19 @@ var BangumiListSchema = new mongoose.Schema({
         text: true,
         default: '',
     },
+    image_url: {
+        type: String,
+        required: true,
+        default: '',
+    },
+    synopsis: {
+        type: String,
+        default: '(No synopsis yet.)'
+    },
     airing_start: {
         type: String,
         default: date,
-    }
+    },
 })
 
 module.exports = mongoose.model('BangumiList', BangumiListSchema);

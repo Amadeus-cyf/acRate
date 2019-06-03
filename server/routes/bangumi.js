@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
 })
 
 router.get('/:anime_id', (req, res) => {
-    Bangumi.find({anime_id: req.params.anime_id}).exec()
+    Bangumi.find({anime_id: req.params.anime_id}).sort({year: -1}).exec()
     .then(bangumiList => {
         if (bangumiList.length === 0) {
             return res.status(404).json({message: 'Bangumi not found', data: {}});

@@ -48,12 +48,12 @@ var ReplySchema = new mongoose.Schema({
         default: new Date(),
     },
     like: {
-        type: Number,
-        default: 0,
+        type: Array,
+        default: [],
     },
     dislike: {
-        type: Number,
-        default: 0,
+        type: Array,
+        default: [],
     }
 })
 
