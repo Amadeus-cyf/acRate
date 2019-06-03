@@ -16,9 +16,9 @@ router.get('/', (req, res) => {
 
 // get the score info of an anime by anime_id
 router.get('/:anime_id', (req, res) => {
-    BangumiScore.find({anime_id: req.params.anime_id}).exec()
+    BangumiScore.findOne({anime_id: req.params.anime_id}).exec()
     .then(bangumiScore => {
-        if (bangumiScore.length === 0) {
+        if (!bangumiScore) {
             return res.status(404).json({message: 'Bangumi not found', data:{}});
         }
         return res.status(200).json({message: 'Successfully find the score of bangumi', data: {bangumiScore}});

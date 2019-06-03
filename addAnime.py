@@ -17,11 +17,11 @@ def getAnime(year, season):
             anime.pop('members')
             anime['year'] = year
             anime['season'] = season
-            if (anime['continuing'] == True):
+            if anime['continuing'] == True:
                 anime['continuing'] = 'true'
             else:
                 anime['continuing'] = 'false'
-            if (len(anime['producers']) > 0):
+            if len(anime['producers']) > 0:
                 producers = []
                 for producer in anime['producers']:
                     producers.append(producer['name'])
@@ -41,7 +41,7 @@ def postAnime(year, season):
         return
     database_url = 'http://localhost:4000/api/bangumi'
     for bangumi in bangumiList:
-        if (bangumi['r18'] or bangumi['kids']):
+        if bangumi['r18'] or bangumi['kids']:
             continue
         bangumi.pop('r18')
         bangumi.pop('kids')

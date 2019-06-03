@@ -1,9 +1,9 @@
-import json;
-import requests;
+import json
+import requests
 import pandas as pd
 import bs4
 
-def getAnimeScore(year, season):
+def getAnimeList(year, season):
     headers = {
         'Content-Type': 'application-json',
     }
@@ -15,28 +15,33 @@ def getAnimeScore(year, season):
     else:
         return None
 
-def postAnimeScore(year, season):
-    bangumiLists = getAnimeScore(year, season)
-    if bangumiLists ==  None:
+def postAnimeList(year, season):
+    bangumilist = getAnimeList(year, season)
+    if bangumilist == None:
         return
-    database_url = 'http://localhost:4000/api/bangumiScore'
-    for bangumi in bangumiLists:
-        if (bangumi['r18'] or bangumi['kids']):
+    database_url = 'http://localhost:4000/api/bangumiList'
+    for bangumi in bangumilist:
+        if bangumi['r18'] or bangumi['kids']:
             continue
         anime_id = bangumi['mal_id']
+        title = bangumi['title']
+        airing_start = bangumi['airing_start']
         bangumi.clear()
         bangumi['anime_id'] = anime_id
+        bangumi['title'] = title
+        bangumi['airing_start'] = airing_start
         requests.post(database_url, bangumi)
 
 def main():
-    postAnimeScore('2019', 'spring')
-    postAnimeScore('2019', 'winter')
+    postAnimeList('2019', 'spring')
+    postAnimeList('2019', 'winter')
     seasons = ['winter', 'spring', 'summer', 'fall']
     year = 2018
     while year >= 2005:
         for season in seasons:
-            postAnimeScore(str(year), season)
+            postAnimeList(str(year), season)
         year -= 1
 
 if __name__ == '__main__':
     main()
+    
