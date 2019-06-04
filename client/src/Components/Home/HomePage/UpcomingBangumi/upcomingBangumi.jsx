@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import {Label, Image, Button} from 'semantic-ui-react';
 import {bangumiStyle, hoverPart} from './upcomingBangumi.module.scss';
-import Navibar from '../../MainMenu/Navibar/navibar.jsx';
 import {pageContainer, textStyle, imageStyle} from '../../AllBangumi/allBangumi.module.scss';
 import loadingGif from '../../../loading.gif';
 
@@ -77,11 +76,6 @@ class CurrentBangumi extends Component {
         if (this.state.upcomingBangumi.length === 0) {
             return (
                 <div>
-                    <Navibar
-                    toHomePage = {this.toHomePage}
-                    loginHandler = {this.loginHandler}
-                    signupHandler = {this.signupHandler}
-                    logoutHandler = {this.logoutHandler}/>
                     <div className = {pageContainer}>
                         <div>
                             <Image className = {imageStyle} src={loadingGif} alt = 'loading'/>

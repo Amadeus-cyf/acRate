@@ -16,6 +16,10 @@ class Navibar extends Component {
             avatar: defaultAvatar,
             menuDisplay: 'none',
         }
+        this.toHomePage = this.toHomePage.bind(this);
+        this.loginHandler = this.loginHandler.bind(this);
+        this.signupHandler = this.signupHandler.bind(this);
+        this.logoutHandler = this.logoutHandler.bind(this);
         this.avatarEnter = this.avatarEnter.bind(this);
         this.menuLeave = this.menuLeave.bind(this);
     }
@@ -42,6 +46,22 @@ class Navibar extends Component {
         }).catch(err => {
             alert(err);
         })
+    }
+
+    toHomePage() {
+        this.props.history.push('/');
+    }
+
+    loginHandler() {
+        this.props.history.push('/login');
+    }
+
+    signupHandler() {
+        this.props.history.push('/signup');
+    }
+
+    logoutHandler() {
+        this.props.history.push('/logout');
     }
 
     avatarEnter() {
@@ -97,17 +117,17 @@ class Navibar extends Component {
         return(
             <div>
                 <div className = {navibarStyle}>
-                    <Button onClick = {this.props.toHomePage} style = {homeStyle}>Home</Button>
-                    <Button onClick = {this.props.signupHandler} style = {signupStyle}>Sign Up</Button>
-                    <Button onClick = {this.props.loginHandler} style = {loginStyle}>Log In</Button>
-                    <Button onClick = {this.props.logoutHandler} style = {logoutStyle}>Log Out</Button>
+                    <Button onClick = {this.toHomePage} style = {homeStyle}>Home</Button>
+                    <Button onClick = {this.signupHandler} style = {signupStyle}>Sign Up</Button>
+                    <Button onClick = {this.loginHandler} style = {loginStyle}>Log In</Button>
+                    <Button onClick = {this.logoutHandler} style = {logoutStyle}>Log Out</Button>
                     <span className = {usermenuStyle} onMouseEnter = {this.avatarEnter} onMouseLeave = {this.menuLeave}>
                         <Image className = {imageStyle} style = {this.state.avatarStyle}  avatar src = {this.state.avatar}/>
                         <div style = {menuStyle}>
                             <UserMenu currentUser = {this.state.currentUser}
-                            loginHandler = {this.props.loginHandler}
-                            signupHandler = {this.props.signupHandler}
-                            logoutHandler = {this.props.logoutHandler}/>
+                            loginHandler = {this.loginHandler}
+                            signupHandler = {this.signupHandler}
+                            logoutHandler = {this.logoutHandler}/>
                         </div>
                     </span>
                 </div>

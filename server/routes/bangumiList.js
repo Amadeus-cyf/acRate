@@ -34,9 +34,17 @@ router.get('/filter/:keyword', (req, res) => {
 })
 
 router.get('/search/:keyword', (req, res) => {
-    BangumiList.find({$text : {$search: req.params.keyword}}).sort({airing_start: -1}).exec()
+    let keyword = '\"' + req.params.keyword + '\"'
+    BangumiList.find({$text : {$search: keyword}}).exec()
     .then(bangumiList => {
-        return res.status(200).json({message: 'Successfully find all matched bangumis', data: {bangumiList}});
+        if (bangumiList.length === 0) {
+            BangumiList.find({$text: {$search: req.params.keyword}})
+            .then(bangumiList => {
+                return res.status(200).json({message: 'Successfully find all matched bangumis', data: {bangumiList}});
+            })
+        } else {
+            return res.status(200).json({message: 'Successfully find all matched bangumis', data: {bangumiList}});
+        }
     }).catch(err => {
         return res.status(500).json({message: err});
     })

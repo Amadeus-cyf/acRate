@@ -45,12 +45,6 @@ class AllBangumi extends Component {
                 }
             ]
         }
-        this.toHomePage = this.toHomePage.bind(this);
-        this.toBangumi = this.toBangumi.bind(this);
-        this.toUpcoming = this.toUpcoming.bind(this);
-        this.loginHandler = this.loginHandler.bind(this);
-        this.signupHandler = this.signupHandler.bind(this);
-        this.logoutHandler = this.logoutHandler.bind(this);
         this.toPrevious = this.toPrevious.bind(this);
         this.toNext = this.toNext.bind(this);
         this.pageHandler = this.pageHandler.bind(this);
@@ -98,30 +92,6 @@ class AllBangumi extends Component {
                 })
             }
         })
-    }
-
-    toHomePage() {
-        this.props.history.push('/');
-    }
-
-    toBangumi() {
-        this.props.history.push('/bangumi');
-    }
-
-    toUpcoming() {
-        this.props.history.push('/upcomingbangumi');
-    }
-
-    loginHandler() {
-        this.props.history.push('/login');
-    }
-
-    signupHandler() {
-        this.props.history.push('/signup');
-    }
-
-    logoutHandler() {
-        this.props.history.push('/logout');
     }
 
     toDetailPage(bangumi) {
@@ -280,11 +250,7 @@ class AllBangumi extends Component {
         if (this.state.displayYear === ''  || this.state.currentBangumi.length === 0) {
             return(
                 <div>
-                    <Navibar
-                    toHomePage = {this.toHomePage}
-                    loginHandler = {this.loginHandler}
-                    signupHandler = {this.signupHandler}
-                    logoutHandler = {this.logoutHandler}/>
+                    <Navibar history = {this.props.history}/>
                     <div className = {pageContainer}>
                         <div>
                             <Image className = {imageStyle} src={loadingGif} alt = 'loading'/>
@@ -441,14 +407,7 @@ class AllBangumi extends Component {
 
         return(
             <div>
-                <MainMenu
-                toHomePage = {this.toHomePage}
-                loginHandler = {this.loginHandler}
-                signupHandler = {this.signupHandler}
-                logoutHandler = {this.logoutHandler}
-                toBangumi = {this.toBangumi}
-                toUpcoming = {this.toUpcoming}
-                history = {this.props.history}/>
+                <MainMenu history = {this.props.history}/>
                 <div className = {pageStyle}>
                     <div className = {selectStyle}>
                         <Select className = {selectCss} placeholder="Select a Year" onChange = {this.yearHandler} options={this.state.yearOptions}/>

@@ -13,11 +13,11 @@ class UserMenu extends Component {
                 background: 'white',
                 right: '160px',
                 'padding-top': '60px',
-                'z-index': '1',
+                'z-index': '2',
             }
             let buttonstyle = {
                 'display': 'block',
-               'margin': '10px auto',
+                'margin': '10px auto',
             }
             return(
                 <Label style = {labelstyle}>
@@ -42,7 +42,7 @@ class UserMenu extends Component {
             background: 'white',
             right: '60px',
             'padding-top': '70px',
-            'z-index': '1',
+            'z-index': '2',
         }
         let buttonStyle = {
             'display': 'block',

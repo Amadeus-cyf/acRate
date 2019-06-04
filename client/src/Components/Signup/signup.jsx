@@ -34,10 +34,6 @@ class Signup extends Component {
                 display: 'none',
             }
          }
-         this.toHomePage = this.toHomePage.bind(this);
-         this.loginHandler = this.loginHandler.bind(this);
-         this.signupHandler = this.signupHandler.bind(this);
-         this.logoutHandler = this.logoutHandler.bind(this);
          this.usernameHandler = this.usernameHandler.bind(this);
          this.emailHandler = this.emailHandler.bind(this);
          this.passwordHandler = this.passwordHandler.bind(this);
@@ -46,33 +42,17 @@ class Signup extends Component {
          this.cancelHandler = this.cancelHandler.bind(this);
      }
 
-    toHomePage() {
-        this.props.history.push('/');
+    usernameHandler(event) {
+        this.setState({
+        username: event.target.value,
+        usernameStyle: {
+            display: 'none',
+        },
+        usernameExistsError: 'none',
+        })
     }
 
-    loginHandler() {
-        this.props.history.push('/login');
-    }
-
-    signupHandler() {
-        this.props.history.push('/signup');
-    }
-
-    logoutHandler() {
-        this.props.history.push('/logout');
-    }
-
-     usernameHandler(event) {
-         this.setState({
-            username: event.target.value,
-            usernameStyle: {
-                display: 'none',
-            },
-            usernameExistsError: 'none',
-         })
-     }
-
-     emailHandler(event) {
+    emailHandler(event) {
         this.setState({
             email: event.target.value,
             emailExistStyle: {
@@ -189,11 +169,7 @@ class Signup extends Component {
         || this.state.password === '' || this.state.confirmPassword === '');
         return(
             <div>
-                <Navibar
-                toHomePage = {this.toHomePage}
-                loginHandler = {this.loginHandler}
-                signupHandler = {this.signupHandler}
-                logoutHandler = {this.logoutHandler}/>
+                <Navibar history = {this.props.history}/>
                 <div className = {container}>
                     <div className = {imageStyle}>
                     </div>

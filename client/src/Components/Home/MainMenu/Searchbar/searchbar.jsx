@@ -97,8 +97,8 @@ class Searchbar extends Component {
             <Form onSubmit = {this.searchHandler} className = {backgroundStyle}>
                 <div style = {searchbarStyle} >
                     <Input icon='search' value = {this.state.searchInput}
-                    onChange = {this.inputHandler}
-                    size = 'big' type = 'text' placeholder = 'Enter at least one word' />
+                    onChange = {this.inputHandler} size = 'big' type = 'text' 
+                    placeholder = 'Enter at least one word' />
                     <Label style = {labelStyle}>{filterList}</Label>
                 </div>
             </Form>

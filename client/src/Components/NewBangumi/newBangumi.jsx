@@ -20,10 +20,6 @@ class NewBangumi extends Component {
                 color: 'blue',
             },
         }
-        this.toHomePage = this.toHomePage.bind(this);
-        this.loginHandler = this.loginHandler.bind(this);
-        this.signupHandler = this.signupHandler.bind(this);
-        this.logoutHandler = this.logoutHandler.bind(this);
         this.toPrevious = this.toPrevious.bind(this);
         this.toNext = this.toNext.bind(this);
     }
@@ -73,22 +69,6 @@ class NewBangumi extends Component {
         })
     }
 
-    toHomePage() {
-        this.props.history.push('/');
-    }
-
-    loginHandler() {
-        this.props.history.push('/login');
-    }
-
-    signupHandler() {
-        this.props.history.push('/signup');
-    }
-
-    logoutHandler() {
-        this.props.history.push('/logout');
-    }
-
     toPage(pageNumber) {
         let currentBangumi = this.state.bangumi.slice((pageNumber-1)*36, pageNumber*36);
         this.setState({
@@ -129,11 +109,7 @@ class NewBangumi extends Component {
         if (this.state.bangumi.length === 0) {
             return (
                 <div>
-                    <Navibar
-                    toHomePage = {this.props.toHomePage}
-                    loginHandler = {this.props.loginHandler}
-                    signupHandler = {this.props.signupHandler}
-                    logoutHandler = {this.props.logoutHandler}/>
+                    <Navibar history = {this.props.history}/>
                     <div className = {pageContainer}>
                         <div>
                             <Image className = {imageStyle} src={loadingGif} alt = 'loading'/>
@@ -199,11 +175,7 @@ class NewBangumi extends Component {
         })
         return(
             <div>
-                <Navibar
-                 toHomePage = {this.toHomePage}
-                 loginHandler = {this.loginHandler}
-                 signupHandler = {this.signupHandler}
-                 logoutHandler = {this.logoutHandler}/>
+                <Navibar history = {this.props.history}/>
                 <div className = {bangumiContainer}>
                     <div className = {bangumiSection}>
                         <h3>{this.state.year}年{this.state.month}月番</h3>

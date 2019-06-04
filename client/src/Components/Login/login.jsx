@@ -12,29 +12,9 @@ class Login extends Component {
             password: '',
             message: 'success',
         }
-        this.toHomePage = this.toHomePage.bind(this);
-        this.loginHandler = this.loginHandler.bind(this);
-        this.signupHandler = this.signupHandler.bind(this);
-        this.logoutHandler = this.logoutHandler.bind(this);
         this.emailHandler = this.emailHandler.bind(this);
         this.passwordHandler = this.passwordHandler.bind(this);
         this.formloginHandler = this.formloginHandler.bind(this);
-    }
-
-    toHomePage() {
-        this.props.history.push('/');
-    }
-
-    loginHandler() {
-        this.props.history.push('/login');
-    }
-
-    signupHandler() {
-        this.props.history.push('/signup');
-    }
-
-    logoutHandler() {
-        this.props.history.push('/logout');
     }
 
     emailHandler(event) {
@@ -99,11 +79,7 @@ class Login extends Component {
         let isvalid = (this.state.email === '' || this.state.password === '');
         return(
             <div>
-                <Navibar
-                toHomePage = {this.toHomePage}
-                loginHandler = {this.loginHandler}
-                signupHandler = {this.signupHandler}
-                logoutHandler = {this.logoutHandler}/>
+                <Navibar history = {this.props.history}/>
                 <div className = {container}>
                     <div className = {imageStyle}>
                     </div>

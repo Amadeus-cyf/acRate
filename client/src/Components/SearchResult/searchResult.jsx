@@ -18,11 +18,6 @@ class SearchResult extends Component {
             inputPage: '',
             bangumiNumber: 0,
         }
-        this.toHomePage = this.toHomePage.bind(this);
-        this.loginHandler = this.loginHandler.bind(this);
-        this.signupHandler = this.signupHandler.bind(this);
-        this.logoutHandler = this.logoutHandler.bind(this);
-        this.toPage = this.toPage.bind(this);
         this.toPrevious = this.toPrevious.bind(this);
         this.toNext = this.toNext.bind(this);
         this.pageHandler = this.pageHandler.bind(this);
@@ -49,22 +44,6 @@ class SearchResult extends Component {
         }).catch(err => {
             alert(err);
         })
-    }
-
-    toHomePage() {
-        this.props.history.push('/');
-    }
-
-    loginHandler() {
-        this.props.history.push('/login');
-    }
-
-    signupHandler() {
-        this.props.history.push('/signup');
-    }
-
-    logoutHandler() {
-        this.props.history.push('/logout');
     }
 
     toDetailPage(bangumi) {
@@ -124,11 +103,7 @@ class SearchResult extends Component {
         if (this.state.result === 'undefined') {
             return (
                 <div>
-                    <Navibar
-                    toHomePage = {this.toHomePage}
-                    loginHandler = {this.loginHandler}
-                    signupHandler = {this.signupHandler}
-                    logoutHandler = {this.logoutHandler}/>
+                    <Navibar history = {this.props.history}/>
                     <div className = {pageContainer}>
                         <div>
                             <Image className = {imageStyle} src={loadingGif} alt = 'loading'/>
@@ -146,7 +121,7 @@ class SearchResult extends Component {
         let labelStyle = {
             background: 'white',
             'display': 'flex',
-            'padding-top': '2%'
+            'padding-top': '80px'
         }
         let imgStyle = {
             'max-width': '180px',
@@ -154,7 +129,17 @@ class SearchResult extends Component {
             'max-height': '250px',
             'min-height': '250px',
         }
-        let bangumiLabels = this.state.currentBangumi.map(bangumi => {
+        let currentBangumi = this.state.currentBangumi.slice(1).sort((first, second) => {
+            if (first.airing_start > second.airing_start) {
+                return -1;
+            } else if (first.airing_start < second.airing_start) {
+                return 1;
+            } else {
+                return 0;
+            }
+        })
+        currentBangumi.unshift(this.state.currentBangumi[0]);
+        let bangumiLabels = currentBangumi.map(bangumi => {
             let intro = '';
             if (bangumi.synopsis.length > 120) {
                 intro = bangumi.synopsis.slice(0, 120).concat('...');
@@ -172,12 +157,19 @@ class SearchResult extends Component {
                 </Label>
             )
         })
-
         let previousStyle = {
             display: 'inline',
         }
         let nextStyle = {
             display: 'inline',
+        }
+        let listStyle = {
+            display: 'block',
+        }
+        if (this.state.pageNumber === 1) {
+            listStyle = {
+                display: 'none',
+            }
         }
         if (this.state.currentPage === 1) {
             previousStyle = {
@@ -286,17 +278,12 @@ class SearchResult extends Component {
                 return '';
             })
         }
-
         return(
             <div>
-                <Navibar
-                toHomePage = {this.toHomePage}
-                loginHandler = {this.loginHandler}
-                signupHandler = {this.signupHandler}
-                logoutHandler = {this.logoutHandler}/>
+                <Navibar history = {this.props.history}/>
                 <div className = {searchResultStyle}>
                     {bangumiLabels}
-                    <div className = {numberlistStyle} >
+                    <div className = {numberlistStyle} style = {listStyle}>
                         <Button color = 'blue' onClick = {this.toPage.bind(this, 1)}>Page</Button>
                         <Button basic color = 'blue' style = {previousStyle} onClick = {this.toPrevious}>Prev</Button>
                         {pageList}
