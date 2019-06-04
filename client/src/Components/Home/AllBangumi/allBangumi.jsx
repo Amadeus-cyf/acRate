@@ -2,11 +2,10 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import MainMenu from '../MainMenu/mainMenu.jsx';
 import Navibar from '../MainMenu/Navibar/navibar.jsx';
-import {pageContainer,textStyle, imageStyle} from './allBangumi.module.scss';
 import {Label, Image, Button, Input, Form} from 'semantic-ui-react';
 import Select from 'react-select';
-import loadingGif from '../loading.gif';
-import {pageStyle, bangumiSection, bangumiStyle, 
+import loadingGif from '../../loading.gif';
+import { pageContainer,textStyle, imageStyle, pageStyle, bangumiSection, bangumiStyle, 
     hoverPart, numberlistStyle, selectStyle, selectCss, numberStyle} from './allBangumi.module.scss';
 
 class AllBangumi extends Component {
@@ -18,7 +17,7 @@ class AllBangumi extends Component {
             displayYear: '2018',
             selectSeason: {},
             displaySeason: 'winter',    // currentSeason
-            month: '',                  // month to display
+            month: '',                  // month to display*/
             pageNumber: 0,
             currentPage: 1,
             inputPage: '',
@@ -123,6 +122,10 @@ class AllBangumi extends Component {
 
     logoutHandler() {
         this.props.history.push('/logout');
+    }
+
+    toDetailPage(bangumi) {
+        this.props.history.push('/detail/' + bangumi.anime_id);
     }
 
     toPage(pageNumber) {
@@ -304,12 +307,6 @@ class AllBangumi extends Component {
             'min-width': '150px',
             height: '200px',
         }
-        let previousStyle = {
-            display: 'inline',
-        }
-        let nextStyle = {
-            display: 'inline',
-        }
         let titleStyle = {
             display: 'block',
         }
@@ -317,6 +314,12 @@ class AllBangumi extends Component {
             titleStyle = {
                 display: 'none',
             }
+        }
+        let previousStyle = {
+            display: 'inline',
+        }
+        let nextStyle = {
+            display: 'inline',
         }
         if (this.state.currentPage === 1) {
             previousStyle = {
@@ -332,7 +335,7 @@ class AllBangumi extends Component {
         let currentBangumi = this.state.currentBangumi;
         let currentList = currentBangumi.map(bangumi => {
             return(
-                <Label style = {labelStyle}>
+                <Label onClick ={this.toDetailPage.bind(this, bangumi)} style = {labelStyle}>
                     <Image className = {hoverPart} style = {imgStyle} src = {bangumi.image_url} rounded/>
                     <p className = {hoverPart}>{bangumi.title}</p>
                 </Label>
@@ -444,7 +447,8 @@ class AllBangumi extends Component {
                 signupHandler = {this.signupHandler}
                 logoutHandler = {this.logoutHandler}
                 toBangumi = {this.toBangumi}
-                toUpcoming = {this.toUpcoming}/>
+                toUpcoming = {this.toUpcoming}
+                history = {this.props.history}/>
                 <div className = {pageStyle}>
                     <div className = {selectStyle}>
                         <Select className = {selectCss} placeholder="Select a Year" onChange = {this.yearHandler} options={this.state.yearOptions}/>

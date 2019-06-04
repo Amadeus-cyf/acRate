@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {Label, Image, Button} from 'semantic-ui-react';
-import Navibar from '../MainMenu/Navibar/navibar.jsx';
-import {pageContainer, textStyle, imageStyle} from '../AllBangumi/allBangumi.module.scss';
+import Navibar from '../Home/MainMenu/Navibar/navibar.jsx';
+import {pageContainer, textStyle, imageStyle} from '../Home/AllBangumi/allBangumi.module.scss';
 import loadingGif from '../loading.gif';
 import {bangumiSection, bangumiStyle, hoverPart, 
     bangumiContainer, numberlistStyle} from './recentBangumi.module.scss';
@@ -80,6 +80,10 @@ class CurrentBangumi extends Component {
 
     logoutHandler() {
         this.props.history.push('/logout');
+    }
+
+    toDetailPage(bangumi) {
+        this.props.history.push('/detail/' + bangumi.anime_id);
     }
 
     toPage(pageNumber) {
@@ -189,7 +193,7 @@ class CurrentBangumi extends Component {
         let currentBangumi = this.state.currentBangumi;
         let currentList = currentBangumi.map(bangumi => {
             return(
-                <Label style = {labelStyle}>
+                <Label onClick = {this.toDetailPage.bind(this, bangumi)} style = {labelStyle}>
                     <Image className = {hoverPart} style = {imgStyle} src = {bangumi.image_url} rounded/>
                     <p className = {hoverPart}>{bangumi.title}</p>
                 </Label>

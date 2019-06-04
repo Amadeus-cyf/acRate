@@ -5,8 +5,8 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
     BangumiList.find().exec()
-    .then(bangumi => {
-        return res.status(200).json({message: "Successfully find all bangumis", data: {bangumi}});
+    .then(bangumiList => {
+        return res.status(200).json({message: "Successfully find all bangumis", data: {bangumiList}});
     }).catch(err => {
         return res.status(500).json({message: err});
     })
@@ -19,6 +19,15 @@ router.get('/:anime_id', (req, res) => {
             return res.status(404).json({message: 'Bangumi not found', data: {}});
         }
         return res.status(200).json({message: 'Succesfully find the bangumi', data: {bangumi}});
+    }).catch(err => {
+        return res.status(500).json({message: err});
+    })
+})
+
+router.get('/filter/:keyword', (req, res) => {
+    BangumiList.find({title: {$gte: req.params.keyword, $lte: req.params.keyword + 'z'}}).exec()
+    .then(bangumiList => {
+        return res.status(200).json({message: 'Succesfully find the filtered bangumi list', data: {bangumiList}});
     }).catch(err => {
         return res.status(500).json({message: err});
     })

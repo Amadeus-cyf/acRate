@@ -5,7 +5,7 @@ import MainMenu from '../MainMenu/mainMenu.jsx';
 import Navibar from '../MainMenu/Navibar/navibar.jsx';
 import {pageContainer,textStyle, imageStyle} from '../AllBangumi/allBangumi.module.scss';
 import {bangumiSection, bangumiStyle, hoverPart, bangumiContainer, numberlistStyle} from './upcomingBangumi.module.scss';
-import loadingGif from '../loading.gif';
+import loadingGif from '../../loading.gif';
 
 class UpcomingBangumi extends Component {
     constructor() {
@@ -205,7 +205,8 @@ class UpcomingBangumi extends Component {
                 signupHandler = {this.signupHandler}
                 logoutHandler = {this.logoutHandler}
                 toBangumi = {this.toBangumi}
-                toUpcoming = {this.toUpcoming}/>
+                toUpcoming = {this.toUpcoming}
+                history = {this.props.history}/>
                 <div className = {bangumiContainer}>
                     <div className = {bangumiSection}>
                         <h3>{this.state.year}年新番</h3>

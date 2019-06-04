@@ -1,0 +1,40 @@
+.searchResultStyle {
+   padding: 1% 10% 1% 5%;
+   background: white;
+}
+
+.titleStyle {
+    font-size: 16pt;
+    color: rgba(30, 144, 255, 1);
+}
+
+.wordStyle  {
+    font-size: 12pt;
+    margin: 1% 3% 1% 3%;
+    color: rgba(100, 100, 100, 0.7);
+    column-gap: 2em;
+}
+
+.wordStyle:hover {
+    cursor:pointer;
+}
+
+.imageHoverStyle:hover {
+    cursor: pointer;
+}
+
+.numberlistStyle {
+    padding-top: 3%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.numberStyle {
+    font-size: 14pt;
+}
+
+.numberStyle:hover {
+    cursor: pointer;
+    color: blue;
+}

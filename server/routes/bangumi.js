@@ -14,12 +14,12 @@ router.get('/', (req, res) => {
 })
 
 router.get('/:anime_id', (req, res) => {
-    Bangumi.find({anime_id: req.params.anime_id}).sort({year: -1}).exec()
-    .then(bangumiList => {
-        if (bangumiList.length === 0) {
+    Bangumi.findOne({anime_id: req.params.anime_id}).sort({year: -1}).exec()
+    .then(bangumi => {
+        if (!bangumi) {
             return res.status(404).json({message: 'Bangumi not found', data: {}});
         }
-        return res.status(200).json({message: 'Successfully find corresponding bangumi', data: {bangumiList}});
+        return res.status(200).json({message: 'Successfully find corresponding bangumi', data: {bangumi}});
     }).catch(err => {
         return res.status(500).json({message: err});
     })
@@ -69,14 +69,14 @@ router.get('/:year/:season/count', (req, res) => {
     let year = req.params.year;
     let season = req.params.season;
     if (season !== 'allyear') {
-        Bangumi.find({year: year, season: season}).count().exec()
+        Bangumi.find({year: year, season: season}).countDocuments().exec()
         .then(bangumiNumber => {
             return res.status(200).json({message: 'Succesfully find all bangumi of corresponding time', data: {bangumiNumber}});
         }).catch(err => {
             return res.status(500).json({message: err});
         })
     } else {
-        Bangumi.find({year: year}).count().exec()
+        Bangumi.find({year: year}).countDocuments().exec()
         .then(bangumiNumber => {
             return res.status(200).json({message: 'Succesfully find all bangumi of corresponding time', data: {bangumiNumber}});
         }).catch(err => {

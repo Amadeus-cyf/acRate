@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import Navibar from '../MainMenu/Navibar/navibar.jsx';
+import Navibar from '../Home/MainMenu/Navibar/navibar.jsx';
 import {Button, Form} from 'semantic-ui-react';
 import {container, title, subtitle, imageStyle} from './login.module.scss';
 

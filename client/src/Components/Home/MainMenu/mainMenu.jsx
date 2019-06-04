@@ -13,7 +13,7 @@ class MainMenu extends Component {
                 loginHandler = {this.props.loginHandler}
                 signupHandler = {this.props.signupHandler}
                 logoutHandler = {this.props.logoutHandler}/>
-                <Searchbar/>
+                <Searchbar history = {this.props.history}/>
                 <Subnavibar toHomePage = {this.props.toHomePage} toBangumi = {this.props.toBangumi} toUpcoming = {this.props.toUpcoming}/>
             </div>
         )

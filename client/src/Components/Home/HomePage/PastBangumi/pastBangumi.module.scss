@@ -1,0 +1,18 @@
+.bangumiStyle {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.hoverPart {
+    font-size: 10pt;
+    margin-top: 10px;
+}
+
+.hoverPart:hover {
+    cursor: pointer;
+}
+
+.title {
+    padding-top: 3%;
+}
