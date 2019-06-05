@@ -3,7 +3,7 @@ import axios from 'axios';
 import {Label, Image, Button, Form, Input} from 'semantic-ui-react';
 import Navibar from '../Home/MainMenu/Navibar/navibar.jsx';
 import {searchResultStyle, wordStyle, 
-    imageHoverStyle, titleStyle, numberStyle, numberlistStyle} from './searchResult.module.scss';
+    imageHoverStyle, titleStyle, numberStyle, numberlistStyle, headStyle} from './searchResult.module.scss';
 import {textStyle, imageStyle, pageContainer} from '../Home/AllBangumi/allBangumi.module.scss';
 import loadingGif from '../searchloading.gif';
 
@@ -121,15 +121,16 @@ class SearchResult extends Component {
         let labelStyle = {
             background: 'white',
             'display': 'flex',
-            'padding-top': '80px'
+            'padding-top': '30px',
+            'font-family': "'PT Sans Caption', sans-serif",
         }
         let imgStyle = {
-            'max-width': '180px',
-            'min-width': '180px',
-            'max-height': '250px',
-            'min-height': '250px',
+            'max-width': '160px',
+            'min-width': '160px',
+            'max-height': '225px',
+            'min-height': '225px',
         }
-        let currentBangumi = this.state.currentBangumi.slice(1).sort((first, second) => {
+        let currentBangumi = this.state.currentBangumi.sort((first, second) => {
             if (first.airing_start > second.airing_start) {
                 return -1;
             } else if (first.airing_start < second.airing_start) {
@@ -138,11 +139,10 @@ class SearchResult extends Component {
                 return 0;
             }
         })
-        currentBangumi.unshift(this.state.currentBangumi[0]);
         let bangumiLabels = currentBangumi.map(bangumi => {
             let intro = '';
-            if (bangumi.synopsis.length > 120) {
-                intro = bangumi.synopsis.slice(0, 120).concat('...');
+            if (bangumi.synopsis.length > 200) {
+                intro = bangumi.synopsis.slice(0, 200).concat('...');
             } else {
                 intro = bangumi.synopsis;
             }
@@ -164,7 +164,7 @@ class SearchResult extends Component {
             display: 'inline',
         }
         let listStyle = {
-            display: 'block',
+            display: 'flex',
         }
         if (this.state.pageNumber === 1) {
             listStyle = {
@@ -236,7 +236,7 @@ class SearchResult extends Component {
                     } else {
                         if (page === this.state.currentPage - 3 || page === this.state.currentPage + 3) {
                             return(
-                                <span className = {numberStyle}>...</span>
+                                <p className = {numberStyle}>...</p>
                             )
                         }
                     }
@@ -282,6 +282,7 @@ class SearchResult extends Component {
             <div>
                 <Navibar history = {this.props.history}/>
                 <div className = {searchResultStyle}>
+                    <h2 className = {headStyle}> {this.state.result.length} Search Result(s) for "{this.props.match.params.keyword}"</h2>
                     {bangumiLabels}
                     <div className = {numberlistStyle} style = {listStyle}>
                         <Button color = 'blue' onClick = {this.toPage.bind(this, 1)}>Page</Button>

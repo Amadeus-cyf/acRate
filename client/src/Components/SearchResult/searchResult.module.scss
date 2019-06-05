@@ -1,5 +1,6 @@
 .searchResultStyle {
-    padding: 1% 5% 0% 8%;
+    padding-left: 15%;
+    padding-right: 15%;
     padding-bottom: 460px;
     background: white;
 }
@@ -7,6 +8,13 @@
 .titleStyle {
     font-size: 16pt;
     color: rgba(30, 144, 255, 1);
+}
+
+.headStyle {
+    padding-top: 30px;
+    font-size: 15pt;
+    font-family: 'PT Sans Caption', sans-serif;
+    color: rgba(100, 100, 100, 0.7);
 }
 
 .wordStyle  {
@@ -25,7 +33,9 @@
 }
 
 .numberlistStyle {
-    padding-top: 20px;
+    padding-top: 10%;
+    padding-right: 10%;
+    padding-left: 5%;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
