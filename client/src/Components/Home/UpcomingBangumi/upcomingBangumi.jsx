@@ -30,10 +30,10 @@ class UpcomingBangumi extends Component {
             let animelist = response.data.anime.filter(anime => {
                 return !anime.r18 && !anime.kids;
             })
-            if (animelist.length > 36) {
+            if (animelist.length > 20) {
                 this.setState({
                     bangumi: animelist,
-                    currentBangumi: animelist.slice(0, 36),
+                    currentBangumi: animelist.slice(0, 20),
                     year: year,
                 })
             } else {
@@ -43,13 +43,13 @@ class UpcomingBangumi extends Component {
                     year: year,
                 })
             }
-            if (animelist.length % 36) {
+            if (animelist.length % 20) {
                 this.setState({
-                    pageNumber: (animelist.length-animelist.length%36)/36 + 1
+                    pageNumber: (animelist.length-animelist.length%20)/20 + 1
                 })
             } else {
                 this.setState({
-                    pageNumber: animelist.length/36,
+                    pageNumber: animelist.length/20,
                 })
             }
         }).catch(err => {
@@ -58,7 +58,7 @@ class UpcomingBangumi extends Component {
     }
 
     toPage(pageNumber) {
-        let currentBangumi = this.state.bangumi.slice((pageNumber-1)*36, pageNumber*36);
+        let currentBangumi = this.state.bangumi.slice((pageNumber-1)*20, pageNumber*20);
         this.setState({
             currentPage: pageNumber,
             currentBangumi: currentBangumi,
@@ -68,10 +68,10 @@ class UpcomingBangumi extends Component {
     toPrevious() {
         let pageNumber = this.state.currentPage-1;
         let currentBangumi = [];
-        if (36*pageNumber <= this.state.bangumi.length) {
-            currentBangumi = this.state.bangumi.slice(36*(pageNumber-1), 36*pageNumber);
+        if (20*pageNumber <= this.state.bangumi.length) {
+            currentBangumi = this.state.bangumi.slice(20*(pageNumber-1), 20*pageNumber);
         } else {
-            currentBangumi = this.state.bangumi.slice(36*(pageNumber-1));
+            currentBangumi = this.state.bangumi.slice(20*(pageNumber-1));
         }
         this.setState({
             currentPage: pageNumber,
@@ -82,10 +82,10 @@ class UpcomingBangumi extends Component {
     toNext() {
         let pageNumber = this.state.currentPage+1;
         let currentBangumi = [];
-        if (36*pageNumber <= this.state.bangumi.length) {
-            currentBangumi = this.state.bangumi.slice(36*(pageNumber-1), 36*(pageNumber));
+        if (20*pageNumber <= this.state.bangumi.length) {
+            currentBangumi = this.state.bangumi.slice(20*(pageNumber-1), 20*(pageNumber));
         } else {
-            currentBangumi = this.state.bangumi.slice(36*(pageNumber-1));
+            currentBangumi = this.state.bangumi.slice(20*(pageNumber-1));
         }
         this.setState({
             currentPage: pageNumber,
@@ -110,15 +110,13 @@ class UpcomingBangumi extends Component {
             )
         }
         let labelStyle = {
-            'max-width': '170px',
-            'min-width': '170px',
+            'width': '200px',
             'height': 'auto',
             background: 'white',
         }
         let imgStyle = {
-            'max-width': '150px',
-            'min-width': '150px',
-            height: '200px',
+            width: '170px',
+            height: '220px',
         }
         let previousStyle = {
             display: 'inline',

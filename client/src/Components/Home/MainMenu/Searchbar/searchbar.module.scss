@@ -19,3 +19,12 @@
     cursor: pointer;
     background: rgba(235, 235, 235, 0.7);
 }
+
+.searchbarStyle {
+    width: 250px;
+    display: block;
+    position: absolute;
+    z-index: 1;
+    right: 80px;
+    margin-top: 180px;
+}

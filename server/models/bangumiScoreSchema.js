@@ -6,7 +6,7 @@ var BangumiScoreSchema = new mongoose.Schema({
         unique: true,
         required: true,
     }, 
-    //scores
+    // number of stars
     1: {
         type: Array,
         default: [],

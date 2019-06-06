@@ -12,6 +12,7 @@ class Login extends Component {
             password: '',
             message: 'success',
         }
+        this.signupHandler = this.signupHandler.bind(this);
         this.emailHandler = this.emailHandler.bind(this);
         this.passwordHandler = this.passwordHandler.bind(this);
         this.formloginHandler = this.formloginHandler.bind(this);
@@ -53,6 +54,10 @@ class Login extends Component {
         }).catch(err => {
             alert(err);
         })
+    }
+
+    signupHandler() {
+        this.props.history.push('/signup');
     }
     
     render() {

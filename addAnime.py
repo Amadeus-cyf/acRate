@@ -17,7 +17,7 @@ def getAnime(year, season):
             anime.pop('members')
             anime['year'] = year
             anime['season'] = season
-            if anime['continuing'] == True:
+            if anime['airing'] == True:
                 anime['continuing'] = 'true'
             else:
                 anime['continuing'] = 'false'

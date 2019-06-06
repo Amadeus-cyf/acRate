@@ -65,8 +65,7 @@ class HomePage extends Component {
         if (this.state.past) {
             return (
                 <div>
-                    <MainMenu history = {this.props.history}
-                    />
+                    <MainMenu history = {this.props.history}/>
                     <div className = {bangumiSection}>
                         <CurrentBangumi history = {this.props.history}/>
                         <PastBangumi className = {bangumiStyle} history = {this.props.history}/>

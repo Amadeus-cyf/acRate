@@ -1,0 +1,19 @@
+.textStyle {
+    font-size: 12pt;
+    font-family: 'PT Sans Caption', sans-serif;
+    padding: 2% 3% 2% 3%;
+    word-wrap: break-word;
+}
+
+.textStyle:hover {
+    cursor: pointer;
+    background: rgba(235, 235, 235, 0.7);
+}
+
+.searchStyle {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 10%;
+    margin-bottom: 5%;
+}

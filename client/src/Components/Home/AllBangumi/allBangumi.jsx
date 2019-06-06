@@ -82,13 +82,13 @@ class AllBangumi extends Component {
         axios.get('api/bangumi/' + this.state.displayYear + '/' + this.state.displaySeason + '/count')
         .then(response => {
             let bangumiNumber = response.data.data.bangumiNumber;
-            if (bangumiNumber % 36) {
+            if (bangumiNumber % 20) {
                 this.setState({
-                    pageNumber: (bangumiNumber - bangumiNumber%36)/36 + 1
+                    pageNumber: (bangumiNumber - bangumiNumber%20)/20 + 1
                 })
             } else {
                 this.setState({
-                    pageNumber: bangumiNumber/36,
+                    pageNumber: bangumiNumber/20,
                 })
             }
         })
@@ -233,13 +233,13 @@ class AllBangumi extends Component {
             axios.get('api/bangumi/' + year + '/' + season + '/count')
             .then(response => {
                 let bangumiNumber = response.data.data.bangumiNumber;
-                if (bangumiNumber % 36) {
+                if (bangumiNumber % 20) {
                     this.setState({
-                        pageNumber: (bangumiNumber - bangumiNumber%36)/36 + 1
+                        pageNumber: (bangumiNumber - bangumiNumber%20)/20 + 1
                     })
                 } else {
                     this.setState({
-                        pageNumber: bangumiNumber/36,
+                        pageNumber: bangumiNumber/20,
                     })
                 }
             })
@@ -261,17 +261,6 @@ class AllBangumi extends Component {
                     </div>
                 </div>
             )
-        }
-        let labelStyle = {
-            'max-width': '170px',
-            'min-width': '170px',
-            'height': 'auto',
-            background: 'white',
-        }
-        let imgStyle = {
-            'max-width': '150px',
-            'min-width': '150px',
-            height: '200px',
         }
         let titleStyle = {
             display: 'block',
@@ -300,6 +289,15 @@ class AllBangumi extends Component {
         // process each bangumi
         let currentBangumi = this.state.currentBangumi;
         let currentList = currentBangumi.map(bangumi => {
+            let labelStyle = {
+                'width': '200px',
+                'height': 'auto',
+                background: 'white',
+            }
+            let imgStyle = {
+                width: '165px',
+                height: '220px',
+            }
             return(
                 <Label onClick ={this.toDetailPage.bind(this, bangumi)} style = {labelStyle}>
                     <Image className = {hoverPart} style = {imgStyle} src = {bangumi.image_url} rounded/>
@@ -314,7 +312,7 @@ class AllBangumi extends Component {
         }
         let pageList = [];
         // process number list
-        if (this.state.pageNumber <= 10) {
+        if (this.state.pageNumber <= 7) {
             pageList = pageArr.map(page => {
                 if (page === this.state.currentPage) {
                     return(
@@ -404,7 +402,6 @@ class AllBangumi extends Component {
                 return '';
             })
         }
-
         return(
             <div>
                 <MainMenu history = {this.props.history}/>

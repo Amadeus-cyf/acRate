@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import {Label, Image, Button, Form, Input} from 'semantic-ui-react';
+import {Label, Image, Button, Form, Input, Divider} from 'semantic-ui-react';
 import Navibar from '../Home/MainMenu/Navibar/navibar.jsx';
-import {searchResultStyle, wordStyle, 
-    imageHoverStyle, titleStyle, numberStyle, numberlistStyle, headStyle} from './searchResult.module.scss';
+import Searchbar from './Searchbar/searchbar.jsx';
 import {textStyle, imageStyle, pageContainer} from '../Home/AllBangumi/allBangumi.module.scss';
 import loadingGif from '../searchloading.gif';
+import {searchResultStyle, wordStyle, imageHoverStyle, titleStyle, 
+    numberlistStyle, headStyle, footerStyle} from './searchResult.module.scss';
 
 class SearchResult extends Component {
     constructor() {
@@ -29,23 +30,23 @@ class SearchResult extends Component {
             let bangumiNumber = response.data.data.bangumiList.length;
             this.setState({
                 result: response.data.data.bangumiList,
-                currentBangumi: response.data.data.bangumiList.slice(0, 10),
+                currentBangumi: response.data.data.bangumiList.slice(0, 20),
                 bangumiNumber: bangumiNumber,
             })
-            if (bangumiNumber % 10) {
+            if (bangumiNumber % 20) {
                 this.setState({
-                    pageNumber: (bangumiNumber - bangumiNumber%10)/10 + 1
+                    pageNumber: (bangumiNumber - bangumiNumber%20)/20 + 1
                 })
             } else {
                 this.setState({
-                    pageNumber: bangumiNumber/10,
+                    pageNumber: bangumiNumber/20,
                 })
             }
         }).catch(err => {
             alert(err);
         })
     }
-
+    
     toDetailPage(bangumi) {
         this.props.history.push('/detail/' + bangumi.anime_id);
     }
@@ -56,7 +57,7 @@ class SearchResult extends Component {
         }
         let result = this.state.result;
         this.setState({
-            currentBangumi: result.slice((pageNumber-1)*10, pageNumber*10),
+            currentBangumi: result.slice((pageNumber-1)*20, pageNumber*20),
             currentPage: pageNumber,
         })
     }
@@ -65,7 +66,7 @@ class SearchResult extends Component {
         let pageNumber = this.state.currentPage-1;
         let result = this.state.result;
         this.setState({
-            currentBangumi: result.slice((pageNumber-1)*10, pageNumber*10),
+            currentBangumi: result.slice((pageNumber-1)*20, pageNumber*20),
             currentPage: pageNumber,
         })
     }
@@ -74,7 +75,7 @@ class SearchResult extends Component {
         let pageNumber = this.state.currentPage+1;
         let result = this.state.result;
         this.setState({
-            currentBangumi: result.slice((pageNumber-1)*10, pageNumber*10),
+            currentBangumi: result.slice((pageNumber-1)*20, pageNumber*20),
             currentPage: pageNumber,
         })
     }
@@ -118,18 +119,6 @@ class SearchResult extends Component {
         if (this.state.result.length === 0) {
             return <p>Not found</p>
         }
-        let labelStyle = {
-            background: 'white',
-            'display': 'flex',
-            'padding-top': '30px',
-            'font-family': "'PT Sans Caption', sans-serif",
-        }
-        let imgStyle = {
-            'max-width': '160px',
-            'min-width': '160px',
-            'max-height': '225px',
-            'min-height': '225px',
-        }
         let currentBangumi = this.state.currentBangumi.sort((first, second) => {
             if (first.airing_start > second.airing_start) {
                 return -1;
@@ -145,6 +134,16 @@ class SearchResult extends Component {
                 intro = bangumi.synopsis.slice(0, 200).concat('...');
             } else {
                 intro = bangumi.synopsis;
+            }
+            let labelStyle = {
+                background: 'white',
+                'display': 'flex',
+                'padding-top': '30px',
+                'font-family': "'PT Sans Caption', sans-serif",
+            }
+            let imgStyle = {
+                width: '165px',
+                height: '225px',
             }
             return (
                 <Label style = {labelStyle} onClick = {this.toDetailPage.bind(this, bangumi)}>
@@ -188,111 +187,42 @@ class SearchResult extends Component {
         }
         let pageList = [];
         // process number list
-        if (this.state.pageNumber <= 10) {
-            pageList = pageArr.map(page => {
-                if (page === this.state.currentPage) {
-                    return(
-                        <Button onClick = {this.toPage.bind(this, page)} size = 'small' color = 'blue'>{page}</Button>
-                    )
-                }
+        pageList = pageArr.map(page => {
+            if (page === this.state.currentPage) {
                 return(
-                    <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
+                    <Button onClick = {this.toPage.bind(this, page)} size = 'small' color = 'blue'>{page}</Button>
                 )
-            })
-        } else {
-            pageList = pageArr.map(page => {
-                if (page === 1) {
-                    if (this.state.currentPage === 1) {
-                        return(
-                            <Button onClick = {this.toPage.bind(this, page)} size = 'small' color = 'blue'>{page}</Button>
-                        )
-                    } else {
-                        return(
-                            <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
-                        )
-                    }
-                }
-                if (page === this.state.pageNumber) {
-                    if (this.state.currentPage === this.state.pageNumber) {
-                        return(
-                            <Button onClick = {this.toPage.bind(this, page)} size = 'small' color = 'blue'>{page}</Button>
-                        )
-                    } else {
-                        return(
-                            <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
-                        )
-                    }
-                }
-                if (this.state.currentPage > 2 && this.state.currentPage <= this.state.pageNumber-2) {
-                    if (page >= this.state.currentPage - 2 && page <= (this.state.currentPage + 2)) {
-                        if (page === this.state.currentPage) {
-                            return(
-                                <Button onClick = {this.toPage.bind(this, page)} size = 'small' color = 'blue'>{page}</Button>
-                            )
-                        }
-                        return(
-                            <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
-                        ) 
-                    } else {
-                        if (page === this.state.currentPage - 3 || page === this.state.currentPage + 3) {
-                            return(
-                                <p className = {numberStyle}>...</p>
-                            )
-                        }
-                    }
-                } else if (this.state.currentPage <= 2) {
-                    if (page <= 5) {
-                        if (page === this.state.currentPage) {
-                            return(
-                                <Button onClick = {this.toPage.bind(this, page)} size = 'small' color = 'blue'>{page}</Button>
-                            )
-                        }
-                        return(
-                            <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
-                        ) 
-                    } else {
-                        if (page === 6) {
-                            return(
-                                <p className = {numberStyle}>...</p>
-                            )
-                        }
-                    }
-                } else {
-                    if (page > this.state.pageNumber - 5) {
-                        if (page === this.state.currentPage) {
-                            return(
-                                <Button onClick = {this.toPage.bind(this, page)} size = 'small' color = 'blue'>{page}</Button>
-                            )
-                        }
-                        return(
-                            <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
-                        ) 
-                    } else {
-                        if (page === this.state.pageNumber - 5) {
-                            return(
-                                <p className = {numberStyle}>...</p>
-                            )
-                        }
-                    }
-                }
-                return '';
-            })
+            }
+            return(
+                <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
+            )
+        })
+        let dividerStyle = {
+            display: 'block',
+            margin: '0 auto',
+            width: '70%',
         }
         return(
-            <div>
+            <div style = {{background: 'white'}}>
                 <Navibar history = {this.props.history}/>
-                <div className = {searchResultStyle}>
-                    <h2 className = {headStyle}> {this.state.result.length} Search Result(s) for "{this.props.match.params.keyword}"</h2>
-                    {bangumiLabels}
-                    <div className = {numberlistStyle} style = {listStyle}>
-                        <Button color = 'blue' onClick = {this.toPage.bind(this, 1)}>Page</Button>
-                        <Button basic color = 'blue' style = {previousStyle} onClick = {this.toPrevious}>Prev</Button>
-                        {pageList}
-                        <Button basic color = 'blue' style = {nextStyle} onClick = {this.toNext}>Next</Button>
-                        <Form onSubmit = {this.toPage.bind(this, this.state.inputPage)}>
-                            <Input placeholder = 'Enter page number'onChange = {this.pageHandler}></Input>
-                        </Form>
+                <Searchbar history = {this.props.history}/>
+                <Divider style = {dividerStyle}/>
+                    <div className = {searchResultStyle}>
+                        <h2 className = {headStyle}> {this.state.result.length} search result(s) for "{this.props.match.params.keyword}"</h2>
+                        {bangumiLabels}
+                        <div className = {numberlistStyle} style = {listStyle}>
+                            <Button color = 'blue' onClick = {this.toPage.bind(this, 1)}>Page</Button>
+                            <Button basic color = 'blue' style = {previousStyle} onClick = {this.toPrevious}>Prev</Button>
+                            {pageList}
+                            <Button basic color = 'blue' style = {nextStyle} onClick = {this.toNext}>Next</Button>
+                            <Form onSubmit = {this.toPage.bind(this, this.state.inputPage)}>
+                                <Input placeholder = 'Enter page number'onChange = {this.pageHandler}></Input>
+                            </Form>
+                        </div>
                     </div>
+                <Divider style = {dividerStyle}/>
+                <div className = {footerStyle}>
+                    <h2>Aniscore </h2>
                 </div>
             </div>
         )

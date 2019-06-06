@@ -1,5 +1,10 @@
 import React, {Component} from 'react';
+import {Image} from 'semantic-ui-react';
 import axios from 'axios';
+import Introduction from './Introduction/introduction.jsx';
+import Navibar from '../Home/MainMenu/Navibar/navibar.jsx';
+import {pageContainer,textStyle, imageStyle} from '../Home/AllBangumi/allBangumi.module.scss';
+import loadingGif from '../searchloading.gif';
 
 class DetailPage extends Component {
     constructor() {
@@ -10,10 +15,10 @@ class DetailPage extends Component {
     }
     
     componentDidMount() {
-        axios.get('api/bangumi/' + this.props.match.params.anime_id)
+        axios.get('https://api.jikan.moe/v3/anime/' + this.props.match.params.anime_id)
         .then(response => {
             this.setState({
-                bangumi: response.data.data.bangumi,
+                bangumi: response.data,
             })
         }).catch(err => {
             alert(err);
@@ -22,11 +27,24 @@ class DetailPage extends Component {
 
     render() {
         if (this.state.bangumi === 'undefined') {
-            return (<p></p>)
+            return (
+                <div>
+                    <Navibar history = {this.props.history}/>
+                    <div className = {pageContainer}>
+                        <div>
+                            <Image className = {imageStyle} src={loadingGif} alt = 'loading'/>
+                        </div>
+                        <p className = {textStyle}>
+                            Loading ... 
+                        </p>
+                    </div>
+                </div>
+            )
         }
         return(
             <div>
-                {this.state.bangumi.title}
+                <Navibar history = {this.props.history}/>
+                <Introduction bangumi = {this.state.bangumi}/>
             </div>
         )
     }

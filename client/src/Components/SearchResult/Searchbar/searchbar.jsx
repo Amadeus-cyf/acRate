@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import {Input, Form, Label} from 'semantic-ui-react';
-import {backgroundStyle, titleStyle, searchbarStyle} from './searchbar.module.scss';
+import {Label, Button, Form, Input} from 'semantic-ui-react';
+import {textStyle, searchStyle} from './searchbar.module.scss';
 
 class Searchbar extends Component {
     constructor() {
         super();
         this.state = {
             searchInput: '',
-            filterList: [],
+            filterList:  [],
             bangumiList: [],
             labelDisplay: 'none',
         }
@@ -24,10 +24,9 @@ class Searchbar extends Component {
                 bangumiList: [],
                 labelDisplay: 'none',
             })
-            return;
         }
         this.setState({
-            searchInput: event.target.value
+            searchInput: event.target.value,
         })
         if (event.target.value.length < 4) {
             return;
@@ -64,38 +63,45 @@ class Searchbar extends Component {
     searchHandler() {
         if (this.state.searchInput === '') {
             return;
-        } else {
-            this.props.history.push('/search/' + this.state.searchInput);
         }
+        this.props.history.push('/search/' + this.state.searchInput);
+        window.location.reload();
     }
 
     toDetailPage(bangumi) {
-        this.props.history.push('/detail/' + bangumi.anime_id);
+        this.props.history.push('/detail/' + bangumi.anime_id)
     }
 
-
     render() {
-        let labelStyle = {
+        let filterList = this.state.filterList.map(bangumi => {
+            return <p className = {textStyle} onClick = {this.toDetailPage.bind(this, bangumi)}>{bangumi.title}</p>
+        })
+        let buttonStyle = {
+            height: '50px',
+        }
+        let labelDisplay = {
+            width: '320px',
             background: 'white',
             display: this.state.labelDisplay,
             'box-shadow': '0px 1px 5px 2px rgba(225, 225, 225, 0.5)',
+            position: 'absolute',
+            'z-index': '1',
         }
-        let filterList = this.state.filterList.map(bangumi => {
-            return (
-                <p onClick = {this.toDetailPage.bind(this, bangumi)} className = {titleStyle}>{bangumi.title}</p>
-            )
-        })
+        let inputStyle = {
+            width: '320px',
+        }
         return(
-            <Form onSubmit = {this.searchHandler} className = {backgroundStyle}>
-                <div className = {searchbarStyle} >
-                    <Input icon='search' value = {this.state.searchInput}
-                    onChange = {this.inputHandler} size = 'big' type = 'text' 
-                    placeholder = 'Enter at least one word' />
-                    <Label style = {labelStyle}>{filterList}</Label>
+            <Form onSubmit = {this.searchHandler}>
+                <div className = {searchStyle}>
+                    <div style = {{'padding-right': '30px'}}>
+                        <Input style = {inputStyle} size = 'huge' type = 'text' placeholder = 'Enter bangumi name'
+                        value = {this.state.searchInput} onChange = {this.inputHandler}></Input>
+                        <Label style = {labelDisplay}>{filterList}</Label>
+                    </div>
+                    <Button style = {buttonStyle} content = 'Search' icon = 'search' size = 'big' color = 'blue' onClick = {this.searchHandler}></Button>
                 </div>
             </Form>
         )
-
     }
 }
 

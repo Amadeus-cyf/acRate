@@ -89,18 +89,17 @@ class PastBangumi extends Component {
                 </div>
             )
         }
-        let labelStyle = {
-            'max-width': '170px',
-            'min-width': '170px',
-            'height': 'auto',
-            background: 'white',
-        }
-        let imgStyle = {
-            'max-width': '170px',
-            height: '200px',
-        }
         let pastBangumi = this.state.pastBangumi;
         let pastList = pastBangumi.map(bangumi => {
+            let labelStyle = {
+                width: '170px',
+                height: 'auto',
+                background: 'white',
+            }
+            let imgStyle = {
+                width: '150px',
+                height: '200px',
+            }
             return(
                 <Label onClick ={this.toDetailPage.bind(this, bangumi)} style = {labelStyle}>
                     <Image className = {hoverPart} style = {imgStyle} src = {bangumi.image_url} rounded/>

@@ -138,17 +138,25 @@ class CurrentBangumi extends Component {
                 </div>
             )
         }
-        let labelStyle = {
-            'max-width': '170px',
-            'min-width': '170px',
-            'height': 'auto',
-            background: 'white',
-        }
-        let imgStyle = {
-            'max-width': '150px',
-            'min-width': '150px',
-            height: '200px',
-        }
+        // process each bangumi
+        let currentBangumi = this.state.currentBangumi;
+        let currentList = currentBangumi.map(bangumi => {
+            let labelStyle = {
+                'width': '200px',
+                'height': 'auto',
+                background: 'white',
+            }
+            let imgStyle = {
+                width: '165px',
+                height: '220px',
+            }
+            return(
+                <Label onClick = {this.toDetailPage.bind(this, bangumi)} style = {labelStyle}>
+                    <Image className = {hoverPart} style = {imgStyle} src = {bangumi.image_url} rounded/>
+                    <p className = {hoverPart}>{bangumi.title}</p>
+                </Label>
+            )
+        })
         let previousStyle = {
             display: 'inline',
         }
@@ -165,16 +173,6 @@ class CurrentBangumi extends Component {
                 display: 'none',
             }
         }
-        // process each bangumi
-        let currentBangumi = this.state.currentBangumi;
-        let currentList = currentBangumi.map(bangumi => {
-            return(
-                <Label onClick = {this.toDetailPage.bind(this, bangumi)} style = {labelStyle}>
-                    <Image className = {hoverPart} style = {imgStyle} src = {bangumi.image_url} rounded/>
-                    <p className = {hoverPart}>{bangumi.title}</p>
-                </Label>
-            )
-        })
         // set page number list 
         let pageArr = [];
         for (let i = 0; i < this.state.pageNumber; i++) {

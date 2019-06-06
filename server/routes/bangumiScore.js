@@ -110,7 +110,7 @@ router.put('/:anime_id', (req, res) => {
         if (originScore === 0) {
            bangumiScore.userNumber += 1;
         }
-        let totalScore = bangumiScore.totalScore + parseInt(score) - parseInt(originScore);
+        let totalScore = bangumiScore.totalScore + parseInt(score)*2 - parseInt(originScore)*2;
         bangumiScore.totalScore = totalScore;
         let userNumber = bangumiScore.userNumber;
         bangumiScore.averageScore = (totalScore/userNumber).toFixed(1);
