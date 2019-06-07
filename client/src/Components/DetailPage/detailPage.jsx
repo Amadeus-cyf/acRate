@@ -6,13 +6,18 @@ import Synopsis from './Synopsis/synopsis.jsx';
 import Navibar from '../Home/MainMenu/Navibar/navibar.jsx';
 import {pageContainer,textStyle, imageStyle} from '../Home/AllBangumi/allBangumi.module.scss';
 import loadingGif from '../searchloading.gif';
+import RatingLabel from './RatingLabel/raitngLabel.jsx';
+import {ratingLabelStyle} from './detailPage.module.scss';
 
 class DetailPage extends Component {
     constructor() {
         super();
         this.state = {
             bangumi: 'undefined',
+            labelDisplay: 'none',
+            totalBrightness: 'brightness(100%)',
         }
+        this.scoreBangumi = this.scoreBangumi.bind(this);
     }
     
     componentDidMount() {
@@ -23,6 +28,13 @@ class DetailPage extends Component {
             })
         }).catch(err => {
             alert(err);
+        })
+    }
+
+    scoreBangumi() {
+        this.setState({
+            labelDisplay: 'flex',
+            totalBrightness: 'brightness(30%)',
         })
     }
 
@@ -42,11 +54,22 @@ class DetailPage extends Component {
                 </div>
             )
         }
+        let labelStyle = {
+            display: this.state.labelDisplay,
+        }
+        let pageStyle = {
+            filter: this.state.totalBrightness,
+        }
         return(
             <div>
-                <Navibar history = {this.props.history}/>
-                <Information bangumi = {this.state.bangumi}/>
-                <Synopsis bangumi = {this.state.bangumi}/>
+                <div style = {pageStyle}>
+                    <Navibar history = {this.props.history}/>
+                    <Information bangumi = {this.state.bangumi} scoreBangumi = {this.scoreBangumi}/>
+                    <Synopsis bangumi = {this.state.bangumi}/>
+                </div>
+                <div style = {labelStyle} className = {ratingLabelStyle}>
+                    <RatingLabel/> 
+                </div>
             </div>
         )
     }

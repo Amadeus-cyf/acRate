@@ -3,16 +3,13 @@ import {Image} from 'semantic-ui-react';
 import Score from './Score/score.jsx';
 import {scoreStyle, genreStyle, genreListStyle, titleStyle,
     textSectionStyle, producerStyle} from './information.module.scss';
-import RatingLabel from '../RatingLabel/raitngLabel.jsx';
 
 class Information extends Component {
     constructor() {
         super();
         this.state = {
             title_japanese: '/',
-            labelStyle: 'none',
         }
-        this.scoreBangumi = this.scoreBangumi.bind(this);
     }
 
     componentDidMount() {
@@ -21,10 +18,6 @@ class Information extends Component {
                 title_japanese: this.props.bangumi.title_japanese,
             })
         }
-    }
-
-    scoreBangumi() {
-        alert('hello')
     }
 
     render() {
@@ -62,6 +55,7 @@ class Information extends Component {
         }
 
         return (
+            <div>
                 <div className = {scoreStyle} style = {backgroundStyle}> 
                     <Image rounded style = {imageStyle} src = {this.props.bangumi.image_url}/>
                     <div className = {textSectionStyle}>
@@ -75,16 +69,16 @@ class Information extends Component {
                                 <h4>Producers:</h4>
                                 <p>{producers}</p>
                             </div>
-                            <div style = {{'padding-left': '80px'}}>
+                            <div style = {{'padding-left': '30px'}}>
                                 <h4>Studios:</h4>
                                 <p>{studios}</p>
                             </div>
                         </div>
                     </div>
                     <Score bangumiId = {this.props.bangumi.mal_id}
-                    scoreBangumi = {this.scoreBangumi}/>
-                    <RatingLabel/> 
+                    scoreBangumi = {this.props.scoreBangumi}/>
                 </div>
+            </div>
         )
     }
 }

@@ -22,14 +22,14 @@ class Rating extends Component {
                 numberOfStars={5}
                 value={this.state.rating}
                 rating = {this.state.rating}
-                starEmptyColor = "#ffffff"
+                starEmptyColor = "grey"
                 starRatedColor = "#ffb440"
                 starHoverColor = "#ffb400"
                 changeRating={this.changeRating.bind(this)}
                 editing = {true}
                 isAggregateRating = {true}
-                starDimension="20px"
-                starSpacing="2px"
+                starDimension="30px"
+                starSpacing="5px"
             />
         );
       }    
