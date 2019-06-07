@@ -1,14 +1,18 @@
 import React, {Component} from 'react';
 import {Image} from 'semantic-ui-react';
-import HorionzontalBar from './Bar/bar.jsx';
-import {introStyle, scoreStyle, genreStyle, genreListStyle} from './introduction.module.scss';
+import Score from './Score/score.jsx';
+import {scoreStyle, genreStyle, genreListStyle, titleStyle,
+    textSectionStyle, producerStyle} from './information.module.scss';
+import RatingLabel from '../RatingLabel/raitngLabel.jsx';
 
-class Introduction extends Component {
+class Information extends Component {
     constructor() {
         super();
         this.state = {
             title_japanese: '/',
+            labelStyle: 'none',
         }
+        this.scoreBangumi = this.scoreBangumi.bind(this);
     }
 
     componentDidMount() {
@@ -17,6 +21,10 @@ class Introduction extends Component {
                 title_japanese: this.props.bangumi.title_japanese,
             })
         }
+    }
+
+    scoreBangumi() {
+        alert('hello')
     }
 
     render() {
@@ -30,6 +38,9 @@ class Introduction extends Component {
                 <p>{producer.name}</p>
             )
         })
+        if (producers.length === 0) {
+            producers = <p>/</p>
+        }
         let genres = this.props.bangumi.genres.map(genre => {
             return (
                 <span className = {genreStyle}>{genre.name}</span>
@@ -40,6 +51,9 @@ class Introduction extends Component {
                 <p>{studio.name}</p>
             )
         })
+        if (studios.length === 0) {
+            studios = <p>/</p>;
+        }
         let backgroundStyle = {
             background: 'url(' + this.props.bangumi.image_url + ')',
             'background-repeat': 'no-repeat',
@@ -48,28 +62,31 @@ class Introduction extends Component {
         }
 
         return (
-            <div>
                 <div className = {scoreStyle} style = {backgroundStyle}> 
                     <Image rounded style = {imageStyle} src = {this.props.bangumi.image_url}/>
-                    <div>
-                        <h3> {this.props.bangumi.title}</h3>
-                        <h3> {this.props.bangumi.title_japanese}</h3>
+                    <div className = {textSectionStyle}>
+                        <p className = {titleStyle}> {this.props.bangumi.title}</p>
+                        <p className = {titleStyle}> {this.props.bangumi.title_japanese}</p>
                         <p className = {genreListStyle}>
                             {genres}
                         </p>
-                        <p>{producers}</p>
-                        <p>{studios}</p>
+                        <div className = {producerStyle}>
+                            <div>
+                                <h4>Producers:</h4>
+                                <p>{producers}</p>
+                            </div>
+                            <div style = {{'padding-left': '80px'}}>
+                                <h4>Studios:</h4>
+                                <p>{studios}</p>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <HorionzontalBar bangumiId = {this.props.bangumi.mal_id}/> 
-                    </div>
+                    <Score bangumiId = {this.props.bangumi.mal_id}
+                    scoreBangumi = {this.scoreBangumi}/>
+                    <RatingLabel/> 
                 </div>
-                <div className = {introStyle}>
-                    <h2>Introduction</h2>
-                </div>
-            </div>
         )
     }
 }
 
-export default Introduction;
+export default Information;

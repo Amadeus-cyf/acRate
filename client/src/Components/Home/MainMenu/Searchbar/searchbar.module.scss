@@ -1,5 +1,4 @@
 .backgroundStyle {
-    display: block;
     width: 100%;
     height: 240px;
     background-color: white;
@@ -24,7 +23,6 @@
     width: 250px;
     display: block;
     position: absolute;
-    z-index: 1;
-    right: 80px;
-    margin-top: 180px;
+    padding-top: 180px;
+    right: 200px;
 }

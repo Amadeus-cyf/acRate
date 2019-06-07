@@ -1,0 +1,61 @@
+.scoreStyle{
+    width: 100%;
+    height: 100%;
+    padding: 3% 5% 3% 5%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 0;
+    color: white;
+}
+
+.scoreStyle:after{
+    content: "";
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    background: inherit;
+    filter: blur(10px) brightness(75%);
+    transform: scale(2);
+    z-index: -1;
+}
+
+.titleStyle {
+    font-size: 16pt;
+    white-space: normal;
+    width: 450px;
+}
+
+.textSectionStyle {
+    padding-top: 20px;
+    padding-left: 50px;
+    font-family: 'PT Sans Caption', sans-serif;
+}
+
+.producerStyle {
+    display: flex;
+    h4 {
+        font-size: 14pt;
+    }
+    p {
+        font-size: 12pt;
+    }
+    padding-top: 10px;
+}
+
+.genreListStyle {
+    display: flex;
+    flex-wrap: wrap;
+    white-space: normal;
+    width: 400px;
+}
+
+.genreStyle {
+    border: 2px solid white;
+    border-radius: 5px;
+    font-size:12pt;
+    padding: 5px 10px 5px 10px;
+    margin: 10px 5px 0 5px;
+}

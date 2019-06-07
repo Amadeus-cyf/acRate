@@ -28,6 +28,14 @@ var BangumiListSchema = new mongoose.Schema({
         type: String,
         default: date,
     },
+    score: {
+        type: Number,
+        default: 0.0,
+    },
+    userNumber: {
+        type: Number, 
+        default: 0,
+    }
 })
 
 module.exports = mongoose.model('BangumiList', BangumiListSchema);

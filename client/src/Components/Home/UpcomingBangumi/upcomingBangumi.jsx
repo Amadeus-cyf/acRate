@@ -93,6 +93,10 @@ class UpcomingBangumi extends Component {
         })
     }
 
+    toDetailPage(bangumi) {
+        this.props.history.push('/detail/' + bangumi.mal_id);
+    }
+
     render() {
         if (this.state.bangumi.length === 0){
             return (
@@ -138,7 +142,7 @@ class UpcomingBangumi extends Component {
         // process each bangumi
         let currentList = currentBangumi.map(bangumi => {
             return(
-                <Label style = {labelStyle}>
+                <Label onClick = {this.toDetailPage.bind(this, bangumi)} style = {labelStyle}>
                     <Image className = {hoverPart} style = {imgStyle} src = {bangumi.image_url} rounded/>
                     <p className = {hoverPart}>{bangumi.title}</p>
                 </Label>

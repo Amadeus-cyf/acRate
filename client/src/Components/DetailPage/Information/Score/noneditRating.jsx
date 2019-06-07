@@ -9,8 +9,8 @@ class NoneditStarRating extends Component {
           starRatedColor="#ffb400"
           numberOfStars={5}
           name='noneditrating'
-          starDimension="25px"
-          starSpacing="3px"
+          starDimension="18px"
+          starSpacing="2px"
         />
       );
     }

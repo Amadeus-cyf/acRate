@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import {Button} from 'semantic-ui-react'
 import ReactApexChart from 'react-apexcharts';
 import NoneditStarRating from './noneditRating.jsx';
+import {scoreStyle, scoreTitle, innerButtonStyle} from './score.module.scss';
 
-class HorizontalBar extends Component {
+class Score extends Component {
     constructor() {
         super();
         this.state = {
@@ -44,6 +46,7 @@ class HorizontalBar extends Component {
             scoreDisplay: 'block',
             userNumber: 0,
             average: 0.0,
+            ratingDisplay: 'none'
         }
     }
 
@@ -87,16 +90,28 @@ class HorizontalBar extends Component {
         let barStyle = {
             width: '320px',
             color: 'white',
+            'padding-top': '20px',
         }
         return(
             <div style = {{'font-size': '17pt'}}>
-                <div>{this.state.average.toFixed(1)}</div>
-                <div>{this.state.userNumber} users scored</div>
-                <NoneditStarRating average = {this.state.average}/>
+                <div className = {scoreStyle}>   
+                    <Button size = 'big' color = 'blue' animated='fade' onClick = {this.props.scoreBangumi}>
+                        <Button.Content visible className = {innerButtonStyle}>
+                            <div className = {scoreTitle}>{this.state.average}</div>
+                            <div>
+                                <NoneditStarRating average = {this.state.average}/>
+                                <p>{this.state.userNumber} users scored</p>
+                            </div>
+                        </Button.Content>
+                        <Button.Content hidden>
+                            <p style = {{'font-size': '14pt'}}>Score Bangumi</p>
+                        </Button.Content>
+                    </Button>
+                </div>
                 <ReactApexChart style = {barStyle} options={this.state.options} series={this.state.series} type = 'bar'/>
             </div>
         )
     }
 }
 
-export default HorizontalBar;
+export default Score;

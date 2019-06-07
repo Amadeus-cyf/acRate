@@ -69,7 +69,7 @@ class CurrentBangumi extends Component {
     }
 
     toDetailPage(bangumi) {
-        this.props.history.push('/detail/' + bangumi.anime_id);
+        this.props.history.push('/detail/' + bangumi.mal_id);
     }
 
     render() {

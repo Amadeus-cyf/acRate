@@ -1,3 +1,4 @@
+
 import React, {Component} from 'react';
 import {Label, Button} from 'semantic-ui-react';
 import {textStyle, clickStyle, listStyle} from './userMenu.module.scss';
@@ -30,7 +31,7 @@ class UserMenu extends Component {
                     </ol>
                     <Button style = {buttonstyle} onClick = {this.props.loginHandler} color = 'blue'>Log In</Button>
                         <p className = {textStyle}>Does not have an account?</p>
-                        <p className = {clickStyle} onClick = {this.props.signupHandler}>Click to sign up</p>
+                        <Button style = {buttonstyle} className = {clickStyle} size = 'tiny' color = 'blue' onClick = {this.props.signupHandler}>Click to sign up</Button>
                 </Label>
             )
         }

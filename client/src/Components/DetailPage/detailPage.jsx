@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {Image} from 'semantic-ui-react';
 import axios from 'axios';
-import Introduction from './Introduction/introduction.jsx';
+import Information from './Information/information.jsx';
+import Synopsis from './Synopsis/synopsis.jsx';
 import Navibar from '../Home/MainMenu/Navibar/navibar.jsx';
 import {pageContainer,textStyle, imageStyle} from '../Home/AllBangumi/allBangumi.module.scss';
 import loadingGif from '../searchloading.gif';
@@ -44,7 +45,8 @@ class DetailPage extends Component {
         return(
             <div>
                 <Navibar history = {this.props.history}/>
-                <Introduction bangumi = {this.state.bangumi}/>
+                <Information bangumi = {this.state.bangumi}/>
+                <Synopsis bangumi = {this.state.bangumi}/>
             </div>
         )
     }

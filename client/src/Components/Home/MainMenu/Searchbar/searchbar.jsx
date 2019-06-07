@@ -76,9 +76,11 @@ class Searchbar extends Component {
 
     render() {
         let labelStyle = {
-            background: 'white',
+            position: 'absolute',
             display: this.state.labelDisplay,
+            background: 'white',
             'box-shadow': '0px 1px 5px 2px rgba(225, 225, 225, 0.5)',
+            'z-index':'1',
         }
         let filterList = this.state.filterList.map(bangumi => {
             return (
@@ -87,7 +89,7 @@ class Searchbar extends Component {
         })
         return(
             <Form onSubmit = {this.searchHandler} className = {backgroundStyle}>
-                <div className = {searchbarStyle} >
+                <div className = {searchbarStyle}>
                     <Input icon='search' value = {this.state.searchInput}
                     onChange = {this.inputHandler} size = 'big' type = 'text' 
                     placeholder = 'Enter at least one word' />
