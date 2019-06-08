@@ -45,7 +45,7 @@ class Score extends Component {
             ],
             scoreDisplay: 'block',
             userNumber: 0,
-            average: 0.0,
+            average: 'undefined',
             ratingDisplay: 'none'
         }
     }
@@ -65,13 +65,9 @@ class Score extends Component {
                 })
             }
             let percentage = [];
-            for (let i = 1; i < 5; i++) {
-                if (score[i].length === 0) {
-                    percentage.push(0);
-                } else {
-                    let percent = (score[i]/score.userNumber * 100).toFixed(1);
-                    percentage.push(percent.toString());
-                }
+            for (let i = 5; i >= 1; i--) {
+                let percent = (score[i].length/score.userNumber * 100).toFixed(1);
+                percentage.push(percent.toString());
             }
             this.setState({
                 series: [
@@ -80,13 +76,18 @@ class Score extends Component {
                         data: percentage,
                     }, 
                 ],
-                usernumber: score.userNumber,
+                userNumber: score.userNumber,
                 average: score.averageScore,
             })
         })
     }
 
     render() {
+        if (this.state.average === 'undefined') {
+            return (
+                <p></p>
+            )
+        }
         let barStyle = {
             width: '320px',
             color: 'white',
@@ -104,7 +105,7 @@ class Score extends Component {
                             </div>
                         </Button.Content>
                         <Button.Content hidden>
-                            <p style = {{'font-size': '14pt'}}>Score Bangumi</p>
+                            <p style = {{'font-size': '14pt'}}>Rate Bangumi</p>
                         </Button.Content>
                     </Button>
                 </div>

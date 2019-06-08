@@ -82,7 +82,7 @@ router.put('/:anime_id', (req, res) => {
         // user has not scored, push the anime to the scoreAnime array
         let animeObject = {
             anime_id: req.params.anime_id,
-            score: score,
+            score: score*2,
         }
         user.scoreAnime.push(animeObject);
         user.save()
@@ -113,7 +113,7 @@ router.put('/:anime_id', (req, res) => {
         let totalScore = bangumiScore.totalScore + parseInt(score)*2 - parseInt(originScore)*2;
         bangumiScore.totalScore = totalScore;
         let userNumber = bangumiScore.userNumber;
-        bangumiScore.averageScore = (totalScore/userNumber).toFixed(1);
+        bangumiScore.averageScore = (totalScore/userNumber).toFixed(2);
         bangumiScore.save()
         .then(() => {
             return res.status(200).json({message: 'Succesfully upload the score', data: {bangumiScore}});
