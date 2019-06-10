@@ -145,11 +145,37 @@ class SearchResult extends Component {
                 width: '165px',
                 height: '225px',
             }
+            let upperStyle = {};
+            let scoreStyle = {
+                display: 'none',
+            }
+            if (bangumi.userNumber > 0) {
+                scoreStyle = {
+                    display: 'flex',
+                    'flex-direction': 'column',
+                    'margin-left': '50%',
+                }
+                upperStyle = {
+                   'display': 'flex',
+                }
+            }
             return (
-                <Label style = {labelStyle} onClick = {this.toDetailPage.bind(this, bangumi)}>
-                    <Image className = {imageHoverStyle} style = {imgStyle} src = {bangumi.image_url} alt = 'search result' rounded/>
+                <Label style = {labelStyle}>
+                    <Image onClick = {this.toDetailPage.bind(this, bangumi)} className = {imageHoverStyle} style = {imgStyle} src = {bangumi.image_url} alt = 'search result' rounded/>
                     <div className = {wordStyle}>
-                        <p className = {titleStyle}>{bangumi.title}</p>
+                        <div style = {upperStyle}>
+                            <p onClick = {this.toDetailPage.bind(this, bangumi)} className = {titleStyle}>
+                                {bangumi.title}
+                            </p>
+                            <div style = {scoreStyle}>
+                                <div style = {{'text-align': 'center', 'font-size': '22pt', 'color': 'rgba(255, 180, 0, 1)'}}>
+                                    {bangumi.score.toFixed(1)}
+                                </div>
+                                <div style = {{'font-size': '11pt'}}>
+                                    {bangumi.userNumber} users scored
+                                </div>
+                            </div>
+                        </div>
                         <p>Date: {bangumi.airing_start}</p>
                         <p>Introduction: {intro}</p>
                     </div>

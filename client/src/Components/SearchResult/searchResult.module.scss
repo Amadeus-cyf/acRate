@@ -12,6 +12,7 @@
 
 .titleStyle:hover {
     color: rgba(255, 100, 200, 1);
+    cursor: pointer;
 }
 
 .headStyle {
@@ -25,10 +26,6 @@
     margin: 1% 3% 1% 3%;
     color: rgba(100, 100, 100, 0.7);
     column-gap: 2em;
-}
-
-.wordStyle:hover {
-    cursor:pointer;
 }
 
 .imageHoverStyle:hover {

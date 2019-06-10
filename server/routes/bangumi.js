@@ -49,7 +49,7 @@ router.get('/:year/:season/limit', (req, res) => {
     let year = req.params.year;
     let season = req.params.season;
     if (season !== 'allyear') {
-        Bangumi.find({year: year, season: season}).limit(18).exec()
+        Bangumi.find({year: year, season: season}).limit(20).exec()
         .then(bangumiList => {
             return res.status(200).json({message: 'Succesfully find all bangumi of corresponding time', data: {bangumiList}});
         }).catch(err => {

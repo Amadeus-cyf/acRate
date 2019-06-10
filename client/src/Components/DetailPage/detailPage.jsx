@@ -25,6 +25,7 @@ class DetailPage extends Component {
         this.submitHandler = this.submitHandler.bind(this);
         this.cancelHandler = this.cancelHandler.bind(this);
         this.okHandler = this.okHandler.bind(this);
+        this.loginHandler = this.loginHandler.bind(this);
     }
     
     componentDidMount() {
@@ -110,6 +111,10 @@ class DetailPage extends Component {
         })
     }
 
+    loginHandler() {
+        this.props.history.push('/login');
+    }
+
     render() {
         if (this.state.bangumi === 'undefined') {
             return (
@@ -128,13 +133,31 @@ class DetailPage extends Component {
         }
         let ratingStyle = {
             display: this.state.ratingDisplay,
-            padding: '15% 10% 15% 10%',
-            background: 'white',
         }
         let loginStyle = {
             display: this.state.loginDisplay,
-            padding: '15% 10% 15% 10%',
-            background: 'white',
+        }
+        if (this.state.ratingDisplay === 'flex') {
+            ratingStyle = {
+                display: this.state.ratingDisplay,
+                'flex-direction': 'column',
+                'justify-content': 'space-evenly',
+                width: '450px',
+                height: '400px',
+                background: 'white',
+                'text-align': 'center',
+            }
+        }
+        if (this.state.loginDisplay === 'flex') {
+            loginStyle = {
+                display: this.state.loginDisplay,
+                'flex-direction': 'column',
+                'justify-content': 'space-evenly',
+                width: '450px',
+                height: '400px',
+                background: 'white',
+                'text-align': 'center',
+            }
         }
         let pageStyle = {
             filter: this.state.totalBrightness,
@@ -161,15 +184,16 @@ class DetailPage extends Component {
                             starDimension="30px"
                             starSpacing="5px"
                         />
-                        <div>
-                            <Button onClick = {this.submitHandler} disabled = {this.state.rating === 0}>Submit</Button>
-                            <Button onClick = {this.cancelHandler}>Cancel</Button>
+                        <div style = {{'margin-top': '10%',}}>
+                            <Button style = {{'margin-right': '20px'}} onClick = {this.submitHandler} size = 'big' color = 'blue' disabled = {this.state.rating === 0}>Submit</Button>
+                            <Button onClick = {this.cancelHandler} size = 'big' color = 'blue'>Cancel</Button>
                         </div>
                     </Label>
                     <Label style = {loginStyle}>
-                       Log in first to score
-                        <div>
-                            <Button onClick = {this.okHandler}>OK</Button>
+                        <h2>Log in first to rate the bangumi</h2>
+                        <div style = {{'margin-top': '10%'}}>
+                            <Button style = {{'margin-right': '20px'}} color = 'blue' size = 'big' onClick = {this.okHandler}>OK</Button>
+                            <Button color = 'blue' size = 'big' onClick = {this.loginHandler}>Log In</Button>
                         </div>
                     </Label>
                 </div>

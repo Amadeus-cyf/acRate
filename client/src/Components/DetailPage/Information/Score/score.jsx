@@ -91,27 +91,44 @@ class Score extends Component {
         let barStyle = {
             width: '320px',
             color: 'white',
-            'padding-top': '20px',
+            'margin-top': '20px',
         }
-        return(
-            <div style = {{'font-size': '17pt'}}>
-                <div className = {scoreStyle}>   
-                    <Button size = 'big' color = 'blue' animated='fade' onClick = {this.props.scoreBangumi}>
-                        <Button.Content visible className = {innerButtonStyle}>
-                            <div className = {scoreTitle}>{this.state.average}</div>
-                            <div>
-                                <NoneditStarRating average = {this.state.average}/>
-                                <p>{this.state.userNumber} users scored</p>
-                            </div>
-                        </Button.Content>
-                        <Button.Content hidden>
-                            <p style = {{'font-size': '14pt'}}>Rate Bangumi</p>
-                        </Button.Content>
-                    </Button>
+        if (this.state.userNumber !== 0) {
+            return(
+                <div style = {{'font-size': '17pt'}}>
+                    <div className = {scoreStyle}>   
+                        <Button size = 'huge' color = 'blue' animated='fade' onClick = {this.props.scoreBangumi}>
+                            <Button.Content visible className = {innerButtonStyle}>
+                                <div className = {scoreTitle}>{this.state.average.toFixed(1)}</div>
+                                <div>
+                                    <NoneditStarRating average = {this.state.average}/>
+                                    <p>{this.state.userNumber} users scored</p>
+                                </div>
+                            </Button.Content>
+                            <Button.Content hidden>
+                                <p style = {{'font-size': '14pt'}}>Rate Bangumi</p>
+                            </Button.Content>
+                        </Button>
+                    </div>
+                    <ReactApexChart style = {barStyle} options={this.state.options} series={this.state.series} type = 'bar'/>
                 </div>
-                <ReactApexChart style = {barStyle} options={this.state.options} series={this.state.series} type = 'bar'/>
-            </div>
-        )
+            )
+        } else {
+            return(
+                <div style = {{'font-size': '17pt'}}>
+                    <div className = {scoreStyle}>   
+                        <Button size = 'huge' color = 'blue' animated='fade' onClick = {this.props.scoreBangumi}>
+                            <Button.Content visible className = {innerButtonStyle}>
+                                <div style = {{'font-size': '17pt'}}>No Rating yet</div>
+                            </Button.Content>
+                            <Button.Content hidden>
+                                <p style = {{'font-size': '14pt'}}>Rate Bangumi</p>
+                            </Button.Content>
+                        </Button>
+                    </div>
+                </div>
+            )
+        }
     }
 }
 

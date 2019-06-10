@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const BangumiScore = require('../models/bangumiScoreSchema');
+const BangumiList = require('../models/bangumiListSchema');
 const User = require('../models/userSchema');
 const router = express.Router();
-
 // get all bangumi and corresponding score
 router.get('/', (req, res) => {
     BangumiScore.find().exec()
@@ -113,7 +113,18 @@ router.put('/:anime_id', (req, res) => {
         let totalScore = bangumiScore.totalScore + parseInt(score)*2 - parseInt(originScore)*2;
         bangumiScore.totalScore = totalScore;
         let userNumber = bangumiScore.userNumber;
-        bangumiScore.averageScore = (totalScore/userNumber).toFixed(2);
+        bangumiScore.averageScore = (totalScore/userNumber).toFixed(1);
+        BangumiList.findOneAndUpdate({anime_id: req.params.anime_id}, {$set: {
+            score: bangumiScore.averageScore,
+            userNumber: bangumiScore.userNumber,
+        }}, {new: true}, (err, bangumi) => {
+            if (err) {
+                return res.status(500).json({message: err});
+            }
+            if (!bangumi) {
+                return res.status(404).json({message: 'Bangumi not found', data: {}});
+            }
+        })
         bangumiScore.save()
         .then(() => {
             return res.status(200).json({message: 'Succesfully upload the score', data: {bangumiScore}});

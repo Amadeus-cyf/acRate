@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Image} from 'semantic-ui-react';
 import Score from './Score/score.jsx';
-import {scoreStyle, genreStyle, genreListStyle, titleStyle,
+import {introStyle, genreStyle, genreListStyle, titleStyle,
     textSectionStyle, producerStyle} from './information.module.scss';
 
 class Information extends Component {
@@ -56,7 +56,7 @@ class Information extends Component {
 
         return (
             <div>
-                <div className = {scoreStyle} style = {backgroundStyle}> 
+                <div className = {introStyle} style = {backgroundStyle}> 
                     <Image rounded style = {imageStyle} src = {this.props.bangumi.image_url}/>
                     <div className = {textSectionStyle}>
                         <p className = {titleStyle}> {this.props.bangumi.title}</p>

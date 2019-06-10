@@ -88,13 +88,13 @@ class CurrentBangumi extends Component {
         let bangumi = this.state.bangumi;
         let currentList = bangumi.map(bangumi => {
             let labelStyle = {
-                width: '170px',
+                width: '200px',
                 height: 'auto',
                 background: 'white',
             }
             let imgStyle = {
-                width: '150px',
-                height: '200px',
+                width: '170px',
+                height: '220px',
             }
             return(
                 <Label onClick ={this.toDetailPage.bind(this, bangumi)} style = {labelStyle}>
