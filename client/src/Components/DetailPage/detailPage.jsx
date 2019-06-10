@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
-import {Button, Label, Image} from 'semantic-ui-react';
+import {Button, Label, Image, Divider} from 'semantic-ui-react';
 import axios from 'axios';
 import StarRating from 'react-star-ratings';
 import Information from './Information/information.jsx';
 import Synopsis from './Synopsis/synopsis.jsx';
+import Comments from './Comments/comment.jsx';
 import Navibar from '../Home/MainMenu/Navibar/navibar.jsx';
 import {pageContainer,textStyle, imageStyle} from '../Home/AllBangumi/allBangumi.module.scss';
 import loadingGif from '../searchloading.gif';
-import {ratingLabelStyle} from './detailPage.module.scss';
+import {labelStyle} from './detailPage.module.scss';
 
 class DetailPage extends Component {
     constructor() {
@@ -43,6 +44,10 @@ class DetailPage extends Component {
                 this.setState({
                     currentUser: response.data.data,
                 })
+            } else {
+                this.setState({
+                    currentUser: undefined,
+                })
             }
         }).catch(err => {
             alert(err);
@@ -56,7 +61,7 @@ class DetailPage extends Component {
     }
 
     scoreBangumi() {
-        if (this.state.currentUser !== 'undefined') {
+        if (this.state.currentUser) {
             this.setState({
                 ratingDisplay: 'flex',
                 loginDisplay: 'none',
@@ -116,7 +121,7 @@ class DetailPage extends Component {
     }
 
     render() {
-        if (this.state.bangumi === 'undefined') {
+        if (this.state.bangumi === 'undefined' || this.state.currentUser === 'undefined') {
             return (
                 <div>
                     <Navibar history = {this.props.history}/>
@@ -141,7 +146,7 @@ class DetailPage extends Component {
             ratingStyle = {
                 display: this.state.ratingDisplay,
                 'flex-direction': 'column',
-                'justify-content': 'space-evenly',
+                'justify-content': 'space-around',
                 width: '450px',
                 height: '400px',
                 background: 'white',
@@ -161,6 +166,7 @@ class DetailPage extends Component {
         }
         let pageStyle = {
             filter: this.state.totalBrightness,
+            background: 'white',
         }
         return(
             <div>
@@ -168,9 +174,12 @@ class DetailPage extends Component {
                     <Navibar history = {this.props.history}/>
                     <Information bangumi = {this.state.bangumi} scoreBangumi = {this.scoreBangumi}/>
                     <Synopsis bangumi = {this.state.bangumi}/>
+                    <Comments bangumi = {this.state.bangumi} currentUser = {this.state.currentUser}/>
                 </div>
-                <div className = {ratingLabelStyle}>
+                <div className = {labelStyle}>
                     <Label style = {ratingStyle}>
+                        <h1>Rate the Bangumi</h1>
+                        <Divider style = {{'position': 'relative', 'top': '-30px'}}/>
                         <StarRating 
                             name = 'rating'
                             numberOfStars={5}
@@ -185,14 +194,16 @@ class DetailPage extends Component {
                             starSpacing="5px"
                         />
                         <div style = {{'margin-top': '10%',}}>
-                            <Button style = {{'margin-right': '20px'}} onClick = {this.submitHandler} size = 'big' color = 'blue' disabled = {this.state.rating === 0}>Submit</Button>
+                            <Button style = {{'margin-right': '20px'}} onClick = {this.submitHandler} 
+                            size = 'big' color = 'blue' disabled = {this.state.rating === 0}>Submit</Button>
                             <Button onClick = {this.cancelHandler} size = 'big' color = 'blue'>Cancel</Button>
                         </div>
                     </Label>
                     <Label style = {loginStyle}>
                         <h2>Log in first to rate the bangumi</h2>
                         <div style = {{'margin-top': '10%'}}>
-                            <Button style = {{'margin-right': '20px'}} color = 'blue' size = 'big' onClick = {this.okHandler}>OK</Button>
+                            <Button style = {{'margin-right': '20px'}} color = 'blue' size = 'big' 
+                            onClick = {this.okHandler}>OK</Button>
                             <Button color = 'blue' size = 'big' onClick = {this.loginHandler}>Log In</Button>
                         </div>
                     </Label>

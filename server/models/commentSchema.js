@@ -7,7 +7,7 @@ var CommentSchema = new mongoose.Schema({
         default: '',
     },
     // the id of comment (CommentSchema) where all those replies belong to 
-    // if the comment is the parent comment, than parentComment id is ''
+    // if the comment is the parent comment, than parentComment id is 'none'
     parentComment_id: {
         type: String,
         required: true,
@@ -32,20 +32,24 @@ var CommentSchema = new mongoose.Schema({
         default: 'https://react.semantic-ui.com/images/avatar/small/daniel.jpg',
     },
      // the id of comment(CommentSchema or ReplySchema) where the user replies, 
-    // if the comment is not a reply, the replied comment id is ''
+    // if the comment is not a reply, the replied comment id is 'none'
+    // if the replied comment id is parent comment, then replied comment id = parent comment id
     repliedComment_id: {
         type: String,
+        required: true,
         default: '',
     }, 
      // the username of the user being replied
-    // if the comment is not a reply, the replied username is ''
+    // if the comment is not a reply, the replied username is 'none'
     repliedUsername: {
         type: String,
+        required: true,
         default: '',
     },
-    //if the replied comment is the parent comment, then repliedAvatar is ''
+    //if the replied comment is the parent comment or the comment is not a reply, then repliedAvatar is 'none'
     repliedAvatar: {
         type: String,
+        required: true,
         default: '',
     },
     // date comments

@@ -295,7 +295,7 @@ class AllBangumi extends Component {
                 background: 'white',
             }
             let imgStyle = {
-                width: '165px',
+                width: '170px',
                 height: '220px',
             }
             return(
