@@ -1,0 +1,29 @@
+.boxStyle {
+    display: block;
+    width: 55%;
+    height: 250px;
+    resize: none;
+    border-radius: 5px;
+    border: 1px solid white;
+    box-shadow: 3px 4px 5px 4px rgba(225, 225, 225, 0.5); 
+    padding: 20px;
+    font-size: 14pt;
+    outline: none;
+}
+
+.disableBoxStyle {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 55%;
+    height: 250px;
+    border-radius: 5px;
+    box-shadow: 3px 4px 5px 4px rgba(225, 225, 225, 0.5); 
+    font-size: 20pt;   
+    color: rgba(100, 100, 100, 0.5);
+}
+
+.buttonStyle {
+    margin-top: 40px;
+}
