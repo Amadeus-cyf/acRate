@@ -76,11 +76,9 @@ class Searchbar extends Component {
 
     render() {
         let labelStyle = {
-            position: 'absolute',
             display: this.state.labelDisplay,
             background: 'white',
             'box-shadow': '0px 1px 5px 2px rgba(225, 225, 225, 0.5)',
-            'z-index':'1',
         }
         let filterList = this.state.filterList.map(bangumi => {
             return (
