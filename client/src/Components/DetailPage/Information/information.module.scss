@@ -1,4 +1,5 @@
 .introStyle{
+    font-family: 'PT Sans Caption', sans-serif;
     width: 100%;
     height: 100%;
     padding: 3% 5% 3% 5%;
@@ -37,18 +38,8 @@
     font-family: 'PT Sans Caption', sans-serif;
 }
 
-.producerStyle {
-    display: flex;
-    h4 {
-        font-size: 14pt;
-    }
-    p {
-        font-size: 12pt;
-    }
-    margin-top: 10px;
-}
-
 .genreListStyle {
+    margin-top:10px;
     display: flex;
     flex-wrap: wrap;
     white-space: normal;
@@ -58,7 +49,38 @@
 .genreStyle {
     border: 2px solid white;
     border-radius: 5px;
-    font-size:12pt;
+    font-size:13pt;
     padding: 5px 10px 5px 10px;
-    margin: 5px;
+    margin: 5px 10px 5px 0px;
+}
+
+.episodeStyle {
+    display: flex;
+    justify-content: space-around;
+    font-size: 12pt;
+    margin-top: 10px;
+    white-space: normal;
+    width: 400px
+}
+
+.producerStyle {
+    display: flex;
+    flex-wrap: wrap;
+    white-space: normal;
+    width: 410px;
+    p {
+        padding-right: 10px;
+        font-size: 12pt;
+    }
+}
+
+.studioStyle {
+    padding-top: 10px;
+    display: flex;
+    white-space: normal;
+    width: 400px;
+    p {
+        padding-right: 10px;
+        font-size: 12pt;
+    }
 }

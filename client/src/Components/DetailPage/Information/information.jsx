@@ -2,13 +2,13 @@ import React, {Component} from 'react';
 import {Image} from 'semantic-ui-react';
 import Score from './Score/score.jsx';
 import {introStyle, genreStyle, genreListStyle, titleStyle,
-    textSectionStyle, producerStyle} from './information.module.scss';
+    textSectionStyle, producerStyle, episodeStyle, studioStyle} from './information.module.scss';
 
 class Information extends Component {
     constructor() {
         super();
         this.state = {
-            title_japanese: '/',
+            title_japanese: 'unknown',
         }
     }
 
@@ -32,7 +32,7 @@ class Information extends Component {
             )
         })
         if (producers.length === 0) {
-            producers = <p>/</p>
+            producers = <p>unknown</p>
         }
         let genres = this.props.bangumi.genres.map(genre => {
             return (
@@ -45,7 +45,20 @@ class Information extends Component {
             )
         })
         if (studios.length === 0) {
-            studios = <p>/</p>;
+            studios = <p>unknown</p>;
+        }
+        let episodes = this.props.bangumi.episodes;
+        let airing_status = this.props.bangumi.status;
+        let date = this.props.bangumi.aired.prop.from;
+        if (!episodes) {
+            episodes = <span>unknown</span>
+        }
+        if (!date.year) {
+            date = {
+                year: 'unknown',
+                month: '',
+                day: '',
+            }
         }
         let backgroundStyle = {
             background: 'url(' + this.props.bangumi.image_url + ')',
@@ -61,18 +74,17 @@ class Information extends Component {
                     <div className = {textSectionStyle}>
                         <p className = {titleStyle}> {this.props.bangumi.title}</p>
                         <p className = {titleStyle}> {this.props.bangumi.title_japanese}</p>
-                        <p className = {genreListStyle}>
-                            {genres}
-                        </p>
+                        <p className = {genreListStyle}>{genres}</p>
+                        <div className = {episodeStyle}>
+                            <p>Airing Start: {date.year}.{date.month}</p>
+                            <p>Episodes: {episodes}</p>
+                            <p>{airing_status}</p>
+                        </div>
                         <div className = {producerStyle}>
-                            <div>
-                                <h4>Producers:</h4>
-                                <p>{producers}</p>
-                            </div>
-                            <div style = {{'padding-left': '30px'}}>
-                                <h4>Studios:</h4>
-                                <p>{studios}</p>
-                            </div>
+                            <p>Producers:</p> {producers}
+                        </div>
+                        <div className = {studioStyle}>
+                            <p>Studios: </p> {studios}
                         </div>
                     </div>
                     <Score bangumiId = {this.props.bangumi.mal_id}

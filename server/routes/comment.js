@@ -12,6 +12,25 @@ router.get('/:anime_id', (req, res) => {
     })
 })
 
+router.get('/parentcomment/:anime_id', (req, res) => {
+    Comment.find({anime_id: req.params.anime_id, parentComment_id: 'none'}, (err, comments) => {
+        if (err) {
+            return res.status(500).json({message: err});
+        }
+        return res.status(200).json({message: 'Successfully find all comments of the bangumi', data: {comments}});
+    })
+})
+
+router.get('/reply/:_id', (req, res) => {
+    Comment.find({parentComment_id: req.params._id}, (err, comments) => {
+        if (err) {
+            return res.status(500).json({message: err});
+        }
+        return res.status(200).json({message: 'Succesfully find all replies of the comment', data:{comments}})
+    })
+})
+
+
 router.post('/', (req, res) => {
     let comment = new Comment(req.body);
     comment.save()

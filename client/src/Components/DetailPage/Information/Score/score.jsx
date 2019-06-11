@@ -43,7 +43,6 @@ class Score extends Component {
                     data: ['0', '0', '0', '0', '0'],
                 }
             ],
-            scoreDisplay: 'block',
             userNumber: 0,
             average: 'undefined',
             ratingDisplay: 'none'
@@ -54,16 +53,9 @@ class Score extends Component {
         axios.get('api/bangumiScore/' + this.props.bangumiId)
         .then(response => {
             if (response.data.data.message === 'Bangumi not found') {
-                this.setState({
-                    scoreDisplay: 'none',
-                })
+                return;
             }
             let score = response.data.data.bangumiScore;
-            if (score.userNumber === 0) {
-                this.setState({
-                    scoreDisplay: 'none',
-                })
-            }
             let percentage = [];
             for (let i = 5; i >= 1; i--) {
                 let percent = (score[i].length/score.userNumber * 100).toFixed(1);
@@ -125,6 +117,7 @@ class Score extends Component {
                                 <p style = {{'font-size': '14pt'}}>Rate Bangumi</p>
                             </Button.Content>
                         </Button>
+                        <h2>Be the first one to rate !</h2>
                     </div>
                 </div>
             )
