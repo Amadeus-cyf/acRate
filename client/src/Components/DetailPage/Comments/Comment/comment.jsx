@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import {List, Image, Button, Divider} from 'semantic-ui-react';
 import CommentBox from '../CommentBox/commentBox.jsx';
+import NoneditStarRating from '../../Information/Score/noneditRating.jsx';
 import {avatarStyle, usernameStyle, replyAvatarStyle} from './comment.module.scss';
 
 class Comment extends Component {
@@ -42,6 +43,7 @@ class Comment extends Component {
             parentComment_id: this.props.comment._id,
             commentContent: this.state.newReply,
             username: this.props.currentUser.username,
+            user_id: this.props.currentUser._id,
             avatar: this.props.currentUser.avatar,
             repliedComment_id: this.state.repliedComment._id,
             repliedUsername: this.state.repliedComment.username,
@@ -69,13 +71,13 @@ class Comment extends Component {
                 parentComment_id: this.props.comment._id,
                 commentContent: newReply,
                 username: this.props.currentUser.username,
+                user_id: this.props.currentUser._id,
                 avatar: this.props.currentUser.avatar,
                 repliedComment_id: this.state.repliedComment._id,
                 repliedUsername: this.state.repliedComment.username,
                 repliedAvatar: this.state.repliedComment.avatar,
             }
-        }).then(() => {
-        })
+        }).then()
         .catch(err => {
             alert(err);
         })
@@ -130,33 +132,38 @@ class Comment extends Component {
             })
         }
         return(
-                <List.Item style = {{'font-family': "'PT Sans Caption', sans-serif"}}>
-                    <Divider/>
-                    <Image className = {avatarStyle} avatar src = {this.props.comment.avatar}/>
-                    <List.Content style = {{'margin-left': '30px', 'margin-top': '50px'}}>
-                        <List.Header style = {{'font-size': '14pt'}}>
-                            <p className = {usernameStyle}>{this.props.comment.username}</p>
-                        </List.Header>
-                        <p style = {{'margin-top': '10px'}}>
-                            {this.props.comment.date.toLocaleString().substring(0, this.props.comment.date.toLocaleString().indexOf('T'))}
-                            <span style = {{'margin-left': '10px'}}>{replyList.length} reply/replies</span>
-                        </p>
-                        <List.Description style = {{'font-size': '12pt', 'margin-top': '20px'}}>
-                            {this.props.comment.commentContent}
-                        </List.Description>
-                        <Button  onClick = {this.replyComment.bind(this, this.props.comment)} style = {{'margin-top': '20px'}} 
-                        size = 'tiny' color = 'blue' disabled = {this.props.currentUser && 
-                        this.props.comment.username === this.props.currentUser.username}>Reply</Button>
-                    </List.Content>
-                    <List>
-                        {replyList}
-                    </List>
-                    <div style= {{display: this.state.replyDisplay, 'margin-top': '20px'}}>
-                        <CommentBox bangumi = {this.props.bangumi} currentUser = {this.props.currentUser}
-                        newComment = {this.state.newReply} inputComment = {this.inputReply} 
-                        submitComment = {this.submitReply} cancelComment = {this.cancelReply}/>
-                    </div>
-                </List.Item>
+            <List.Item style = {{'font-family': "'PT Sans Caption', sans-serif"}}>
+                <Divider/>
+                <Image className = {avatarStyle} avatar src = {this.props.comment.avatar}/>
+                <List.Content style = {{'margin-left': '30px', 'margin-top': '50px'}}>
+                    <List.Header style = {{'font-size': '14pt'}}>
+                        <div className = {usernameStyle}>
+                            <p style = {{'padding-right': '10px'}}>{this.props.comment.username}</p>
+                            <span style = {this.props.starDisplay}>
+                                <NoneditStarRating average = {this.props.score}/>
+                            </span>
+                        </div>
+                    </List.Header>
+                    <p style = {{'margin-top': '10px'}}>
+                        {this.props.comment.date.toLocaleString().substring(0, this.props.comment.date.toLocaleString().indexOf('T'))}
+                        <span style = {{'margin-left': '10px'}}>{replyList.length} reply/replies</span>
+                    </p>
+                    <List.Description style = {{'font-size': '12pt', 'margin-top': '20px'}}>
+                        {this.props.comment.commentContent}
+                    </List.Description>
+                    <Button  onClick = {this.replyComment.bind(this, this.props.comment)} style = {{'margin-top': '20px'}} 
+                    size = 'tiny' color = 'blue' disabled = {this.props.currentUser && 
+                    this.props.comment.username === this.props.currentUser.username}>Reply</Button>
+                </List.Content>
+                <List>
+                    {replyList}
+                </List>
+                <div style= {{display: this.state.replyDisplay, 'margin-top': '20px'}}>
+                    <CommentBox bangumi = {this.props.bangumi} currentUser = {this.props.currentUser}
+                    newComment = {this.state.newReply} inputComment = {this.inputReply} 
+                    submitComment = {this.submitReply} cancelComment = {this.cancelReply}/>
+                </div>
+            </List.Item>
         )
     }
 }

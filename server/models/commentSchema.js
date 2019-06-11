@@ -25,6 +25,11 @@ var CommentSchema = new mongoose.Schema({
         required: true,
         default: '',
     }, 
+    user_id: {
+        type: String, 
+        required: true,
+        default: '',
+    },
     // the avatar of the user
     avatar: {
         type: String,

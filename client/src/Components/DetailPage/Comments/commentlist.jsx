@@ -12,6 +12,7 @@ class Commentlist extends Component {
             comments: [],
             newComment: '',
             replyDisplay: 'none',
+            scoreInfo: 'undefined',
         }
         this.inputComment = this.inputComment.bind(this);
         this.submitComment = this.submitComment.bind(this);
@@ -23,6 +24,14 @@ class Commentlist extends Component {
         .then(response => {
             this.setState({
                 comments: response.data.data.comments,
+            })
+        }).catch(err => {
+            alert(err);
+        })
+        axios.get('api/bangumiScore/' + this.props.bangumi.mal_id)
+        .then(response => {
+            this.setState({
+                scoreInfo: response.data.data.bangumiScore,
             })
         }).catch(err => {
             alert(err);
@@ -42,6 +51,7 @@ class Commentlist extends Component {
             parentComment_id: 'none',
             commentContent: this.state.newComment,
             username: this.props.currentUser.username,
+            user_id: this.props.currentUser._id,
             avatar: this.props.currentUser.avatar,
             repliedComment_id: 'none',
             repliedUsername: 'none',
@@ -64,6 +74,7 @@ class Commentlist extends Component {
                 parentComment_id: 'none',
                 commentContent: this.state.newComment,
                 username: this.props.currentUser.username,
+                user_id: this.props.currentUser._id,
                 avatar: this.props.currentUser.avatar,
                 repliedComment_id: 'none',
                 repliedUsername: 'none',
@@ -86,10 +97,26 @@ class Commentlist extends Component {
     }
 
     render() {
+        if (this.state.scoreInfo === 'undefined') {
+            return <p></p>
+        }
         let commentList = this.state.comments.map(comment => {
+            let starDisplay = {
+                display: 'none',
+            }
+            let score = 0.0;
+            for (let i = 5; i >= 1; i--) {
+                if (this.state.scoreInfo[i].includes(comment.user_id)) {
+                    starDisplay = {
+                        display: 'block',
+                    }
+                    score = i;
+                    break;
+                }
+            }
             return (
                 <Comment bangumi = {this.props.bangumi} currentUser = {this.props.currentUser}
-                comment = {comment}/>
+                comment = {comment} starDisplay = {starDisplay} score = {score}/>
             )
         })
         if (commentList.length === 0) {

@@ -93,7 +93,7 @@ class Score extends Component {
                             <Button.Content visible className = {innerButtonStyle}>
                                 <div className = {scoreTitle}>{this.state.average.toFixed(1)}</div>
                                 <div>
-                                    <NoneditStarRating average = {this.state.average}/>
+                                    <NoneditStarRating average = {this.state.average/2}/>
                                     <p>{this.state.userNumber} users scored</p>
                                 </div>
                             </Button.Content>

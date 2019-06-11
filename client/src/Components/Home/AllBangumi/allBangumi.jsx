@@ -325,35 +325,23 @@ class AllBangumi extends Component {
             })
         } else {
             pageList = pageArr.map(page => {
+                if (page === this.state.currentPage) {
+                    return(
+                        <Button onClick = {this.toPage.bind(this, page)} size = 'small' color = 'blue'>{page}</Button>
+                    )
+                }
                 if (page === 1) {
-                    if (this.state.currentPage === 1) {
-                        return(
-                            <Button onClick = {this.toPage.bind(this, page)} size = 'small' color = 'blue'>{page}</Button>
-                        )
-                    } else {
-                        return(
-                            <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
-                        )
-                    }
+                    return(
+                        <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
+                    )
                 }
                 if (page === this.state.pageNumber) {
-                    if (this.state.currentPage === this.state.pageNumber) {
-                        return(
-                            <Button onClick = {this.toPage.bind(this, page)} size = 'small' color = 'blue'>{page}</Button>
-                        )
-                    } else {
-                        return(
-                            <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
-                        )
-                    }
+                    return(
+                        <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
+                    )
                 }
                 if (this.state.currentPage > 2 && this.state.currentPage <= this.state.pageNumber-2) {
                     if (page >= this.state.currentPage - 2 && page <= (this.state.currentPage + 2)) {
-                        if (page === this.state.currentPage) {
-                            return(
-                                <Button onClick = {this.toPage.bind(this, page)} size = 'small' color = 'blue'>{page}</Button>
-                            )
-                        }
                         return(
                             <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
                         ) 
@@ -366,11 +354,6 @@ class AllBangumi extends Component {
                     }
                 } else if (this.state.currentPage <= 2) {
                     if (page <= 5) {
-                        if (page === this.state.currentPage) {
-                            return(
-                                <Button onClick = {this.toPage.bind(this, page)} size = 'small' color = 'blue'>{page}</Button>
-                            )
-                        }
                         return(
                             <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
                         ) 
