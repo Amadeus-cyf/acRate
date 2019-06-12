@@ -109,6 +109,7 @@ class Comment extends Component {
                         display: 'none'
                     }
                 }
+                let date = new Date(reply.date);
                 return (
                     <List.Item style = {{'font-family': "'PT Sans Caption', sans-serif", 'margin-top': '20px'}}>
                         <List.Content style = {{'margin-left': '60px'}}>
@@ -118,7 +119,8 @@ class Comment extends Component {
                                 <span style = {atstyle}>@ {reply.repliedUsername}</span>
                             </List.Header>
                             <p style = {{'margin-top': '10px'}}>
-                                {reply.date.toLocaleString().substring(0, reply.date.toLocaleString().indexOf('T'))}
+                                {date.getFullYear()}-{date.getMonth()+1}-{date.getDate()}
+                                <span style = {{'padding-left': '5px'}}>{date.getHours()}:{date.getMinutes()}</span>
                             </p>
                             <List.Description style = {{'font-size': '11pt', 'margin-top': '10px'}}>
                                 {reply.commentContent}
@@ -131,6 +133,7 @@ class Comment extends Component {
                 )
             })
         }
+        let commentDate = new Date(this.props.comment.date);
         return(
             <List.Item style = {{'font-family': "'PT Sans Caption', sans-serif"}}>
                 <Divider/>
@@ -145,7 +148,8 @@ class Comment extends Component {
                         </div>
                     </List.Header>
                     <p style = {{'margin-top': '10px'}}>
-                        {this.props.comment.date.toLocaleString().substring(0, this.props.comment.date.toLocaleString().indexOf('T'))}
+                        {commentDate.getFullYear()}-{commentDate.getMonth()+1}-{commentDate.getDate()}
+                        <span style = {{'padding-left': '5px'}}>{commentDate.getHours()}:{commentDate.getMinutes()}</span>
                         <span style = {{'margin-left': '10px'}}>{replyList.length} reply/replies</span>
                     </p>
                     <List.Description style = {{'font-size': '12pt', 'margin-top': '20px'}}>

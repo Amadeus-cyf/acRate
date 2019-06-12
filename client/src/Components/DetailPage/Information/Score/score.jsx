@@ -77,7 +77,7 @@ class Score extends Component {
     render() {
         if (this.state.average === 'undefined') {
             return (
-                <p></p>
+                <p style = {{'font-size': '15pt'}}>Fetching score information...</p>
             )
         }
         let barStyle = {
@@ -117,7 +117,7 @@ class Score extends Component {
                                 <p style = {{'font-size': '14pt'}}>Rate Bangumi</p>
                             </Button.Content>
                         </Button>
-                        <h2>Be the first one to rate !</h2>
+                        <h2>Be the first to rate !</h2>
                     </div>
                 </div>
             )

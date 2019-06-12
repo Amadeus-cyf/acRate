@@ -21,6 +21,25 @@ router.get('/parentcomment/:anime_id', (req, res) => {
     })
 })
 
+router.get('/parentcomment/:anime_id/count', (req, res) => {
+    Comment.find({anime_id: req.params.anime_id, parentComment_id: 'none'}).countDocuments().exec()
+    .then(commentNumber => {
+        return res.status(200).json({message: 'Successfully find number of comments', data: {commentNumber}});
+    }).catch(err => {8
+        return res.status(500).json({messgae: err});
+    })
+})
+
+router.get('/parentcomment/:anime_id/:page', (req, res) => {
+    let page = req.params.page;
+    Comment.find({anime_id: req.params.anime_id, parentComment_id: 'none'}).sort({date: -1}).skip((page-1)*20).limit(20).exec()
+    .then(comments => {
+        return res.status(200).json({message: 'Succesfully find all comments of the page', data: {comments}});
+    }).catch(err => {
+        return res.status(500).json({messgae: err});
+    })
+})
+
 router.get('/reply/:_id', (req, res) => {
     Comment.find({parentComment_id: req.params._id}, (err, comments) => {
         if (err) {
