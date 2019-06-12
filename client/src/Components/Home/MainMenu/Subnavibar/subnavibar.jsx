@@ -6,6 +6,7 @@ class Subnavibar extends Component {
         super();
         this.toHomePage = this.toHomePage.bind(this);
         this.toBangumi = this.toBangumi.bind(this);
+        this.toSeason = this.toSeason.bind(this);
         this.toUpcoming = this.toUpcoming.bind(this);
     }
 
@@ -14,7 +15,11 @@ class Subnavibar extends Component {
     }
 
     toBangumi() {
-        this.props.history.push('/bangumi');
+        this.props.history.push('/bangumi')
+    }
+
+    toSeason() {
+        this.props.history.push('/bangumi/season');
     }
 
     toUpcoming() {
@@ -26,6 +31,7 @@ class Subnavibar extends Component {
             <div className = {navibarStyle}>
                 <div className={title} onClick = {this.toHomePage}>Home Page</div>
                 <div className={title} onClick = {this.toBangumi}>Bangumi</div>
+                <div className={title} onClick = {this.toSeason}>Season</div>
                 <div className={title} onClick = {this.toUpcoming}>Upcoming</div>
             </div>
         )

@@ -170,11 +170,16 @@ class Commentlist extends Component {
         }
         if (this.state.currentComments.length === 0) {
             return(
-                <div className = {commentStyle}>
-                    <h2>Be the first comment</h2>
-                    <CommentBox bangumi = {this.props.bangumi} currentUser = {this.props.currentUser}
-                    newComment = {this.state.newComment} inputComment = {this.inputComment} 
-                    submitComment = {this.submitComment} cancelComment = {this.cancelComment}/>
+                <div>
+                    <div className = {commentStyle}>
+                        <h2>Be the first to comment</h2>
+                        <CommentBox bangumi = {this.props.bangumi} currentUser = {this.props.currentUser}
+                        newComment = {this.state.newComment} inputComment = {this.inputComment} 
+                        submitComment = {this.submitComment} cancelComment = {this.cancelComment}/>
+                    </div>
+                    <div className = {footerStyle}>
+                        <h2>Aniscore </h2>
+                    </div>
                 </div>
             )
         }

@@ -1,31 +1,11 @@
 .pageStyle {
-    background: white;
-}
-
-.selectStyle {
-    padding-top: 1%;
-    display: flex;
-    justify-content: space-around;
-}
-
-.selectCss {
-    width: 150px;
-}
-
-.bangumiSection {
-    padding: 2% 15% 2% 15%;
-    font-family: 'PT Sans Caption', sans-serif;
-}
-.bangumiStyle {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    background: white; 
 }
 
 .hoverPart {
-    font-size: 11pt;
-    margin-top: 10px;
-    text-align: center;
+    font-size: 14pt;
+    margin-top: 5px;
+    //text-align: center;
 }
 
 .hoverPart:hover {
@@ -33,7 +13,7 @@
 }
 
 .numberlistStyle {
-    padding-top: 3%;
+    padding: 2% 15% 2% 15%;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
@@ -43,22 +23,9 @@
     font-size: 14pt;
 }
 
-.pageContainer {
-    height: 970px;
-    padding-top: 15%;
-    background-color: white;
-}
-
-.imageStyle {
-    display: block;
-    max-width: 250px;
-    height: auto;
-    margin: 0 auto;
-}
-
-.textStyle {
-    text-align: center;
-    font-size: 14pt;
-    width: 100%;
-    padding-top: 10px;
+.bangumiSection {
+    padding: 2% 8% 2% 8%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }

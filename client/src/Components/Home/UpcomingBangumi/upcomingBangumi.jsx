@@ -3,7 +3,7 @@ import axios from 'axios';
 import {Label, Image, Button} from 'semantic-ui-react';
 import MainMenu from '../MainMenu/mainMenu.jsx';
 import Navibar from '../MainMenu/Navibar/navibar.jsx';
-import {pageContainer,textStyle, imageStyle} from '../AllBangumi/allBangumi.module.scss';
+import {pageContainer,textStyle, imageStyle} from '../SeasonBangumi/seasonBangumi.module.scss';
 import {bangumiSection, bangumiStyle, hoverPart, bangumiContainer, numberlistStyle} from './upcomingBangumi.module.scss';
 import loadingGif from '../../loading.gif';
 
@@ -30,10 +30,10 @@ class UpcomingBangumi extends Component {
             let animelist = response.data.anime.filter(anime => {
                 return !anime.r18 && !anime.kids;
             })
-            if (animelist.length > 20) {
+            if (animelist.length > 40) {
                 this.setState({
                     bangumi: animelist,
-                    currentBangumi: animelist.slice(0, 20),
+                    currentBangumi: animelist.slice(0, 40),
                     year: year,
                 })
             } else {
@@ -43,13 +43,13 @@ class UpcomingBangumi extends Component {
                     year: year,
                 })
             }
-            if (animelist.length % 20) {
+            if (animelist.length % 40) {
                 this.setState({
-                    pageNumber: (animelist.length-animelist.length%20)/20 + 1
+                    pageNumber: (animelist.length-animelist.length%40)/40 + 1
                 })
             } else {
                 this.setState({
-                    pageNumber: animelist.length/20,
+                    pageNumber: animelist.length/40,
                 })
             }
         }).catch(err => {
@@ -58,7 +58,7 @@ class UpcomingBangumi extends Component {
     }
 
     toPage(pageNumber) {
-        let currentBangumi = this.state.bangumi.slice((pageNumber-1)*20, pageNumber*20);
+        let currentBangumi = this.state.bangumi.slice((pageNumber-1)*40, pageNumber*40);
         this.setState({
             currentPage: pageNumber,
             currentBangumi: currentBangumi,
@@ -68,10 +68,10 @@ class UpcomingBangumi extends Component {
     toPrevious() {
         let pageNumber = this.state.currentPage-1;
         let currentBangumi = [];
-        if (20*pageNumber <= this.state.bangumi.length) {
-            currentBangumi = this.state.bangumi.slice(20*(pageNumber-1), 20*pageNumber);
+        if (40*pageNumber <= this.state.bangumi.length) {
+            currentBangumi = this.state.bangumi.slice(40*(pageNumber-1), 40*pageNumber);
         } else {
-            currentBangumi = this.state.bangumi.slice(20*(pageNumber-1));
+            currentBangumi = this.state.bangumi.slice(40*(pageNumber-1));
         }
         this.setState({
             currentPage: pageNumber,
@@ -82,10 +82,10 @@ class UpcomingBangumi extends Component {
     toNext() {
         let pageNumber = this.state.currentPage+1;
         let currentBangumi = [];
-        if (20*pageNumber <= this.state.bangumi.length) {
-            currentBangumi = this.state.bangumi.slice(20*(pageNumber-1), 20*(pageNumber));
+        if (40*pageNumber <= this.state.bangumi.length) {
+            currentBangumi = this.state.bangumi.slice(40*(pageNumber-1), 40*(pageNumber));
         } else {
-            currentBangumi = this.state.bangumi.slice(20*(pageNumber-1));
+            currentBangumi = this.state.bangumi.slice(40*(pageNumber-1));
         }
         this.setState({
             currentPage: pageNumber,

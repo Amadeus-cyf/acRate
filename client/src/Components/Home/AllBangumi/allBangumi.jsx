@@ -1,96 +1,50 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {Image, Label, Button, Form, Input} from 'semantic-ui-react';
 import MainMenu from '../MainMenu/mainMenu.jsx';
-import Navibar from '../MainMenu/Navibar/navibar.jsx';
-import {Label, Image, Button, Input, Form} from 'semantic-ui-react';
-import Select from 'react-select';
+import {pageContainer,textStyle, imageStyle} from '../SeasonBangumi/seasonBangumi.module.scss';
+import {pageStyle, hoverPart, numberStyle, bangumiSection, numberlistStyle} from './allBangumi.module.scss';
 import loadingGif from '../../loading.gif';
-import { pageContainer,textStyle, imageStyle, pageStyle, bangumiSection, bangumiStyle, 
-    hoverPart, numberlistStyle, selectStyle, selectCss, numberStyle} from './allBangumi.module.scss';
 
 class AllBangumi extends Component {
     constructor() {
         super();
         this.state = {
             currentBangumi: [],
-            selectYear: {},
-            displayYear: '2018',
-            selectSeason: {},
-            displaySeason: 'winter',    // currentSeason
-            month: '',                  // month to display*/
-            pageNumber: 0,
+            pageNumber: 1,
+            bangumiNumber: 0,
             currentPage: 1,
             inputPage: '',
-            yearOptions: [],
-            seasonOptions: [
-                {
-                    label: 1,
-                    value: 'winter',
-                },
-                {
-                    label: 4,
-                    value: 'spring',
-                },
-                {
-                    label: 7,
-                    value: 'summer',
-                },
-                {
-                    label: 10,
-                    value: 'fall',
-                },
-                {
-                    label: 'All year',
-                    value: 'allyear',
-                }
-            ]
+            selectOrder: 'descending',
+            selectSort: 'date',
         }
         this.toPrevious = this.toPrevious.bind(this);
         this.toNext = this.toNext.bind(this);
         this.pageHandler = this.pageHandler.bind(this);
-        this.yearHandler = this.yearHandler.bind(this);
-        this.submitHandler = this.submitHandler.bind(this);
-        this.seasonHandler = this.seasonHandler.bind(this);
     }
 
     componentDidMount() {
-        let month = 1;
-        let date = new Date();
-        let yearList = [];
-        for (let i = date.getFullYear(); i >= 2005; i--) {
-            let currYear = {
-                label: i,
-                value: i,
-            };
-            yearList.push(currYear);
-        }
-        this.setState({
-            yearOptions: yearList,
-        })
-        //get first page of default season anime
-        axios.get('api/bangumi/' + this.state.displayYear + '/' + this.state.displaySeason + '/' + this.state.currentPage)
+        axios.get('api/bangumiList/' + this.state.currentPage)
         .then(response => {
-            let animelist = response.data.data.bangumiList;
             this.setState({
-                currentBangumi: animelist,
-                month: month,
+                currentBangumi: response.data.data.bangumiList,
             })
         }).catch(err => {
             alert(err);
         })
-        //get default season anime count
-        axios.get('api/bangumi/' + this.state.displayYear + '/' + this.state.displaySeason + '/count')
+        axios.get('api/bangumiList/count')
         .then(response => {
             let bangumiNumber = response.data.data.bangumiNumber;
-            if (bangumiNumber % 20) {
-                this.setState({
-                    pageNumber: (bangumiNumber - bangumiNumber%20)/20 + 1
-                })
+            let pageNumber = 0;
+            if (bangumiNumber % 24) {
+                pageNumber = (bangumiNumber-bangumiNumber%24)/24 + 1;
             } else {
-                this.setState({
-                    pageNumber: bangumiNumber/20,
-                })
+                pageNumber = bangumiNumber / 24;
             }
+            this.setState({
+                bangumiNumber: bangumiNumber,
+                pageNumber: pageNumber,
+            })
         })
     }
 
@@ -98,39 +52,15 @@ class AllBangumi extends Component {
         this.props.history.push('/detail/' + bangumi.anime_id);
     }
 
-    toPage(pageNumber) {
-        if (pageNumber === '') {
-            return;
-        }
-        let year = this.state.displayYear;
-        let season = this.state.displaySeason;
-        this.setState({
-            currentBangumi: [],
-        })
-        axios.get('api/bangumi/' + year + '/' + season + '/' + pageNumber)
-        .then(response => {
-            let animelist = response.data.data.bangumiList;
-            this.setState({
-                currentBangumi: animelist,
-                currentPage: pageNumber,
-            })
-        }).catch(err => {
-            alert(err);
-        })
-    }
-
     toPrevious() {
         let pageNumber = this.state.currentPage-1;
-        let year = this.state.displayYear;
-        let season = this.state.displaySeason;
         this.setState({
             currentBangumi: [],
         })
-        axios.get('api/bangumi/' + year + '/' + season + '/' + pageNumber)
+        axios.get('api/bangumiList/' + pageNumber)
         .then(response => {
-            let animelist = response.data.data.bangumiList;
             this.setState({
-                currentBangumi: animelist,
+                currentBangumi: response.data.data.bangumiList,
                 currentPage: pageNumber,
             })
         }).catch(err => {
@@ -139,17 +69,29 @@ class AllBangumi extends Component {
     }
 
     toNext() {
-        let pageNumber = this.state.currentPage+1;
-        let year = this.state.displayYear;
-        let season = this.state.displaySeason;
+        let pageNumber = this.state.currentPage + 1;
         this.setState({
             currentBangumi: [],
         })
-        axios.get('api/bangumi/' + year + '/' + season + '/' + pageNumber)
+        axios.get('api/bangumiList/' + pageNumber)
         .then(response => {
-            let animelist = response.data.data.bangumiList;
             this.setState({
-                currentBangumi: animelist,
+                currentBangumi: response.data.data.bangumiList,
+                currentPage: pageNumber,
+            })
+        }).catch(err => {
+            alert(err);
+        })
+    }
+
+    toPage(pageNumber) {
+        this.setState({
+            currentBangumi: [],
+        })
+        axios.get('/api/bangumiList/' + pageNumber)
+        .then(response => {
+            this.setState({
+                currentBangumi: response.data.data.bangumiList,
                 currentPage: pageNumber,
             })
         }).catch(err => {
@@ -177,80 +119,23 @@ class AllBangumi extends Component {
         })
     }
 
-    yearHandler(selectYear) {
+    sortHandler(sort) {
         this.setState({
-            selectYear: selectYear,
+            selectSort: sort,
         })
     }
 
-    seasonHandler(selectSeason) {
+    orderHandler(order) {
         this.setState({
-            selectSeason: selectSeason,
+            selectOrder: order,
         })
-    }
-
-    submitHandler() {
-        if (this.state.selectYear.value === undefined) {
-            alert('Please select a year');
-            return;
-        }
-        if (this.state.selectSeason.value === undefined) {
-            alert('Please select a season');
-            return;
-        }
-        let year = this.state.selectYear.value;
-        let season = this.state.selectSeason.value;
-        let month = this.state.selectSeason.label;
-        let date = new Date();
-        let pageNumber = 1;
-        let currentYear = date.getFullYear();
-        let currentMonth = date.getMonth()+1;
-        // not available bangumi
-        if (year === currentYear && month >= currentMonth) {
-            alert(year + '年' + month + '月' + '由于番剧未上映无法查看');
-            return;
-        } else {
-            this.setState({
-                currentBangumi: [],
-                selectYear: {},
-                selectSeason: {},
-            })
-            // get first page of bangumi of selected time
-            axios.get('api/bangumi/' + year + '/' + season + '/' + pageNumber)
-            .then(response => {
-                let animelist = response.data.data.bangumiList;
-                this.setState({
-                    currentBangumi: animelist,
-                    displayYear: year,
-                    displaySeason: season,
-                    month: month,
-                    currentPage: 1,
-                })
-            }).catch(err => {
-                alert(err);
-            })
-            // get number of bangumi
-            axios.get('api/bangumi/' + year + '/' + season + '/count')
-            .then(response => {
-                let bangumiNumber = response.data.data.bangumiNumber;
-                if (bangumiNumber % 20) {
-                    this.setState({
-                        pageNumber: (bangumiNumber - bangumiNumber%20)/20 + 1
-                    })
-                } else {
-                    this.setState({
-                        pageNumber: bangumiNumber/20,
-                    })
-                }
-            })
-        }
     }
 
     render() {
-        if (this.state.displayYear === ''  || this.state.currentBangumi.length === 0) {
-            return(
+        if (this.state.currentBangumi.length === 0) {
+            return (
                 <div>
-                    <Navibar history = {this.props.history}/>
+                    <MainMenu history = {this.props.history}/>
                     <div className = {pageContainer}>
                         <div>
                             <Image className = {imageStyle} src={loadingGif} alt = 'loading'/>
@@ -262,14 +147,37 @@ class AllBangumi extends Component {
                 </div>
             )
         }
-        let titleStyle = {
-            display: 'block',
-        }
-        if (this.state.month === 'All year') {
-            titleStyle = {
-                display: 'none',
+        let currentBangumi = this.state.currentBangumi.map(bangumi => {
+            let labelStyle = {
+                'width': '400px',
+                'height': 'auto',
+                background: 'white',
+                'display': 'flex',
+                'justify-cotent': 'space-around',
+                'margin-top': '20px',
             }
-        }
+            let imgStyle = {
+                width: '170px',
+                height: '200px',
+                'padding-right': '20px',
+            }
+            let rate = bangumi.score.toFixed(1);
+            if (bangumi.userNumber === 0) {
+                rate = '';
+            }
+            return(
+                <Label onClick ={this.toDetailPage.bind(this, bangumi)} style = {labelStyle}>
+                    <Image className = {hoverPart} style = {imgStyle} src = {bangumi.image_url} rounded/>
+                    <div>
+                        <p className = {hoverPart}>
+                            {bangumi.title}
+                            <span style = {{'font-size': '22pt', color: 'rgba(255, 180, 94, 1)', 'padding-left': '20px'}}>{rate}</span>
+                        </p>
+                        <p style = {{'font-size': '11pt'}}>{bangumi.synopsis.slice(0, 100) + '...'}</p>
+                    </div>
+                </Label>
+            )
+        })
         let previousStyle = {
             display: 'inline',
         }
@@ -286,134 +194,89 @@ class AllBangumi extends Component {
                 display: 'none',
             }
         }
-        // process each bangumi
-        let currentBangumi = this.state.currentBangumi;
-        let currentList = currentBangumi.map(bangumi => {
-            let labelStyle = {
-                'width': '200px',
-                'height': 'auto',
-                background: 'white',
-            }
-            let imgStyle = {
-                width: '170px',
-                height: '220px',
-            }
-            return(
-                <Label onClick ={this.toDetailPage.bind(this, bangumi)} style = {labelStyle}>
-                    <Image className = {hoverPart} style = {imgStyle} src = {bangumi.image_url} rounded/>
-                    <p className = {hoverPart}>{bangumi.title}</p>
-                </Label>
-            )
-        })
-        // set page number list 
-        let pageArr = [];
-        for (let i = 0; i < this.state.pageNumber; i++) {
-            pageArr.push(i+1);
+        let pageArr = []
+        for (let i = 1; i <= this.state.pageNumber; i++) {
+            pageArr.push(i);
         }
-        let pageList = [];
-        // process number list
-        if (this.state.pageNumber <= 7) {
-            pageList = pageArr.map(page => {
-                if (page === this.state.currentPage) {
-                    return(
-                        <Button onClick = {this.toPage.bind(this, page)} size = 'small' color = 'blue'>{page}</Button>
-                    )
-                }
+        let pageList = pageArr.map(page => {
+            if (page === this.state.currentPage) {
+                return(
+                    <Button onClick = {this.toPage.bind(this, page)} size = 'small' color = 'blue'>{page}</Button>
+                )
+            }
+            if (page === 1) {
                 return(
                     <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
                 )
-            })
-        } else {
-            pageList = pageArr.map(page => {
-                if (page === this.state.currentPage) {
-                    return(
-                        <Button onClick = {this.toPage.bind(this, page)} size = 'small' color = 'blue'>{page}</Button>
-                    )
-                }
-                if (page === 1) {
-                    return(
-                        <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
-                    )
-                }
-                if (page === this.state.pageNumber) {
+            }
+            if (page === this.state.pageNumber) {
+                return(
+                    <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
+                )
+            }
+            if (this.state.currentPage > 2 && this.state.currentPage <= this.state.pageNumber-2) {
+                if (page >= this.state.currentPage - 2 && page <= (this.state.currentPage + 2)) {
                     return(
                         <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
-                    )
-                }
-                if (this.state.currentPage > 2 && this.state.currentPage <= this.state.pageNumber-2) {
-                    if (page >= this.state.currentPage - 2 && page <= (this.state.currentPage + 2)) {
-                        return(
-                            <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
-                        ) 
-                    } else {
-                        if (page === this.state.currentPage - 3 || page === this.state.currentPage + 3) {
-                            return(
-                                <span className = {numberStyle}>...</span>
-                            )
-                        }
-                    }
-                } else if (this.state.currentPage <= 2) {
-                    if (page <= 5) {
-                        return(
-                            <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
-                        ) 
-                    } else {
-                        if (page === 6) {
-                            return(
-                                <p className = {numberStyle}>...</p>
-                            )
-                        }
-                    }
+                    ) 
                 } else {
-                    if (page > this.state.pageNumber - 5) {
-                        if (page === this.state.currentPage) {
-                            return(
-                                <Button onClick = {this.toPage.bind(this, page)} size = 'small' color = 'blue'>{page}</Button>
-                            )
-                        }
+                    if (page === this.state.currentPage - 3 || page === this.state.currentPage + 3) {
                         return(
-                            <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
-                        ) 
-                    } else {
-                        if (page === this.state.pageNumber - 5) {
-                            return(
-                                <p className = {numberStyle}>...</p>
-                            )
-                        }
+                            <span className = {numberStyle}>...</span>
+                        )
                     }
                 }
-                return '';
-            })
-        }
-        return(
-            <div>
+            } else if (this.state.currentPage <= 2) {
+                if (page <= 5) {
+                    return(
+                        <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
+                    ) 
+                } else {
+                    if (page === 6) {
+                        return(
+                            <p className = {numberStyle}>...</p>
+                        )
+                    }
+                }
+            } else {
+                if (page > this.state.pageNumber - 5) {
+                    if (page === this.state.currentPage) {
+                        return(
+                            <Button onClick = {this.toPage.bind(this, page)} size = 'small' color = 'blue'>{page}</Button>
+                        )
+                    }
+                    return(
+                        <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
+                    ) 
+                } else {
+                    if (page === this.state.pageNumber - 5) {
+                        return(
+                            <p className = {numberStyle}>...</p>
+                        )
+                    }
+                }
+            }
+            return '';
+        })
+
+        return (
+           <div>
                 <MainMenu history = {this.props.history}/>
                 <div className = {pageStyle}>
-                    <div className = {selectStyle}>
-                        <Select className = {selectCss} placeholder="Select a Year" onChange = {this.yearHandler} options={this.state.yearOptions}/>
-                        <Select placeholder='Select a Season' className = {selectCss} onChange = {this.seasonHandler} options={this.state.seasonOptions}/>
-                        <Button onClick = {this.submitHandler} color = 'blue'>Select</Button>
+                    <div className = {bangumiSection}>
+                        {currentBangumi}
                     </div>
-                    <div>
-                        <div className = {bangumiSection}>
-                            <h3>{this.state.displayYear}年</h3>
-                            <h3 style = {titleStyle}>{this.state.month}月</h3>
-                            <div className = {bangumiStyle}>
-                                {currentList}
-                            </div>
-                            <div className = {numberlistStyle} >
-                                <Button color = 'blue' onClick = {this.toPage.bind(this, 1)}>Page</Button>
-                                <Button basic color = 'blue' style = {previousStyle} onClick = {this.toPrevious}>Prev</Button>
-                                {pageList}
-                                <Button basic color = 'blue' style = {nextStyle} onClick = {this.toNext}>Next</Button>
-                                <Form onSubmit = {this.toPage.bind(this, this.state.inputPage)}>
-                                    <Input placeholder = 'Enter page number'onChange = {this.pageHandler}></Input>
-                                </Form>
-                            </div>
-                        </div>
+                    <div className ={numberlistStyle}>
+                        <Button color = 'blue' onClick = {this.toPage.bind(this, 1)}>Page</Button>
+                        <Button basic color = 'blue' style = {previousStyle} onClick = {this.toPrevious}>Prev</Button>
+                        {pageList}
+                        <Button basic color = 'blue' style = {nextStyle} onClick = {this.toNext}>Next</Button>
+                        <Form onSubmit = {this.toPage.bind(this, this.state.inputPage)}>
+                            <Input placeholder = 'Enter page number'onChange = {this.pageHandler}></Input>
+                        </Form>
                     </div>
                 </div>
-            </div>
+           </div> 
         )
     }
 }

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import {Label, Image, Button} from 'semantic-ui-react';
 import {bangumiStyle, hoverPart, title} from './pastBangumi.module.scss';
-import {pageContainer, textStyle, imageStyle} from '../../AllBangumi/allBangumi.module.scss';
+import {pageContainer, textStyle, imageStyle} from '../../SeasonBangumi/seasonBangumi.module.scss';
 import loadingGif from '../../../loading.gif';
 
 class PastBangumi extends Component {

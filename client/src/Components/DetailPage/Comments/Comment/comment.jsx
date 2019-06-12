@@ -76,6 +76,7 @@ class Comment extends Component {
                 repliedComment_id: this.state.repliedComment._id,
                 repliedUsername: this.state.repliedComment.username,
                 repliedAvatar: this.state.repliedComment.avatar,
+                date: new Date(),
             }
         }).then()
         .catch(err => {
@@ -110,6 +111,10 @@ class Comment extends Component {
                     }
                 }
                 let date = new Date(reply.date);
+                let minute = date.getMinutes();
+                if (minute < 10) {
+                    minute = "0" + minute;
+                }
                 return (
                     <List.Item style = {{'font-family': "'PT Sans Caption', sans-serif", 'margin-top': '20px'}}>
                         <List.Content style = {{'margin-left': '60px'}}>
@@ -120,7 +125,7 @@ class Comment extends Component {
                             </List.Header>
                             <p style = {{'margin-top': '10px'}}>
                                 {date.getFullYear()}-{date.getMonth()+1}-{date.getDate()}
-                                <span style = {{'padding-left': '5px'}}>{date.getHours()}:{date.getMinutes()}</span>
+                                <span style = {{'padding-left': '5px'}}>{date.getHours()}:{minute}</span>
                             </p>
                             <List.Description style = {{'font-size': '11pt', 'margin-top': '10px'}}>
                                 {reply.commentContent}
@@ -133,7 +138,11 @@ class Comment extends Component {
                 )
             })
         }
-        let commentDate = new Date(this.props.comment.date);
+        let date = new Date(this.props.comment.date);
+        let minute = date.getMinutes();
+        if (minute < 10) {
+            minute = "0" + minute;
+        }
         return(
             <List.Item style = {{'font-family': "'PT Sans Caption', sans-serif"}}>
                 <Divider/>
@@ -148,8 +157,8 @@ class Comment extends Component {
                         </div>
                     </List.Header>
                     <p style = {{'margin-top': '10px'}}>
-                        {commentDate.getFullYear()}-{commentDate.getMonth()+1}-{commentDate.getDate()}
-                        <span style = {{'padding-left': '5px'}}>{commentDate.getHours()}:{commentDate.getMinutes()}</span>
+                        {date.getFullYear()}-{date.getMonth()+1}-{date.getDate()}
+                        <span style = {{'padding-left': '5px'}}>{date.getHours()}:{minute}</span>
                         <span style = {{'margin-left': '10px'}}>{replyList.length} reply/replies</span>
                     </p>
                     <List.Description style = {{'font-size': '12pt', 'margin-top': '20px'}}>

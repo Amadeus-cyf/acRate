@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import {Label, Image} from 'semantic-ui-react';
 import Navibar from '../Home/MainMenu/Navibar/navibar.jsx';
-import {pageContainer,textStyle, imageStyle} from '../Home/AllBangumi/allBangumi.module.scss';
+import {pageContainer,textStyle, imageStyle} from '../Home/SeasonBangumi/seasonBangumi.module.scss';
 import {bangumiSection, bangumiStyle, hoverPart, bangumiContainer, numberlistStyle, numberStyle} from './newBangumi.module.scss';
 import loadingGif from '../loading.gif';
 

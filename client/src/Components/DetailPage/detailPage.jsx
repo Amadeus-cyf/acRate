@@ -6,7 +6,7 @@ import Information from './Information/information.jsx';
 import Synopsis from './Synopsis/synopsis.jsx';
 import Commentlist from './Comments/commentlist.jsx';
 import Navibar from '../Home/MainMenu/Navibar/navibar.jsx';
-import {pageContainer,textStyle, imageStyle} from '../Home/AllBangumi/allBangumi.module.scss';
+import {pageContainer,textStyle, imageStyle} from '../Home/SeasonBangumi/seasonBangumi.module.scss';
 import loadingGif from '../searchloading.gif';
 import {labelStyle} from './detailPage.module.scss';
 
@@ -85,6 +85,8 @@ class DetailPage extends Component {
             data: {
                 user_id: this.state.currentUser._id,
                 score: this.state.rating,
+                image_url: this.state.bangumi.image_url,
+                title: this.state.bangumi.title,
             }
         }).then(() => {
             window.location.reload();

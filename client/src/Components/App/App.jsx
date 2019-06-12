@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {HashRouter, Route, Switch} from 'react-router-dom';
 import HomePage from '../Home/HomePage/homepage.jsx';
-import AllBangumi from '../Home/AllBangumi/allBangumi';
+import SeasonBangumi from '../Home/SeasonBangumi/seasonBangumi.jsx';
+import AllBangumi from '../Home/AllBangumi/allBangumi.jsx';
 import UpcomingBangumi from '../Home/UpcomingBangumi/upcomingBangumi.jsx';
 import RecentBangumi from '../RecentBangumi/recentBangumi.jsx';
 import NewBangumi from '../NewBangumi/newBangumi.jsx';
@@ -18,6 +19,7 @@ class App extends Component {
         <Switch>
           <Route exact path = '/' component = {HomePage}/>
           <Route exact path = '/bangumi' component = {AllBangumi}/>
+          <Route exact path = '/bangumi/season' component = {SeasonBangumi}/>
           <Route exact path = '/bangumi/:year/:season' component = {RecentBangumi}/> 
           <Route exact path = '/newbangumi' component = {NewBangumi}/>
           <Route exact path = '/upcomingbangumi' component = {UpcomingBangumi}/> 

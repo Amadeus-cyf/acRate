@@ -3,7 +3,7 @@ import axios from 'axios';
 import {Label, Image, Button, Form, Input, Divider} from 'semantic-ui-react';
 import Navibar from '../Home/MainMenu/Navibar/navibar.jsx';
 import Searchbar from './Searchbar/searchbar.jsx';
-import {textStyle, imageStyle, pageContainer} from '../Home/AllBangumi/allBangumi.module.scss';
+import {textStyle, imageStyle, pageContainer} from '../Home/SeasonBangumi/seasonBangumi.module.scss';
 import loadingGif from '../searchloading.gif';
 import {searchResultStyle, wordStyle, imageHoverStyle, titleStyle, 
     numberlistStyle, headStyle, footerStyle} from './searchResult.module.scss';
@@ -151,14 +151,15 @@ class SearchResult extends Component {
             }
             if (bangumi.userNumber > 0) {
                 scoreStyle = {
-                    display: 'flex',
-                    'flex-direction': 'column',
-                    'margin-left': '50%',
+                    display: 'inline',
+                    'padding-left': '10px',
                 }
                 upperStyle = {
                    'display': 'flex',
+                   'justify-content': 'space-between',
                 }
             }
+            let date = new Date(bangumi.airing_start);
             return (
                 <Label style = {labelStyle}>
                     <Image onClick = {this.toDetailPage.bind(this, bangumi)} className = {imageHoverStyle} style = {imgStyle} src = {bangumi.image_url} alt = 'search result' rounded/>
@@ -168,15 +169,15 @@ class SearchResult extends Component {
                                 {bangumi.title}
                             </p>
                             <div style = {scoreStyle}>
-                                <div style = {{'text-align': 'center', 'font-size': '22pt', 'color': 'rgba(255, 180, 0, 1)'}}>
+                                <h2 style = {{'text-align': 'center', 'font-size': '24pt', 'color': 'rgba(255, 180, 0, 1)'}}>
                                     {bangumi.score.toFixed(1)}
-                                </div>
-                                <div style = {{'font-size': '11pt'}}>
-                                    {bangumi.userNumber} users scored
-                                </div>
+                                    <p style = {{'font-size': '10pt', color: 'rgba(100, 100, 100, 0.5)'}}>
+                                        {bangumi.userNumber} users scored
+                                     </p>
+                                </h2>
                             </div>
                         </div>
-                        <p>Date: {bangumi.airing_start}</p>
+                        <p>Date: {date.getFullYear()}-{date.getMonth()+1}-{date.getDate()}</p>
                         <p>Introduction: {intro}</p>
                     </div>
                 </Label>

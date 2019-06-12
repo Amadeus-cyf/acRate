@@ -52,7 +52,10 @@ class Score extends Component {
     componentDidMount() {
         axios.get('api/bangumiScore/' + this.props.bangumiId)
         .then(response => {
-            if (response.data.data.message === 'Bangumi not found') {
+            if (!response.data.data.bangumiScore) {
+                this.setState({
+                    average: 'none',
+                })
                 return;
             }
             let score = response.data.data.bangumiScore;
@@ -79,6 +82,9 @@ class Score extends Component {
             return (
                 <p style = {{'font-size': '15pt'}}>Fetching score information...</p>
             )
+        }
+        if (this.state.average === 'none') {
+            return <p></p>
         }
         let barStyle = {
             width: '320px',

@@ -12,6 +12,25 @@ router.get('/', (req, res) => {
     })
 })
 
+router.get('/count', (req, res) => {
+    BangumiList.find().countDocuments().exec()
+    .then(bangumiNumber => {
+        return res.status(200).json({message: 'Succesfully find the number of bangumis', data: {bangumiNumber}});
+    }).catch(err => {
+        return res.status(500).json({message: err});
+    })
+})
+
+router.get('/:page', (req, res) => {
+    let page = req.params.page;
+    BangumiList.find().skip((page-1)*24).limit(24).exec()
+    .then(bangumiList => {
+        return res.status(200).json({message: 'Succesfully find bangumis of the page', data: {bangumiList}});
+    }).catch(err => {
+        return res.status(500).json({message: err});
+    })
+})
+
 router.get('/:anime_id', (req, res) => {
     BangumiList.findOne({anime_id: req.params.anime_id}).exec()
     .then(bangumi => {

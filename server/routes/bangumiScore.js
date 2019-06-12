@@ -18,9 +18,6 @@ router.get('/', (req, res) => {
 router.get('/:anime_id', (req, res) => {
     BangumiScore.findOne({anime_id: req.params.anime_id}).exec()
     .then(bangumiScore => {
-        if (!bangumiScore) {
-            return res.status(404).json({message: 'Bangumi not found', data:{}});
-        }
         return res.status(200).json({message: 'Successfully find the score of bangumi', data: {bangumiScore}});
     }).catch(err => {
         return res.status(500).json({message: err});
@@ -64,6 +61,8 @@ router.delete('/:anime_id', (req, res) => {
 router.put('/:anime_id', (req, res) => {
     let score = req.body.score;
     let user_id = req.body.user_id;
+    let image_url = req.body.image_url;
+    let title = req.body.title;
     if (!score || score > 5 || !user_id) {
         return res.status.json({message: 'Invalid score or user id'});
     }
@@ -82,6 +81,8 @@ router.put('/:anime_id', (req, res) => {
         // user has not scored, push the anime to the scoreAnime array
         let animeObject = {
             anime_id: req.params.anime_id,
+            image_url: image_url,
+            title: title,
             score: score*2,
         }
         user.scoreAnime.push(animeObject);
