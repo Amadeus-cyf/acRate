@@ -247,7 +247,7 @@ class SeasonBangumi extends Component {
         if (this.state.displayYear === ''  || this.state.currentBangumi.length === 0) {
             return(
                 <div>
-                    <MainMenu history = {this.props.history}/>
+                    <MainMenu history = {this.props.history} current = 'season'/>
                     <div className = {pageContainer}>
                         <div>
                             <Image className = {imageStyle} src={loadingGif} alt = 'loading'/>
@@ -384,7 +384,7 @@ class SeasonBangumi extends Component {
         }
         return(
             <div>
-                <MainMenu history = {this.props.history}/>
+                <MainMenu history = {this.props.history} current = 'season'/>
                 <div className = {pageStyle}>
                     <div className = {selectStyle}>
                         <Select className = {selectCss} placeholder="Select a Year" onChange = {this.yearHandler} options={this.state.yearOptions}/>

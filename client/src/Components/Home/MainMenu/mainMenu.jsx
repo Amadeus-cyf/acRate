@@ -10,7 +10,7 @@ class MainMenu extends Component {
             <div>
                 <Navibar history = {this.props.history}/>
                 <Searchbar history = {this.props.history}/>
-                <Subnavibar history = {this.props.history}/>
+                <Subnavibar history = {this.props.history} current = {this.props.current}/>
             </div>
         )
     }

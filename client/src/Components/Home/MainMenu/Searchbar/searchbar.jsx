@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import {Input, Form, Label} from 'semantic-ui-react';
+import {Input, Form, Label, Button, Icon} from 'semantic-ui-react';
 import {backgroundStyle, titleStyle, searchbarStyle} from './searchbar.module.scss';
 
 class Searchbar extends Component {
@@ -88,9 +88,12 @@ class Searchbar extends Component {
         return(
             <Form onSubmit = {this.searchHandler} className = {backgroundStyle}>
                 <div className = {searchbarStyle}>
-                    <Input icon='search' value = {this.state.searchInput}
+                    <Input value = {this.state.searchInput}
                     onChange = {this.inputHandler} size = 'big' type = 'text' 
                     placeholder = 'Enter at least one word' />
+                    <Button style = {{'position': 'absolute'}} icon onClick = {this.searchHandler} size = 'big' color = 'blue'>
+                        <Icon name = 'search'/>
+                    </Button>
                     <Label style = {labelStyle}>{filterList}</Label>
                 </div>
             </Form>

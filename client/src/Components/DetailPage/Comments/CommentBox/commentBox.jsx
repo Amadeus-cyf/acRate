@@ -10,8 +10,8 @@ class CommentBox extends Component {
                     <textarea className = {boxStyle} value = {this.props.newComment}
                     onChange = {this.props.inputComment} placeholder = 'Add a comment'></textarea>
                     <div className = {buttonStyle}>
-                        <Button onClick = {this.props.submitComment} disabled = {this.props.newComment === ''} 
-                        color = 'blue' size = 'big'>Submit</Button>
+                        <Button content='Add Comment' labelPosition='left' icon='edit' color = 'blue' size = 'big'
+                        onClick = {this.props.submitComment} disabled = {this.props.newComment === ''}/>
                         <Button style = {{'margin-left': '20px'}} onClick = {this.props.cancelComment} color = 'blue' 
                         size = 'big'>Cancel</Button>
                     </div>

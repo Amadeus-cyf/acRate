@@ -3,7 +3,7 @@ import axios from 'axios';
 import {Image, Label, Button, Form, Input} from 'semantic-ui-react';
 import MainMenu from '../MainMenu/mainMenu.jsx';
 import {pageContainer,textStyle, imageStyle} from '../SeasonBangumi/seasonBangumi.module.scss';
-import {pageStyle, hoverPart, numberStyle, bangumiSection, numberlistStyle} from './allBangumi.module.scss';
+import {pageStyle, hoverPart, introStyle, numberStyle, bangumiSection, numberlistStyle} from './allBangumi.module.scss';
 import loadingGif from '../../loading.gif';
 
 class AllBangumi extends Component {
@@ -135,7 +135,7 @@ class AllBangumi extends Component {
         if (this.state.currentBangumi.length === 0) {
             return (
                 <div>
-                    <MainMenu history = {this.props.history}/>
+                    <MainMenu history = {this.props.history} current = 'bangumi'/>
                     <div className = {pageContainer}>
                         <div>
                             <Image className = {imageStyle} src={loadingGif} alt = 'loading'/>
@@ -149,7 +149,7 @@ class AllBangumi extends Component {
         }
         let currentBangumi = this.state.currentBangumi.map(bangumi => {
             let labelStyle = {
-                'width': '400px',
+                'width': '390px',
                 'height': 'auto',
                 background: 'white',
                 'display': 'flex',
@@ -157,9 +157,9 @@ class AllBangumi extends Component {
                 'margin-top': '20px',
             }
             let imgStyle = {
-                width: '170px',
+                width: '150px',
                 height: '200px',
-                'padding-right': '20px',
+                'margin-right': '20px',
             }
             let rate = bangumi.score.toFixed(1);
             if (bangumi.userNumber === 0) {
@@ -169,11 +169,11 @@ class AllBangumi extends Component {
                 <Label onClick ={this.toDetailPage.bind(this, bangumi)} style = {labelStyle}>
                     <Image className = {hoverPart} style = {imgStyle} src = {bangumi.image_url} rounded/>
                     <div>
-                        <p className = {hoverPart}>
-                            {bangumi.title}
-                            <span style = {{'font-size': '22pt', color: 'rgba(255, 180, 94, 1)', 'padding-left': '20px'}}>{rate}</span>
-                        </p>
-                        <p style = {{'font-size': '11pt'}}>{bangumi.synopsis.slice(0, 100) + '...'}</p>
+                        <div>
+                            <span className = {hoverPart}>{bangumi.title}</span>
+                            <span style = {{'font-size': '21pt', color: 'rgba(255, 180, 94, 1)', 'padding-left': '20px'}}>{rate}</span>
+                        </div>
+                        <p className = {introStyle}>{bangumi.synopsis.slice(0, 180) + '...'}</p>
                     </div>
                 </Label>
             )
@@ -261,7 +261,7 @@ class AllBangumi extends Component {
 
         return (
            <div>
-                <MainMenu history = {this.props.history}/>
+                <MainMenu history = {this.props.history} current = 'bangumi'/>
                 <div className = {pageStyle}>
                     <div className = {bangumiSection}>
                         {currentBangumi}

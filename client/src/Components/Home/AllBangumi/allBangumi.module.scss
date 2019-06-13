@@ -3,17 +3,24 @@
 }
 
 .hoverPart {
-    font-size: 14pt;
+    font-size: 13pt;
     margin-top: 5px;
-    //text-align: center;
+    color: rgba(30, 144, 255, 1);
 }
 
 .hoverPart:hover {
+    color: rgba(255, 100, 200, 1);
     cursor: pointer;
 }
 
+.introStyle {
+    font-size: 11pt;
+    margin-top: 10px;
+    color: rgba(120, 120, 120, 0.8);
+}
+
 .numberlistStyle {
-    padding: 2% 15% 2% 15%;
+    padding: 2% 10% 2% 10%;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
@@ -26,6 +33,6 @@
 .bangumiSection {
     padding: 2% 8% 2% 8%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     flex-wrap: wrap;
 }

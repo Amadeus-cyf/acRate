@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import {Label, Image, Button} from 'semantic-ui-react';
 import MainMenu from '../MainMenu/mainMenu.jsx';
-import Navibar from '../MainMenu/Navibar/navibar.jsx';
 import {pageContainer,textStyle, imageStyle} from '../SeasonBangumi/seasonBangumi.module.scss';
 import {bangumiSection, bangumiStyle, hoverPart, bangumiContainer, numberlistStyle} from './upcomingBangumi.module.scss';
 import loadingGif from '../../loading.gif';
@@ -101,7 +100,7 @@ class UpcomingBangumi extends Component {
         if (this.state.bangumi.length === 0){
             return (
                 <div>
-                    <Navibar history = {this.props.history}/>
+                    <MainMenu history = {this.props.history} current = 'upcoming'/>
                     <div className = {pageContainer}>
                         <div>
                             <Image className = {imageStyle} src={loadingGif} alt = 'loading'/>
@@ -167,7 +166,7 @@ class UpcomingBangumi extends Component {
         })
         return(
             <div>
-                <MainMenu history = {this.props.history}/>
+                <MainMenu history = {this.props.history} current = 'upcoming'/>
                 <div className = {bangumiContainer}>
                     <div className = {bangumiSection}>
                         <h3>{this.state.year}年新番</h3>

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {navibarStyle, title} from './subnavibar.module.scss';
+import {Menu} from 'semantic-ui-react';
+import {navibarStyle} from './subnavibar.module.scss';
 
 class Subnavibar extends Component {
     constructor() {
@@ -15,6 +16,9 @@ class Subnavibar extends Component {
     }
 
     toBangumi() {
+        this.setState ({
+            current: 'bangumi',
+        })
         this.props.history.push('/bangumi')
     }
 
@@ -27,12 +31,33 @@ class Subnavibar extends Component {
     }
 
     render() {
+        let fontStyle = {
+            'font-size': '10pt',
+        }
         return(
             <div className = {navibarStyle}>
-                <div className={title} onClick = {this.toHomePage}>Home Page</div>
-                <div className={title} onClick = {this.toBangumi}>Bangumi</div>
-                <div className={title} onClick = {this.toSeason}>Season</div>
-                <div className={title} onClick = {this.toUpcoming}>Upcoming</div>
+                <Menu pointing secondary style = {{'display': 'block', 'margin': '0 auto'}}>
+                    <Menu.Item style = {fontStyle} position = 'middle'
+                        name='Home Page'
+                        active={this.props.current === 'home'}
+                        onClick = {this.toHomePage}
+                    />
+                    <Menu.Item style = {fontStyle}
+                        name='Bangumi'
+                        active={this.props.current === 'bangumi'}
+                        onClick = {this.toBangumi}
+                    />
+                    <Menu.Item style = {fontStyle}
+                        name='Season'
+                        active = {this.props.current === 'season'}
+                        onClick = {this.toSeason}
+                    />
+                    <Menu.Item style = {fontStyle}
+                        name='Upcoming'
+                        active = {this.props.current === 'upcoming'}
+                        onClick = {this.toUpcoming}
+                    />
+                </Menu>
             </div>
         )
     }
