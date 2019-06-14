@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import {List, Image, Button, Divider} from 'semantic-ui-react';
 import CommentBox from '../CommentBox/commentBox.jsx';
+import Likebar from '../Likebar/likebar.jsx';
 import NoneditStarRating from '../../Information/Score/noneditRating.jsx';
 import {avatarStyle, usernameStyle, replyAvatarStyle} from './comment.module.scss';
 
@@ -133,6 +134,7 @@ class Comment extends Component {
                             <Button onClick = {this.replyComment.bind(this, reply)} style = {{'margin-top': '10px'}} 
                             size = 'tiny' color = 'blue' disabled = {this.props.currentUser && 
                             reply.username === this.props.currentUser.username}>Reply</Button>
+                            <Likebar currentUser = {this.props.currentUser} comment = {reply}/>
                         </List.Content>
                     </List.Item>
                 )
@@ -164,9 +166,10 @@ class Comment extends Component {
                     <List.Description style = {{'font-size': '12pt', 'margin-top': '20px'}}>
                         {this.props.comment.commentContent}
                     </List.Description>
-                    <Button  onClick = {this.replyComment.bind(this, this.props.comment)} style = {{'margin-top': '20px'}} 
+                    <Button onClick = {this.replyComment.bind(this, this.props.comment)} style = {{'margin-top': '20px'}} 
                     size = 'tiny' color = 'blue' disabled = {this.props.currentUser && 
                     this.props.comment.username === this.props.currentUser.username}>Reply</Button>
+                    <Likebar currentUser = {this.props.currentUser} comment = {this.props.comment}/>
                 </List.Content>
                 <List>
                     {replyList}
