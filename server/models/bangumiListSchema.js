@@ -26,7 +26,7 @@ var BangumiListSchema = new mongoose.Schema({
     },
     airing_start: {
         type: String,
-        default: date,
+        default: '',
     },
     score: {
         type: Number,

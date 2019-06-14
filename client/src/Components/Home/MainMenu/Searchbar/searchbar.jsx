@@ -78,7 +78,7 @@ class Searchbar extends Component {
         let labelStyle = {
             display: this.state.labelDisplay,
             background: 'white',
-            'box-shadow': '0px 1px 5px 2px rgba(225, 225, 225, 0.5)',
+            boxShadow: '0px 1px 5px 2px rgba(225, 225, 225, 0.5)',
         }
         let filterList = this.state.filterList.map(bangumi => {
             return (

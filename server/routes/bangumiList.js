@@ -21,9 +21,21 @@ router.get('/count', (req, res) => {
     })
 })
 
-router.get('/:page', (req, res) => {
+router.get('/date/:page/order/:order', (req, res) => {
     let page = req.params.page;
-    BangumiList.find().skip((page-1)*24).limit(24).exec()
+    let order = req.params.order;
+    BangumiList.find().sort({airing_start: order}).skip((page-1)*24).limit(24).exec()
+    .then(bangumiList => {
+        return res.status(200).json({message: 'Succesfully find bangumis of the page', data: {bangumiList}});
+    }).catch(err => {
+        return res.status(500).json({message: err});
+    })
+})
+
+router.get('/score/:page/order/:order', (req, res) => {
+    let page = req.params.page;
+    let order = req.params.order;
+    BangumiList.find().sort({score: order}).skip((page-1)*24).limit(24).exec()
     .then(bangumiList => {
         return res.status(200).json({message: 'Succesfully find bangumis of the page', data: {bangumiList}});
     }).catch(err => {
@@ -100,6 +112,15 @@ router.delete('/:anime_id', (req, res) => {
         }
         return res.status(200).json({message: 'Successfully delete the bangumi', data: {bangumiList}});
     }) 
+})
+
+router.put('/', (req, res) => {
+    BangumiList.updateMany({airing_start:"unknown"}, {$set: {airing_start: ''}}, (err, bangumiList) => {
+        if (err) {
+            return res.status(500).json({message: err});
+        }
+        return res.status(200).json({message: 'Succesfully fix bangumi date', data: {bangumiList}})
+    })
 })
 
 module.exports = router;

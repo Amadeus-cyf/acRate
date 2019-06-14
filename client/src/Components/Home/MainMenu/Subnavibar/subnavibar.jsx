@@ -32,12 +32,12 @@ class Subnavibar extends Component {
 
     render() {
         let fontStyle = {
-            'font-size': '10pt',
+            fontSize: '10pt',
         }
         return(
             <div className = {navibarStyle}>
-                <Menu pointing secondary style = {{'display': 'block', 'margin': '0 auto'}}>
-                    <Menu.Item style = {fontStyle} position = 'middle'
+                <Menu pointing secondary style = {{display: 'block', margin: '0 auto'}}>
+                    <Menu.Item style = {fontStyle}
                         name='Home Page'
                         active={this.props.current === 'home'}
                         onClick = {this.toHomePage}

@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import {Image, Label, Button, Form, Input} from 'semantic-ui-react';
+import {Image, Label, Button, Form, Input, Radio} from 'semantic-ui-react';
 import MainMenu from '../MainMenu/mainMenu.jsx';
 import {pageContainer,textStyle, imageStyle} from '../SeasonBangumi/seasonBangumi.module.scss';
-import {pageStyle, hoverPart, introStyle, numberStyle, bangumiSection, numberlistStyle} from './allBangumi.module.scss';
+import {pageStyle, hoverPart, introStyle, 
+    numberStyle, bangumiSection, numberlistStyle, scoreCss, dateCss, radioStyle} from './allBangumi.module.scss';
 import loadingGif from '../../loading.gif';
 
 class AllBangumi extends Component {
@@ -21,10 +22,12 @@ class AllBangumi extends Component {
         this.toPrevious = this.toPrevious.bind(this);
         this.toNext = this.toNext.bind(this);
         this.pageHandler = this.pageHandler.bind(this);
+        this.sortHandler = this.sortHandler.bind(this);
+        this.orderHandler = this.orderHandler.bind(this);
     }
 
     componentDidMount() {
-        axios.get('api/bangumiList/' + this.state.currentPage)
+        axios.get('api/bangumiList/date/' + this.state.currentPage + '/order/' + -1)
         .then(response => {
             this.setState({
                 currentBangumi: response.data.data.bangumiList,
@@ -57,15 +60,31 @@ class AllBangumi extends Component {
         this.setState({
             currentBangumi: [],
         })
-        axios.get('api/bangumiList/' + pageNumber)
-        .then(response => {
-            this.setState({
-                currentBangumi: response.data.data.bangumiList,
-                currentPage: pageNumber,
+        let order = -1;
+        if (this.state.selectOrder === 'ascending') {
+            order = 1;
+        }
+        if (this.state.selectSort === 'sort') {
+            axios.get('/api/bangumiList/date/' + pageNumber + '/order/' + order)
+            .then(response => {
+                this.setState({
+                    currentBangumi: response.data.data.bangumiList,
+                    currentPage: pageNumber,
+                })
+            }).catch(err => {
+                alert(err);
             })
-        }).catch(err => {
-            alert(err);
-        })
+        } else {
+            axios.get('/api/bangumiList/score/' + pageNumber + '/order/' + order)
+            .then(response => {
+                this.setState({
+                    currentBangumi: response.data.data.bangumiList,
+                    currentPage: pageNumber
+                })
+            }).catch(err => {
+                alert(err);
+            })
+        }
     }
 
     toNext() {
@@ -73,30 +92,62 @@ class AllBangumi extends Component {
         this.setState({
             currentBangumi: [],
         })
-        axios.get('api/bangumiList/' + pageNumber)
-        .then(response => {
-            this.setState({
-                currentBangumi: response.data.data.bangumiList,
-                currentPage: pageNumber,
+        let order = -1;
+        if (this.state.selectOrder === 'ascending') {
+            order = 1;
+        }
+        if (this.state.selectSort === 'sort') {
+            axios.get('/api/bangumiList/date/' + pageNumber + '/order/' + order)
+            .then(response => {
+                this.setState({
+                    currentBangumi: response.data.data.bangumiList,
+                    currentPage: pageNumber,
+                })
+            }).catch(err => {
+                alert(err);
             })
-        }).catch(err => {
-            alert(err);
-        })
+        } else {
+            axios.get('/api/bangumiList/score/' + pageNumber + '/order/' + order)
+            .then(response => {
+                this.setState({
+                    currentBangumi: response.data.data.bangumiList,
+                    currentPage: pageNumber
+                })
+            }).catch(err => {
+                alert(err);
+            })
+        }
     }
 
     toPage(pageNumber) {
         this.setState({
             currentBangumi: [],
         })
-        axios.get('/api/bangumiList/' + pageNumber)
-        .then(response => {
-            this.setState({
-                currentBangumi: response.data.data.bangumiList,
-                currentPage: pageNumber,
+        let order = -1;
+        if (this.state.selectOrder === 'ascending') {
+            order = 1;
+        }
+        if (this.state.selectSort === 'date') {
+            axios.get('/api/bangumiList/date/' + pageNumber + '/order/' + order)
+            .then(response => {
+                this.setState({
+                    currentBangumi: response.data.data.bangumiList,
+                    currentPage: pageNumber,
+                })
+            }).catch(err => {
+                alert(err);
             })
-        }).catch(err => {
-            alert(err);
-        })
+        } else {
+            axios.get('/api/bangumiList/score/' + pageNumber + '/order/' + order)
+            .then(response => {
+                this.setState({
+                    currentBangumi: response.data.data.bangumiList,
+                    currentPage: pageNumber
+                })
+            }).catch(err => {
+                alert(err);
+            })
+        }
     }
 
     pageHandler(event) {
@@ -119,16 +170,65 @@ class AllBangumi extends Component {
         })
     }
 
-    sortHandler(sort) {
+    sortHandler() {
+        let sort = 'date'
+        if (this.state.selectSort === 'date') {
+            this.setState({
+                selectSort: 'score',
+            })
+            sort = 'score';
+        } else {
+            this.setState({
+                selectSort: 'date',
+            })
+        }
         this.setState({
-            selectSort: sort,
+            currentPage: 1,
+            currentBangumi: [],
+        })
+        let order = -1;
+        if (this.state.selectOrder === 'ascending') {
+            order = 1;
+        }
+        axios.get('api/bangumiList/' + sort + '/' + 1 + '/order/' + order)
+        .then(response => {
+            this.setState({
+                currentBangumi: response.data.data.bangumiList,
+            })
+        }).catch(err => {
+            alert(err);
         })
     }
 
-    orderHandler(order) {
-        this.setState({
-            selectOrder: order,
-        })
+    orderHandler() {
+        let sort = this.state.selectSort;
+        if (this.state.selectOrder === 'descending') {
+            this.setState({
+                selectOrder: 'ascending',
+                currentBangumi: [],
+            })
+            axios.get('api/bangumiList/' + sort + '/' + 1 + '/order/' + 1)
+            .then(response => {
+                this.setState({
+                    currentBangumi: response.data.data.bangumiList,
+                })
+            }).catch(err => {
+                alert(err);
+            })
+        } else {
+            this.setState({
+                selectOrder: 'descending',
+                currentBangumi: [],
+            })
+            axios.get('api/bangumiList/' + sort + '/' + 1 + '/order/' + -1)
+            .then(response => {
+                this.setState({
+                    currentBangumi: response.data.data.bangumiList,
+                })
+            }).catch(err => {
+                alert(err);
+            })
+        }
     }
 
     render() {
@@ -136,6 +236,18 @@ class AllBangumi extends Component {
             return (
                 <div>
                     <MainMenu history = {this.props.history} current = 'bangumi'/>
+                    <div className = {radioStyle}>
+                        <span style = {{'margin-right': '50px'}}>
+                            <span style = {{'margin-right': '10px'}}>Sort by Date</span>
+                            <Radio slider onChange = {this.sortHandler}/>
+                            <span style = {{'margin-left': '10px'}}>Sort by Rating</span>
+                        </span>
+                        <span>
+                            <span style = {{'margin-right': '10px'}}>Descending</span>
+                            <Radio slider onChange = {this.orderHandler}/>
+                            <span style = {{'margin-left': '10px'}}>Ascending</span>
+                        </span>
+                    </div>
                     <div className = {pageContainer}>
                         <div>
                             <Image className = {imageStyle} src={loadingGif} alt = 'loading'/>
@@ -157,27 +269,54 @@ class AllBangumi extends Component {
                 'margin-top': '20px',
             }
             let imgStyle = {
-                width: '150px',
+                width: '160px',
                 height: '200px',
                 'margin-right': '20px',
+            }
+            let dateStyle = {
+                display: 'none',
+            }
+            let scoreStyle = {
+                display: 'none'
+            }
+            if (this.state.selectSort === 'date') {
+                dateStyle = {
+                    display: 'inline',
+                }
+            } else {
+                scoreStyle = {
+                    display: 'inline',
+                }
             }
             let rate = bangumi.score.toFixed(1);
             if (bangumi.userNumber === 0) {
                 rate = '';
             }
+            let date = '';
+            let year = 'unknown';
+            let month = '';
+            let day = '';
+            if (bangumi.airing_start !== '') {
+                date = new Date(bangumi.airing_start);
+                year = date.getFullYear();
+                month = '-' + (date.getMonth()+1);
+                day = '-' + date.getDate();
+            }
             return(
                 <Label onClick ={this.toDetailPage.bind(this, bangumi)} style = {labelStyle}>
                     <Image className = {hoverPart} style = {imgStyle} src = {bangumi.image_url} rounded/>
                     <div>
-                        <div>
+                        <div style = {{'display' :'flex'}}>
                             <span className = {hoverPart}>{bangumi.title}</span>
-                            <span style = {{'font-size': '21pt', color: 'rgba(255, 180, 94, 1)', 'padding-left': '20px'}}>{rate}</span>
+                            <span className = {scoreCss} style = {scoreStyle}>{rate}</span>
                         </div>
-                        <p className = {introStyle}>{bangumi.synopsis.slice(0, 180) + '...'}</p>
+                        <p style = {dateStyle} className = {dateCss}>{year}{month}{day}</p>
+                        <p className = {introStyle}>{bangumi.synopsis.slice(0, 150) + '...'}</p>
                     </div>
                 </Label>
             )
         })
+        // process number list
         let previousStyle = {
             display: 'inline',
         }
@@ -258,10 +397,21 @@ class AllBangumi extends Component {
             }
             return '';
         })
-
         return (
-           <div>
+            <div>
                 <MainMenu history = {this.props.history} current = 'bangumi'/>
+                <div className = {radioStyle}>
+                    <span style = {{'margin-right': '50px'}}>
+                        <span style = {{'margin-right': '10px'}}>Sort by Date</span>
+                        <Radio slider onChange = {this.sortHandler}/>
+                        <span style = {{'margin-left': '10px'}}>Sort by Rating</span>
+                    </span>
+                    <span>
+                        <span style = {{'margin-right': '10px'}}>Descending</span>
+                        <Radio slider onChange = {this.orderHandler}/>
+                        <span style = {{'margin-left': '10px'}}>Ascending</span>
+                    </span>
+                </div>
                 <div className = {pageStyle}>
                     <div className = {bangumiSection}>
                         {currentBangumi}
@@ -276,7 +426,7 @@ class AllBangumi extends Component {
                         </Form>
                     </div>
                 </div>
-           </div> 
+            </div>
         )
     }
 }

@@ -9,16 +9,16 @@ class UserMenu extends Component {
             let labelstyle = {
                 display: 'block',
                 position: 'absolute',
-                'box-shadow': '0px 1px 5px 2px rgba(225, 225, 225, 0.5)',
+                boxShadow: '0px 1px 5px 2px rgba(225, 225, 225, 0.5)',
                 width: '300px',
                 background: 'white',
                 right: '160px',
-                'padding-top': '60px',
-                'z-index': '2',
+                paddingTop: '60px',
+                zIndex: '2',
             }
             let buttonstyle = {
-                'display': 'block',
-                'margin': '10px auto',
+                display: 'block',
+                margin: '10px auto',
             }
             return(
                 <Label style = {labelstyle}>

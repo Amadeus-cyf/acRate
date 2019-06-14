@@ -80,7 +80,7 @@ class Score extends Component {
     render() {
         if (this.state.average === 'undefined') {
             return (
-                <p style = {{'font-size': '15pt'}}>Fetching score information...</p>
+                <p style = {{'font-size': '15pt'}}>Fetching score...</p>
             )
         }
         if (this.state.average === 'none') {
@@ -100,7 +100,7 @@ class Score extends Component {
                                 <div className = {scoreTitle}>{this.state.average.toFixed(1)}</div>
                                 <div>
                                     <NoneditStarRating average = {this.state.average/2}/>
-                                    <p>{this.state.userNumber} users scored</p>
+                                    <p>{this.state.userNumber} user(s) scored</p>
                                 </div>
                             </Button.Content>
                             <Button.Content hidden>

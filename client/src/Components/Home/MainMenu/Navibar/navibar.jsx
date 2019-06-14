@@ -78,37 +78,37 @@ class Navibar extends Component {
 
     render() {
         let homeStyle = {
-            'font-family': "'PT Sans Caption', sans-serif",
-            'font-size': '15pt',
+            fontFamily: "'PT Sans Caption', sans-serif",
+            fontSize: '15pt',
             color: 'rgba(255, 255, 255, 0.95)',
-            'margin': '1% 0% 1% 2%',
+            margin: '1% 0% 1% 2%',
             background: 'rgba(255, 120, 195, 1)',
         }
         let loginStyle = {
-            'font-family': "'PT Sans Caption', sans-serif",
-            'font-size': '15pt',
+            fontFamily: "'PT Sans Caption', sans-serif",
+            fontSize: '15pt',
             color: 'rgba(255, 255, 255, 0.95)',
             display: this.state.loginDisplay,
             float: 'right',
-            'margin': '1% 0% 1% 0%',
+            margin: '1% 0% 1% 0%',
             background: 'rgba(255, 120, 195, 1)',
         }
         let signupStyle = {
-            'font-family': "'PT Sans Caption', sans-serif",
-            'font-size': '15pt',
+            fontFamily: "'PT Sans Caption', sans-serif",
+            fontSize: '15pt',
             color: 'rgba(255, 255, 255, 0.95)',
             display: this.state.signupDisplay,
             float: 'right',
-            'margin': '1% 2% 1% 0%',
+            margin: '1% 2% 1% 0%',
             background: 'rgba(255, 120, 195, 1)',
         }
         let logoutStyle = {
-            'font-family': "'PT Sans Caption', sans-serif",
-            'font-size': '15pt',
+            fontFamily: "'PT Sans Caption', sans-serif",
+            fontSize: '15pt',
             color: 'rgba(255, 255, 255, 0.95)',
             display: this.state.logoutDisplay,
             float: 'right',
-            'margin': '1% 2% 1% 0%',
+            margin: '1% 2% 1% 0%',
             background: 'rgba(255, 120, 195, 1)',
         }
         let menuStyle = {
