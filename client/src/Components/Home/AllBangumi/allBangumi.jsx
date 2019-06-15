@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import {Image, Label, Button, Form, Input, Radio} from 'semantic-ui-react';
+import {Image, Button, Form, Input, Radio} from 'semantic-ui-react';
 import MainMenu from '../MainMenu/mainMenu.jsx';
 import {pageContainer,textStyle, imageStyle} from '../SeasonBangumi/seasonBangumi.module.scss';
 import {pageStyle, hoverPart, introStyle, 
     numberStyle, bangumiSection, numberlistStyle, scoreCss, dateCss, radioStyle} from './allBangumi.module.scss';
 import loadingGif from '../../loading.gif';
+import paging from '../paging.jsx';
+import labeling from './labeling.jsx';
 
 class AllBangumi extends Component {
     constructor() {
@@ -260,61 +262,8 @@ class AllBangumi extends Component {
             )
         }
         let currentBangumi = this.state.currentBangumi.map(bangumi => {
-            let labelStyle = {
-                'width': '390px',
-                'height': 'auto',
-                background: 'white',
-                'display': 'flex',
-                'justify-cotent': 'space-around',
-                'margin-top': '20px',
-            }
-            let imgStyle = {
-                width: '160px',
-                height: '200px',
-                'margin-right': '20px',
-            }
-            let dateStyle = {
-                display: 'none',
-            }
-            let scoreStyle = {
-                display: 'none'
-            }
-            if (this.state.selectSort === 'date') {
-                dateStyle = {
-                    display: 'inline',
-                }
-            } else {
-                scoreStyle = {
-                    display: 'inline',
-                }
-            }
-            let rate = bangumi.score.toFixed(1);
-            if (bangumi.userNumber === 0) {
-                rate = '';
-            }
-            let date = '';
-            let year = 'unknown';
-            let month = '';
-            let day = '';
-            if (bangumi.airing_start !== '') {
-                date = new Date(bangumi.airing_start);
-                year = date.getFullYear();
-                month = '-' + (date.getMonth()+1);
-                day = '-' + date.getDate();
-            }
-            return(
-                <Label onClick ={this.toDetailPage.bind(this, bangumi)} style = {labelStyle}>
-                    <Image className = {hoverPart} style = {imgStyle} src = {bangumi.image_url} rounded/>
-                    <div>
-                        <div style = {{'display' :'flex'}}>
-                            <span className = {hoverPart}>{bangumi.title}</span>
-                            <span className = {scoreCss} style = {scoreStyle}>{rate}</span>
-                        </div>
-                        <p style = {dateStyle} className = {dateCss}>{year}{month}{day}</p>
-                        <p className = {introStyle}>{bangumi.synopsis.slice(0, 150) + '...'}</p>
-                    </div>
-                </Label>
-            )
+            return labeling(bangumi, this.state.selectSort, this.toDetailPage.bind(this, bangumi), 
+            hoverPart, introStyle, scoreCss, dateCss);
         })
         // process number list
         let previousStyle = {
@@ -338,64 +287,8 @@ class AllBangumi extends Component {
             pageArr.push(i);
         }
         let pageList = pageArr.map(page => {
-            if (page === this.state.currentPage) {
-                return(
-                    <Button onClick = {this.toPage.bind(this, page)} size = 'small' color = 'blue'>{page}</Button>
-                )
-            }
-            if (page === 1) {
-                return(
-                    <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
-                )
-            }
-            if (page === this.state.pageNumber) {
-                return(
-                    <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
-                )
-            }
-            if (this.state.currentPage > 2 && this.state.currentPage <= this.state.pageNumber-2) {
-                if (page >= this.state.currentPage - 2 && page <= (this.state.currentPage + 2)) {
-                    return(
-                        <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
-                    ) 
-                } else {
-                    if (page === this.state.currentPage - 3 || page === this.state.currentPage + 3) {
-                        return(
-                            <span className = {numberStyle}>...</span>
-                        )
-                    }
-                }
-            } else if (this.state.currentPage <= 2) {
-                if (page <= 5) {
-                    return(
-                        <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
-                    ) 
-                } else {
-                    if (page === 6) {
-                        return(
-                            <p className = {numberStyle}>...</p>
-                        )
-                    }
-                }
-            } else {
-                if (page > this.state.pageNumber - 5) {
-                    if (page === this.state.currentPage) {
-                        return(
-                            <Button onClick = {this.toPage.bind(this, page)} size = 'small' color = 'blue'>{page}</Button>
-                        )
-                    }
-                    return(
-                        <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
-                    ) 
-                } else {
-                    if (page === this.state.pageNumber - 5) {
-                        return(
-                            <p className = {numberStyle}>...</p>
-                        )
-                    }
-                }
-            }
-            return '';
+            return paging(page, this.state.currentPage, this.state.pageNumber, 
+            this.toPage.bind(this, page), numberStyle);
         })
         return (
             <div>

@@ -3,7 +3,8 @@ import axios from 'axios';
 import {List, Button, Divider} from 'semantic-ui-react';
 import CommentBox from './CommentBox/commentBox.jsx';
 import Comment from './Comment/comment.jsx';
-import {commentStyle, numberlistStyle, footerStyle} from './commentlist.module.scss';
+import {commentStyle, numberlistStyle, numberStyle, footerStyle} from './commentlist.module.scss';
+import paging from '../../Home/paging.jsx';
 
 class Commentlist extends Component {
     constructor() {
@@ -63,7 +64,7 @@ class Commentlist extends Component {
         })
     }
 
-    submitComment() {
+    async submitComment() {
         if (this.state.commentNumber && this.state.commentNumber % 20 === 0) {
             let pageNumber  = this.state.pageNumber + 1;
             this.setState({
@@ -75,24 +76,25 @@ class Commentlist extends Component {
             commentNumber: commentNumber,
             currentComments: 'undefined',
         })
-        axios('api/comment/', {
-            method: 'POST',
-            headers:  {
-                'content-type': 'application/json',
-            },
-            data: {
-                anime_id: this.props.bangumi.mal_id,
-                parentComment_id: 'none',
-                commentContent: this.state.newComment,
-                username: this.props.currentUser.username,
-                user_id: this.props.currentUser._id,
-                avatar: this.props.currentUser.avatar,
-                repliedComment_id: 'none',
-                repliedUsername: 'none',
-                repliedAvatar: 'none',
-                date: new Date(),
-            }
-        }).then(() => {
+        try {
+            await axios('api/comment/', {
+                method: 'POST',
+                headers:  {
+                    'content-type': 'application/json',
+                },
+                data: {
+                    anime_id: this.props.bangumi.mal_id,
+                    parentComment_id: 'none',
+                    commentContent: this.state.newComment,
+                    username: this.props.currentUser.username,
+                    user_id: this.props.currentUser._id,
+                    avatar: this.props.currentUser.avatar,
+                    repliedComment_id: 'none',
+                    repliedUsername: 'none',
+                    repliedAvatar: 'none',
+                    date: new Date(),
+                }
+            });
             this.setState({
                 newComment: '',
                 currentPage: 1,
@@ -105,10 +107,9 @@ class Commentlist extends Component {
             }).catch(err => {
                 alert(err);
             })
-        })
-        .catch(err => {
+        } catch(err) {
             alert(err);
-        })
+        }
     }
 
     cancelComment() {
@@ -208,16 +209,6 @@ class Commentlist extends Component {
         }
         let pageList = [];
         // process number list
-        pageList = pageArr.map(page => {
-            if (page === this.state.currentPage) {
-                return(
-                    <Button onClick = {this.toPage.bind(this, page)} size = 'small' color = 'blue'>{page}</Button>
-                )
-            }
-            return(
-                <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
-            )
-        })
         let previousStyle = {
             display: 'inline',
         }
@@ -234,6 +225,10 @@ class Commentlist extends Component {
                 display: 'none',
             }
         }
+        pageList = pageArr.map(page => {
+            return paging(page, this.state.currentPage, this.state.pageNumber, 
+                this.toPage.bind(this, page),numberStyle);
+        })
         return(
             <div>
                 <div className = {commentStyle}>

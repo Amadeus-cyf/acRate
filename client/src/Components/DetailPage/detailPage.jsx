@@ -4,6 +4,7 @@ import axios from 'axios';
 import StarRating from 'react-star-ratings';
 import Information from './Information/information.jsx';
 import Synopsis from './Synopsis/synopsis.jsx';
+import Recommend from './Recommend/recommend.jsx';
 import Commentlist from './Comments/commentlist.jsx';
 import Navibar from '../Home/MainMenu/Navibar/navibar.jsx';
 import {pageContainer,textStyle, imageStyle} from '../Home/SeasonBangumi/seasonBangumi.module.scss';
@@ -176,6 +177,8 @@ class DetailPage extends Component {
                     <Navibar history = {this.props.history}/>
                     <Information bangumi = {this.state.bangumi} scoreBangumi = {this.scoreBangumi}/>
                     <Synopsis bangumi = {this.state.bangumi}/>
+                    <Recommend history = {this.props.history} bangumi = {this.state.bangumi} 
+                    currentUser = {this.state.currentUser}/>
                     <Commentlist bangumi = {this.state.bangumi} currentUser = {this.state.currentUser}/>
                 </div>
                 <div className = {labelStyle}>

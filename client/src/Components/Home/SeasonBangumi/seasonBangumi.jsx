@@ -6,6 +6,7 @@ import Select from 'react-select';
 import loadingGif from '../../loading.gif';
 import { pageContainer,textStyle, imageStyle, pageStyle, bangumiSection, bangumiStyle, 
     hoverPart, numberlistStyle, selectStyle, selectCss, numberStyle} from './seasonBangumi.module.scss';
+import paging from '../paging.jsx';
 
 class SeasonBangumi extends Component {
     constructor() {
@@ -48,8 +49,8 @@ class SeasonBangumi extends Component {
         this.toNext = this.toNext.bind(this);
         this.pageHandler = this.pageHandler.bind(this);
         this.yearHandler = this.yearHandler.bind(this);
-        this.submitHandler = this.submitHandler.bind(this);
         this.seasonHandler = this.seasonHandler.bind(this);
+        this.submitHandler = this.submitHandler.bind(this);
     }
 
     componentDidMount() {
@@ -309,79 +310,10 @@ class SeasonBangumi extends Component {
         }
         let pageList = [];
         // process number list
-        if (this.state.pageNumber <= 7) {
-            pageList = pageArr.map(page => {
-                if (page === this.state.currentPage) {
-                    return(
-                        <Button onClick = {this.toPage.bind(this, page)} size = 'small' color = 'blue'>{page}</Button>
-                    )
-                }
-                return(
-                    <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
-                )
-            })
-        } else {
-            pageList = pageArr.map(page => {
-                if (page === this.state.currentPage) {
-                    return(
-                        <Button onClick = {this.toPage.bind(this, page)} size = 'small' color = 'blue'>{page}</Button>
-                    )
-                }
-                if (page === 1) {
-                    return(
-                        <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
-                    )
-                }
-                if (page === this.state.pageNumber) {
-                    return(
-                        <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
-                    )
-                }
-                if (this.state.currentPage > 2 && this.state.currentPage <= this.state.pageNumber-2) {
-                    if (page >= this.state.currentPage - 2 && page <= (this.state.currentPage + 2)) {
-                        return(
-                            <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
-                        ) 
-                    } else {
-                        if (page === this.state.currentPage - 3 || page === this.state.currentPage + 3) {
-                            return(
-                                <span className = {numberStyle}>...</span>
-                            )
-                        }
-                    }
-                } else if (this.state.currentPage <= 2) {
-                    if (page <= 5) {
-                        return(
-                            <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
-                        ) 
-                    } else {
-                        if (page === 6) {
-                            return(
-                                <p className = {numberStyle}>...</p>
-                            )
-                        }
-                    }
-                } else {
-                    if (page > this.state.pageNumber - 5) {
-                        if (page === this.state.currentPage) {
-                            return(
-                                <Button onClick = {this.toPage.bind(this, page)} size = 'small' color = 'blue'>{page}</Button>
-                            )
-                        }
-                        return(
-                            <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
-                        ) 
-                    } else {
-                        if (page === this.state.pageNumber - 5) {
-                            return(
-                                <p className = {numberStyle}>...</p>
-                            )
-                        }
-                    }
-                }
-                return '';
-            })
-        }
+       pageList = pageArr.map(page => {
+           return paging(page, this.state.currentPage, this.state.pageNumber, 
+            this.toPage.bind(this, page),numberStyle);
+       })
         return(
             <div>
                 <MainMenu history = {this.props.history} current = 'season'/>

@@ -1,0 +1,30 @@
+.loadingStyle {
+    font-size: 14pt;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.recommendStyle {
+    margin: 2% 8% 2% 8%;
+}
+
+.titleStyle {
+    margin-top: 10px;
+    font-size: 12pt;
+    text-align: center;
+    line-height: 1.2em;
+}
+
+.hoverPart:hover{
+    cursor: pointer;
+}
+
+.scoreStyle {
+    padding-top: 5px;
+    color: rgba(255, 180, 94, 1);
+}
+
+.bangumiStyle {
+    display: flex;
+    flex-wrap: wrap;
+}

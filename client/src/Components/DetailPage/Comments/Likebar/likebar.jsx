@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import {Button, Icon} from 'semantic-ui-react';
+import {Icon} from 'semantic-ui-react';
 import {barStyle, numberStyle} from './likebar.module.scss';
 
 class Likebar extends Component {

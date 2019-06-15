@@ -13,6 +13,14 @@ router.get('/', (req, res) => {
     })
 })
 
+router.get('/:id', (req, res) => {
+    User.findById(req.params.id).exec()
+    .then(user => {
+        res.status(200).json({message: 'Succesfully find the user', data: {user}});
+    }).catch(err => {
+        alert(err)
+    });
+})
 
 //delete an account by id
 router.delete('/:id', (req, res) => {
@@ -25,6 +33,6 @@ router.delete('/:id', (req, res) => {
     }).catch(err => {
         res.status(500).json({message: err})
     })
-});
+})
 
 module.exports = router;
