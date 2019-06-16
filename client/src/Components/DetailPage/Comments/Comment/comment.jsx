@@ -131,9 +131,10 @@ class Comment extends Component {
                             <List.Description style = {{'font-size': '11pt', 'margin-top': '10px'}}>
                                 {reply.commentContent}
                             </List.Description>
-                            <Button onClick = {this.replyComment.bind(this, reply)} style = {{'margin-top': '10px'}} 
+                            <Button icon='edit' content = 'Reply' 
+                            onClick = {this.replyComment.bind(this, reply)} style = {{'margin-top': '10px'}} 
                             size = 'tiny' color = 'blue' disabled = {this.props.currentUser && 
-                            reply.username === this.props.currentUser.username}>Reply</Button>
+                            reply.username === this.props.currentUser.username}/>
                             <Likebar currentUser = {this.props.currentUser} comment = {reply}/>
                         </List.Content>
                     </List.Item>
@@ -166,9 +167,11 @@ class Comment extends Component {
                     <List.Description style = {{'font-size': '12pt', 'margin-top': '20px'}}>
                         {this.props.comment.commentContent}
                     </List.Description>
-                    <Button onClick = {this.replyComment.bind(this, this.props.comment)} style = {{'margin-top': '20px'}} 
-                    size = 'tiny' color = 'blue' disabled = {this.props.currentUser && 
-                    this.props.comment.username === this.props.currentUser.username}>Reply</Button>
+                    <Button icon = 'edit' content = 'Reply' 
+                    onClick = {this.replyComment.bind(this, this.props.comment)} 
+                    style = {{'margin-top': '20px'}} size = 'tiny' color = 'blue' 
+                    disabled = {this.props.currentUser && 
+                    this.props.comment.username === this.props.currentUser.username}/>
                     <Likebar currentUser = {this.props.currentUser} comment = {this.props.comment}/>
                 </List.Content>
                 <List>

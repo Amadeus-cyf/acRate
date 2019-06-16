@@ -1,0 +1,43 @@
+.pageStyle {
+    background: white;
+    font-family: 'PT Sans Caption', sans-serif; 
+}
+
+.bangumiSection {
+    margin: 0% 15% 0% 15%;
+}
+
+.title {
+    margin: 2% 15% 2% 15%;
+    font-family: 'PT Sans Caption', sans-serif;
+    color: rgba(255, 180, 94, 1);
+}
+
+.numberStyle {
+    width: 50px;
+    height: 40px;
+    padding: 5px 5px 5px 5px;
+    border-radius: 5px;
+    background: rgba(94, 180, 255, 1);
+    margin-right: 20px;
+    font-size: 18pt;
+    color: white;
+    text-align: center;
+}
+
+.bangumiStyle {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.textSection {
+    margin-left: 5%;
+    font-size: 11pt;
+    color: rgba(100, 100, 100, 0.6);
+    column-count:1, 2;
+}
+
+.hoverPart:hover {
+    cursor: pointer;
+}

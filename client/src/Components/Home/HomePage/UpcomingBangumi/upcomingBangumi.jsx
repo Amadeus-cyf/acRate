@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import {Label, Image, Button} from 'semantic-ui-react';
 import {bangumiStyle, hoverPart} from './upcomingBangumi.module.scss';
-import {pageContainer, textStyle, imageStyle} from '../../SeasonBangumi/seasonBangumi.module.scss';
+import {pageContainer, title, textStyle, imageStyle} from '../../SeasonBangumi/seasonBangumi.module.scss';
 import loadingGif from '../../../loading.gif';
 
 
@@ -107,7 +107,7 @@ class CurrentBangumi extends Component {
         })
         return(
             <div>
-                <h2>{this.state.year}年{this.state.month}月番</h2>
+                <h2 className = {title}>{this.state.year}年{this.state.month}月新番</h2>
                 <div className = {bangumiStyle}>
                         {upcomingList}
                 </div>

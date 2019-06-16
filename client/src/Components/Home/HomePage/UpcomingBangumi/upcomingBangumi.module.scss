@@ -1,7 +1,7 @@
 .bangumiStyle {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: flex-start;
 }
 
 .hoverPart {
@@ -12,4 +12,8 @@
 
 .hoverPart:hover {
     cursor: pointer;
+}
+
+.title {
+    padding-top: 3%;
 }

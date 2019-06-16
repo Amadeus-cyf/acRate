@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import {Label, Image} from 'semantic-ui-react';
+import {Label, Image, Button} from 'semantic-ui-react';
 import Navibar from '../Home/MainMenu/Navibar/navibar.jsx';
 import {pageContainer,textStyle, imageStyle} from '../Home/SeasonBangumi/seasonBangumi.module.scss';
-import {bangumiSection, bangumiStyle, hoverPart, bangumiContainer, numberlistStyle, numberStyle} from './newBangumi.module.scss';
+import {bangumiSection, bangumiStyle, hoverPart, 
+    bangumiContainer} from './newBangumi.module.scss';
 import loadingGif from '../loading.gif';
 
 class NewBangumi extends Component {
@@ -105,6 +106,10 @@ class NewBangumi extends Component {
         })
     }
 
+    toDetailPage(bangumi) {
+        this.props.history.push('/detail/' + bangumi.mal_id)
+    }
+
     render() {
         if (this.state.bangumi.length === 0) {
             return (
@@ -153,7 +158,8 @@ class NewBangumi extends Component {
         let currentList = currentBangumi.map(bangumi => {
             return(
                 <Label style = {labelStyle}>
-                    <Image className = {hoverPart} style = {imgStyle} src = {bangumi.image_url} rounded/>
+                    <Image onClick = {this.toDetailPage.bind(this, bangumi)}  
+                    className = {hoverPart} style = {imgStyle} src = {bangumi.image_url} rounded/>
                     <p className = {hoverPart}>{bangumi.title}</p>
                 </Label>
             )
@@ -166,11 +172,11 @@ class NewBangumi extends Component {
         let pageList = pageArr.map(page => {
             if (page === this.state.currentPage) {
                 return(
-                    <span className = {numberStyle} onClick = {this.toPage.bind(this, page)} style = {this.state.currentPageStyle}>{page}</span>
+                    <Button onClick = {this.toPage.bind(this, page)} size = 'small' color = 'blue'>{page}</Button>
                 )
             }
             return(
-                <span className = {numberStyle} onClick = {this.toPage.bind(this, page)}>{page}</span>
+                <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
             )
         })
         return(
@@ -182,11 +188,11 @@ class NewBangumi extends Component {
                         <div className = {bangumiStyle}>
                             {currentList}
                         </div>
-                        <div className = {numberlistStyle} >
-                            <p>Page</p>
-                            <p className = {numberStyle} style = {previousStyle} onClick = {this.toPrevious}>Prev</p>
+                        <div style = {{marginTop: '20px'}}>
+                            <Button color = 'blue' onClick = {this.toPage.bind(this, 1)}>Page</Button>
+                            <Button basic color = 'blue' style = {previousStyle} onClick = {this.toPrevious}>Prev</Button>
                             {pageList}
-                            <p className = {numberStyle} style = {nextStyle} onClick = {this.toNext}>Next</p>
+                            <Button basic color = 'blue' style = {nextStyle} onClick = {this.toNext}>Next</Button>
                         </div>
                     </div>
                 </div>

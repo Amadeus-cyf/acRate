@@ -3,7 +3,7 @@ import axios from 'axios';
 import {Label, Image, Button} from 'semantic-ui-react';
 import MainMenu from '../MainMenu/mainMenu.jsx';
 import {pageContainer,textStyle, imageStyle} from '../SeasonBangumi/seasonBangumi.module.scss';
-import {bangumiSection, bangumiStyle, hoverPart, bangumiContainer, numberlistStyle} from './upcomingBangumi.module.scss';
+import {bangumiSection, bangumiStyle, hoverPart, bangumiContainer} from './upcomingBangumi.module.scss';
 import loadingGif from '../../loading.gif';
 
 class UpcomingBangumi extends Component {
@@ -173,7 +173,7 @@ class UpcomingBangumi extends Component {
                         <div className = {bangumiStyle}>
                             {currentList}
                         </div>
-                        <div className = {numberlistStyle} >
+                        <div>
                             <Button color = 'blue' onClick = {this.toPage.bind(this, 1)}>Page</Button>
                             <Button basic color = 'blue' style = {previousStyle} onClick = {this.toPrevious}>Prev</Button>
                             {pageList}

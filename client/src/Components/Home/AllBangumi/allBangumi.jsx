@@ -3,8 +3,8 @@ import axios from 'axios';
 import {Image, Button, Form, Input, Radio} from 'semantic-ui-react';
 import MainMenu from '../MainMenu/mainMenu.jsx';
 import {pageContainer,textStyle, imageStyle} from '../SeasonBangumi/seasonBangumi.module.scss';
-import {pageStyle, hoverPart, introStyle, 
-    numberStyle, bangumiSection, numberlistStyle, scoreCss, dateCss, radioStyle} from './allBangumi.module.scss';
+import {pageStyle, hoverPart, introStyle, bangumiSection, 
+    numberlistStyle, scoreCss, dateCss, radioStyle} from './allBangumi.module.scss';
 import loadingGif from '../../loading.gif';
 import paging from '../paging.jsx';
 import labeling from './labeling.jsx';
@@ -288,7 +288,7 @@ class AllBangumi extends Component {
         }
         let pageList = pageArr.map(page => {
             return paging(page, this.state.currentPage, this.state.pageNumber, 
-            this.toPage.bind(this, page), numberStyle);
+            this.toPage.bind(this, page));
         })
         return (
             <div>
@@ -315,7 +315,7 @@ class AllBangumi extends Component {
                         {pageList}
                         <Button basic color = 'blue' style = {nextStyle} onClick = {this.toNext}>Next</Button>
                         <Form onSubmit = {this.toPage.bind(this, this.state.inputPage)}>
-                            <Input placeholder = 'Enter page number'onChange = {this.pageHandler}></Input>
+                            <Input size = 'big' placeholder = 'Enter page number'onChange = {this.pageHandler}></Input>
                         </Form>
                     </div>
                 </div>

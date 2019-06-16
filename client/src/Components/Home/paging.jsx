@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button} from 'semantic-ui-react';
 
-function paging(page, currentPage, pageNumber, toPage, numberStyle) {
+function paging(page, currentPage, pageNumber, toPage) {
     if (pageNumber <= 7) {
         if (page === currentPage) {
             return(
@@ -35,7 +35,7 @@ function paging(page, currentPage, pageNumber, toPage, numberStyle) {
             } else {
                 if (page === currentPage - 3 || page === currentPage + 3) {
                     return(
-                        <span className = {numberStyle}>...</span>
+                        <p style = {{fontSize: '14pt', margin: '5px'}}>...</p>
                     )
                 }
             }
@@ -47,7 +47,7 @@ function paging(page, currentPage, pageNumber, toPage, numberStyle) {
             } else {
                 if (page === 6) {
                     return(
-                        <p className = {numberStyle}>...</p>
+                        <p style = {{fontSize: '14pt', margin: '5px'}}>...</p>
                     )
                 }
             }
@@ -64,7 +64,7 @@ function paging(page, currentPage, pageNumber, toPage, numberStyle) {
             } else {
                 if (page === pageNumber - 5) {
                     return(
-                        <p className = {numberStyle}>...</p>
+                        <p style = {{fontSize: '14pt', margin: '5px'}}>...</p>
                     )
                 }
             }

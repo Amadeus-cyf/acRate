@@ -5,7 +5,7 @@ import {Label, Image, Button, Input, Form} from 'semantic-ui-react';
 import Select from 'react-select';
 import loadingGif from '../../loading.gif';
 import { pageContainer,textStyle, imageStyle, pageStyle, bangumiSection, bangumiStyle, 
-    hoverPart, numberlistStyle, selectStyle, selectCss, numberStyle} from './seasonBangumi.module.scss';
+    hoverPart, numberlistStyle, selectStyle, selectCss} from './seasonBangumi.module.scss';
 import paging from '../paging.jsx';
 
 class SeasonBangumi extends Component {
@@ -312,7 +312,7 @@ class SeasonBangumi extends Component {
         // process number list
        pageList = pageArr.map(page => {
            return paging(page, this.state.currentPage, this.state.pageNumber, 
-            this.toPage.bind(this, page),numberStyle);
+            this.toPage.bind(this, page));
        })
         return(
             <div>
@@ -329,13 +329,13 @@ class SeasonBangumi extends Component {
                         <div className = {bangumiStyle}>
                             {currentList}
                         </div>
-                        <div className = {numberlistStyle} >
+                        <div className = {numberlistStyle}>
                             <Button color = 'blue' onClick = {this.toPage.bind(this, 1)}>Page</Button>
                             <Button basic color = 'blue' style = {previousStyle} onClick = {this.toPrevious}>Prev</Button>
                             {pageList}
                             <Button basic color = 'blue' style = {nextStyle} onClick = {this.toNext}>Next</Button>
                             <Form onSubmit = {this.toPage.bind(this, this.state.inputPage)}>
-                                <Input placeholder = 'Enter page number'onChange = {this.pageHandler}></Input>
+                                <Input style = {{'width': '150px'}} placeholder = 'Enter page number'onChange = {this.pageHandler}></Input>
                             </Form>
                         </div>
                     </div>

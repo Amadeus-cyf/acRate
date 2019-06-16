@@ -48,7 +48,7 @@ router.get('/:year/:season', (req, res) => {
 router.get('/:year/:season/limit', (req, res) => {
     let year = req.params.year;
     let season = req.params.season;
-    Bangumi.find({year: year, season: season}).limit(20).exec()
+    Bangumi.find({year: year, season: season}).limit(18).exec()
     .then(bangumiList => {
         return res.status(200).json({message: 'Succesfully find all bangumi of corresponding time', data: {bangumiList}});
     }).catch(err => {
@@ -81,14 +81,14 @@ router.get('/:year/:season/:page', (req, res) => {
     let season = req.params.season;
     let page = req.params.page;
     if (season !== 'allyear') {
-        Bangumi.find({year: year, season: season}).skip((page-1)*40).limit(40).exec()
+        Bangumi.find({year: year, season: season}).skip((page-1)*30).limit(30).exec()
         .then(bangumiList => {
             return res.status(200).json({message: 'Succesfully find all bangumi of corresponding time', data: {bangumiList}});
         }).catch(err => {
             return res.status(500).json({message: err});
         })
     } else {
-        Bangumi.find({year: year}).skip((page-1)*40).limit(40).exec()
+        Bangumi.find({year: year}).skip((page-1)*30).limit(30).exec()
         .then(bangumiList => {
             return res.status(200).json({message: 'Succesfully find all bangumi of corresponding time', data: {bangumiList}});
         }).catch(err => {

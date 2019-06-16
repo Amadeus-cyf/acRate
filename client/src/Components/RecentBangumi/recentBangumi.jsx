@@ -5,7 +5,7 @@ import Navibar from '../Home/MainMenu/Navibar/navibar.jsx';
 import {pageContainer, textStyle, imageStyle} from '../Home/SeasonBangumi/seasonBangumi.module.scss';
 import loadingGif from '../loading.gif';
 import {bangumiSection, bangumiStyle, hoverPart, 
-    bangumiContainer, numberlistStyle} from './recentBangumi.module.scss';
+    bangumiContainer} from './recentBangumi.module.scss';
 
 class CurrentBangumi extends Component {
     constructor() {
@@ -197,7 +197,7 @@ class CurrentBangumi extends Component {
                         <div className = {bangumiStyle}>
                             {currentList}
                         </div>
-                        <div className = {numberlistStyle} >
+                        <div style = {{marginTop: '20px'}}>
                             <Button color = 'blue' onClick = {this.toPage.bind(this, 1)}>Page</Button>
                             <Button basic color = 'blue' style = {previousStyle} onClick = {this.toPrevious}>Prev</Button>
                             {pageList}

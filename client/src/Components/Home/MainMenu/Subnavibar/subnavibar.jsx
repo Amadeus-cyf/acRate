@@ -9,6 +9,7 @@ class Subnavibar extends Component {
         this.toBangumi = this.toBangumi.bind(this);
         this.toSeason = this.toSeason.bind(this);
         this.toUpcoming = this.toUpcoming.bind(this);
+        this.toRank = this.toRank.bind(this);
     }
 
     toHomePage() {
@@ -28,6 +29,10 @@ class Subnavibar extends Component {
 
     toUpcoming() {
         this.props.history.push('/upcomingbangumi');
+    }
+
+    toRank() {
+        this.props.history.push('/rank');
     }
 
     render() {
@@ -56,6 +61,11 @@ class Subnavibar extends Component {
                         name='Upcoming'
                         active = {this.props.current === 'upcoming'}
                         onClick = {this.toUpcoming}
+                    />
+                    <Menu.Item style = {fontStyle}
+                        name='Rank'
+                        active = {this.props.current === 'rank'}
+                        onClick = {this.toRank}
                     />
                 </Menu>
             </div>

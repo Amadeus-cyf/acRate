@@ -4,6 +4,7 @@ import HomePage from '../Home/HomePage/homepage.jsx';
 import SeasonBangumi from '../Home/SeasonBangumi/seasonBangumi.jsx';
 import AllBangumi from '../Home/AllBangumi/allBangumi.jsx';
 import UpcomingBangumi from '../Home/UpcomingBangumi/upcomingBangumi.jsx';
+import Ranking from '../Home/Ranking/ranking.jsx';
 import RecentBangumi from '../RecentBangumi/recentBangumi.jsx';
 import NewBangumi from '../NewBangumi/newBangumi.jsx';
 import SearchResult from '../SearchResult/searchResult.jsx';
@@ -23,6 +24,7 @@ class App extends Component {
           <Route exact path = '/bangumi/:year/:season' component = {RecentBangumi}/> 
           <Route exact path = '/newbangumi' component = {NewBangumi}/>
           <Route exact path = '/upcomingbangumi' component = {UpcomingBangumi}/> 
+          <Route exact path = '/rank' component = {Ranking}/>
           <Route exact path = '/search/:keyword' component = {SearchResult}/>
           <Route exact path = '/detail/:anime_id' component = {DetailPage}/>
           <Route exact path = '/login' component = {Login}/>

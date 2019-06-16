@@ -105,7 +105,7 @@ class CurrentBangumi extends Component {
         })
         return(
             <div>
-                <h2>{this.state.year}年{this.state.month}月番</h2>
+                <h2>{this.state.year}年{this.state.month}月新番</h2>
                 <div className = {bangumiStyle}>
                         {currentList}
                 </div>
