@@ -118,8 +118,8 @@ class UpcomingBangumi extends Component {
             background: 'white',
         }
         let imgStyle = {
-            width: '170px',
-            height: '220px',
+            width: '160px',
+            height: '200px',
         }
         let previousStyle = {
             display: 'inline',

@@ -127,14 +127,12 @@ class NewBangumi extends Component {
             )
         }
         let labelStyle = {
-            'max-width': '170px',
-            'min-width': '170px',
-            'height': 'auto',
+            width: '200px',
+            height: 'auto',
             background: 'white',
         }
         let imgStyle = {
-            'max-width': '150px',
-            'min-width': '150px',
+            width: '160px',
             height: '200px',
         }
         let previousStyle = {

@@ -90,12 +90,12 @@ class CurrentBangumi extends Component {
         let bangumi = this.state.upcomingBangumi;
         let upcomingList = bangumi.map(bangumi => {
             let labelStyle = {
-                width: '170px',
+                width: '200px',
                 height: 'auto',
                 background: 'white',
             }
             let imgStyle = {
-                width: '150px',
+                width: '160px',
                 height: '200px',
             }
             return(
