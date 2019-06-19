@@ -93,6 +93,11 @@ class Navibar extends Component {
         })
     }
 
+    toProfile(user_id) {
+        this.props.history.push('/userProfile/' + user_id);
+        window.location.reload();
+    }
+
     render() {
         let homeStyle = {
             fontFamily: "'PT Sans Caption', sans-serif",
@@ -139,7 +144,7 @@ class Navibar extends Component {
                     <Button onClick = {this.loginHandler} style = {loginStyle}>Log In</Button>
                     <Button onClick = {this.logoutHandler} style = {logoutStyle}>Log Out</Button>
                     <span className = {usermenuStyle} onMouseEnter = {this.avatarEnter} onMouseLeave = {this.menuLeave}>
-                        <Image className = {imageStyle} style = {this.state.avatarStyle}  avatar src = {this.state.avatar}/>
+                        <Image onClick = {this.toProfile.bind(this, this.state.currentUser._id)} className = {imageStyle} style = {this.state.avatarStyle}  avatar src = {this.state.avatar}/>
                         <div style = {menuStyle}>
                             <UserMenu currentUser = {this.state.currentUser}
                             loginHandler = {this.loginHandler}

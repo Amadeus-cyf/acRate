@@ -46,23 +46,18 @@ class Comment extends Component {
 
     submitReply() {
         let replyList = this.state.replyList;
-        let comment = {};
-        let avatar = {};
-        avatar.data = this.props.currentUser.avatar.data;
-        avatar.contentType = 'image/png';
-        comment = {
+        let comment = {
             anime_id: this.props.bangumi.mal_id,
             parentComment_id: this.props.comment._id,
             commentContent: this.state.newReply,
             username: this.props.currentUser.username,
+            avatar: this.props.currentUser.avatar,
             user_id: this.props.currentUser._id,
-            avatar: avatar,
             repliedComment_id: this.state.repliedComment._id,
             repliedUsername: this.state.repliedComment.username,
-            repliedAvatar: this.state.repliedComment.avatar,
             date: new Date(),
-            like: 0,
-            dislike: 0,
+            like: [],
+            dislike: [],
         }
         replyList.push(comment);
         this.setState({
@@ -75,16 +70,13 @@ class Comment extends Component {
         })
         axios('api/comment/', {
             method: 'POST',
-            headers:  {
-                'content-type': 'multipart/form-data',
-            },
             data: {
                 anime_id: this.props.bangumi.mal_id,
                 parentComment_id: this.props.comment._id,
                 commentContent: newReply,
                 username: this.props.currentUser.username,
                 user_id: this.props.currentUser._id,
-                avatar: avatar,
+                avatar: this.props.currentUser.avatar,
                 repliedComment_id: this.state.repliedComment._id,
                 repliedUsername: this.state.repliedComment.username,
                 repliedAvatar: this.state.repliedComment.avatar,
@@ -108,6 +100,10 @@ class Comment extends Component {
             replyDisplay: 'block',
             repliedComment: comment,
         })
+    }
+
+    toProfile(user_id) {
+        this.props.history.push('/userProfile/' + user_id);
     }
 
     render() {
@@ -139,7 +135,8 @@ class Comment extends Component {
                     <List.Item style = {{'font-family': "'PT Sans Caption', sans-serif", 'margin-top': '20px'}}>
                         <List.Content style = {{'margin-left': '60px'}}>
                             <List.Header style = {{'font-size': '12pt'}}>
-                                <Image className = {replyAvatarStyle} style = {{'margin-right': '10px'}} avatar src = {avatar}/>
+                                <Image onClick = {this.toProfile.bind(this, reply.user_id)}
+                                className = {replyAvatarStyle} style = {{'margin-right': '10px'}} avatar src = {avatar}/>
                                 {reply.username} 
                                 <span style = {atstyle}>@ {reply.repliedUsername}</span>
                             </List.Header>
@@ -176,7 +173,8 @@ class Comment extends Component {
         return(
             <List.Item style = {{'font-family': "'PT Sans Caption', sans-serif"}}>
                 <Divider/>
-                <Image className = {avatarStyle} avatar src = {avatar}/>
+                <Image onClick = {this.toProfile.bind(this, this.props.comment.user_id)} 
+                className = {avatarStyle} avatar src = {avatar}/>
                 <List.Content style = {{'margin-left': '30px', 'margin-top': '50px'}}>
                     <List.Header style = {{'font-size': '14pt'}}>
                         <div className = {usernameStyle}>

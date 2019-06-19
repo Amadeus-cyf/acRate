@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import axios from 'axios';
-import {Image, Button, Label, Input} from  'semantic-ui-react';
-import Navibar from '../../Home/MainMenu/Navibar/navibar.jsx';
+import {Image, Button, Label} from  'semantic-ui-react';
+import {hoverStyle} from './avatarSection.module.scss';
 
 class AvatarSection extends Component {
     constructor() {
@@ -9,13 +8,9 @@ class AvatarSection extends Component {
         this.state = {
             avatar: 'undefined',
             background: 'http://img.ecyss.com/original/20/20438/21435bb1f5454a70.jpg',
-            currentUser: 'undefined',
         }
-        this.selectImage = this.selectImage.bind(this);
-        this.upload = this.upload.bind(this);
+        this.editAvatar = this.editAvatar.bind(this);
     }
-
-    fileInputRef = React.createRef();
 
     arrayBufferToBase64(buffer) {
         var binary = '';
@@ -25,61 +20,26 @@ class AvatarSection extends Component {
     };
 
     componentDidMount() {
-        axios.get('api/auth/currentUser')
-        .then(response => {
-            if (response.data.message === 'not login') {
-                this.setState({
-                    currentUser: undefined,
-                })
-            } else {
-                this.setState({
-                    currentUser: response.data.data,
-                })
-                if (response.data.data.avatar) {
-                    let base64Flag = 'data:image/jpeg;base64,';
-                    let avatarStr = this.arrayBufferToBase64(response.data.data.avatar.data.data);
-                    this.setState({
-                        avatar: base64Flag + avatarStr,
-                    })
-                } else {
-                    this.setState({
-                        avatar: 'https://react.semantic-ui.com/images/avatar/small/daniel.jpg',
-                    })
-                }
-            }
-        }).catch(err => {
-            alert(err);
-        })
+        if (this.props.user.avatar) {
+            let base64Flag = 'data:image/jpeg;base64,';
+            let avatarStr = this.arrayBufferToBase64(this.props.user.avatar.data.data);
+            this.setState({
+                avatar: base64Flag + avatarStr,
+            })
+        } else {
+            this.setState({
+                avatar: 'https://react.semantic-ui.com/images/avatar/small/daniel.jpg',
+            })
+        }
     }
 
-    selectImage = (event) => {
-        this.setState({
-            avatar: event.target.files[0]
-        });
-    }
-
-    upload() {
-        const formData = new FormData();
-        formData.append('avatar', this.state.avatar);
-        axios.put('api/avatar/' + this.state.currentUser._id, formData)
-        .then(() => {
-            window.location.reload();
-        }).catch(err => {
-            alert(err);
-        })
+    editAvatar() {
+        if (this.props.currentUser._id === this.props.user._id) {
+            this.props.history.push('/editAvatar');
+        }
     }
  
-
     render() {
-        if (this.state.currentUser === 'undefined') {
-            return<p></p>
-        }
-        if (this.state.currentUser === undefined) {
-            return <p></p>
-        }
-        if (this.state.avatar === 'undefined') {
-            return <p>Loading...</p>
-        }
         let backgroundStyle = {
             position: 'relative',
             display: 'block',
@@ -113,26 +73,13 @@ class AvatarSection extends Component {
         }
         return (
             <div>  
-                <Navibar history = {this.props.history}/>
                 <Label style = {backgroundStyle}>
-                    <Image style = {avatarStyle} avatar src = {this.state.avatar}/>
+                    <Image className = {hoverStyle} onClick = {this.editAvatar} 
+                    style = {avatarStyle} avatar src = {this.state.avatar}
+                    />
                     <Label style = {textStyle}>
-                        {this.state.currentUser.username}
+                        {this.props.user.username}
                     </Label>
-                    <Button
-                        content="Choose Image"
-                        labelPosition="left"
-                        icon="file"
-                        onClick={() => this.fileInputRef.current.click()}
-                    />
-                    <Button onClick= {this.upload}>Change avatar</Button>
-                    <Input
-                        ref={this.fileInputRef}
-                        type="file"
-                        hidden
-                        onChange={this.selectImage}
-                        name="avatar"
-                    />
                     <Button style = {buttonStyle} color = 'blue'>Follow</Button>
                 </Label>
             </div>

@@ -179,7 +179,8 @@ class DetailPage extends Component {
                     <Synopsis bangumi = {this.state.bangumi}/>
                     <Recommend history = {this.props.history} bangumi = {this.state.bangumi} 
                     currentUser = {this.state.currentUser}/>
-                    <Commentlist bangumi = {this.state.bangumi} currentUser = {this.state.currentUser}/>
+                    <Commentlist bangumi = {this.state.bangumi} currentUser = {this.state.currentUser}
+                    history = {this.props.history}/>
                 </div>
                 <div className = {labelStyle}>
                     <Label style = {ratingStyle}>
