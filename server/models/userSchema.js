@@ -30,12 +30,12 @@ var UserSchema = new mongoose.Schema({
         default: [],
     },
     avatar: {
-        type: String,
-        default: 'https://react.semantic-ui.com/images/avatar/small/daniel.jpg',
+        data: Buffer,
+        contentType: String,
     },
     background: {
-        type: String,
-        default: 'https://mmbiz.qpic.cn/mmbiz_jpg/S7nm1Rly3ZKFTSy6fWBeg5wH9sXqGkTfiaZ2aTQ8EKvrzn2xvcSSI7tbqbcn5HgMicrkqC7EIFBVqO1FjhRw795Q/640?wx_fmt=jpeg',
+        data: Buffer,
+        contentType: String,
     }
 })
 

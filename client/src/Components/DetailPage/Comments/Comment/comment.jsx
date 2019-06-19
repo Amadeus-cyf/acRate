@@ -20,6 +20,13 @@ class Comment extends Component {
         this.cancelReply = this.cancelReply.bind(this);
     }
 
+    arrayBufferToBase64(buffer) {
+        var binary = '';
+        var bytes = [].slice.call(new Uint8Array(buffer));
+        bytes.forEach((b) => binary += String.fromCharCode(b));
+        return window.btoa(binary);
+    };
+
     componentDidMount() {
         axios.get('api/comment/reply/' + this.props.comment._id)
         .then(response => {
@@ -39,13 +46,17 @@ class Comment extends Component {
 
     submitReply() {
         let replyList = this.state.replyList;
-        let comment = {
+        let comment = {};
+        let avatar = {};
+        avatar.data = this.props.currentUser.avatar.data;
+        avatar.contentType = 'image/png';
+        comment = {
             anime_id: this.props.bangumi.mal_id,
             parentComment_id: this.props.comment._id,
             commentContent: this.state.newReply,
             username: this.props.currentUser.username,
             user_id: this.props.currentUser._id,
-            avatar: this.props.currentUser.avatar,
+            avatar: avatar,
             repliedComment_id: this.state.repliedComment._id,
             repliedUsername: this.state.repliedComment.username,
             repliedAvatar: this.state.repliedComment.avatar,
@@ -65,7 +76,7 @@ class Comment extends Component {
         axios('api/comment/', {
             method: 'POST',
             headers:  {
-                'content-type': 'application/json',
+                'content-type': 'multipart/form-data',
             },
             data: {
                 anime_id: this.props.bangumi.mal_id,
@@ -73,7 +84,7 @@ class Comment extends Component {
                 commentContent: newReply,
                 username: this.props.currentUser.username,
                 user_id: this.props.currentUser._id,
-                avatar: this.props.currentUser.avatar,
+                avatar: avatar,
                 repliedComment_id: this.state.repliedComment._id,
                 repliedUsername: this.state.repliedComment.username,
                 repliedAvatar: this.state.repliedComment.avatar,
@@ -116,11 +127,19 @@ class Comment extends Component {
                 if (minute < 10) {
                     minute = "0" + minute;
                 }
+                let avatar = '';
+                if (reply.avatar) {
+                    let base64Flag = 'data:image/jpeg;base64,';
+                    let avatarStr = this.arrayBufferToBase64(reply.avatar.data.data);
+                    avatar = base64Flag + avatarStr;
+                } else {
+                    avatar = 'https://react.semantic-ui.com/images/avatar/small/daniel.jpg';
+                }
                 return (
                     <List.Item style = {{'font-family': "'PT Sans Caption', sans-serif", 'margin-top': '20px'}}>
                         <List.Content style = {{'margin-left': '60px'}}>
                             <List.Header style = {{'font-size': '12pt'}}>
-                                <Image className = {replyAvatarStyle} style = {{'margin-right': '10px'}} avatar src = {reply.avatar}/>
+                                <Image className = {replyAvatarStyle} style = {{'margin-right': '10px'}} avatar src = {avatar}/>
                                 {reply.username} 
                                 <span style = {atstyle}>@ {reply.repliedUsername}</span>
                             </List.Header>
@@ -146,10 +165,18 @@ class Comment extends Component {
         if (minute < 10) {
             minute = "0" + minute;
         }
+        let avatar = '';
+        if (this.props.comment.avatar) {
+            let base64Flag = 'data:image/jpeg;base64,';
+            let avatarStr = this.arrayBufferToBase64(this.props.comment.avatar.data.data);
+            avatar = base64Flag + avatarStr;
+        } else {
+            avatar = 'https://react.semantic-ui.com/images/avatar/small/daniel.jpg';
+        }
         return(
             <List.Item style = {{'font-family': "'PT Sans Caption', sans-serif"}}>
                 <Divider/>
-                <Image className = {avatarStyle} avatar src = {this.props.comment.avatar}/>
+                <Image className = {avatarStyle} avatar src = {avatar}/>
                 <List.Content style = {{'margin-left': '30px', 'margin-top': '50px'}}>
                     <List.Header style = {{'font-size': '14pt'}}>
                         <div className = {usernameStyle}>

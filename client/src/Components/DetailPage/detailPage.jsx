@@ -37,7 +37,7 @@ class DetailPage extends Component {
                 bangumi: response.data,
             })
         }).catch(err => {
-            alert(err);
+            alert('detail' + err);
         })
         axios.get('api/auth/currentUser')
         .then(response => {

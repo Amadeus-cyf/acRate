@@ -79,9 +79,6 @@ class Commentlist extends Component {
         try {
             await axios('api/comment/', {
                 method: 'POST',
-                headers:  {
-                    'content-type': 'application/json',
-                },
                 data: {
                     anime_id: this.props.bangumi.mal_id,
                     parentComment_id: 'none',
@@ -91,7 +88,6 @@ class Commentlist extends Component {
                     avatar: this.props.currentUser.avatar,
                     repliedComment_id: 'none',
                     repliedUsername: 'none',
-                    repliedAvatar: 'none',
                     date: new Date(),
                 }
             });

@@ -23,6 +23,13 @@ class Navibar extends Component {
         this.avatarEnter = this.avatarEnter.bind(this);
         this.menuLeave = this.menuLeave.bind(this);
     }
+    
+    arrayBufferToBase64(buffer) {
+        var binary = '';
+        var bytes = [].slice.call(new Uint8Array(buffer));
+        bytes.forEach((b) => binary += String.fromCharCode(b));
+        return window.btoa(binary);
+    };
 
     componentDidMount() {
         axios.get('api/auth/currentUser')
@@ -33,9 +40,19 @@ class Navibar extends Component {
                     logoutDisplay: 'inline',
                     loginDisplay: 'none',
                     signupDisplay: 'none',
-                    avatar: res.data.data.avatar,
                     size: '13pt',
                 })
+                if (res.data.data.avatar) {
+                    let base64Flag = 'data:image/jpeg;base64,';
+                    let avatarStr = this.arrayBufferToBase64(res.data.data.avatar.data.data);
+                    this.setState({
+                        avatar: base64Flag + avatarStr,
+                    })
+                } else {
+                    this.setState({
+                        avatar: 'https://react.semantic-ui.com/images/avatar/small/daniel.jpg',
+                    })
+                }
             } else {
                 this.setState({
                     loginDisplay: 'inline',

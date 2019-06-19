@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 
-let date = new Date().toLocaleDateString();
-
 var BangumiListSchema = new mongoose.Schema({
     anime_id: {
         type: String,

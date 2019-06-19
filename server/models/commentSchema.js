@@ -32,9 +32,8 @@ var CommentSchema = new mongoose.Schema({
     },
     // the avatar of the user
     avatar: {
-        type: String,
-        required: true,
-        default: 'https://react.semantic-ui.com/images/avatar/small/daniel.jpg',
+        data: Buffer,
+        contentType: String,
     },
      // the id of comment(CommentSchema or ReplySchema) where the user replies, 
     // if the comment is not a reply, the replied comment id is 'none'
@@ -47,12 +46,6 @@ var CommentSchema = new mongoose.Schema({
      // the username of the user being replied
     // if the comment is not a reply, the replied username is 'none'
     repliedUsername: {
-        type: String,
-        required: true,
-        default: '',
-    },
-    //if the replied comment is the parent comment or the comment is not a reply, then repliedAvatar is 'none'
-    repliedAvatar: {
         type: String,
         required: true,
         default: '',

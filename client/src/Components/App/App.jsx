@@ -12,6 +12,7 @@ import DetailPage from '../DetailPage/detailPage.jsx';
 import Login from '../Login/login.jsx';
 import Signup from '../Signup/signup.jsx';
 import Logout from '../Logout/logout.jsx';
+import AvatarSection from '../User/AvatarSection/avatarSection.jsx';
 
 class App extends Component {
   render() {
@@ -30,6 +31,7 @@ class App extends Component {
           <Route exact path = '/login' component = {Login}/>
           <Route exact path = '/signup' component = {Signup}/>
           <Route exact path = '/logout' component = {Logout}/>
+          <Route exact path = '/AvatarSection' component = {AvatarSection}/>
         </Switch>
       </HashRouter>
     )
