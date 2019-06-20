@@ -91,7 +91,8 @@ class Searchbar extends Component {
                     <Input value = {this.state.searchInput}
                     onChange = {this.inputHandler} size = 'big' type = 'text' 
                     placeholder = 'Enter at least one word' />
-                    <Button style = {{'position': 'absolute'}} icon onClick = {this.searchHandler} size = 'big' color = 'blue'>
+                    <Button style = {{'position': 'absolute'}} icon 
+                    onClick = {this.searchHandler} size = 'big' color = 'blue'>
                         <Icon name = 'search'/>
                     </Button>
                     <Label style = {labelStyle}>{filterList}</Label>

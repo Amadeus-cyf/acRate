@@ -12,7 +12,8 @@ class UserMenu extends Component {
                 boxShadow: '0px 1px 5px 2px rgba(225, 225, 225, 0.5)',
                 width: '300px',
                 background: 'white',
-                right: '160px',
+                top: '45px',
+                right: '90px',
                 paddingTop: '60px',
                 zIndex: '2',
             }
@@ -41,8 +42,9 @@ class UserMenu extends Component {
             'box-shadow': '0px 1px 5px 2px rgba(225, 225, 225, 0.5)',
             width: '275px',
             background: 'white',
-            right: '60px',
-            'padding-top': '70px',
+            top: '45px',
+            right: '20px',
+            'padding-top': '50px',
             'z-index': '2',
         }
         let buttonStyle = {

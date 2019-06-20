@@ -1,25 +1,25 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import {Image, Button, Input} from  'semantic-ui-react';
+import {Input, Button, Image} from 'semantic-ui-react';
 import Navibar from '../../Home/MainMenu/Navibar/navibar.jsx';
-import {pageStyle, bodyStyle, footerStyle} from './editAvatar.module.scss';
+import {pageStyle, bodyStyle, footerStyle} from './editBackground.module.scss';
 import {pageContainer, imageStyle, textStyle} 
 from '../../Home/SeasonBangumi/seasonBangumi.module.scss';
 import loadingGif from '../../searchloading.gif';
 
-class EditAvatar extends Component {
+class EditBackground extends Component {
     constructor() {
         super();
         this.state = {
-            user: 'undefined',
-            avatar: '',
+            user: '',
+            background: '',
             previewUrl: '',
             disabled: true,
         }
-        this.selectImage = this.selectImage.bind(this);
-        this.updateAvatar = this.updateAvatar.bind(this);
+        this.selectBackground = this.selectBackground.bind(this);
+        this.updateBackground = this.updateBackground.bind(this);
         this.cancel = this.cancel.bind(this);
-    } 
+    }
 
     arrayBufferToBase64(buffer) {
         var binary = '';
@@ -27,24 +27,24 @@ class EditAvatar extends Component {
         bytes.forEach((b) => binary += String.fromCharCode(b));
         return window.btoa(binary);
     };
-    
+
     componentDidMount() {
         axios.get('api/auth/currentUser')
         .then(response => {
             this.setState({
                 user: response.data.data,
             })
-            if (response.data.data.avatar) {
+            if (response.data.data.background) {
                 let base64Flag = 'data:image/jpeg;base64,';
-                let avatarStr = this.arrayBufferToBase64(response.data.data.avatar.data.data);
+                let backgroundStr = this.arrayBufferToBase64(response.data.data.background.data.data);
                 this.setState({
-                    avatar: base64Flag + avatarStr,
-                    previewUrl: base64Flag + avatarStr,
+                    background: base64Flag + backgroundStr,
+                    previewUrl: base64Flag + backgroundStr,
                 })
             } else {
                 this.setState({
-                   avatar: 'https://react.semantic-ui.com/images/avatar/small/daniel.jpg',
-                   previewUrl: 'https://react.semantic-ui.com/images/avatar/small/daniel.jpg',
+                    background: 'http://img.ecyss.com/original/20/20438/21435bb1f5454a70.jpg',
+                    previewUrl: 'http://img.ecyss.com/original/20/20438/21435bb1f5454a70.jpg',
                 })
             }
         }).catch(err => {
@@ -52,23 +52,23 @@ class EditAvatar extends Component {
         })
     }
 
-    selectImage(event) {
+    selectBackground(event) {
         let reader = new FileReader();
         let files = event.target.files;
         reader.onloadend = () => {
             this.setState({
-                avatar: files[0],
+                background: files[0],
                 previewUrl: reader.result,
                 disabled: false,
-            });
+            })
         }
-        reader.readAsDataURL(files[0])
+        reader.readAsDataURL(files[0]);
     }
 
-    updateAvatar() {
+    updateBackground() { 
         const formData = new FormData();
-        formData.append('avatar', this.state.avatar);
-        axios.put('api/avatar/' + this.state.user._id, formData)
+        formData.append('background', this.state.background);
+        axios.put('api/background/' + this.state.user._id, formData)
         .then(() => {
             window.location.reload();
         }).catch(err => {
@@ -82,7 +82,7 @@ class EditAvatar extends Component {
     }
 
     render() {
-        if (this.state.user === 'undefined' || !this.state.avatar) {
+        if (this.state.user === 'undefined' || !this.state.background) {
             return (
                 <div>
                     <Navibar history = {this.props.history}/>
@@ -97,23 +97,23 @@ class EditAvatar extends Component {
                 </div>
             )
         }
-        let avatarStyle = {
-            width: '300px',
+        let backgroundStyle = {
+            width: 'auto',
             height: '300px',
         }
         return (
-            <div className = {pageStyle}>  
+            <div className = {pageStyle}>
                 <Navibar history = {this.props.history}/>
                 <div className = {bodyStyle}>
-                    <Image style = {avatarStyle} avatar
+                    <Image style = {backgroundStyle}
                     src = {this.state.previewUrl}
                     />
                     <Input type="file" accept = "image/*" hidden 
-                    onChange={this.selectImage} name = 'avatar'
+                    onChange={this.selectBackground} name = 'background'
                     />
                     <div>
                         <Button size = 'huge' color = 'blue' 
-                        onClick= {this.updateAvatar} 
+                        onClick= {this.updateBackground} 
                         disabled = {this.state.disabled}>Update</Button>
                         <Button size = 'huge' color = 'blue'
                         onClick = {this.cancel}>Cancel</Button>
@@ -127,4 +127,4 @@ class EditAvatar extends Component {
     }
 }
 
-export default EditAvatar;
+export default EditBackground;

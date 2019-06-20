@@ -7,9 +7,11 @@ class AvatarSection extends Component {
         super();
         this.state = {
             avatar: 'undefined',
-            background: 'http://img.ecyss.com/original/20/20438/21435bb1f5454a70.jpg',
+            background: 'undefined',
+            editStyle: 'none',
         }
         this.editAvatar = this.editAvatar.bind(this);
+        this.editBackground = this.editBackground.bind(this);
     }
 
     arrayBufferToBase64(buffer) {
@@ -31,6 +33,22 @@ class AvatarSection extends Component {
                 avatar: 'https://react.semantic-ui.com/images/avatar/small/daniel.jpg',
             })
         }
+        if (this.props.user.background) {
+            let base64Flag = 'data:image/jpeg;base64,';
+            let backgroundStr = this.arrayBufferToBase64(this.props.user.background.data.data);
+            this.setState({
+                background: base64Flag + backgroundStr,
+            })
+        } else {
+            this.setState({
+                background: 'http://img.ecyss.com/original/20/20438/21435bb1f5454a70.jpg',
+            })
+        }
+        if (this.props.currentUser._id === this.props.user._id) {
+            this.setState({
+                editStyle: 'block',
+            })
+        }
     }
 
     editAvatar() {
@@ -38,8 +56,15 @@ class AvatarSection extends Component {
             this.props.history.push('/editAvatar');
         }
     }
+
+    editBackground() {
+        this.props.history.push('/editBackground');
+    }
  
     render() {
+        if (this.state.background === 'undefined' || this.state.avatar === 'undefined') {
+            return <p></p>
+        }
         let backgroundStyle = {
             position: 'relative',
             display: 'block',
@@ -48,8 +73,7 @@ class AvatarSection extends Component {
             height: '300px',
             background: 'url(' + this.state.background + ')',
             'background-repeat': 'no-repeat',
-            'background-position': 'bottom left',
-            'background-attachment': 'fixed',
+            'background-position': 'center',
             'background-size': 'cover',
         }
         let textStyle = {
@@ -80,6 +104,8 @@ class AvatarSection extends Component {
                     <Label style = {textStyle}>
                         {this.props.user.username}
                     </Label>
+                    <Button style = {{display: this.state.editStyle}} 
+                    onClick = {this.editBackground} color = 'blue'>Edit background</Button>
                     <Button style = {buttonStyle} color = 'blue'>Follow</Button>
                 </Label>
             </div>

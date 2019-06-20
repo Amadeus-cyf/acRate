@@ -36,7 +36,7 @@ class UserProifle extends Component {
     }
 
     render() {
-        if (this.state.user === 'undefined') {
+        if (this.state.user === 'undefined' || this.state.currentUser === 'undefined') {
             return (
                 <div>
                     <Navibar history = {this.props.history}/>

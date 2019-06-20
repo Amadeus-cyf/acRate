@@ -19,7 +19,7 @@ router.get('/:id', (req, res) => {
     .then(user => {
         res.status(200).json({message: 'Succesfully find the user', data: {user}});
     }).catch(err => {
-        alert(err)
+        res.status(500).json({message:err});
     });
 })
 

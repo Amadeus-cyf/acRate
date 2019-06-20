@@ -93,45 +93,41 @@ class Navibar extends Component {
         })
     }
 
-    toProfile(user_id) {
-        this.props.history.push('/userProfile/' + user_id);
-        window.location.reload();
+    toProfile(user) {
+        if (user === 'undefined') {
+            this.props.history.push('/login')
+        } else {
+            this.props.history.push('/userProfile/' + user._id);
+            window.location.reload();
+        }
     }
 
     render() {
         let homeStyle = {
-            fontFamily: "'PT Sans Caption', sans-serif",
-            fontSize: '15pt',
-            color: 'rgba(255, 255, 255, 0.95)',
-            margin: '1% 0% 1% 2%',
+            marginLeft: '2%',
             background: 'rgba(255, 120, 195, 1)',
+            color: 'white',
         }
         let loginStyle = {
-            fontFamily: "'PT Sans Caption', sans-serif",
-            fontSize: '15pt',
-            color: 'rgba(255, 255, 255, 0.95)',
             display: this.state.loginDisplay,
             float: 'right',
-            margin: '1% 0% 1% 0%',
+            margin: '0',
             background: 'rgba(255, 120, 195, 1)',
+            color: 'white',
         }
         let signupStyle = {
-            fontFamily: "'PT Sans Caption', sans-serif",
-            fontSize: '15pt',
-            color: 'rgba(255, 255, 255, 0.95)',
             display: this.state.signupDisplay,
             float: 'right',
-            margin: '1% 2% 1% 0%',
+            marginRight: '2%',
             background: 'rgba(255, 120, 195, 1)',
+            color: 'white',
         }
         let logoutStyle = {
-            fontFamily: "'PT Sans Caption', sans-serif",
-            fontSize: '15pt',
-            color: 'rgba(255, 255, 255, 0.95)',
             display: this.state.logoutDisplay,
             float: 'right',
-            margin: '1% 2% 1% 0%',
+            marginRight: '2%',
             background: 'rgba(255, 120, 195, 1)',
+            color: 'white',
         }
         let menuStyle = {
             display: this.state.menuDisplay,
@@ -139,12 +135,13 @@ class Navibar extends Component {
         return(
             <div>
                 <div className = {navibarStyle}>
-                    <Button onClick = {this.toHomePage} style = {homeStyle}>Home</Button>
-                    <Button onClick = {this.signupHandler} style = {signupStyle}>Sign Up</Button>
-                    <Button onClick = {this.loginHandler} style = {loginStyle}>Log In</Button>
-                    <Button onClick = {this.logoutHandler} style = {logoutStyle}>Log Out</Button>
+                    <Button size = 'large' onClick = {this.toHomePage} style = {homeStyle}>Home</Button>
+                    <Button  size = 'large' onClick = {this.signupHandler} style = {signupStyle}>Sign Up</Button>
+                    <Button size = 'large' onClick = {this.loginHandler} style = {loginStyle}>Log In</Button>
+                    <Button size = 'large' onClick = {this.logoutHandler} style = {logoutStyle}>Log Out</Button>
                     <span className = {usermenuStyle} onMouseEnter = {this.avatarEnter} onMouseLeave = {this.menuLeave}>
-                        <Image onClick = {this.toProfile.bind(this, this.state.currentUser._id)} className = {imageStyle} style = {this.state.avatarStyle}  avatar src = {this.state.avatar}/>
+                        <Image onClick = {this.toProfile.bind(this, this.state.currentUser)} 
+                        className = {imageStyle} avatar src = {this.state.avatar}/>
                         <div style = {menuStyle}>
                             <UserMenu currentUser = {this.state.currentUser}
                             loginHandler = {this.loginHandler}
