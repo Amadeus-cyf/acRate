@@ -73,6 +73,7 @@ router.put('/:anime_id', (req, res) => {
     let user_id = req.body.user_id;
     let image_url = req.body.image_url;
     let title = req.body.title;
+    let synopsis = req.body.synopsis;
     if (!score || score > 5 || !user_id) {
         return res.status.json({message: 'Invalid score or user id'});
     }
@@ -81,18 +82,19 @@ router.put('/:anime_id', (req, res) => {
         if (!user) {
             return res.status(404).json({message: 'User not found'});
         }
-        // check whether user has scored anime before, if scored, update the score
+        // check whether user has scored anime before, if scored, remove it
         for (let i = 0; i < user.scoreAnime.length; i++) {
             if (user.scoreAnime[i].anime_id === req.params.anime_id) {
                 user.scoreAnime.splice(i, 1);
                 break;
             }
         }
-        // user has not scored, push the anime to the scoreAnime array
+        // push the anime to the scoreAnime array
         let animeObject = {
             anime_id: req.params.anime_id,
             image_url: image_url,
             title: title,
+            synopsis: synopsis,
             score: score*2,
         }
         user.scoreAnime.push(animeObject);
@@ -115,6 +117,7 @@ router.put('/:anime_id', (req, res) => {
                 let index = bangumiScore[i].indexOf(user_id);
                 bangumiScore[i].splice(index, 1);
                 originScore = i;
+                break;
             }
         }
         bangumiScore[score].push(user_id);

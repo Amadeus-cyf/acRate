@@ -88,6 +88,7 @@ class DetailPage extends Component {
                 score: this.state.rating,
                 image_url: this.state.bangumi.image_url,
                 title: this.state.bangumi.title,
+                synopsis: this.state.bangumi.synopsis,
             }
         }).then(() => {
             window.location.reload();

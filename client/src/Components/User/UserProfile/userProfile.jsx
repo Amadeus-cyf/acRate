@@ -3,6 +3,7 @@ import axios from 'axios';
 import {Image} from 'semantic-ui-react';
 import AvatarSection from '../AvatarSection/avatarSection.jsx';
 import Navibar from '../../Home/MainMenu/Navibar/navibar.jsx';
+import ScoreBangumi from '../ScoreBangumi/scoreBangumi.jsx';
 import {pageContainer, imageStyle, textStyle} 
 from '../../Home/SeasonBangumi/seasonBangumi.module.scss';
 import loadingGif from '../../searchloading.gif';
@@ -56,6 +57,7 @@ class UserProifle extends Component {
                 <Navibar history = {this.props.history}/>
                 <AvatarSection user = {this.state.user} currentUser = {this.state.currentUser}
                 history = {this.props.history}/>
+                <ScoreBangumi history = {this.props.history} user = {this.state.user}/>
             </div>
         )
     }

@@ -73,7 +73,7 @@ class AvatarSection extends Component {
             height: '300px',
             background: 'url(' + this.state.background + ')',
             'background-repeat': 'no-repeat',
-            'background-position': 'center',
+            'background-position': 'top center',
             'background-size': 'cover',
         }
         let textStyle = {
@@ -95,6 +95,12 @@ class AvatarSection extends Component {
             right: '70px',
             bottom: '25px',
         }
+        let editStyle = {
+            display: this.state.editStyle, 
+            position: 'absolute',
+            right: '20px', 
+            top: '20px'
+        }
         return (
             <div>  
                 <Label style = {backgroundStyle}>
@@ -104,7 +110,7 @@ class AvatarSection extends Component {
                     <Label style = {textStyle}>
                         {this.props.user.username}
                     </Label>
-                    <Button style = {{display: this.state.editStyle}} 
+                    <Button style = {editStyle} 
                     onClick = {this.editBackground} color = 'blue'>Edit background</Button>
                     <Button style = {buttonStyle} color = 'blue'>Follow</Button>
                 </Label>

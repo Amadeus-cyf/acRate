@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import {Label, Image} from 'semantic-ui-react';
 import mapping from './mapping.jsx';
-import {loadingStyle, recommendStyle, titleStyle, 
+import {loadingStyle, recommendStyle, noRecommendStyle, titleStyle, 
     hoverPart, scoreStyle, bangumiStyle} from './recommend.module.scss';
 
 class Recommend extends Component {
@@ -129,7 +129,14 @@ class Recommend extends Component {
 
     render() {
         if (this.state.bangumiList.length === 0) {
-            return <h2 className = {recommendStyle}>No recommendation yet</h2>
+            return (
+                <div>
+                    <h2 style = {{marginLeft: '8%'}}>Recommendation</h2>
+                    <div className = {noRecommendStyle}>
+                        <p>No recommendation yet</p>
+                    </div>
+                </div>
+            )
         }
         if (!this.state.bangumi.anime_id || this.state.bangumiList === 'undefined') {
             return (
@@ -158,7 +165,7 @@ class Recommend extends Component {
         })
         return(
             <div className = {recommendStyle}>
-                <h2>Users who rate this bangumi with same score also like</h2>
+                <h2>Recommendation</h2>
                 <div className = {bangumiStyle}>
                     {bangumiList}
                 </div>

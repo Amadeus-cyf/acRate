@@ -1,0 +1,32 @@
+.pageStyle {
+    background: white;
+}
+
+.bangumiSection {
+    margin: 1% 1% 1% 6%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.titleStyle {
+    padding: 2% 1% 0% 6%;
+}
+
+.hoverStyle:hover{
+    cursor: pointer;
+}
+
+.textSection {
+    margin-left: 20px;
+    font-size: 10pt;
+    p {
+        margin-top: 20px;
+        line-height: 1.4em;
+    }
+
+    h3 {
+        margin-top: 5px;
+        font-size: 14pt;
+    }
+}

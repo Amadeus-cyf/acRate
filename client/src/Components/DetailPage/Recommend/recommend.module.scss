@@ -1,7 +1,20 @@
 .loadingStyle {
     font-size: 14pt;
-    margin-bottom: 20px;
+    padding-bottom: 20px;
     text-align: center;
+}
+
+.noRecommendStyle {
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    margin: 1% 8% 1% 8%;
+    width: 50%;
+    height: 220px;
+    font-size: 25pt;
+    border-radius: 5px;
+    color: rgba(100, 100, 100, 0.6);
+    background: rgba(225, 225, 225, 0.5);
 }
 
 .recommendStyle {
