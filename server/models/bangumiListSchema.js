@@ -33,6 +33,10 @@ var BangumiListSchema = new mongoose.Schema({
     userNumber: {
         type: Number, 
         default: 0,
+    },
+    totalScore: {
+        type: Number,
+        default: 0,
     }
 })
 

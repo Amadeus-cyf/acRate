@@ -4,6 +4,7 @@ const BangumiScore = require('../models/bangumiScoreSchema');
 const BangumiList = require('../models/bangumiListSchema');
 const User = require('../models/userSchema');
 const router = express.Router();
+
 // get all bangumi and corresponding score
 router.get('/', (req, res) => {
     BangumiScore.find().exec()
@@ -11,16 +12,6 @@ router.get('/', (req, res) => {
         return res.status(200).json({message: 'Successfully find all scores', data: {bangumiScores}});
     }).catch(err => {
         return res.status(500).json({message: err});
-    })
-})
-
-//get highest 10 total score
-router.get('/rank', (req, res) => {
-    BangumiScore.find({totalScore: {$gt: 0}}).sort({totalScore: -1}).limit(10).exec()
-    .then(bangumiList => {
-        return res.status(200).json({message: 'Succesfully find top 10 bangumis', data:{bangumiList}});
-    }).catch(err => {
-        return res.status(500).json({meesage: err});
     })
 })
 
@@ -131,6 +122,7 @@ router.put('/:anime_id', (req, res) => {
         BangumiList.findOneAndUpdate({anime_id: req.params.anime_id}, {$set: {
             score: bangumiScore.averageScore,
             userNumber: bangumiScore.userNumber,
+            totalScore: bangumiScore.totalScore,
         }}, {new: true}, (err, bangumi) => {
             if (err) {
                 return res.status(500).json({message: err});

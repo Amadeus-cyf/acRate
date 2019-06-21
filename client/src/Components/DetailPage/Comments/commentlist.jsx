@@ -91,21 +91,21 @@ class Commentlist extends Component {
                     date: new Date(),
                 }
             });
-            this.setState({
-                newComment: '',
-                currentPage: 1,
-            })
-            axios.get('api/comment/parentcomment/' + this.props.bangumi.mal_id + '/' + this.state.currentPage)
-            .then(response => {
-                this.setState({
-                    currentComments: response.data.data.comments,
-                })
-            }).catch(err => {
-                alert(err);
-            })
         } catch(err) {
             alert(err);
         }
+        this.setState({
+            newComment: '',
+            currentPage: 1,
+        })
+        axios.get('api/comment/parentcomment/' + this.props.bangumi.mal_id + '/' + this.state.currentPage)
+        .then(response => {
+            this.setState({
+                currentComments: response.data.data.comments,
+            })
+        }).catch(err => {
+            alert(err);
+        })
     }
 
     cancelComment() {

@@ -18,12 +18,8 @@ var allowCrossDomain =  function (req, res, next) {
 app.use(express.static(__dirname + '/public'));
 app.use(allowCrossDomain);
 
-/*app.use(bodyParser.urlencoded({
-    extended: true,
-}));
-app.use(bodyParser.json());*/
-app.use(bodyParser.json({limit: '50mb'}));
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+app.use(bodyParser.json({limit: '20mb'}));
+app.use(bodyParser.urlencoded({limit: '20mb', extended: true}));
 
 app.use(logger('dev'));
 app.use(cookieParser());

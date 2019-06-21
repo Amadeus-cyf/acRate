@@ -66,19 +66,7 @@ class Recommend extends Component {
             })
             // find all high score bangumi of those users
             let map = {}
-            let ids = mapping(userList, map);
-            ids = ids.sort((first, second) => {
-                return map[first].score-map[second].score;
-            })
-            let bangumiList = [];
-            for(let id in map) {
-                if (ids.includes(id) && parseInt(id) !== this.props.bangumi.mal_id) {
-                    bangumiList.push(map[id]);
-                }
-            }
-            bangumiList = bangumiList.sort((first, second) => {
-                return second.score - first.score;
-            })
+            let bangumiList = mapping(userList, map);
             this.setState({
                 bangumiList: bangumiList,
             })

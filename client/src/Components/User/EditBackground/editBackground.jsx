@@ -69,9 +69,7 @@ class EditBackground extends Component {
         const formData = new FormData();
         formData.append('background', this.state.background);
         axios.put('api/background/' + this.state.user._id, formData)
-        .then(() => {
-            window.location.reload();
-        }).catch(err => {
+        .then().catch(err => {
             alert(err);
         })
         this.props.history.push('/userProfile/' + this.state.user._id);

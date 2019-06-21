@@ -69,9 +69,7 @@ class EditAvatar extends Component {
         const formData = new FormData();
         formData.append('avatar', this.state.avatar);
         axios.put('api/avatar/' + this.state.user._id, formData)
-        .then(() => {
-            window.location.reload();
-        }).catch(err => {
+        .then().catch(err => {
             alert(err);
         })
         this.props.history.push('/userProfile/' + this.state.user._id);

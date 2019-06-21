@@ -17,33 +17,14 @@ class Ranking extends Component {
     }
 
     async componentDidMount() {
-        try {
-            var scoreList = await axios.get('api/bangumiScore/rank');
-        } catch(err) {
-            alert(err);
-        }
-        let bangumiList = scoreList.data.data.bangumiList;
-        let promises = [];
-        let totalScores = [];
-        bangumiList.forEach(bangumi => {
-            promises.push(axios.get('api/bangumiList/' + bangumi.anime_id));
-            totalScores.push(bangumi.totalScore);
-        })
-        this.setState({
-            totalScores: totalScores,
-        })
-        axios.all(promises)
-        .then(response => {
-            let rankList = [];
-            response.forEach(res => {
-                rankList.push(res.data.data.bangumi);
-            })
-            this.setState({
-                rankList: rankList,
-            })
-        }).catch(err => {
-            alert(err);
-        })
+       axios.get('api/bangumiList/rank')
+       .then(response => {
+           this.setState({
+               rankList: response.data.data.bangumiList,
+           })
+       }).catch(err => {
+           alert(err);
+       })
     }
 
     toDetailPage(bangumi) {
@@ -97,7 +78,7 @@ class Ranking extends Component {
                             <h3 style = {{color: 'rgba(30, 144, 255, 1)', fontSize: '15pt'}}>{bangumi.title}</h3>
                             <p>{bangumi.synopsis.slice(0, 120) + '...'}</p>
                             <p style = {{color: 'rgba(255, 180, 94, 1)', 
-                            fontSize: '14pt'}}>Total score: {this.state.totalScores[index]}</p>
+                            fontSize: '14pt'}}>Total Score: {bangumi.totalScore}</p>
                         </div>
                     </div>
                     </Label>

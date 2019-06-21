@@ -111,7 +111,7 @@ class AvatarSection extends Component {
                         {this.props.user.username}
                     </Label>
                     <Button style = {editStyle} 
-                    onClick = {this.editBackground} color = 'blue'>Edit background</Button>
+                    onClick = {this.editBackground} color = 'blue'>Change Cover</Button>
                     <Button style = {buttonStyle} color = 'blue'>Follow</Button>
                 </Label>
             </div>

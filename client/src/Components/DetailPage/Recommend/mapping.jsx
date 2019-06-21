@@ -14,14 +14,14 @@ function mapping(userList, map) {
             }
         })
     }) 
-    let ids = Object.keys(map);
-    ids = ids.sort(function (first, second) {
-        return map[first].score-map[second].score;
+    let bangumis = Object.values(map);
+    bangumis = bangumis.sort(function (first, second) {
+        return first.score-second.score;
     })
-    if (ids.length > 10) {
-        ids = ids.slice(0, 10);
+    if (bangumis.length > 10) {
+        bangumis = bangumis.slice(0, 10);
     }
-    return ids;
+    return bangumis;
 }
 
 export default mapping;

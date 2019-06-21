@@ -12,12 +12,35 @@ router.get('/', (req, res) => {
     })
 })
 
+router.get('/total', (req, res) => {
+    BangumiList.find({score: 0}, (err, bangumiList) => {
+        if (err) {
+            return res.status(500).json({message: err});
+        }
+        bangumiList.forEach(bangumi => {
+            bangumi.totalScore = 0;
+            bangumi.save();
+        })
+        return res.status(200).json({message: 'Success'});
+    })
+})
+
 router.get('/count', (req, res) => {
     BangumiList.find().countDocuments().exec()
     .then(bangumiNumber => {
         return res.status(200).json({message: 'Succesfully find the number of bangumis', data: {bangumiNumber}});
     }).catch(err => {
         return res.status(500).json({message: err});
+    })
+})
+
+//get highest 10 total score
+router.get('/rank', (req, res) => {
+    BangumiList.find({totalScore: {$gt: 0}}).sort({totalScore: -1}).limit(10).exec()
+    .then(bangumiList => {
+        return res.status(200).json({message: 'Succesfully find top 10 bangumis', data:{bangumiList}});
+    }).catch(err => {
+        return res.status(500).json({meesage: err});
     })
 })
 
