@@ -39,24 +39,18 @@ def postAnime(year, season):
     bangumiList = getAnime(year, season)
     if (bangumiList ==  None):
         return
-    database_url = 'http://localhost:4000/api/bangumi'
+    database_url = 'http://localhost:4000/api/bangumi' + '/' + year + '/' + season
     for bangumi in bangumiList:
         if bangumi['r18'] or bangumi['kids']:
             continue
         bangumi.pop('r18')
         bangumi.pop('kids')
         requests.post(database_url, bangumi)
+        break
 
     
 def main():
-    postAnimeScore('2019', 'spring')
-    postAnimeScore('2019', 'winter')
-    seasons = ['winter', 'spring', 'summer', 'fall']
-    year = 2018
-    while year >= 2005:
-        for season in seasons:
-            postAnimeScore(str(year), season)
-        year -= 1
+    postAnime('2019', 'spring')
 
 if __name__ == '__main__':
     main()

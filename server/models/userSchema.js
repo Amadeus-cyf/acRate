@@ -19,11 +19,6 @@ var UserSchema = new mongoose.Schema({
     hash: {
         type: String,
     },
-    //commentAnime is an array of object, each object contains comment and anime;
-    commentAnime: {
-        type: Array,
-        default: [],
-    },
     //score anime is an array of object, each object contains anime and score;
     scoreAnime: {
         type: Array,
@@ -36,6 +31,14 @@ var UserSchema = new mongoose.Schema({
     background: {
         data: Buffer,
         contentType: String,
+    },
+    following: {
+        type: Array,
+        default: [],
+    },
+    follower: {
+        type: Array,
+        default: [],
     }
 })
 
