@@ -37,7 +37,7 @@ class DetailPage extends Component {
                 bangumi: response.data,
             })
         }).catch(err => {
-            alert('detail' + err);
+            alert(err);
         })
         axios.get('api/auth/currentUser')
         .then(response => {
@@ -128,7 +128,6 @@ class DetailPage extends Component {
         if (this.state.bangumi === 'undefined' || this.state.currentUser === 'undefined') {
             return (
                 <div>
-                    <Navibar history = {this.props.history}/>
                     <div className = {pageContainer}>
                         <div>
                             <Image className = {imageStyle} src={loadingGif} alt = 'loading'/>

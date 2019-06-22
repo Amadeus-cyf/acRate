@@ -5,13 +5,14 @@ import {textStyle, listStyle} from './userMenu.module.scss';
 
 class UserMenu extends Component {
     render() {
-        if (this.props.currentUser === 'undefined') {
+        if (!this.props.currentUser) {
             let labelstyle = {
                 display: 'block',
                 position: 'absolute',
                 boxShadow: '0px 1px 5px 2px rgba(225, 225, 225, 0.5)',
                 width: '300px',
                 background: 'white',
+                top: '45px',
                 right: '90px',
                 paddingTop: '60px',
                 zIndex: '2',
@@ -54,8 +55,10 @@ class UserMenu extends Component {
                 <Label style = {labelStyle}>
                     <p className = {textStyle}>{this.props.currentUser.username}</p>
                     <p className = {textStyle}>{this.props.currentUser.email}</p>
-                    <Button style = {buttonStyle} onClick = {this.props.logoutHandler} color = 'blue'>Log Out</Button>
-                    <Button style = {buttonStyle} onClick = {this.props.loginHandler} color = 'blue'>Switch Account</Button>
+                    <Button style = {buttonStyle} onClick = {this.props.logoutHandler} 
+                    color = 'blue' disabled = {this.props.currentUser === 'undefined'}>Log Out</Button>
+                    <Button style = {buttonStyle} onClick = {this.props.loginHandler} 
+                    color = 'blue' disabled = {this.props.currentUser === 'undefined'}>Switch Account</Button>
                 </Label>
             </div>
         )

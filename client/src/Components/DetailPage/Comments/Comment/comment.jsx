@@ -103,7 +103,7 @@ class Comment extends Component {
     }
 
     toProfile(user_id) {
-        this.props.history.push('/userProfile/' + user_id);
+        this.props.history.push('/user/userprofile/' + user_id);
     }
 
     render() {

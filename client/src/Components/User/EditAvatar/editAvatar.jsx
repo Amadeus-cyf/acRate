@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {Image, Button, Input} from  'semantic-ui-react';
-import Navibar from '../../Home/MainMenu/Navibar/navibar.jsx';
+import Navibar from '../Navibar/navibar.jsx';
 import {pageStyle, bodyStyle, footerStyle} from './editAvatar.module.scss';
 import {pageContainer, imageStyle, textStyle} 
 from '../../Home/SeasonBangumi/seasonBangumi.module.scss';
@@ -72,18 +72,19 @@ class EditAvatar extends Component {
         .then().catch(err => {
             alert(err);
         })
-        this.props.history.push('/userProfile/' + this.state.user._id);
+        this.props.history.push('/user/userProfile/' + this.state.user._id);
     }
 
     cancel() {
-        this.props.history.push('/userProfile/' + this.state.user._id);
+        this.props.history.push('/user/userProfile/' + this.state.user._id);
     }
 
     render() {
         if (this.state.user === 'undefined' || !this.state.avatar) {
             return (
                 <div>
-                    <Navibar history = {this.props.history}/>
+                    <Navibar history = {this.props.history}
+                    currentUser = {this.state.user}/>
                     <div className = {pageContainer}>
                         <div>
                             <Image className = {imageStyle} src={loadingGif} alt = 'loading'/>
@@ -101,7 +102,8 @@ class EditAvatar extends Component {
         }
         return (
             <div className = {pageStyle}>  
-                <Navibar history = {this.props.history}/>
+                <Navibar history = {this.props.history}
+                currentUser = {this.state.user}/>
                 <div className = {bodyStyle}>
                     <Image style = {avatarStyle} avatar
                     src = {this.state.previewUrl}

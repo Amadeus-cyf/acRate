@@ -22,6 +22,7 @@ class Navibar extends Component {
         this.logoutHandler = this.logoutHandler.bind(this);
         this.avatarEnter = this.avatarEnter.bind(this);
         this.menuLeave = this.menuLeave.bind(this);
+        this.toProfile = this.toProfile.bind(this);
     }
     
     arrayBufferToBase64(buffer) {
@@ -94,11 +95,10 @@ class Navibar extends Component {
     }
 
     toProfile(user) {
-        if (user === 'undefined') {
-            this.props.history.push('/login')
+        if (this.state.currentUser === 'undefined') {
+            this.props.history.push('/login');
         } else {
-            this.props.history.push('/userProfile/' + user._id);
-            window.location.reload();
+            this.props.history.push('/user/userProfile/' + user._id);
         }
     }
 
@@ -140,7 +140,7 @@ class Navibar extends Component {
                     <Button size = 'large' onClick = {this.loginHandler} style = {loginStyle}>Log In</Button>
                     <Button size = 'large' onClick = {this.logoutHandler} style = {logoutStyle}>Log Out</Button>
                     <span className = {usermenuStyle} onMouseEnter = {this.avatarEnter} onMouseLeave = {this.menuLeave}>
-                        <Image onClick = {this.toProfile.bind(this, this.state.currentUser)} 
+                        <Image onClick = {this.toProfile} 
                         className = {imageStyle} avatar src = {this.state.avatar}/>
                         <div style = {menuStyle}>
                             <UserMenu currentUser = {this.state.currentUser}

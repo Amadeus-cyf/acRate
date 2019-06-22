@@ -13,6 +13,7 @@ import Login from '../Login/login.jsx';
 import Signup from '../Signup/signup.jsx';
 import Logout from '../Logout/logout.jsx';
 import UserProfile from '../User/UserProfile/userProfile.jsx';
+import Bangumi from '../User/Bangumi/bangumi.jsx';
 import EditAvatar from '../User/EditAvatar/editAvatar.jsx';
 import EditBackground from '../User/EditBackground/editBackground.jsx';
 
@@ -33,9 +34,10 @@ class App extends Component {
           <Route exact path = '/login' component = {Login}/>
           <Route exact path = '/signup' component = {Signup}/>
           <Route exact path = '/logout' component = {Logout}/>
-          <Route exact path = '/userProfile/:id' component = {UserProfile}/>
-          <Route exact path = '/editAvatar' component = {EditAvatar}/>
-          <Route exact path = '/editBackground' component = {EditBackground}/>
+          <Route exact path = '/user/userProfile/:user_id' component = {UserProfile}/>
+          <Route exact path = '/user/scoreBangumi/:user_id' component = {Bangumi}/>
+          <Route exact path = '/user/editAvatar' component = {EditAvatar}/>
+          <Route exact path = '/user/editBackground' component = {EditBackground}/>
         </Switch>
       </HashRouter>
     )

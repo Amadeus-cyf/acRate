@@ -1,15 +1,10 @@
 import React, {Component} from 'react';
 import {Image, Button, Label} from  'semantic-ui-react';
-import {hoverStyle} from './avatarSection.module.scss';
+import {hoverStyle, labelStyle} from './avatarSection.module.scss';
 
 class AvatarSection extends Component {
     constructor() {
         super();
-        this.state = {
-            avatar: 'undefined',
-            background: 'undefined',
-            editStyle: 'none',
-        }
         this.editAvatar = this.editAvatar.bind(this);
         this.editBackground = this.editBackground.bind(this);
     }
@@ -21,60 +16,39 @@ class AvatarSection extends Component {
         return window.btoa(binary);
     };
 
-    componentDidMount() {
-        if (this.props.user.avatar) {
-            let base64Flag = 'data:image/jpeg;base64,';
-            let avatarStr = this.arrayBufferToBase64(this.props.user.avatar.data.data);
-            this.setState({
-                avatar: base64Flag + avatarStr,
-            })
-        } else {
-            this.setState({
-                avatar: 'https://react.semantic-ui.com/images/avatar/small/daniel.jpg',
-            })
-        }
-        if (this.props.user.background) {
-            let base64Flag = 'data:image/jpeg;base64,';
-            let backgroundStr = this.arrayBufferToBase64(this.props.user.background.data.data);
-            this.setState({
-                background: base64Flag + backgroundStr,
-            })
-        } else {
-            this.setState({
-                background: 'http://img.ecyss.com/original/20/20438/21435bb1f5454a70.jpg',
-            })
-        }
-        if (this.props.currentUser._id === this.props.user._id) {
-            this.setState({
-                editStyle: 'block',
-            })
-        }
-    }
-
     editAvatar() {
+        if (this.props.user === 'undefined' || this.props.currentUser === 'undefined') {
+            return;
+        }
         if (this.props.currentUser._id === this.props.user._id) {
-            this.props.history.push('/editAvatar');
+            this.props.history.push('/user/editAvatar');
         }
     }
 
     editBackground() {
-        this.props.history.push('/editBackground');
+        this.props.history.push('/user/editBackground');
     }
  
     render() {
-        if (this.state.background === 'undefined' || this.state.avatar === 'undefined') {
-            return <p></p>
+        let avatar = 'https://react.semantic-ui.com/images/avatar/small/daniel.jpg';;
+        if (this.props.user.avatar) {
+            let base64Flag = 'data:image/jpeg;base64,';
+            let avatarStr = this.arrayBufferToBase64(this.props.user.avatar.data.data);
+            avatar = base64Flag + avatarStr;
+        }
+        let background = 'http://img.ecyss.com/original/20/20438/21435bb1f5454a70.jpg';
+        if (this.props.user.background) {
+            let base64Flag = 'data:image/jpeg;base64,';
+            let backgroundStr = this.arrayBufferToBase64(this.props.user.background.data.data);
+            background =  base64Flag + backgroundStr;
         }
         let backgroundStyle = {
             position: 'relative',
             display: 'block',
             margin: '0 auto',
-            width: '90%',
+            width: '85%',
             height: '300px',
-            background: 'url(' + this.state.background + ')',
-            'background-repeat': 'no-repeat',
-            'background-position': 'top center',
-            'background-size': 'cover',
+            backgroundImage: 'url(' + background + ')',
         }
         let textStyle = {
             position: 'absolute',
@@ -96,25 +70,26 @@ class AvatarSection extends Component {
             bottom: '25px',
         }
         let editStyle = {
-            display: this.state.editStyle, 
+            display: 'none', 
             position: 'absolute',
             right: '20px', 
             top: '20px'
         }
+        if (this.props.user._id && this.props.currentUser._id === this.props.user._id) {
+            editStyle.display = 'block';
+        }
         return (
-            <div>  
-                <Label style = {backgroundStyle}>
-                    <Image className = {hoverStyle} onClick = {this.editAvatar} 
-                    style = {avatarStyle} avatar src = {this.state.avatar}
-                    />
-                    <Label style = {textStyle}>
-                        {this.props.user.username}
-                    </Label>
-                    <Button style = {editStyle} 
-                    onClick = {this.editBackground} color = 'blue'>Change Cover</Button>
-                    <Button style = {buttonStyle} color = 'blue'>Follow</Button>
+            <Label className = {labelStyle} style = {backgroundStyle}>
+                <Image className = {hoverStyle} onClick = {this.editAvatar} 
+                style = {avatarStyle} avatar src = {avatar}
+                />
+                <Label style = {textStyle}>
+                    {this.props.user.username}
                 </Label>
-            </div>
+                <Button style = {editStyle} onClick = {this.editBackground} 
+                color = 'blue'>Change Cover</Button>
+                <Button style = {buttonStyle} color = 'blue'>Follow</Button>
+            </Label>
         )
     }
 }

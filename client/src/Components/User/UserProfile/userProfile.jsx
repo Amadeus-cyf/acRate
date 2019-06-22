@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import {Image} from 'semantic-ui-react';
+import {Image, Label} from 'semantic-ui-react';
 import AvatarSection from '../AvatarSection/avatarSection.jsx';
-import Navibar from '../../Home/MainMenu/Navibar/navibar.jsx';
-import ScoreBangumi from '../ScoreBangumi/scoreBangumi.jsx';
-import {pageContainer, imageStyle, textStyle} 
+import Navibar from '../Navibar/navibar.jsx';
+import ScoreBangumi from './ScoreBangumi/scoreBangumi.jsx';
+import Subnavibar from '../Subnavibar/subnavibar.jsx';
+import {imageStyle, textStyle} 
 from '../../Home/SeasonBangumi/seasonBangumi.module.scss';
 import loadingGif from '../../searchloading.gif';
 
@@ -18,7 +19,7 @@ class UserProifle extends Component {
     }
 
     componentDidMount() {
-        axios.get('api/user/' + this.props.match.params.id)
+        axios.get('api/user/' + this.props.match.params.user_id)
         .then(response => {
             this.setState({
                 user: response.data.data.user,
@@ -38,25 +39,36 @@ class UserProifle extends Component {
 
     render() {
         if (this.state.user === 'undefined' || this.state.currentUser === 'undefined') {
+            let pageStyle = {
+                display: 'block',
+                margin: '10px auto',
+                width: '85%',
+                background: 'white',
+            }
             return (
                 <div>
-                    <Navibar history = {this.props.history}/>
-                    <div className = {pageContainer}>
+                    <Navibar history = {this.props.history} currentUser = {this.state.currentUser}/>
+                    <AvatarSection user = {this.state.user} currentUser = {this.state.currentUser}
+                    history = {this.props.history}/>
+                    <Subnavibar user = {this.state.user} history = {this.props.history} 
+                    current = 'home'/>
+                    <Label style = {pageStyle}>
                         <div>
                             <Image className = {imageStyle} src={loadingGif} alt = 'loading'/>
                         </div>
                         <p className = {textStyle}>
                             Loading ... 
                         </p>
-                    </div>
+                    </Label>
                 </div>
             )
         }
         return (
             <div>
-                <Navibar history = {this.props.history}/>
+                <Navibar history = {this.props.history} currentUser = {this.state.currentUser}/>
                 <AvatarSection user = {this.state.user} currentUser = {this.state.currentUser}
                 history = {this.props.history}/>
+                <Subnavibar user = {this.state.user} history = {this.props.history} current = 'home'/>
                 <ScoreBangumi history = {this.props.history} user = {this.state.user}/>
             </div>
         )
