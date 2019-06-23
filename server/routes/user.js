@@ -20,7 +20,7 @@ router.get('/:id', (req, res) => {
             return res.status(500).json({message: err});
         }
         if (!user) {
-            return res.status(404).json({message: 'User not found'});
+            return res.status(404).json({message: 'User not found', data: {user}});
         }
         return res.status(200).json({message: 'Succesfully find the user', data: {user}});
     })

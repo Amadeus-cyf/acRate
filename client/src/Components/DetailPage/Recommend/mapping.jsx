@@ -16,7 +16,7 @@ function mapping(userList, map) {
     }) 
     let bangumis = Object.values(map);
     bangumis = bangumis.sort(function (first, second) {
-        return first.score-second.score;
+        return second.score - first.score;
     })
     if (bangumis.length > 10) {
         bangumis = bangumis.slice(0, 10);

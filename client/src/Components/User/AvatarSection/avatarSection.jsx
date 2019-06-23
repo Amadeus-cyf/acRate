@@ -1,12 +1,37 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 import {Image, Button, Label} from  'semantic-ui-react';
 import {hoverStyle, labelStyle} from './avatarSection.module.scss';
 
 class AvatarSection extends Component {
     constructor() {
         super();
+        this.state = {
+            isFollow: 'follow',
+        }
         this.editAvatar = this.editAvatar.bind(this);
         this.editBackground = this.editBackground.bind(this);
+        this.folowHandler = this.followHandler.bind(this);
+    }
+
+    componentDidMount() {
+        if (!this.props.currentUser || this.props.currentUser === 'undefined' 
+        || this.props.user === 'undefined') {
+            return;
+        }
+        if (this.props.currentUser.following.includes(this.props.user._id)) {
+            this.setState({
+                isFollow: 'folllowing',
+            })
+        }
+    }
+
+    componentDidUpdate() {
+        if (this.props.currentUser.following.includes(this.props.user._id)) {
+            this.setState({
+                isFollow: 'folllowing',
+            })
+        }
     }
 
     arrayBufferToBase64(buffer) {
@@ -28,8 +53,64 @@ class AvatarSection extends Component {
     editBackground() {
         this.props.history.push('/user/editBackground');
     }
+
+    followHandler() {
+        if (this.state.isFollow === 'follow') {
+            axios('api/user/' + this.props.currentUser._id, {
+                method: 'PUT',
+                headers: {
+                    'content-type': 'application/json',
+                },
+                data: {
+                    following_id: this.props.user._id,
+                }
+            }).then()
+            .catch(err => {
+                alert(err);
+            })
+            this.setState({
+                isFollow: 'following',
+            })
+        } else {
+            axios('api/user/' + this.props.currentUser._id, {
+                method: 'DELETE',
+                headers: {
+                    'content-type': 'application/json',
+                },
+                data: {
+                    unfollow_id: this.props.user._id,
+                }
+            }).then()
+            .catch(err => {
+                alert(err);
+            })
+            this.setState({
+                isFollow: 'follow',
+            })
+        }
+    }
  
     render() {
+        let editStyle = {
+            display: 'none', 
+            position: 'absolute',
+            right: '20px', 
+            top: '20px'
+        }
+        if (this.props.currentUser && this.props.currentUser !== 'undefined' && 
+        this.props.user !== 'undefined' && this.props.currentUser._id === this.props.user._id) {
+            editStyle.display = 'block';
+        }
+        let followStyle = {
+            display: 'none',
+            position: 'absolute',
+            right: '70px',
+            bottom: '25px'
+        }
+        if (this.props.currentUser && this.props.currentUser !== 'undefined' 
+        && this.props.user !== 'undefined' && this.props.currentUser._id !== this.props.user._id) {
+            followStyle.display = 'block';
+        }
         let avatar = 'https://react.semantic-ui.com/images/avatar/small/daniel.jpg';;
         if (this.props.user.avatar) {
             let base64Flag = 'data:image/jpeg;base64,';
@@ -64,19 +145,15 @@ class AvatarSection extends Component {
             left: '70px',
             bottom: '40px',
         }
-        let buttonStyle = {
-            position: 'absolute',
-            right: '70px',
-            bottom: '25px',
-        }
-        let editStyle = {
-            display: 'none', 
-            position: 'absolute',
-            right: '20px', 
-            top: '20px'
-        }
-        if (this.props.user._id && this.props.currentUser._id === this.props.user._id) {
-            editStyle.display = 'block';
+        let button = <Button style = {followStyle} color = 'blue'
+        onClick = {this.folowHandler}>Follow</Button>;
+        if (this.state.isFollow === 'following') {
+            button = 
+            <Button style = {followStyle} color = 'blue'
+            onClick = {this.followHandler}>
+                <Button.Content visible>Following</Button.Content>
+                <Button.Content hidden>Unfollow</Button.Content>
+            </Button>
         }
         return (
             <Label className = {labelStyle} style = {backgroundStyle}>
@@ -88,7 +165,7 @@ class AvatarSection extends Component {
                 </Label>
                 <Button style = {editStyle} onClick = {this.editBackground} 
                 color = 'blue'>Change Cover</Button>
-                <Button style = {buttonStyle} color = 'blue'>Follow</Button>
+                {button}
             </Label>
         )
     }

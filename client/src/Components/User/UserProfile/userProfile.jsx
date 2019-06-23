@@ -4,6 +4,7 @@ import {Image, Label} from 'semantic-ui-react';
 import AvatarSection from '../AvatarSection/avatarSection.jsx';
 import Navibar from '../Navibar/navibar.jsx';
 import ScoreBangumi from './ScoreBangumi/scoreBangumi.jsx';
+import FollowList from './FollowList/followlist.jsx';
 import Subnavibar from '../Subnavibar/subnavibar.jsx';
 import {imageStyle, textStyle} 
 from '../../Home/SeasonBangumi/seasonBangumi.module.scss';
@@ -29,9 +30,15 @@ class UserProifle extends Component {
         })
         axios.get('/api/auth/currentUser')
         .then(response => {
-            this.setState({
-                currentUser: response.data.data,
-            })
+            if (response.data.message === 'success') {
+                this.setState({
+                    currentUser: response.data.data,
+                })
+            } else {
+                this.setState({
+                    currentUser: undefined,
+                })
+            }
         }).catch(err => {
             alert(err);
         })
@@ -69,7 +76,10 @@ class UserProifle extends Component {
                 <AvatarSection user = {this.state.user} currentUser = {this.state.currentUser}
                 history = {this.props.history}/>
                 <Subnavibar user = {this.state.user} history = {this.props.history} current = 'home'/>
-                <ScoreBangumi history = {this.props.history} user = {this.state.user}/>
+                <div style = {{display: 'flex', justifyContent: 'center', marginTop: '20px'}}>
+                    <ScoreBangumi history = {this.props.history} user = {this.state.user}/>
+                    <FollowList user = {this.state.user}/>
+                </div>
             </div>
         )
     }

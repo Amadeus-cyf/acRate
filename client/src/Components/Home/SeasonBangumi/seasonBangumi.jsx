@@ -68,7 +68,8 @@ class SeasonBangumi extends Component {
             yearOptions: yearList,
         })
         //get first page of default season anime
-        axios.get('api/bangumi/' + this.state.displayYear + '/' + this.state.displaySeason + '/' + this.state.currentPage)
+        axios.get('api/bangumi/' + this.state.displayYear + '/' 
+        + this.state.displaySeason + '/' + this.state.currentPage)
         .then(response => {
             this.setState({
                 currentBangumi: response.data.data.bangumiList,

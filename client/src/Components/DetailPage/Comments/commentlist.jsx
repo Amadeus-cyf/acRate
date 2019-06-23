@@ -201,8 +201,8 @@ class Commentlist extends Component {
             )
         })
         let pageArr = [];
-        for (let i = 0; i < this.state.pageNumber; i++) {
-            pageArr.push(i+1);
+        for (let i = 1; i <= this.state.pageNumber; i++) {
+            pageArr.push(i);
         }
         let pageList = [];
         // process number list
