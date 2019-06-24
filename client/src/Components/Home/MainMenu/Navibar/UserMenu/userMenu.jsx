@@ -29,9 +29,11 @@ class UserMenu extends Component {
                         <li className = {listStyle}>Following others</li>
                         <li className = {listStyle}>Select avatar and background image</li>
                     </ol>
-                    <Button style = {buttonstyle} onClick = {this.props.loginHandler} color = 'blue'>Log In</Button>
-                        <p className = {textStyle}>Does not have an account?</p>
-                        <Button style = {buttonstyle} size = 'tiny' color = 'blue' onClick = {this.props.signupHandler}>Click to sign up</Button>
+                    <Button style = {buttonstyle} onClick = {this.props.loginHandler} 
+                    color = 'blue'>Log In</Button>
+                    <p className = {textStyle}>Does not have an account?</p>
+                    <Button style = {buttonstyle} size = 'tiny' color = 'blue' 
+                    onClick = {this.props.signupHandler}>Click to sign up</Button>
                 </Label>
             )
         }

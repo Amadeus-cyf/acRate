@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {withRouter} from 'react-router-dom';
 import {Menu} from 'semantic-ui-react';
 import {navibarStyle} from './subnavibar.module.scss';
 
@@ -73,4 +74,4 @@ class Subnavibar extends Component {
     }
 }
 
-export default Subnavibar;
+export default withRouter(Subnavibar);

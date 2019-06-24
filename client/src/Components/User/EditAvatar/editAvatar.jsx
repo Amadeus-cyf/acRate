@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {Image, Button, Input} from  'semantic-ui-react';
-import Navibar from '../Navibar/navibar.jsx';
+import Navibar from '../../Home/MainMenu/Navibar/navibar.jsx';
 import {pageStyle, bodyStyle, footerStyle} from './editAvatar.module.scss';
 import {pageContainer, imageStyle, textStyle} 
 from '../../Home/SeasonBangumi/seasonBangumi.module.scss';

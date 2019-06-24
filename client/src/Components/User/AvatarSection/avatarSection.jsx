@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {withRouter} from 'react-router-dom';
 import axios from 'axios';
 import {Image, Button, Label} from  'semantic-ui-react';
 import {hoverStyle, labelStyle} from './avatarSection.module.scss';
@@ -15,21 +16,9 @@ class AvatarSection extends Component {
     }
 
     componentDidMount() {
-        if (!this.props.currentUser || this.props.currentUser === 'undefined' 
-        || this.props.user === 'undefined') {
-            return;
-        }
-        if (this.props.currentUser.following.includes(this.props.user._id)) {
+        if (this.props.isFollow === 'following') {
             this.setState({
-                isFollow: 'folllowing',
-            })
-        }
-    }
-
-    componentDidUpdate() {
-        if (this.props.currentUser.following.includes(this.props.user._id)) {
-            this.setState({
-                isFollow: 'folllowing',
+                isFollow: 'following',
             })
         }
     }
@@ -149,7 +138,7 @@ class AvatarSection extends Component {
         onClick = {this.folowHandler}>Follow</Button>;
         if (this.state.isFollow === 'following') {
             button = 
-            <Button style = {followStyle} color = 'blue'
+            <Button style = {followStyle} animated='fade' color = 'blue'
             onClick = {this.followHandler}>
                 <Button.Content visible>Following</Button.Content>
                 <Button.Content hidden>Unfollow</Button.Content>
@@ -171,4 +160,4 @@ class AvatarSection extends Component {
     }
 }
 
-export default AvatarSection;
+export default withRouter(AvatarSection);

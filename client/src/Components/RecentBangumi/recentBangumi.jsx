@@ -126,7 +126,7 @@ class CurrentBangumi extends Component {
         if (this.state.currentBangumi.length === 0){
             return(
                 <div>
-                    <Navibar history = {this.props.history}/>
+                    <Navibar/>
                     <div className = {pageContainer}>
                         <div>
                             <Image className = {imageStyle} src={loadingGif} alt = 'loading'/>
@@ -190,7 +190,7 @@ class CurrentBangumi extends Component {
         })
         return(
             <div>
-                <Navibar history = {this.props.history}/>
+                <Navibar/>
                 <div className = {bangumiContainer}>
                     <div className = {bangumiSection}>
                         <h3>{this.state.year}年{this.state.month}月番</h3>

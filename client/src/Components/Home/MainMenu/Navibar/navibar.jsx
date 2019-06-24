@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import axios from 'axios';
+import {withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
 import {Button, Image} from 'semantic-ui-react';
 import {navibarStyle, imageStyle, usermenuStyle} from './navibar.module.scss';
 import defaultAvatar from './defaultAvatar.jpg';
@@ -33,37 +34,31 @@ class Navibar extends Component {
     };
 
     componentDidMount() {
-        axios.get('api/auth/currentUser')
-        .then(res => {
-            if (res.data.message === 'success') {
-                this.setState({
-                    currentUser: res.data.data,
-                    logoutDisplay: 'inline',
-                    loginDisplay: 'none',
-                    signupDisplay: 'none',
-                    size: '13pt',
-                })
-                if (res.data.data.avatar) {
-                    let base64Flag = 'data:image/jpeg;base64,';
-                    let avatarStr = this.arrayBufferToBase64(res.data.data.avatar.data.data);
-                    this.setState({
-                        avatar: base64Flag + avatarStr,
-                    })
-                } else {
-                    this.setState({
-                        avatar: 'https://react.semantic-ui.com/images/avatar/small/daniel.jpg',
-                    })
-                }
-            } else {
-                this.setState({
-                    loginDisplay: 'inline',
-                    signupDisplay: 'inline',
-                    logoutDisplay: 'none',
-                })
-            }
-        }).catch(err => {
-            alert(err);
-        })
+        if (this.props.currentUser === 'undefined') {
+            this.setState({
+                loginDisplay: 'inline',
+                signupDisplay: 'inline',
+                logoutDisplay: 'none',
+            })
+            return;
+        } else {
+            this.setState({
+                loginDisplay: 'none',
+                signupDisplay: 'none',
+                logoutDisplay: 'inline',
+            })
+        }
+        if (this.props.currentUser.avatar) {
+            let base64Flag = 'data:image/jpeg;base64,';
+            let avatarStr = this.arrayBufferToBase64(this.props.currentUser.avatar.data.data);
+            this.setState({
+                avatar: base64Flag + avatarStr,
+            })
+        } else {
+            this.setState({
+                avatar: 'https://react.semantic-ui.com/images/avatar/small/daniel.jpg',
+            })
+        }
     }
 
     toHomePage() {
@@ -95,10 +90,10 @@ class Navibar extends Component {
     }
 
     toProfile() {
-        if (this.state.currentUser === 'undefined') {
+        if (this.props.currentUser === 'undefined') {
             this.props.history.push('/login');
         } else {
-            this.props.history.push('/user/userProfile/' + this.state.currentUser._id);
+            this.props.history.push('/user/userProfile/' + this.props.currentUser._id);
         }
     }
 
@@ -143,7 +138,7 @@ class Navibar extends Component {
                         <Image onClick = {this.toProfile} 
                         className = {imageStyle} avatar src = {this.state.avatar}/>
                         <div style = {menuStyle}>
-                            <UserMenu currentUser = {this.state.currentUser}
+                            <UserMenu currentUser = {this.props.currentUser}
                             loginHandler = {this.loginHandler}
                             signupHandler = {this.signupHandler}
                             logoutHandler = {this.logoutHandler}/>
@@ -155,4 +150,12 @@ class Navibar extends Component {
     }
 }
 
-export default Navibar;
+const mapStateToProps = state => {
+    return {
+        currentUser: state.currentUser
+    }
+}
+
+  
+//export default withRouter(Navibar);
+export default connect(mapStateToProps)(withRouter(Navibar));

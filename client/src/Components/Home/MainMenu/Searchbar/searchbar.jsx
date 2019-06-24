@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {withRouter} from 'react-router-dom';
 import {Input, Form, Label, Button, Icon} from 'semantic-ui-react';
 import {backgroundStyle, titleStyle, searchbarStyle} from './searchbar.module.scss';
 
@@ -103,4 +104,4 @@ class Searchbar extends Component {
     }
 }
 
-export default Searchbar;
+export default withRouter(Searchbar);

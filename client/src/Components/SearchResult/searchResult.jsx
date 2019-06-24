@@ -104,7 +104,7 @@ class SearchResult extends Component {
         if (this.state.result === 'undefined') {
             return (
                 <div>
-                    <Navibar history = {this.props.history}/>
+                    <Navibar/>
                     <div className = {pageContainer}>
                         <div>
                             <Image className = {imageStyle} src={loadingGif} alt = 'loading'/>
@@ -231,8 +231,8 @@ class SearchResult extends Component {
         }
         return(
             <div style = {{background: 'white'}}>
-                <Navibar history = {this.props.history}/>
-                <Searchbar history = {this.props.history}/>
+                <Navibar/>
+                <Searchbar/>
                 <Divider style = {dividerStyle}/>
                     <div className = {searchResultStyle}>
                         <h2 className = {headStyle}> {this.state.result.length} search result(s) for "{this.props.match.params.keyword}"</h2>

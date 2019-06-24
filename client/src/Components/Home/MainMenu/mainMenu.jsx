@@ -8,9 +8,9 @@ class MainMenu extends Component {
     render() {
         return(
             <div>
-                <Navibar history = {this.props.history}/>
-                <Searchbar history = {this.props.history}/>
-                <Subnavibar history = {this.props.history} current = {this.props.current}/>
+                <Navibar/>
+                <Searchbar/>
+                <Subnavibar current = {this.props.current}/>
             </div>
         )
     }

@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {connect} from 'react-redux';
+import {setCurrentUser} from '../../store/action.js';
 import Navibar from '../Home/MainMenu/Navibar/navibar.jsx';
 import {Button, Form} from 'semantic-ui-react';
 import {container, title, subtitle, imageStyle} from './login.module.scss';
@@ -44,7 +46,7 @@ class Login extends Component {
             }
         }).then(response => {
             if (response.data.status === 'Successfully Login') {
-                this.props.history.push('/');
+                this.props.setCurrentUser(this.props.history);        
             } else if (response.data.status === 'Could not find user') {
                 this.setState({
                     password: '',
@@ -112,4 +114,10 @@ class Login extends Component {
     }
 }
 
-export default Login;
+const mapStateToProps = state => {
+    return {
+        currentUser: state.currentUser
+    }
+}
+  
+export default connect(mapStateToProps, {setCurrentUser})(Login);

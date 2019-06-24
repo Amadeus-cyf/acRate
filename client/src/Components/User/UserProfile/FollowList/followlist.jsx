@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Label, Button, Image} from 'semantic-ui-react';
+import {Label, Image} from 'semantic-ui-react';
 import axios from 'axios';
 
 class FollowList extends Component {
@@ -7,7 +7,6 @@ class FollowList extends Component {
         super();
         this.state = {
             following: [],
-            //followers: [],
         }
     }
 

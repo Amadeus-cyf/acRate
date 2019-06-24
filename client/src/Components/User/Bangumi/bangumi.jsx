@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {Label, Button, Image, Form, Input} from 'semantic-ui-react';
-import Navibar from '../Navibar/navibar.jsx';
+import Navibar from '../../Home/MainMenu/Navibar/navibar.jsx';
 import AvatarSection from '../AvatarSection/avatarSection.jsx';
 import Subnavibar from '../Subnavibar/subnavibar.jsx';
 import {imageStyle, textStyle} 

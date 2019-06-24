@@ -1,17 +1,11 @@
 import React, {Component} from 'react';
-import axios from 'axios';
+import {connect} from 'react-redux';
+import {clearCurrentUser} from '../../store/action.js';
 import {container, logoutStyle} from './logout.module.scss';
 
 class Logout extends Component {
     componentDidMount() {
-        axios.post('api/auth/logout')
-        .then(response=> {
-            if (response.data.message === 'Log Out Successfully') {
-                this.props.history.push('/');
-            }
-        }).catch(err => {
-            alert(err);
-        })
+       this.props.clearCurrentUser(this.props.history);
     }
 
     render() {
@@ -28,4 +22,12 @@ class Logout extends Component {
     }
 }
 
-export default Logout;
+const mapStateToProps = state => {
+    return {
+        currentUser: state.currentUser
+    }
+}
+  
+export default connect(mapStateToProps, {clearCurrentUser})(Logout);
+
+//export default Logout;

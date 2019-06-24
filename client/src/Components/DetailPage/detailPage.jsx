@@ -128,6 +128,7 @@ class DetailPage extends Component {
         if (this.state.bangumi === 'undefined' || this.state.currentUser === 'undefined') {
             return (
                 <div>
+                    <Navibar/>
                     <div className = {pageContainer}>
                         <div>
                             <Image className = {imageStyle} src={loadingGif} alt = 'loading'/>
@@ -173,8 +174,8 @@ class DetailPage extends Component {
         }
         return(
             <div>
+                <Navibar/>
                 <div style = {pageStyle}>
-                    <Navibar history = {this.props.history}/>
                     <Information bangumi = {this.state.bangumi} scoreBangumi = {this.scoreBangumi}/>
                     <Synopsis bangumi = {this.state.bangumi}/>
                     <Recommend history = {this.props.history} bangumi = {this.state.bangumi} 

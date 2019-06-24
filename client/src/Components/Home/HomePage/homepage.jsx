@@ -65,20 +65,20 @@ class HomePage extends Component {
         if (this.state.past) {
             return (
                 <div>
-                    <MainMenu history = {this.props.history} current = 'home'/>
+                    <MainMenu current = 'home'/>
                     <div className = {bangumiSection}>
-                        <CurrentBangumi history = {this.props.history}/>
-                        <PastBangumi className = {bangumiStyle} history = {this.props.history}/>
+                        <CurrentBangumi/>
+                        <PastBangumi className = {bangumiStyle}/>
                     </div>
                 </div>
             )
         } else {
             return (
                 <div className = {homeStyle}>
-                    <MainMenu history = {this.props.history}/>
+                    <MainMenu current = 'home'/>
                     <div className = {bangumiSection}>
-                        <CurrentBangumi className = {bangumiStyle} history = {this.props.history}/>
-                        <UpcomingBangumi className = {bangumiStyle} history = {this.props.history}/>
+                        <CurrentBangumi className = {bangumiStyle}/>
+                        <UpcomingBangumi className = {bangumiStyle}/>
                     </div>
                 </div>
             )

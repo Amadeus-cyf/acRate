@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {withRouter} from 'react-router-dom';
 import axios from 'axios';
 import {Label, Image, Button} from 'semantic-ui-react';
 import {bangumiStyle, hoverPart} from './currentBangumi.module.scss';
@@ -115,4 +116,4 @@ class CurrentBangumi extends Component {
     }
 }
 
-export default CurrentBangumi;
+export default withRouter(CurrentBangumi);

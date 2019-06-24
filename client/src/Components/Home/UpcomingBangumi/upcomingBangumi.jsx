@@ -100,7 +100,7 @@ class UpcomingBangumi extends Component {
         if (this.state.bangumi.length === 0){
             return (
                 <div>
-                    <MainMenu history = {this.props.history} current = 'upcoming'/>
+                    <MainMenu current = 'upcoming'/>
                     <div className = {pageContainer}>
                         <div>
                             <Image className = {imageStyle} src={loadingGif} alt = 'loading'/>
@@ -166,7 +166,7 @@ class UpcomingBangumi extends Component {
         })
         return(
             <div>
-                <MainMenu history = {this.props.history} current = 'upcoming'/>
+                <MainMenu current = 'upcoming'/>
                 <div className = {bangumiContainer}>
                     <div className = {bangumiSection}>
                         <h3>{this.state.year}年新番</h3>

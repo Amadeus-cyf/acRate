@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {withRouter} from 'react-router-dom';
 import axios from 'axios';
 import {Label, Image, Button} from 'semantic-ui-react';
 import {bangumiStyle, hoverPart} from './upcomingBangumi.module.scss';
@@ -6,7 +7,7 @@ import {pageContainer, title, textStyle, imageStyle} from '../../SeasonBangumi/s
 import loadingGif from '../../../loading.gif';
 
 
-class CurrentBangumi extends Component {
+class UpcomingBangumi extends Component {
     constructor() {
         super();
         this.state = {
@@ -117,4 +118,4 @@ class CurrentBangumi extends Component {
     }
 }
 
-export default CurrentBangumi;
+export default withRouter(UpcomingBangumi);

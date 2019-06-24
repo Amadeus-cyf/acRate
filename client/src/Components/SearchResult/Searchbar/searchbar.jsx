@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {withRouter} from 'react-router-dom';
 import axios from 'axios';
 import {Label, Button, Form, Input} from 'semantic-ui-react';
 import {textStyle, searchStyle} from './searchbar.module.scss';
@@ -98,11 +99,12 @@ class Searchbar extends Component {
                         value = {this.state.searchInput} onChange = {this.inputHandler}></Input>
                         <Label style = {labelDisplay}>{filterList}</Label>
                     </div>
-                    <Button style = {buttonStyle} content = 'Search' icon = 'search' size = 'big' color = 'blue' onClick = {this.searchHandler}></Button>
+                    <Button style = {buttonStyle} content = 'Search' icon = 'search' 
+                    size = 'big' color = 'blue' onClick = {this.searchHandler}></Button>
                 </div>
             </Form>
         )
     }
 }
 
-export default Searchbar;
+export default withRouter(Searchbar);
