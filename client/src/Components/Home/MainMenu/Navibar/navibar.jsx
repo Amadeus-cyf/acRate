@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
+import {clearUser, setUser} from '../../../../store/action.js';
 import {Button, Image} from 'semantic-ui-react';
 import {navibarStyle, imageStyle, usermenuStyle} from './navibar.module.scss';
 import defaultAvatar from './defaultAvatar.jpg';
@@ -62,18 +63,30 @@ class Navibar extends Component {
     }
 
     toHomePage() {
+        if (this.props.user !== 'undefined') {
+            this.props.clearUser();
+        }
         this.props.history.push('/');
     }
 
     loginHandler() {
+        if (this.props.user !== 'undefined') {
+            this.props.clearUser();
+        }
         this.props.history.push('/login');
     }
 
     signupHandler() {
+        if (this.props.user !== 'undefined') {
+            this.props.clearUser();
+        }
         this.props.history.push('/signup');
     }
 
     logoutHandler() {
+        if (this.props.user !== 'undefined') {
+            this.props.clearUser();
+        }
         this.props.history.push('/logout');
     }
 
@@ -90,6 +103,10 @@ class Navibar extends Component {
     }
 
     toProfile() {
+        if (this.props.user !== 'undefined') {
+            this.props.clearUser();
+            this.props.setUser(this.props.currentUser._id);
+        }
         if (this.props.currentUser === 'undefined') {
             this.props.history.push('/login');
         } else {
@@ -152,10 +169,9 @@ class Navibar extends Component {
 
 const mapStateToProps = state => {
     return {
-        currentUser: state.currentUser
+        currentUser: state.currentUser,
+        user: state.user,
     }
 }
 
-  
-//export default withRouter(Navibar);
-export default connect(mapStateToProps)(withRouter(Navibar));
+export default connect(mapStateToProps, {clearUser, setUser})(withRouter(Navibar));

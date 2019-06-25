@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {withRouter} from 'react-router-dom';
 import {List, Image, Button, Divider} from 'semantic-ui-react';
 import CommentBox from '../CommentBox/commentBox.jsx';
 import Likebar from '../Likebar/likebar.jsx';
@@ -212,4 +213,4 @@ class Comment extends Component {
     }
 }
 
-export default Comment;
+export default withRouter(Comment);

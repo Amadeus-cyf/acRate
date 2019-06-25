@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+import {withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {clearUser} from '../../../../store/action.js';
 import {Label, Image, Button} from 'semantic-ui-react';
 import NoneditStarRating from '../../../DetailPage/Information/Score/noneditRating.jsx';
 import {bangumiSection, titleStyle, textSection, hoverStyle} from './scoreBangumi.module.scss';
@@ -19,6 +22,9 @@ class  ScoreBangumi extends Component {
     }
 
     toDetail(bangumi) {
+        if (this.props.user !== 'undefined') {
+            this.props.clearUser();
+        }
         this.props.history.push('/detail/' + bangumi.anime_id);
     }
 
@@ -32,7 +38,7 @@ class  ScoreBangumi extends Component {
         }
         let labelStyle = {
             background: 'white',
-            width: '400px',
+            width: '350px',
             height: 'auto',
             display: 'flex',
             marginTop: '10px',
@@ -54,14 +60,14 @@ class  ScoreBangumi extends Component {
                     <div className = {textSection}>
                         <h3>{bangumi.title}</h3>
                         <NoneditStarRating average = {bangumi.score/2}/>
-                        <p>{bangumi.synopsis.slice(0, 80) + '...'}</p>
+                        <p>{bangumi.synopsis.slice(0, 40) + '...'}</p>
                     </div>
                 </Label>
             )
         })
         return (
             <Label style = {{background: 'white',
-             width: '55%', height: 'auto'}}>
+             width: '58%', height: 'auto'}}>
                 <h2 className = {titleStyle}>
                     Scored Bangumi 
                     <Button style = {viewMoreStyle} onClick = {this.viewMore} size = 'tiny' 
@@ -75,4 +81,11 @@ class  ScoreBangumi extends Component {
     }
 }
 
-export default ScoreBangumi;
+const mapStateToProps = state => {
+    return {
+        currentUser: state.currentUser,
+        user: state.user
+    }
+}
+
+export default connect(mapStateToProps, {clearUser})(withRouter(ScoreBangumi));

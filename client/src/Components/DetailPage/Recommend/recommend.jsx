@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {withRouter} from 'react-router-dom';
 import {Label, Image} from 'semantic-ui-react';
 import mapping from './mapping.jsx';
 import {loadingStyle, recommendStyle, noRecommendStyle, titleStyle, 
@@ -153,4 +154,4 @@ class Recommend extends Component {
     }
 }
 
-export default Recommend;
+export default withRouter(Recommend);

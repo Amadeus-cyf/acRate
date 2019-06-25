@@ -82,12 +82,14 @@ class Likebar extends Component {
     }
 
     render() {
-        if (!this.props.currentUser) {
+        if (this.props.currentUser === 'undefined') {
             return (
                 <span className = {barStyle}>
-                    <Icon style = {{color: 'rgba(100, 100, 100, 0.6)'}} size = 'large' name = 'thumbs up outline' disabled/>
+                    <Icon style = {{color: 'rgba(100, 100, 100, 0.6)'}} size = 'large' 
+                    name = 'thumbs up outline' disabled/>
                     <span className = {numberStyle}>{this.state.likeList.length}</span>
-                    <Icon style = {{color: 'rgba(100, 100, 100, 0.6)'}} size = 'large' name = 'thumbs down outline' disabled/>
+                    <Icon style = {{color: 'rgba(100, 100, 100, 0.6)'}} size = 'large' 
+                    name = 'thumbs down outline' disabled/>
                     <span className = {numberStyle}>{this.state.dislikeList.length}</span>
                 </span> 
            )
@@ -95,27 +97,33 @@ class Likebar extends Component {
        if (this.state.likeList.includes(this.props.currentUser._id)) {
            return (
                <span className = {barStyle}>
-                    <Icon style = {{color: 'rgba(100, 100, 100, 0.6)'}} size = 'large' onClick = {this.likeHandler} name = 'thumbs up'/>
+                    <Icon style = {{color: 'rgba(100, 100, 100, 0.6)'}} size = 'large' 
+                    onClick = {this.likeHandler} name = 'thumbs up'/>
                     <span className = {numberStyle}>{this.state.likeList.length}</span>
-                    <Icon style = {{color: 'rgba(100, 100, 100, 0.6)'}} size = 'large' onClick = {this.dislikeHandler} name = 'thumbs down outline'/>
+                    <Icon style = {{color: 'rgba(100, 100, 100, 0.6)'}} size = 'large' 
+                    onClick = {this.dislikeHandler} name = 'thumbs down outline'/>
                     <span className = {numberStyle}>{this.state.dislikeList.length}</span>
                </span>
            )
        } else if (this.state.dislikeList.includes(this.props.currentUser._id)) {
             return (
                 <span className = {barStyle}>
-                    <Icon style = {{color: 'rgba(100, 100, 100, 0.6)'}} size = 'large' onClick = {this.likeHandler} name = 'thumbs up outline'/>
+                    <Icon style = {{color: 'rgba(100, 100, 100, 0.6)'}} size = 'large' 
+                    onClick = {this.likeHandler} name = 'thumbs up outline'/>
                     <span className = {numberStyle}>{this.state.likeList.length}</span>
-                    <Icon style = {{color: 'rgba(100, 100, 100, 0.6)'}} size = 'large' onClick = {this.dislikeHandler} name = 'thumbs down'/>
+                    <Icon style = {{color: 'rgba(100, 100, 100, 0.6)'}} size = 'large' 
+                    onClick = {this.dislikeHandler} name = 'thumbs down'/>
                     <span className = {numberStyle}>{this.state.dislikeList.length}</span>
                 </span>
             )
        } else {
            return (
                 <span className = {barStyle}>
-                    <Icon style = {{color: 'rgba(100, 100, 100, 0.6)'}} size = 'large' onClick = {this.likeHandler} name = 'thumbs up outline'/>
+                    <Icon style = {{color: 'rgba(100, 100, 100, 0.6)'}} size = 'large' 
+                    onClick = {this.likeHandler} name = 'thumbs up outline'/>
                     <span className = {numberStyle}>{this.state.likeList.length}</span>
-                    <Icon style = {{color: 'rgba(100, 100, 100, 0.6)'}} size = 'large' name = 'thumbs down outline' onClick = {this.dislikeHandler}/>
+                    <Icon style = {{color: 'rgba(100, 100, 100, 0.6)'}} size = 'large' 
+                    name = 'thumbs down outline' onClick = {this.dislikeHandler}/>
                     <span className = {numberStyle}>{this.state.dislikeList.length}</span>
                 </span> 
            )

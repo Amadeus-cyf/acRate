@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Label, Image, Divider} from 'semantic-ui-react';
 import axios from 'axios';
+import {connect} from 'react-redux';
 import StarRating from 'react-star-ratings';
 import Information from './Information/information.jsx';
 import Synopsis from './Synopsis/synopsis.jsx';
@@ -39,20 +40,6 @@ class DetailPage extends Component {
         }).catch(err => {
             alert(err);
         })
-        axios.get('api/auth/currentUser')
-        .then(response => {
-            if (response.data.message === 'success') {
-                this.setState({
-                    currentUser: response.data.data,
-                })
-            } else {
-                this.setState({
-                    currentUser: undefined,
-                })
-            }
-        }).catch(err => {
-            alert(err);
-        })
     }
 
     changeRating(value, prevalue, name) {
@@ -62,7 +49,7 @@ class DetailPage extends Component {
     }
 
     scoreBangumi() {
-        if (this.state.currentUser) {
+        if (this.props.currentUser !== 'undefined') {
             this.setState({
                 ratingDisplay: 'flex',
                 loginDisplay: 'none',
@@ -125,7 +112,7 @@ class DetailPage extends Component {
     }
 
     render() {
-        if (this.state.bangumi === 'undefined' || this.state.currentUser === 'undefined') {
+        if (this.state.bangumi === 'undefined') {
             return (
                 <div>
                     <Navibar/>
@@ -178,10 +165,8 @@ class DetailPage extends Component {
                 <div style = {pageStyle}>
                     <Information bangumi = {this.state.bangumi} scoreBangumi = {this.scoreBangumi}/>
                     <Synopsis bangumi = {this.state.bangumi}/>
-                    <Recommend history = {this.props.history} bangumi = {this.state.bangumi} 
-                    currentUser = {this.state.currentUser}/>
-                    <Commentlist bangumi = {this.state.bangumi} currentUser = {this.state.currentUser}
-                    history = {this.props.history}/>
+                    <Recommend bangumi = {this.state.bangumi} currentUser = {this.props.currentUser}/>
+                    <Commentlist bangumi = {this.state.bangumi} currentUser = {this.props.currentUser}/>
                 </div>
                 <div className = {labelStyle}>
                     <Label style = {ratingStyle}>
@@ -220,4 +205,10 @@ class DetailPage extends Component {
     }
 }
 
-export default DetailPage;
+const mapStateToProps = state => {
+    return {
+        currentUser: state.currentUser
+    }
+}
+
+export default connect(mapStateToProps)(DetailPage);

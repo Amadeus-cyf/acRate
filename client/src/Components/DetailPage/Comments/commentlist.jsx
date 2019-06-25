@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {withRouter} from 'react-router-dom';
 import {List, Button, Divider} from 'semantic-ui-react';
 import CommentBox from './CommentBox/commentBox.jsx';
 import Comment from './Comment/comment.jsx';
@@ -196,8 +197,7 @@ class Commentlist extends Component {
             }
             return (
                 <Comment bangumi = {this.props.bangumi} currentUser = {this.props.currentUser}
-                comment = {comment} starDisplay = {starDisplay} score = {score}
-                history = {this.props.history}/>
+                comment = {comment} starDisplay = {starDisplay} score = {score}/>
             )
         })
         let pageArr = [];
@@ -253,4 +253,4 @@ class Commentlist extends Component {
     }
 }
 
-export default Commentlist;
+export default withRouter(Commentlist);

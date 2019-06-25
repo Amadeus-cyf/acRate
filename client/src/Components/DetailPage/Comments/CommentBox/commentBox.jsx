@@ -4,7 +4,7 @@ import {boxStyle, disableBoxStyle, buttonStyle} from './commentBox.module.scss';
 
 class CommentBox extends Component {
     render() {
-        if (this.props.currentUser) {
+        if (this.props.currentUser !== 'undefined') {
             return (
                 <div>
                     <textarea className = {boxStyle} value = {this.props.newComment}

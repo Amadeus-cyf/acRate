@@ -7,7 +7,9 @@ export const setCurrentUser = (history) => dispatch => {
             type: 'SET_CURRENT_USER',
             data: response.data.data,
         })
-        history.push('/')
+        if (history) {
+            history.push('/');
+        }
     }).catch(err => {
         alert(err);
     })
@@ -21,14 +23,31 @@ export const clearCurrentUser = (history) => dispatch => {
                 type: 'USER_LOGOUT',
                 data: 'undefined',
             })
-            history.push('/')
-            window.location.reload();
+            if (history) {
+                history.push('/')
+                window.location.reload();
+            }
         }
     }).catch(err => {
         alert(err);
     })
 }
 
+export const setUser = (user_id) => dispatch => {
+    axios.get('api/user/' + user_id)
+    .then(response => {
+        dispatch({
+            type: 'SET_USER',
+            data: response.data.data.user,
+        })
+    }).catch(err => {
+        alert(err);
+    })
+}
 
-
-
+export const clearUser = () => dispatch => {
+    dispatch({
+        type: 'CLEAR_USER',
+        data: 'undefined',
+    })
+}

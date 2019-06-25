@@ -86,7 +86,7 @@ class AvatarSection extends Component {
             right: '20px', 
             top: '20px'
         }
-        if (this.props.currentUser && this.props.currentUser !== 'undefined' && 
+        if (this.props.currentUser !== 'undefined' && 
         this.props.user !== 'undefined' && this.props.currentUser._id === this.props.user._id) {
             editStyle.display = 'block';
         }
@@ -96,7 +96,7 @@ class AvatarSection extends Component {
             right: '70px',
             bottom: '25px'
         }
-        if (this.props.currentUser && this.props.currentUser !== 'undefined' 
+        if (this.props.currentUser !== 'undefined' 
         && this.props.user !== 'undefined' && this.props.currentUser._id !== this.props.user._id) {
             followStyle.display = 'block';
         }

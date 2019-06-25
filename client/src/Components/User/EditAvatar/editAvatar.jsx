@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {connect} from 'react-redux';
+import {setCurrentUser} from '../../../store/action.js';
 import {Image, Button, Input} from  'semantic-ui-react';
 import Navibar from '../../Home/MainMenu/Navibar/navibar.jsx';
 import {pageStyle, bodyStyle, footerStyle} from './editAvatar.module.scss';
@@ -29,27 +31,19 @@ class EditAvatar extends Component {
     };
     
     componentDidMount() {
-        axios.get('api/auth/currentUser')
-        .then(response => {
+        if (this.props.currentUser.avatar) {
+            let base64Flag = 'data:image/jpeg;base64,';
+            let avatarStr = this.arrayBufferToBase64(this.props.currentUser.avatar.data.data);
             this.setState({
-                user: response.data.data,
+                avatar: base64Flag + avatarStr,
+                previewUrl: base64Flag + avatarStr,
             })
-            if (response.data.data.avatar) {
-                let base64Flag = 'data:image/jpeg;base64,';
-                let avatarStr = this.arrayBufferToBase64(response.data.data.avatar.data.data);
-                this.setState({
-                    avatar: base64Flag + avatarStr,
-                    previewUrl: base64Flag + avatarStr,
-                })
-            } else {
-                this.setState({
-                   avatar: 'https://react.semantic-ui.com/images/avatar/small/daniel.jpg',
-                   previewUrl: 'https://react.semantic-ui.com/images/avatar/small/daniel.jpg',
-                })
-            }
-        }).catch(err => {
-            alert(err);
-        })
+        } else {
+            this.setState({
+                avatar: 'https://react.semantic-ui.com/images/avatar/small/daniel.jpg',
+                previewUrl: 'https://react.semantic-ui.com/images/avatar/small/daniel.jpg',
+            })
+        }
     }
 
     selectImage(event) {
@@ -68,23 +62,24 @@ class EditAvatar extends Component {
     updateAvatar() {
         const formData = new FormData();
         formData.append('avatar', this.state.avatar);
-        axios.put('api/avatar/' + this.state.user._id, formData)
-        .then().catch(err => {
+        axios.put('api/avatar/' + this.props.currentUser._id, formData)
+        .then(() => {
+            this.props.setCurrentUser();
+        }).catch(err => {
             alert(err);
         })
-        this.props.history.push('/user/userProfile/' + this.state.user._id);
+        this.props.history.push('/user/userProfile/' + this.props.currentUser._id);
     }
 
     cancel() {
-        this.props.history.push('/user/userProfile/' + this.state.user._id);
+        this.props.history.push('/user/userProfile/' + this.props.currentUser._id);
     }
 
     render() {
-        if (this.state.user === 'undefined' || !this.state.avatar) {
+        if (!this.state.avatar) {
             return (
                 <div>
-                    <Navibar history = {this.props.history}
-                    currentUser = {this.state.user}/>
+                    <Navibar/>
                     <div className = {pageContainer}>
                         <div>
                             <Image className = {imageStyle} src={loadingGif} alt = 'loading'/>
@@ -102,8 +97,7 @@ class EditAvatar extends Component {
         }
         return (
             <div className = {pageStyle}>  
-                <Navibar history = {this.props.history}
-                currentUser = {this.state.user}/>
+                <Navibar/>
                 <div className = {bodyStyle}>
                     <Image style = {avatarStyle} avatar
                     src = {this.state.previewUrl}
@@ -127,4 +121,10 @@ class EditAvatar extends Component {
     }
 }
 
-export default EditAvatar;
+const mapStateToProps = state => {
+    return {
+        currentUser: state.currentUser,
+    }
+}
+
+export default connect(mapStateToProps, {setCurrentUser})(EditAvatar);

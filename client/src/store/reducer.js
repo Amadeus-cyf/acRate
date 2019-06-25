@@ -20,8 +20,15 @@ function currentUser (state = defaultState.currentUser, action) {
 function user (state = defaultState.user, action) {
     switch(action.type) {
         case 'SET_USER':
+            sessionStorage.setItem('user', JSON.stringify(action.data))
+            return action.data
+        case 'CLEAR_USER':  
+            sessionStorage.removeItem('user')
             return action.data
         default:
+            if (sessionStorage.getItem('user')) {
+                return JSON.parse(sessionStorage.getItem('user'));
+            }
             return state
     }
 }

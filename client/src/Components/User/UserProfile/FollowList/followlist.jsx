@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
-import {Label, Image} from 'semantic-ui-react';
 import axios from 'axios';
+import {withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {setUser, clearUser} from '../../../../store/action.js';
+import {Label, Image} from 'semantic-ui-react';
 
 class FollowList extends Component {
     constructor() {
@@ -33,6 +36,7 @@ class FollowList extends Component {
                     let base64Flag = 'data:image/jpeg;base64,';
                     let avatarStr = this.arrayBufferToBase64(res.data.data.user.avatar.data.data);
                     let user = {
+                        user_id: res.data.data.user._id,
                         username: res.data.data.user.username,
                         avatar: base64Flag + avatarStr,
                     }
@@ -45,9 +49,16 @@ class FollowList extends Component {
         }
     }
 
+    toProfile(user) {
+        if (this.props.user !== 'undefined') {
+            this.props.clearUser();
+        }
+        this.props.history.push('/user/userProfile/' + user.user_id)
+    }
+
     render() {
         let labelStyle = {
-            width: '28%',
+            width: '25%',
             height: '200px',
             marginLeft: '2%',
             background: 'white',
@@ -60,7 +71,9 @@ class FollowList extends Component {
         let followingList = this.state.following.map(user => {
             return(
                 <Label style = {{background: 'white'}}>       
-                    <Image style = {{transform: 'scale(1.5)', marginRight: '10px'}} avatar src = {user.avatar}></Image>
+                    <Image onClick = {this.toProfile.bind(this, user)}
+                    style = {{transform: 'scale(1.5)', marginRight: '10px'}} 
+                    avatar src = {user.avatar}></Image>
                     {user.username}
                 </Label>
             )
@@ -74,4 +87,10 @@ class FollowList extends Component {
     }
 }
 
-export default FollowList;
+const mapStateToProps = state => {
+    return {
+        user: state.user,
+    }
+}
+
+export default connect(mapStateToProps, {clearUser})(withRouter(FollowList));

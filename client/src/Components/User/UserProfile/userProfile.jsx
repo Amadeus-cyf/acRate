@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import axios from 'axios';
+import {setUser, clearUser} from '../../../store/action.js';
 import {connect} from 'react-redux';
 import {Image, Label} from 'semantic-ui-react';
 import AvatarSection from '../AvatarSection/avatarSection.jsx';
@@ -14,33 +14,25 @@ import loadingGif from '../../searchloading.gif';
 class UserProfile extends Component {
     constructor() {
         super();
-        this.state = {
-            user: 'undefined',
-        }
     }
 
     componentDidMount() {
-        axios.get('api/user/' + this.props.match.params.user_id)
-        .then(response => {
-            this.setState({
-                user: response.data.data.user,
-            })
-        }).catch(err => {
-            alert(err);
-        })
+        this.props.setUser(this.props.match.params.user_id);
     }
 
     render() {
-        if (this.state.user === 'undefined') {
+        if (this.props.user === 'undefined') {
             let pageStyle = {
                 display: 'block',
-                margin: '10px auto',
-                width: '85%',
+                margin: '0 auto',
+                width: '100%',
+                height: '100vh',
+                paddingTop: '15%',
                 background: 'white',
             }
             return (
                 <div>
-                    <Navibar history = {this.props.history}/>
+                    <Navibar/>
                     <Label style = {pageStyle}>
                         <div>
                             <Image className = {imageStyle} src={loadingGif} alt = 'loading'/>
@@ -53,18 +45,18 @@ class UserProfile extends Component {
             )
         }
         let follow = 'follow'
-        if (this.props.currentUser.following.includes(this.state.user._id)) {
+        if (this.props.currentUser.following.includes(this.props.user._id)) {
             follow = 'following';
         }
         return (
             <div>
                 <Navibar/>
-                <AvatarSection user = {this.state.user} currentUser = {this.props.currentUser}
-                history = {this.props.history} isFollow = {follow}/>
-                <Subnavibar user = {this.state.user} history = {this.props.history} current = 'home'/>
+                <AvatarSection user = {this.props.user} currentUser = {this.props.currentUser}
+                isFollow = {follow}/>
+                <Subnavibar user = {this.props.user} current = 'home'/>
                 <div style = {{display: 'flex', justifyContent: 'center', marginTop: '20px'}}>
-                    <ScoreBangumi history = {this.props.history} user = {this.state.user}/>
-                    <FollowList user = {this.state.user}/>
+                    <ScoreBangumi/>
+                    <FollowList/>
                 </div>
             </div>
         )
@@ -73,8 +65,10 @@ class UserProfile extends Component {
 
 const mapStateToProps = state => {
     return {
-        currentUser: state.currentUser
+        currentUser: state.currentUser,
+        user: state.user
     }
 }
 
-export default connect(mapStateToProps)(UserProfile);
+
+export default connect(mapStateToProps, {setUser, clearUser})(UserProfile);

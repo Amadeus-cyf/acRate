@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {connect} from 'react-redux';
 import {Label, Button, Image, Form, Input} from 'semantic-ui-react';
 import Navibar from '../../Home/MainMenu/Navibar/navibar.jsx';
 import AvatarSection from '../AvatarSection/avatarSection.jsx';
@@ -30,7 +31,7 @@ class Bangumi extends Component {
     }
 
     componentDidMount() {
-        axios.get('api/user/' + this.props.match.params.user_id)
+        /*axios.get('api/user/' + this.props.match.params.user_id)
         .then(response => {
             this.setState({
                 user: response.data.data.user,
@@ -49,15 +50,22 @@ class Bangumi extends Component {
             }
         }).catch(err => {
             alert(err);
+        })*/
+        this.setState({
+            user: this.props.user,
+            bangumiList: this.props.user.scoreAnime,
+            currentBangumi: this.props.user.scoreAnime.slice(0, 15),
         })
-        axios.get('api/auth/currentUser')
-        .then(response => {
+        let bangumiList = this.props.user.scoreAnime;
+        if (bangumiList.length % 15) {
             this.setState({
-                currentUser: response.data.data,
+                pageNumber: (bangumiList.length - bangumiList.length % 15)/15 + 1,
             })
-        }).catch(err => {
-            alert(err);
-        })
+        } else {
+            this.setState({
+                pageNumber: bangumiList.length / 15,
+            })
+        }
     }
 
     toDetail(bangumi) {
@@ -121,7 +129,7 @@ class Bangumi extends Component {
     }
 
     render() {
-        if (this.state.user === 'undefined' || this.state.currentUser === 'undefined') {
+        if (this.state.user === 'undefined') {
             let pageStyle = {
                 display: 'block',
                 margin: '10px auto',
@@ -130,11 +138,9 @@ class Bangumi extends Component {
             }
             return (
                 <div>
-                    <Navibar history = {this.props.history} currentUser = {this.state.currentUser}/>
-                    <AvatarSection user = {this.state.user} currentUser = {this.state.currentUser}
-                    history = {this.props.history}/>
-                    <Subnavibar user = {this.state.user} history = {this.props.history} 
-                    current = 'bangumi'/>
+                    <Navibar/>
+                    <AvatarSection user = {this.state.user} currentUser = {this.props.currentUser}/>
+                    <Subnavibar user = {this.state.user}current = 'bangumi'/>
                     <Label style = {pageStyle}>
                         <div>
                             <Image className = {imageStyle} src={loadingGif} alt = 'loading'/>
@@ -199,10 +205,10 @@ class Bangumi extends Component {
         }
         return (
             <div>
-                <Navibar history = {this.props.history} currentUser = {this.state.currentUser}/>
-                <AvatarSection user = {this.state.user} currentUser = {this.state.currentUser}
+                <Navibar/>
+                <AvatarSection user = {this.state.user} currentUser = {this.props.currentUser}
                 history = {this.props.history}/>
-                <Subnavibar user = {this.state.user} history = {this.props.history} current = 'bangumi'/>
+                <Subnavibar user = {this.state.user} current = 'bangumi'/>
                 <Label style = {{background: 'white',  display: 'block', margin: '10px auto',
                 width: '85%', height: 'auto'}}>
                     <div className = {bangumiSection}>
@@ -223,4 +229,13 @@ class Bangumi extends Component {
     }
 }
 
-export default Bangumi;
+
+const mapStateToProps = state => {
+    return {
+        currentUser: state.currentUser,
+        user: state.user
+    }
+}
+
+
+export default connect(mapStateToProps)(Bangumi);

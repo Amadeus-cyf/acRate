@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {connect} from 'react-redux';
+import {setCurrentUser} from '../../../store/action.js';
 import {Input, Button, Image} from 'semantic-ui-react';
 import Navibar from '../../Home/MainMenu/Navibar/navibar.jsx';
 import {pageStyle, bodyStyle, footerStyle} from './editBackground.module.scss';
@@ -11,7 +13,6 @@ class EditBackground extends Component {
     constructor() {
         super();
         this.state = {
-            user: 'undefined',
             background: '',
             previewUrl: '',
             disabled: true,
@@ -29,27 +30,19 @@ class EditBackground extends Component {
     };
 
     componentDidMount() {
-        axios.get('api/auth/currentUser')
-        .then(response => {
+        if (this.props.currentUser.background) {
+            let base64Flag = 'data:image/jpeg;base64,';
+            let backgroundStr = this.arrayBufferToBase64(this.props.currentUser.background.data.data);
             this.setState({
-                user: response.data.data,
+                background: base64Flag + backgroundStr,
+                previewUrl: base64Flag + backgroundStr,
             })
-            if (response.data.data.background) {
-                let base64Flag = 'data:image/jpeg;base64,';
-                let backgroundStr = this.arrayBufferToBase64(response.data.data.background.data.data);
-                this.setState({
-                    background: base64Flag + backgroundStr,
-                    previewUrl: base64Flag + backgroundStr,
-                })
-            } else {
-                this.setState({
-                    background: 'http://img.ecyss.com/original/20/20438/21435bb1f5454a70.jpg',
-                    previewUrl: 'http://img.ecyss.com/original/20/20438/21435bb1f5454a70.jpg',
-                })
-            }
-        }).catch(err => {
-            alert(err);
-        })
+        } else {
+            this.setState({
+                background: 'http://img.ecyss.com/original/20/20438/21435bb1f5454a70.jpg',
+                previewUrl: 'http://img.ecyss.com/original/20/20438/21435bb1f5454a70.jpg',
+            })
+        }
     }
 
     selectBackground(event) {
@@ -68,22 +61,24 @@ class EditBackground extends Component {
     updateBackground() { 
         const formData = new FormData();
         formData.append('background', this.state.background);
-        axios.put('api/background/' + this.state.user._id, formData)
-        .then().catch(err => {
+        axios.put('api/background/' + this.props.currentUser._id, formData)
+        .then(() => {
+            this.props.setCurrentUser();
+        }).catch(err => {
             alert(err);
         })
-        this.props.history.push('/user/userProfile/' + this.state.user._id);
+        this.props.history.push('/user/userProfile/' + this.props.currentUser._id);
     }
 
     cancel() {
-        this.props.history.push('/user/userProfile/' + this.state.user._id);
+        this.props.history.push('/user/userProfile/' + this.props.currentUser._id);
     }
 
     render() {
-        if (this.state.user === 'undefined' || !this.state.background) {
+        if (!this.state.background) {
             return (
                 <div>
-                    <Navibar history = {this.props.history} currentUser = {this.state.user}/>
+                    <Navibar/>
                     <div className = {pageContainer}>
                         <div>
                             <Image className = {imageStyle} src={loadingGif} alt = 'loading'/>
@@ -101,7 +96,7 @@ class EditBackground extends Component {
         }
         return (
             <div className = {pageStyle}>
-                <Navibar history = {this.props.history} currentUser = {this.state.user}/>
+                <Navibar/>
                 <div className = {bodyStyle}>
                     <Image style = {backgroundStyle}
                     src = {this.state.previewUrl}
@@ -125,4 +120,10 @@ class EditBackground extends Component {
     }
 }
 
-export default EditBackground;
+const mapStateToProps = state => {
+    return {
+        currentUser: state.currentUser,
+    }
+}
+
+export default connect(mapStateToProps, {setCurrentUser})(EditBackground);
