@@ -44,8 +44,8 @@ class  ScoreBangumi extends Component {
             marginTop: '10px',
         }
         let imageStyle = {
-            width: '130px',
-            height: '170px',
+            width: '140px',
+            height: '180px',
         }
         let viewMoreStyle = {
             position: 'absolute',
@@ -68,11 +68,11 @@ class  ScoreBangumi extends Component {
         return (
             <Label style = {{background: 'white',
              width: '58%', height: 'auto'}}>
-                <h2 className = {titleStyle}>
+                <h3 className = {titleStyle}>
                     Scored Bangumi 
                     <Button style = {viewMoreStyle} onClick = {this.viewMore} size = 'tiny' 
                     color = 'blue'>View more</Button>
-                </h2>
+                </h3>
                 <div className = {bangumiSection}>
                     {bangumiList}
                 </div>

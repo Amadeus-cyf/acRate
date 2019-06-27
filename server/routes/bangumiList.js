@@ -12,19 +12,6 @@ router.get('/', (req, res) => {
     })
 })
 
-router.get('/total', (req, res) => {
-    BangumiList.find({score: 0}, (err, bangumiList) => {
-        if (err) {
-            return res.status(500).json({message: err});
-        }
-        bangumiList.forEach(bangumi => {
-            bangumi.totalScore = 0;
-            bangumi.save();
-        })
-        return res.status(200).json({message: 'Success'});
-    })
-})
-
 router.get('/count', (req, res) => {
     BangumiList.find().countDocuments().exec()
     .then(bangumiNumber => {

@@ -3,9 +3,8 @@ import {withRouter} from 'react-router-dom';
 import axios from 'axios';
 import {Label, Image, Button} from 'semantic-ui-react';
 import {bangumiStyle, hoverPart} from './upcomingBangumi.module.scss';
-import {pageContainer, title, textStyle, imageStyle} from '../../SeasonBangumi/seasonBangumi.module.scss';
+import {pageContainer, textStyle, imageStyle} from '../../SeasonBangumi/seasonBangumi.module.scss';
 import loadingGif from '../../../loading.gif';
-
 
 class UpcomingBangumi extends Component {
     constructor() {
@@ -58,7 +57,7 @@ class UpcomingBangumi extends Component {
         axios.get('https://api.jikan.moe/v3/season/' + upcomingYear + '/' + upcoming)
         .then(response => {
             this.setState({
-                upcomingBangumi: response.data.anime,
+                upcomingBangumi: response.data.anime.slice(0, 20),
             })
         }).catch(err => {
             alert(err);
@@ -66,7 +65,7 @@ class UpcomingBangumi extends Component {
     }
 
     upcomingViewMore() {
-        this.props.history.push('/bangumi/' + this.state.upcomingYear + '/' + this.state.season);
+        this.props.history.push('/newbangumi');
     }
 
     toDetailPage(bangumi) {
@@ -96,8 +95,8 @@ class UpcomingBangumi extends Component {
                 background: 'white',
             }
             let imgStyle = {
-                width: '160px',
-                height: '200px',
+                width: '170px',
+                height: '210px',
             }
             return(
                 <Label onClick ={this.toDetailPage.bind(this, bangumi)} style = {labelStyle}>
@@ -107,8 +106,8 @@ class UpcomingBangumi extends Component {
             )
         })
         return(
-            <div>
-                <h2 className = {title}>{this.state.year}年{this.state.month}月新番</h2>
+            <div style = {{marginTop: '20px'}}>
+                <h2>{this.state.upcomingYear}年{this.state.upcomingMonth}月新番</h2>
                 <div className = {bangumiStyle}>
                         {upcomingList}
                 </div>

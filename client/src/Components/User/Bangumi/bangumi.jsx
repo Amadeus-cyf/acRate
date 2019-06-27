@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import axios from 'axios';
 import {connect} from 'react-redux';
 import {Label, Button, Image, Form, Input} from 'semantic-ui-react';
 import Navibar from '../../Home/MainMenu/Navibar/navibar.jsx';
@@ -17,8 +16,6 @@ class Bangumi extends Component {
     constructor() {
         super();
         this.state = {
-            user: 'undefined',
-            currentUser: 'undefined',
             bangumiList: [],
             currentBangumi: [],
             pageNumber: 1,
@@ -31,28 +28,7 @@ class Bangumi extends Component {
     }
 
     componentDidMount() {
-        /*axios.get('api/user/' + this.props.match.params.user_id)
-        .then(response => {
-            this.setState({
-                user: response.data.data.user,
-                bangumiList: response.data.data.user.scoreAnime,
-                currentBangumi: response.data.data.user.scoreAnime.slice(0, 15),
-            })
-            let bangumiList = response.data.data.user.scoreAnime;
-            if (bangumiList.length % 15) {
-                this.setState({
-                    pageNumber: (bangumiList.length - bangumiList.length % 15)/15 + 1,
-                })
-            } else {
-                this.setState({
-                    pageNumber: bangumiList.length / 15,
-                })
-            }
-        }).catch(err => {
-            alert(err);
-        })*/
         this.setState({
-            user: this.props.user,
             bangumiList: this.props.user.scoreAnime,
             currentBangumi: this.props.user.scoreAnime.slice(0, 15),
         })
@@ -69,21 +45,25 @@ class Bangumi extends Component {
     }
 
     toDetail(bangumi) {
+        if (this.props.user !== 'undefined') {
+            this.props.clearUser();
+        }
         this.props.history.push('/detail/' + bangumi.anime_id);
     }
 
     pageHandler(event) {
+        let currentPage = this.state.currentPage;
         for (let i = 0; i < event.target.value.length; i++) {
             if (isNaN(parseInt(event.target.value[i]))) {
                 this.setState({
-                    inputPage: '',
+                    inputPage: currentPage,
                 });
                 return;
             }
         }
         if (event.target.value > this.state.pageNumber || event.target.value < 1) {
             this.setState({
-                inputPage: '',
+                inputPage: currentPage,
             });
             return;
         }
@@ -129,7 +109,7 @@ class Bangumi extends Component {
     }
 
     render() {
-        if (this.state.user === 'undefined') {
+        if (this.props.user === 'undefined') {
             let pageStyle = {
                 display: 'block',
                 margin: '10px auto',
@@ -139,8 +119,8 @@ class Bangumi extends Component {
             return (
                 <div>
                     <Navibar/>
-                    <AvatarSection user = {this.state.user} currentUser = {this.props.currentUser}/>
-                    <Subnavibar user = {this.state.user}current = 'bangumi'/>
+                    <AvatarSection/>
+                    <Subnavibar user = {this.props.user} current = 'bangumi'/>
                     <Label style = {pageStyle}>
                         <div>
                             <Image className = {imageStyle} src={loadingGif} alt = 'loading'/>
@@ -161,8 +141,8 @@ class Bangumi extends Component {
             marginLeft: '20px'
         }
         let imgStyle = {
-            width: '130px',
-            height: '170px',
+            width: '140px',
+            height: '180px',
         }
         let bangumiList = this.state.bangumiList.map(bangumi => {
             return (
@@ -206,21 +186,24 @@ class Bangumi extends Component {
         return (
             <div>
                 <Navibar/>
-                <AvatarSection user = {this.state.user} currentUser = {this.props.currentUser}
-                history = {this.props.history}/>
-                <Subnavibar user = {this.state.user} current = 'bangumi'/>
+                <AvatarSection/>
+                <Subnavibar user = {this.props.user} current = 'bangumi'/>
                 <Label style = {{background: 'white',  display: 'block', margin: '10px auto',
                 width: '85%', height: 'auto'}}>
                     <div className = {bangumiSection}>
                         {bangumiList}
                     </div>
                     <div className ={numberlistStyle}>
-                        <Button size = 'small' color = 'blue' onClick = {this.toPage.bind(this, 1)}>Page</Button>
-                        <Button size = 'small' basic color = 'blue' style = {previousStyle} onClick = {this.toPrevious}>Prev</Button>
+                        <Button size = 'small' color = 'blue' 
+                        onClick = {this.toPage.bind(this, 1)}>Page</Button>
+                        <Button size = 'small' basic color = 'blue' style = {previousStyle} 
+                        onClick = {this.toPrevious}>Prev</Button>
                         {pageList}
-                        <Button basic color = 'blue' style = {nextStyle} onClick = {this.toNext}>Next</Button>
+                        <Button basic color = 'blue' style = {nextStyle} 
+                        onClick = {this.toNext}>Next</Button>
                         <Form onSubmit = {this.toPage.bind(this, this.state.inputPage)}>
-                            <Input size = 'small' placeholder = 'Enter page number'onChange = {this.pageHandler}></Input>
+                            <Input size = 'small' placeholder = 'Enter page number'
+                            onChange = {this.pageHandler}></Input>
                         </Form>
                     </div>
                 </Label>
@@ -236,6 +219,5 @@ const mapStateToProps = state => {
         user: state.user
     }
 }
-
 
 export default connect(mapStateToProps)(Bangumi);

@@ -1,7 +1,10 @@
 // function used to get the highest total score for recommendation 
-function mapping(userList, map) {
+function mapping(userList, map, id) {
     userList.forEach(user => {
         user.scoreAnime.forEach(anime => {
+            if (anime.anime_id === id.toString()) {
+                return;
+            }
             if(map[anime.anime_id]) {
                 map[anime.anime_id].score += anime.score;
             } else {

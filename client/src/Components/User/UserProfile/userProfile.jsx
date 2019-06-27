@@ -12,14 +12,6 @@ from '../../Home/SeasonBangumi/seasonBangumi.module.scss';
 import loadingGif from '../../searchloading.gif';
 
 class UserProfile extends Component {
-    constructor() {
-        super();
-    }
-
-    componentDidMount() {
-        this.props.setUser(this.props.match.params.user_id);
-    }
-
     render() {
         if (this.props.user === 'undefined') {
             let pageStyle = {
@@ -44,15 +36,10 @@ class UserProfile extends Component {
                 </div>
             )
         }
-        let follow = 'follow'
-        if (this.props.currentUser.following.includes(this.props.user._id)) {
-            follow = 'following';
-        }
         return (
             <div>
                 <Navibar/>
-                <AvatarSection user = {this.props.user} currentUser = {this.props.currentUser}
-                isFollow = {follow}/>
+                <AvatarSection/>
                 <Subnavibar user = {this.props.user} current = 'home'/>
                 <div style = {{display: 'flex', justifyContent: 'center', marginTop: '20px'}}>
                     <ScoreBangumi/>
@@ -69,6 +56,5 @@ const mapStateToProps = state => {
         user: state.user
     }
 }
-
 
 export default connect(mapStateToProps, {setUser, clearUser})(UserProfile);

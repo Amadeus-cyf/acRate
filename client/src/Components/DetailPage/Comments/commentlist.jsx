@@ -164,7 +164,8 @@ class Commentlist extends Component {
 
     render() {
         if (this.state.scoreInfo === 'undefined' || this.state.currentComments === 'undefined') {
-            return <p style = {{'font-size': '14pt', 'text-align': 'center'}}>Fetching/Submitting comments...</p>
+            return <p style = {{fontSize: '14pt', textAlign: 'center', paddingBottom: '10%'}}>
+            Fetching/Submitting comments...</p>
         }
         if (this.state.currentComments.length === 0) {
             return(
@@ -239,10 +240,13 @@ class Commentlist extends Component {
                     </List>
                     <Divider style = {{'margin-top': '30px'}}/>
                     <div className = {numberlistStyle}>
-                        <Button size = 'small' color = 'blue' onClick = {this.toPage.bind(this, 1)}>Page</Button>
-                        <Button size = 'small' basic color = 'blue' style = {previousStyle} onClick = {this.toPrevious}>Prev</Button>
+                        <Button size = 'small' color = 'blue' 
+                        onClick = {this.toPage.bind(this, 1)}>Page</Button>
+                        <Button size = 'small' basic color = 'blue' 
+                        style = {previousStyle} onClick = {this.toPrevious}>Prev</Button>
                         {pageList}
-                        <Button size = 'small' basic color = 'blue' style = {nextStyle} onClick = {this.toNext}>Next</Button>
+                        <Button size = 'small' basic color = 'blue' 
+                        style = {nextStyle} onClick = {this.toNext}>Next</Button>
                     </div>
                 </div>
                 <div className = {footerStyle}>

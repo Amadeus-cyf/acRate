@@ -8,6 +8,8 @@ class Subnavibar extends Component {
         super();
         this.toHome = this.toHome.bind(this);
         this.toScore = this.toScore.bind(this);
+        this.toFollowing = this.toFollowing.bind(this);
+        this.toFollower = this.toFollower.bind(this);
     }
 
     toHome() {
@@ -19,6 +21,18 @@ class Subnavibar extends Component {
     toScore() {
         if (this.props.user._id) {
             this.props.history.push('/user/scoreBangumi/' +  this.props.user._id);
+        }
+    }
+
+    toFollowing() {
+        if (this.props.user._id) {
+            this.props.history.push('/user/following/' + this.props.user._id);
+        }
+    }
+
+    toFollower() {
+        if (this.props.user._id) {
+            this.props.history.push('/user/follower/' + this.props.user._id);
         }
     }
 
@@ -38,6 +52,16 @@ class Subnavibar extends Component {
                         name='Scored Bangumi'
                         active = {this.props.current === 'bangumi'}
                         onClick = {this.toScore}
+                    />
+                    <Menu.Item style = {fontStyle}
+                        name = {'Following' + this.props.user.following.length}
+                        active = {this.props.current === 'following'}
+                        onClick = {this.toFollowing}
+                    />
+                     <Menu.Item style = {fontStyle}
+                        name = {'Follower' + this.props.user.follower.length}
+                        active = {this.props.current === 'follower'}
+                        onClick = {this.toFollowing}
                     />
                 </Menu>
             </div>

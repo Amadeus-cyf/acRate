@@ -33,7 +33,7 @@ class Recommend extends Component {
         })
         let bangumiScore = bangumi.data.data.bangumiScore;
         // there are user logged in
-        if (this.props.currentUser) {
+        if (this.props.currentUser !== 'undefined') {
             let score = 5;
             let isScored = false;
             for (let i = 5; i > 0; i--) {
@@ -67,7 +67,7 @@ class Recommend extends Component {
             })
             // find all high score bangumi of those users
             let map = {}
-            let bangumiList = mapping(userList, map);
+            let bangumiList = mapping(userList, map, this.props.bangumi.mal_id);
             this.setState({
                 bangumiList: bangumiList,
             })
@@ -94,7 +94,7 @@ class Recommend extends Component {
             })
             // find all high score bangumi of those users
             let map = {}
-            let bangumiList = mapping(userList, map);
+            let bangumiList = mapping(userList, map, this.props.bangumi.mal_id);
             this.setState({
                 bangumiList: bangumiList,
             })
@@ -106,7 +106,6 @@ class Recommend extends Component {
         window.location.reload();
     }
   
-
     render() {
         if (this.state.bangumiList.length === 0) {
             return (
@@ -125,12 +124,12 @@ class Recommend extends Component {
         }
         let labelStyle = {
             background: 'white',
-            width: '200px',
+            width: '190px',
             height: 'auto',
         }
         let imageStyle = {
-            width: '180px',
-            height: '240px',
+            width: '170px',
+            height: '210px',
         }
         let bangumiList = this.state.bangumiList.map(bangumi => {
             return (
