@@ -42,7 +42,7 @@ class UserProfile extends Component {
                 <Navibar/>
                 <AvatarSection/>
                 <Subnavibar user = {this.props.user} current = 'home'/>
-                <div style = {{display: 'flex', flexWrap: 'wrap', justifyContent: 'center', 
+                <div style = {{display: 'flex', justifyContent: 'center', 
                 marginTop: '20px'}}>
                     <ScoreBangumi/>
                     <div style = {{width: '22%', marginLeft: '1%'}}>
