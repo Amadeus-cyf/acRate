@@ -93,12 +93,12 @@ class PastBangumi extends Component {
         let pastBangumi = this.state.pastBangumi;
         let pastList = pastBangumi.map(bangumi => {
             let labelStyle = {
-                width: '210px',
+                width: '200px',
                 height: 'auto',
                 background: 'white',
             }
             let imgStyle = {
-                width: '170px',
+                width: '160px',
                 height: '200px',
             }
             return(

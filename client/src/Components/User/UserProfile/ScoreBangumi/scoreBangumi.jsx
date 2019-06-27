@@ -38,10 +38,12 @@ class  ScoreBangumi extends Component {
         }
         let labelStyle = {
             background: 'white',
-            width: '350px',
             height: 'auto',
+            width: '350px',
             display: 'flex',
+            flexWrap: 'wrap',
             marginTop: '10px',
+            overflow: 'hidden',
         }
         let imageStyle = {
             width: '140px',
@@ -67,7 +69,7 @@ class  ScoreBangumi extends Component {
         })
         return (
             <Label style = {{background: 'white',
-             width: '58%', height: 'auto'}}>
+            width: '57%', height: 'auto'}}>
                 <h3 className = {titleStyle}>
                     Scored Bangumi 
                     <Button style = {viewMoreStyle} onClick = {this.viewMore} size = 'tiny' 

@@ -106,10 +106,10 @@ class Navibar extends Component {
         if (this.props.user !== 'undefined') {
             this.props.clearUser();
         }
-        this.props.setUser(this.props.currentUser._id);
         if (this.props.currentUser === 'undefined') {
             this.props.history.push('/login');
         } else {
+            this.props.setUser(this.props.currentUser._id);
             this.props.history.push('/user/userProfile/' + this.props.currentUser._id);
         }
     }

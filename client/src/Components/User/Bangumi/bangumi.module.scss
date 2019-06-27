@@ -1,12 +1,18 @@
 .numberlistStyle {
-    margin: 2% 2% 1% 5%;
+    margin: 2% 2% 1% 7%;
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
 }
 
+.title {
+    font-family: 'PT Sans Caption', sans-serif;
+    margin-left: 2%;
+    padding-top: 1%;
+}
+
 .bangumiSection {
-    margin: 1% 2% 1% 2%;
+    margin: 1% 0% 1% 5%;
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;

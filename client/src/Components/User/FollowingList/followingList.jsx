@@ -1,16 +1,15 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import {connect} from 'react-redux';
-import {setUser, clearUser} from '../../../store/action.js';
-import {Label, Image, Button, List, Divider} from 'semantic-ui-react';
 import Navibar from '../../Home/MainMenu/Navibar/navibar.jsx';
+import {Label, Image, List, Divider} from 'semantic-ui-react';
+import {connect} from 'react-redux';
 import AvatarSection from '../AvatarSection/avatarSection.jsx';
 import Subnavibar from '../Subnavibar/subnavibar.jsx';
-import {imageStyle, textStyle} 
-from '../../Home/SeasonBangumi/seasonBangumi.module.scss';
+import Following from './Following/following.jsx';
+import {imageStyle, textStyle} from '../../Home/SeasonBangumi/seasonBangumi.module.scss';
 import loadingGif from '../../searchloading.gif';
 
-class Following extends Component {
+class FollowingList extends Component {
     constructor() {
         super();
         this.state = {
@@ -66,20 +65,12 @@ class Following extends Component {
         })
     }
 
-    toProfile(user) {
-        if (this.props.user !== 'undefined') {
-            this.props.clearUser();
-        }
-        this.props.setUser(user.user_id);
-        this.props.history.push('/user/userProfile/' + user.user_id)
-    }
-
     render() {
         if (this.state.user === 'undefined' || this.state.followingList === 'undefined') {
             let pageStyle = {
                 display: 'block',
                 margin: '10px auto',
-                width: '85%',
+                width: '80%',
                 background: 'white',
             }
             return (
@@ -101,7 +92,7 @@ class Following extends Component {
         let labelStyle = {
             display: 'block',
             margin: '10px auto',
-            width: '85%',
+            width: '75%',
             height: 'auto',
             background: 'white',
             textAlign: 'center',
@@ -120,28 +111,9 @@ class Following extends Component {
                 </div>
             )
         }
-        let buttonStyle = {
-            position: 'absolute',
-            right: '100px',
-            marginTop: '20px',
-        }
         let followinglist = this.state.followingList.map(user => {
-            return(
-                <List.Item style = {{position: 'relative'}}> 
-                    <Divider/> 
-                    <Image onClick = {this.toProfile.bind(this, user)}
-                    style = {{transform: 'scale(1.7)', margin: '20px 10px 20px 60px'}} 
-                    avatar src = {user.avatar}/>
-                    <List.Content style = {{fontSize: '14pt', marginLeft: '20px'}}> 
-                        <List.Header>    
-                            {user.username}
-                        </List.Header>
-                    </List.Content>
-                    <Button animated='fade' color = 'blue' size = 'small' style = {buttonStyle}>
-                        <Button.Content visible>Following</Button.Content>
-                        <Button.Content hidden>Unfollow</Button.Content>
-                    </Button>
-                </List.Item>
+            return (
+                <Following following = {user}/>
             )
         })
         return (
@@ -149,15 +121,15 @@ class Following extends Component {
                 <Navibar/>
                 <AvatarSection/>
                 <Subnavibar user = {this.props.user} current = 'following'/>
-                <List style = {{width: '85%', height: 'auto', background: 'white', display: 'block',
+                <List style = {{width: '80%', height: 'auto', background: 'white', display: 'block',
                 margin: '10px auto', paddingBottom: '5px'}}>
-                    <h2 style = {{marginLeft: '20px', paddingTop: '10px'}}>Following</h2>
+                    <h2 style = {{marginLeft: '2%', paddingTop: '2%'}}>Following</h2>
+                    <Divider style = {{margin: '0 5% 0 5%'}}/>
                     {followinglist}
-                    <Divider/>
                 </List>
             </div>
         )
-    } 
+    }
 }
 
 const mapStateToProps = state => {
@@ -167,4 +139,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, {setUser, clearUser})(Following);
+export default connect(mapStateToProps)(FollowingList);

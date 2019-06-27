@@ -5,11 +5,11 @@ import {connect} from 'react-redux';
 import {setUser, clearUser} from '../../../../store/action.js';
 import {Label, Image, Button} from 'semantic-ui-react';
 
-class FollowList extends Component {
+class FollowerSection extends Component {
     constructor() {
         super();
         this.state = {
-            following: 'undefined',
+            follower: 'undefined',
         }
     }
 
@@ -24,13 +24,13 @@ class FollowList extends Component {
         if (this.props.user === 'undefined') {
             return;
         }
-        if (this.props.user.following.length) {
-            let followings = [];
-            for (let i = 0; i < Math.min(this.props.user.following.length, 3); i++) {
-                followings.push(axios.get('api/user/' + this.props.user.following[i]));
+        if (this.props.user.follower.length) {
+            let followers = [];
+            for (let i = 0; i < Math.min(this.props.user.follower.length, 3); i++) {
+                followers.push(axios.get('api/user/' + this.props.user.follower[i]));
             }
-            let followinglist = [];
-            axios.all(followings)
+            let followerlist = [];
+            axios.all(followers)
             .then(response => {
                 response.forEach(res => {
                     if (res.data.data.user.avatar) {
@@ -41,23 +41,23 @@ class FollowList extends Component {
                             username: res.data.data.user.username,
                             avatar: base64Flag + avatarStr,
                         }
-                        followinglist.push(user);
+                        followerlist.push(user);
                     } else {
                         let user = {
                             user_id: res.data.data.user._id,
                             username: res.data.data.user.username,
                             avatar: 'https://react.semantic-ui.com/images/avatar/small/daniel.jpg',
                         }
-                        followinglist.push(user);
+                        followerlist.push(user);
                     }
                 })
                 this.setState({
-                    following: followinglist,
+                    follower: followerlist,
                 })
             })
         } else {
             this.setState({
-                following: [],
+                follower: [],
             })
         }
     }
@@ -72,25 +72,25 @@ class FollowList extends Component {
 
     render() {
         let labelStyle = {
-            width: '25%',
-            height: '200px',
-            marginLeft: '2%',
+            width: '100%',
+            height: '250px',
+            marginTop: '20px',
             background: 'white',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
         }
-        if (this.state.following === 'undefined') {
+        if (this.state.follower === 'undefined') {
             return (
                 <Label style = {labelStyle}>
                     <h2 style = {{color: 'rgba(100, 100, 100, 0.6)'}}>Loading...</h2>
                 </Label>
             )
         }
-        if(this.state.following.length === 0) {
+        if(this.state.follower.length === 0) {
             return (
                 <Label style = {labelStyle}>
-                    <h2 style = {{color: 'rgba(100, 100, 100, 0.6)'}}>No following</h2>
+                    <h2 style = {{color: 'rgba(100, 100, 100, 0.6)'}}>No follower</h2>
                 </Label>
             )
         }
@@ -98,7 +98,7 @@ class FollowList extends Component {
             background: 'white',
             margin: '5px 20px 5px 20px',
         }
-        let followingList = this.state.following.map(user => {
+        let followerList = this.state.follower.map(user => {
             return(
                 <Label style = {followStyle}>       
                     <Image onClick = {this.toProfile.bind(this, user)}
@@ -110,17 +110,18 @@ class FollowList extends Component {
         })
         let viewMoreStyle = {
             position: 'absolute',
-            right: '20px',
+            right: '2%',
+            bottom: '20px',
         }
         return (
-            <Label style = {{background: 'white', width: '25%', position: 'relative',
-            height: '200px', marginLeft: '2%',}}>
+            <Label style = {{background: 'white',  position: 'relative', width: '100%',
+            height: '200px', marginTop: '20px'}}>
                 <h3 style = {{padding: '15px'}}>
-                    Following
+                    Follower
                     <Button style = {viewMoreStyle} color = 'blue' size = 'tiny'>View more</Button>
                 </h3>
                 <div style = {{marginLeft: '20px', marginRight: '20px'}}>
-                    {followingList}
+                    {followerList}
                 </div>
             </Label>
         )
@@ -133,4 +134,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, {setUser, clearUser})(withRouter(FollowList));
+export default connect(mapStateToProps, {setUser, clearUser})(withRouter(FollowerSection));

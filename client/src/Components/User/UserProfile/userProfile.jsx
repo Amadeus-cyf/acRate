@@ -5,7 +5,8 @@ import {Image, Label} from 'semantic-ui-react';
 import AvatarSection from '../AvatarSection/avatarSection.jsx';
 import Navibar from '../../Home/MainMenu/Navibar/navibar.jsx';
 import ScoreBangumi from './ScoreBangumi/scoreBangumi.jsx';
-import FollowList from './FollowList/followlist.jsx';
+import FollowingSection from './FollowingSection/followingSection.jsx';
+import FollowerSection from './FollowerSection/followerSection.jsx';
 import Subnavibar from '../Subnavibar/subnavibar.jsx';
 import {imageStyle, textStyle} 
 from '../../Home/SeasonBangumi/seasonBangumi.module.scss';
@@ -41,9 +42,13 @@ class UserProfile extends Component {
                 <Navibar/>
                 <AvatarSection/>
                 <Subnavibar user = {this.props.user} current = 'home'/>
-                <div style = {{display: 'flex', justifyContent: 'center', marginTop: '20px'}}>
+                <div style = {{display: 'flex', flexWrap: 'wrap', justifyContent: 'center', 
+                marginTop: '20px'}}>
                     <ScoreBangumi/>
-                    <FollowList/>
+                    <div style = {{width: '22%', marginLeft: '1%'}}>
+                        <FollowingSection/>
+                        <FollowerSection/>
+                    </div>
                 </div>
             </div>
         )

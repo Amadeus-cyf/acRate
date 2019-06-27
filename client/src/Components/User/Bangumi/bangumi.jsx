@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {clearUser} from '../../../store/action.js';
 import {Label, Button, Image, Form, Input} from 'semantic-ui-react';
 import Navibar from '../../Home/MainMenu/Navibar/navibar.jsx';
 import AvatarSection from '../AvatarSection/avatarSection.jsx';
@@ -8,7 +9,7 @@ import {imageStyle, textStyle}
 from '../../Home/SeasonBangumi/seasonBangumi.module.scss';
 import loadingGif from '../../searchloading.gif';
 import NoneditStarRating from '../../DetailPage/Information/Score/noneditRating.jsx';
-import {bangumiSection, numberlistStyle, hoverStyle,
+import {bangumiSection, title, numberlistStyle, hoverStyle,
 textSection} from './bangumi.module.scss';
 import paging from '../../Home/paging.jsx';
 
@@ -113,7 +114,7 @@ class Bangumi extends Component {
             let pageStyle = {
                 display: 'block',
                 margin: '10px auto',
-                width: '85%',
+                width: '80%',
                 background: 'white',
             }
             return (
@@ -134,11 +135,11 @@ class Bangumi extends Component {
         }
         let labelStyle = {
             background: 'white',
-            width: '320px',
+            width: '350px',
             height: 'auto',
             display: 'flex',
             marginTop: '20px',
-            marginLeft: '20px'
+            marginLeft: '20px',
         }
         let imgStyle = {
             width: '140px',
@@ -189,7 +190,8 @@ class Bangumi extends Component {
                 <AvatarSection/>
                 <Subnavibar user = {this.props.user} current = 'bangumi'/>
                 <Label style = {{background: 'white',  display: 'block', margin: '10px auto',
-                width: '85%', height: 'auto'}}>
+                width: '80%', height: 'auto'}}>
+                    <h2 className = {title}>Scored Bangumi</h2>
                     <div className = {bangumiSection}>
                         {bangumiList}
                     </div>
@@ -220,4 +222,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(Bangumi);
+export default connect(mapStateToProps, {clearUser})(Bangumi);

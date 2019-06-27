@@ -18,6 +18,9 @@ class AvatarSection extends Component {
     }
 
     componentDidMount() {
+        if (this.props.currentUser === 'undefined') {
+            return;
+        }
         if (this.props.currentUser.following.includes(this.props.user._id)) {
             this.setState({
                 status: 'following',
@@ -122,7 +125,7 @@ class AvatarSection extends Component {
             position: 'relative',
             display: 'block',
             margin: '0 auto',
-            width: '85%',
+            width: '80%',
             height: '350px',
             backgroundImage: 'url(' + background + ')',
         }

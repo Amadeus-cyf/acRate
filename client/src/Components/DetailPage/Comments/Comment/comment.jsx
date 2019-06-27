@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {connect} from 'react-redux';
+import {setUser} from '../../../../store/action.js';
 import {withRouter} from 'react-router-dom';
 import {List, Image, Button, Divider} from 'semantic-ui-react';
 import CommentBox from '../CommentBox/commentBox.jsx';
@@ -104,6 +106,7 @@ class Comment extends Component {
     }
 
     toProfile(user_id) {
+        this.props.setUser(user_id);
         this.props.history.push('/user/userprofile/' + user_id);
     }
 
@@ -213,4 +216,11 @@ class Comment extends Component {
     }
 }
 
-export default withRouter(Comment);
+const mapStateToProps = state => {
+    return {
+        currentUser: state.currentUser,
+        user: state.user,
+    }
+}
+
+export default connect(mapStateToProps, {setUser})(withRouter(Comment));

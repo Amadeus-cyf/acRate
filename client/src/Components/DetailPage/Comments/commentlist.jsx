@@ -197,8 +197,8 @@ class Commentlist extends Component {
                 }
             }
             return (
-                <Comment bangumi = {this.props.bangumi} currentUser = {this.props.currentUser}
-                comment = {comment} starDisplay = {starDisplay} score = {score}/>
+                <Comment bangumi = {this.props.bangumi} comment = {comment} 
+                starDisplay = {starDisplay} score = {score}/>
             )
         })
         let pageArr = [];

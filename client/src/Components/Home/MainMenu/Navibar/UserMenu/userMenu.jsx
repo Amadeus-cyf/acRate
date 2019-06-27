@@ -56,8 +56,10 @@ class UserMenu extends Component {
                 <Label style = {labelStyle}>
                     <p className = {textStyle}>{this.props.currentUser.username}</p>
                     <p className = {textStyle}>{this.props.currentUser.email}</p>
-                    <Button style = {buttonStyle} onClick = {this.props.logoutHandler} color = 'blue'>Log Out</Button>
-                    <Button style = {buttonStyle} onClick = {this.props.loginHandler} color = 'blue'>Switch Account</Button>
+                    <Button style = {buttonStyle} onClick = {this.props.logoutHandler} 
+                    color = 'blue'>Log Out</Button>
+                    <Button style = {buttonStyle} onClick = {this.props.loginHandler} 
+                    color = 'blue'>Switch Account</Button>
                 </Label>
             </div>
         )

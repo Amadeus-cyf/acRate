@@ -21,11 +21,12 @@
 .textSection {
     margin-left: 20px;
     font-size: 10pt;
+    white-space: normal;
+    width: 170px;
     p {
         margin-top: 20px;
         line-height: 1.2em;
     }
-
     h3 {
         margin-top: 5px;
         font-size: 12pt;
