@@ -33,8 +33,13 @@ class  ScoreBangumi extends Component {
     }
 
     render() {
-        if (this.state.scoreBangumi.length === []) {
-            return <p>Not score any bangumi yet</p>
+        if (this.state.scoreBangumi.length === 0) {
+            return (
+                <Label style = {{background: 'white', position: 'relative', display: 'flex',
+                justifyContent: 'center', alignItems: 'center', width: '57%', height: 'auto'}}>
+                     <h2  style = {{color: 'rgba(100, 100, 100, 0.6)'}}>No scored bangumi yet</h2>
+                </Label>
+            )
         }
         let labelStyle = {
             background: 'white',
@@ -42,8 +47,8 @@ class  ScoreBangumi extends Component {
             width: '350px',
             display: 'flex',
             flexWrap: 'wrap',
+            justifyContent: 'space-between',
             marginTop: '10px',
-            overflow: 'hidden',
         }
         let imageStyle = {
             width: '140px',
@@ -51,7 +56,8 @@ class  ScoreBangumi extends Component {
         }
         let viewMoreStyle = {
             position: 'absolute',
-            right: '20px',
+            right: '10px',
+            bottom: '10px',
         }
         let bangumiList = this.state.scoreBangumi.map(bangumi => {
             return (
@@ -68,16 +74,16 @@ class  ScoreBangumi extends Component {
             )
         })
         return (
-            <Label style = {{background: 'white',
+            <Label style = {{background: 'white', position: 'relative',
             width: '57%', height: 'auto'}}>
                 <h3 className = {titleStyle}>
                     Scored Bangumi 
-                    <Button style = {viewMoreStyle} onClick = {this.viewMore} size = 'tiny' 
-                    color = 'blue'>View more</Button>
                 </h3>
                 <div className = {bangumiSection}>
                     {bangumiList}
                 </div>
+                <Button style = {viewMoreStyle} onClick = {this.viewMore} size = 'tiny' 
+                color = 'blue'>View more</Button>
             </Label>
         )
     }

@@ -4,6 +4,7 @@ import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {setUser, clearUser} from '../../../../store/action.js';
 import {Label, Image, Button} from 'semantic-ui-react';
+import {hoverPart, avatarStyle} from './followingSection.module.scss';
 
 class FollowingSection extends Component {
     constructor() {
@@ -11,6 +12,7 @@ class FollowingSection extends Component {
         this.state = {
             following: 'undefined',
         }
+        this.viewMore = this.viewMore.bind(this);
     }
 
     arrayBufferToBase64(buffer) {
@@ -69,6 +71,10 @@ class FollowingSection extends Component {
         this.props.setUser(user.user_id);
         this.props.history.push('/user/userProfile/' + user.user_id)
     }
+    
+    viewMore() {
+        this.props.history.push('/user/following/' + this.props.user._id);
+    }
 
     render() {
         let labelStyle = {
@@ -95,12 +101,13 @@ class FollowingSection extends Component {
         }
         let followStyle = {
             background: 'white',
-            margin: '5px 20px 5px 20px',
+            marginTop: '10px',
+            textAlign: 'center',
         }
         let followingList = this.state.following.map(user => {
             return(
                 <Label style = {followStyle}>       
-                    <Image onClick = {this.toProfile.bind(this, user)}
+                    <Image className = {hoverPart} onClick = {this.toProfile.bind(this, user)}
                     style = {{transform: 'scale(2)', marginRight: '10px'}} 
                     avatar src = {user.avatar}></Image>
                     <h3> {user.username} </h3>
@@ -109,18 +116,19 @@ class FollowingSection extends Component {
         })
         let viewMoreStyle = {
             position: 'absolute',
-            right: '2%',
-            bottom: '20px',
+            right: '5px',
+            bottom: '5px',
         }
         return (
-            <Label style = {{background: 'white', position: 'relative', height: '250px', width: '100%'}}>
-                <h3 style = {{padding: '15px'}}>
+            <Label style = {{background: 'white', position: 'relative', height: 'auto', width: '100%'}}>
+                <h3 style = {{margin: '10px'}}>
                     Following
-                    <Button style = {viewMoreStyle} color = 'blue' size = 'tiny'>View more</Button>
                 </h3>
-                <div style = {{marginLeft: '20px', marginRight: '20px'}}>
+                <div className = {avatarStyle}>
                     {followingList}
                 </div>
+                <Button onClick = {this.viewMore} style = {viewMoreStyle} 
+                color = 'blue' size = 'tiny'>View more</Button>
             </Label>
         )
     }

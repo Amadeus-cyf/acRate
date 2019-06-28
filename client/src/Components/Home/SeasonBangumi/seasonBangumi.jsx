@@ -157,17 +157,18 @@ class SeasonBangumi extends Component {
     }
 
     pageHandler(event) {
+        let currentPage = this.state.currentPage;
         for (let i = 0; i < event.target.value.length; i++) {
             if (isNaN(parseInt(event.target.value[i]))) {
                 this.setState({
-                    inputPage: '',
+                    inputPage: currentPage,
                 });
                 return;
             }
         }
         if (event.target.value > this.state.pageNumber || event.target.value < 1) {
             this.setState({
-                inputPage: '',
+                inputPage: currentPage,
             });
             return;
         }
@@ -319,11 +320,6 @@ class SeasonBangumi extends Component {
             <div>
                 <MainMenu current = 'season'/>
                 <div className = {pageStyle}>
-                    <div className = {selectStyle}>
-                        <Select className = {selectCss} placeholder="Select a Year" onChange = {this.yearHandler} options={this.state.yearOptions}/>
-                        <Select placeholder='Select a Season' className = {selectCss} onChange = {this.seasonHandler} options={this.state.seasonOptions}/>
-                        <Button onClick = {this.submitHandler} color = 'blue'>Select</Button>
-                    </div>
                     <div className = {bangumiSection}>
                         <h3>{this.state.displayYear}年</h3>
                         <h3 style = {titleStyle}>{this.state.month}月</h3>
@@ -332,13 +328,23 @@ class SeasonBangumi extends Component {
                         </div>
                         <div className = {numberlistStyle}>
                             <Button color = 'blue' onClick = {this.toPage.bind(this, 1)}>Page</Button>
-                            <Button basic color = 'blue' style = {previousStyle} onClick = {this.toPrevious}>Prev</Button>
+                            <Button basic color = 'blue' style = {previousStyle} 
+                            onClick = {this.toPrevious}>Prev</Button>
                             {pageList}
-                            <Button basic color = 'blue' style = {nextStyle} onClick = {this.toNext}>Next</Button>
+                            <Button basic color = 'blue' style = {nextStyle} 
+                            onClick = {this.toNext}>Next</Button>
                             <Form onSubmit = {this.toPage.bind(this, this.state.inputPage)}>
-                                <Input style = {{'width': '150px'}} placeholder = 'Enter page number'onChange = {this.pageHandler}></Input>
+                                <Input style = {{'width': '150px'}} placeholder = 'Enter page number'
+                                onChange = {this.pageHandler}></Input>
                             </Form>
                         </div>
+                    </div>
+                    <div className = {selectStyle}>
+                        <Select className = {selectCss} placeholder="Select a Year" 
+                        onChange = {this.yearHandler} options={this.state.yearOptions}/>
+                        <Select placeholder='Select a Season' className = {selectCss} 
+                        onChange = {this.seasonHandler} options={this.state.seasonOptions}/>
+                        <Button onClick = {this.submitHandler} color = 'blue'>Select</Button>
                     </div>
                 </div>
             </div>

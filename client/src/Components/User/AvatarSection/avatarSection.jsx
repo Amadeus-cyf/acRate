@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {setCurrentUser} from '../../../store/action.js';
+import {setCurrentUser, setUser} from '../../../store/action.js';
 import axios from 'axios';
 import {Image, Button, Label} from  'semantic-ui-react';
 import {hoverStyle, labelStyle} from './avatarSection.module.scss';
@@ -60,6 +60,7 @@ class AvatarSection extends Component {
                 }
             }).then(() => {
                 this.props.setCurrentUser();
+                this.props.setUser(this.props.user._id);
             })
             .catch(err => {
                 alert(err);
@@ -78,6 +79,7 @@ class AvatarSection extends Component {
                 }
             }).then(() => {
                 this.props.setCurrentUser();
+                this.props.setUser(this.props.user._id);
             })
             .catch(err => {
                 alert(err);
@@ -175,4 +177,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, {setCurrentUser})(withRouter(AvatarSection));
+export default connect(mapStateToProps, {setCurrentUser, setUser})(withRouter(AvatarSection));

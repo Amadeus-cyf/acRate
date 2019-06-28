@@ -110,7 +110,7 @@ class Recommend extends Component {
         if (this.state.bangumiList.length === 0) {
             return (
                 <div>
-                    <h2 style = {{marginLeft: '8%'}}>Recommendation</h2>
+                    <h2 style = {{marginLeft: '10%'}}>Recommendation</h2>
                     <div className = {noRecommendStyle}>
                         <p>No recommendation yet</p>
                     </div>

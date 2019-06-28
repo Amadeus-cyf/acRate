@@ -1,19 +1,19 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import Navibar from '../../Home/MainMenu/Navibar/navibar.jsx';
 import {Label, Image, List, Divider} from 'semantic-ui-react';
 import {connect} from 'react-redux';
+import Navibar from '../../Home/MainMenu/Navibar/navibar.jsx';
 import AvatarSection from '../AvatarSection/avatarSection.jsx';
 import Subnavibar from '../Subnavibar/subnavibar.jsx';
-import Following from './Following/following.jsx';
+import Follower from './Follower/follower.jsx';
 import {imageStyle, textStyle} from '../../Home/SeasonBangumi/seasonBangumi.module.scss';
 import loadingGif from '../../searchloading.gif';
 
-class FollowingList extends Component {
+class FollowerList extends Component {
     constructor() {
         super();
         this.state = {
-            followingList: 'undefined',
+            followerList: 'undefined',
         }
     }
 
@@ -26,16 +26,16 @@ class FollowingList extends Component {
 
     componentDidMount() {
         let promises = [];
-        this.props.user.following.forEach((following_id) => {
-            promises.push(axios.get('api/user/' + following_id))
+        this.props.user.follower.forEach(follower_id => {
+            promises.push(axios.get('api/user/' + follower_id));
         })
-        let followinglist = [];
         if (promises.length === 0) {
             this.setState({
-                followingList: [],
+                followerList: [],
             })
             return;
         }
+        let followerlist = []
         axios.all(promises)
         .then(response => {
             response.forEach(res => {
@@ -47,18 +47,18 @@ class FollowingList extends Component {
                         username: res.data.data.user.username,
                         avatar: base64Flag + avatarStr,
                     }
-                    followinglist.push(user);
+                    followerlist.push(user);
                 } else {
                     let user = {
                         user_id: res.data.data.user._id,
                         username: res.data.data.user.username,
                         avatar: 'https://react.semantic-ui.com/images/avatar/small/daniel.jpg',
                     }
-                    followinglist.push(user);
+                    followerlist.push(user);
                 }
-                this.setState({
-                    followingList: followinglist,
-                })
+            })
+            this.setState({
+                followerList: followerlist,
             })
         }).catch(err => {
             alert(err);
@@ -66,7 +66,7 @@ class FollowingList extends Component {
     }
 
     render() {
-        if (this.props.user === 'undefined' || this.state.followingList === 'undefined') {
+        if (this.props.user === 'undefined' || this.state.followerList === 'undefined') {
             let pageStyle = {
                 display: 'block',
                 margin: '10px auto',
@@ -77,7 +77,7 @@ class FollowingList extends Component {
                 <div>
                     <Navibar/>
                     <AvatarSection/>
-                    <Subnavibar user = {this.props.user} current = 'following'/>
+                    <Subnavibar user = {this.props.user} current = 'follower'/>
                     <Label style = {pageStyle}>
                         <div>
                             <Image className = {imageStyle} src={loadingGif} alt = 'loading'/>
@@ -99,33 +99,33 @@ class FollowingList extends Component {
             paddingTop: '100px',
             paddingBottom: '100px',
         }
-        if (this.state.followingList.length === 0) {
+        if (this.state.followerList.length === 0) {
             return (
                 <div>       
                     <Navibar/>
                     <AvatarSection/>
-                    <Subnavibar user = {this.props.user} current = 'following'/>
+                    <Subnavibar user = {this.props.user} current = 'follower'/>
                     <Label style = {labelStyle}>
-                        <h2 style = {{color: 'rgba(100, 100, 100, 0.6)'}}>No following</h2>
+                        <h2 style = {{color: 'rgba(100, 100, 100, 0.6)'}}>No follower</h2>
                     </Label>
                 </div>
             )
         }
-        let followinglist = this.state.followingList.map(user => {
+        let followerlist = this.state.followerList.map(user => {
             return (
-                <Following following = {user}/>
+                <Follower follower = {user}/>
             )
         })
         return (
             <div>
                 <Navibar/>
                 <AvatarSection/>
-                <Subnavibar user = {this.props.user} current = 'following'/>
+                <Subnavibar user = {this.props.user} current = 'follower'/>
                 <List style = {{width: '80%', height: 'auto', background: 'white', display: 'block',
                 margin: '20px auto', paddingBottom: '5px'}}>
-                    <h2 style = {{marginLeft: '2%', paddingTop: '2%'}}>Following</h2>
+                    <h2 style = {{marginLeft: '2%', paddingTop: '2%'}}>Follower</h2>
                     <Divider style = {{margin: '0 5% 0 5%'}}/>
-                    {followinglist}
+                    {followerlist}
                 </List>
             </div>
         )
@@ -139,4 +139,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(FollowingList);
+export default connect(mapStateToProps)(FollowerList);

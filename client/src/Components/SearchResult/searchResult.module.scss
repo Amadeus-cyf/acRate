@@ -2,12 +2,19 @@
     margin-top: 20px;
     margin-left: 15%;
     margin-right: 15%;
-    margin-bottom: 50px
+    margin-bottom: 30px;
 }
 
 .titleStyle {
     font-size: 16pt;
     color: rgba(30, 144, 255, 1);
+}
+
+.noTitleStyle {
+    text-align: center;
+    font-size: 20pt;
+    font-family: 'PT Sans Caption', sans-serif; 
+    color: rgba(100, 100, 100, 0.6);
 }
 
 .titleStyle:hover {
@@ -33,11 +40,9 @@
 }
 
 .numberlistStyle {
-    padding-top: 10%;
-    padding-right: 10%;
-    padding-left: 5%;
+    margin-top: 20px;
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
     flex-wrap: wrap;
 }
 

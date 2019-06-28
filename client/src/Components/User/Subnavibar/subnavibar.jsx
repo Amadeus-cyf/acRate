@@ -61,7 +61,7 @@ class Subnavibar extends Component {
                      <Menu.Item style = {fontStyle}
                         name = {'Follower' + this.props.user.follower.length}
                         active = {this.props.current === 'follower'}
-                        onClick = {this.toFollowing}
+                        onClick = {this.toFollower}
                     />
                 </Menu>
             </div>

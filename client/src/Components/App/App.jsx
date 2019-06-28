@@ -15,6 +15,7 @@ import Logout from '../Logout/logout.jsx';
 import UserProfile from '../User/UserProfile/userProfile.jsx';
 import Bangumi from '../User/Bangumi/bangumi.jsx';
 import FollowingList from '../User/FollowingList/followingList.jsx';
+import FollowerList from '../User/FollowerList/followerList.jsx';
 import EditAvatar from '../User/EditAvatar/editAvatar.jsx';
 import EditBackground from '../User/EditBackground/editBackground.jsx';
 
@@ -38,6 +39,7 @@ class App extends Component {
             <Route exact path = '/user/userProfile/:user_id' component = {UserProfile}/>
             <Route exact path = '/user/scoreBangumi/:user_id' component = {Bangumi}/>
             <Route exact path = '/user/following/:user_id' component = {FollowingList}/>
+            <Route exact path = '/user/follower/:user_id' component = {FollowerList}/>
             <Route exact path = '/user/editAvatar' component = {EditAvatar}/>
             <Route exact path = '/user/editBackground' component = {EditBackground}/>
           </Switch>

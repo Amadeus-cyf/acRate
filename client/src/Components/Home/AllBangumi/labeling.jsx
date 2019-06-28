@@ -53,7 +53,7 @@ function labeling(bangumi, selectSort, toDetailPage, hoverPart, introStyle, scor
                     <span className = {scoreCss} style = {scoreStyle}>{rate}</span>
                 </div>
                 <p style = {dateStyle} className = {dateCss}>{year}{month}{day}</p>
-                <p className = {introStyle}>{bangumi.synopsis.slice(0, 150) + '...'}</p>
+                <p className = {introStyle}>{bangumi.synopsis.slice(0, 120) + '...'}</p>
             </div>
         </Label>
     )

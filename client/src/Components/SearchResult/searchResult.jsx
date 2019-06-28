@@ -6,7 +6,8 @@ import Searchbar from './Searchbar/searchbar.jsx';
 import {textStyle, imageStyle, pageContainer} from '../Home/SeasonBangumi/seasonBangumi.module.scss';
 import loadingGif from '../searchloading.gif';
 import {searchResultStyle, wordStyle, imageHoverStyle, titleStyle, 
-    numberlistStyle, headStyle, footerStyle} from './searchResult.module.scss';
+    numberlistStyle, headStyle, footerStyle, noTitleStyle} from './searchResult.module.scss';
+import notFoundImage from './404.jpg';
 
 class SearchResult extends Component {
     constructor() {
@@ -117,7 +118,15 @@ class SearchResult extends Component {
             )
         }
         if (this.state.result.length === 0) {
-            return <p>Not found</p>
+            return (
+                <div style = {{background: 'white', height: '100vh'}}>
+                    <Navibar/>
+                    <Searchbar/>
+                    <h2 className = {noTitleStyle}>No bangumi found</h2>
+                    <Image size = 'medium' style = {{display: 'block', 
+                    margin: '0 auto'}}src = {notFoundImage}/>
+                </div>
+            )
         }
         let currentBangumi = this.state.currentBangumi.sort((first, second) => {
             if (first.airing_start > second.airing_start) {
@@ -162,14 +171,16 @@ class SearchResult extends Component {
             let date = new Date(bangumi.airing_start);
             return (
                 <Label style = {labelStyle}>
-                    <Image onClick = {this.toDetailPage.bind(this, bangumi)} className = {imageHoverStyle} style = {imgStyle} src = {bangumi.image_url} alt = 'search result' rounded/>
+                    <Image onClick = {this.toDetailPage.bind(this, bangumi)} className = {imageHoverStyle} 
+                    style = {imgStyle} src = {bangumi.image_url} alt = 'search result' rounded/>
                     <div className = {wordStyle}>
                         <div style = {upperStyle}>
                             <p onClick = {this.toDetailPage.bind(this, bangumi)} className = {titleStyle}>
                                 {bangumi.title}
                             </p>
                             <div style = {scoreStyle}>
-                                <h2 style = {{'text-align': 'center', 'font-size': '24pt', 'color': 'rgba(255, 180, 0, 1)'}}>
+                                <h2 style = {{textAlign: 'center', 
+                                fontSize: '24pt', color: 'rgba(255, 180, 0, 1)'}}>
                                     {bangumi.score.toFixed(1)}
                                     <p style = {{'font-size': '10pt', color: 'rgba(100, 100, 100, 0.5)'}}>
                                         {bangumi.userNumber} users scored
@@ -217,11 +228,13 @@ class SearchResult extends Component {
         pageList = pageArr.map(page => {
             if (page === this.state.currentPage) {
                 return(
-                    <Button onClick = {this.toPage.bind(this, page)} size = 'small' color = 'blue'>{page}</Button>
+                    <Button onClick = {this.toPage.bind(this, page)} 
+                    size = 'small' color = 'blue'>{page}</Button>
                 )
             }
             return(
-                <Button onClick = {this.toPage.bind(this, page)} size = 'small' basic color = 'blue'>{page}</Button>
+                <Button onClick = {this.toPage.bind(this, page)} 
+                size = 'small' basic color = 'blue'>{page}</Button>
             )
         })
         let dividerStyle = {
@@ -234,19 +247,23 @@ class SearchResult extends Component {
                 <Navibar/>
                 <Searchbar/>
                 <Divider style = {dividerStyle}/>
-                    <div className = {searchResultStyle}>
-                        <h2 className = {headStyle}> {this.state.result.length} search result(s) for "{this.props.match.params.keyword}"</h2>
-                        {bangumiLabels}
-                        <div className = {numberlistStyle} style = {listStyle}>
-                            <Button color = 'blue' onClick = {this.toPage.bind(this, 1)}>Page</Button>
-                            <Button basic color = 'blue' style = {previousStyle} onClick = {this.toPrevious}>Prev</Button>
-                            {pageList}
-                            <Button basic color = 'blue' style = {nextStyle} onClick = {this.toNext}>Next</Button>
-                            <Form onSubmit = {this.toPage.bind(this, this.state.inputPage)}>
-                                <Input placeholder = 'Enter page number'onChange = {this.pageHandler}></Input>
-                            </Form>
-                        </div>
+                <div className = {searchResultStyle}>
+                    <h2 className = {headStyle}> {this.state.result.length} 
+                    search result(s) for "{this.props.match.params.keyword}"</h2>
+                    {bangumiLabels}
+                    <div className = {numberlistStyle} style = {listStyle}>
+                        <Button color = 'blue' onClick = {this.toPage.bind(this, 1)}>Page</Button>
+                        <Button basic color = 'blue' style = {previousStyle} 
+                        onClick = {this.toPrevious}>Prev</Button>
+                        {pageList}
+                        <Button basic color = 'blue' style = {nextStyle} 
+                        onClick = {this.toNext}>Next</Button>
+                        <Form onSubmit = {this.toPage.bind(this, this.state.inputPage)}>
+                            <Input placeholder = 'Enter page number' 
+                            onChange = {this.pageHandler}></Input>
+                        </Form>
                     </div>
+                </div>
                 <Divider style = {dividerStyle}/>
                 <div className = {footerStyle}>
                     <h2>Aniscore </h2>

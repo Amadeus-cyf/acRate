@@ -122,6 +122,9 @@ class AllBangumi extends Component {
     }
 
     toPage(pageNumber) {
+        if (pageNumber === '') {
+            return;
+        }
         this.setState({
             currentBangumi: [],
         })
@@ -240,14 +243,14 @@ class AllBangumi extends Component {
                     <MainMenu history = {this.props.history} current = 'bangumi'/>
                     <div className = {radioStyle}>
                         <span style = {{'margin-right': '50px'}}>
-                            <span style = {{'margin-right': '10px'}}>Sort by Date</span>
-                            <Radio slider onChange = {this.sortHandler}/>
                             <span style = {{'margin-left': '10px'}}>Sort by Rating</span>
+                            <Radio slider onChange = {this.sortHandler}/>
+                            <span style = {{'margin-right': '10px'}}>Sort by Date</span>
                         </span>
                         <span>
-                            <span style = {{'margin-right': '10px'}}>Descending</span>
-                            <Radio slider onChange = {this.orderHandler}/>
                             <span style = {{'margin-left': '10px'}}>Ascending</span>
+                            <Radio slider onChange = {this.orderHandler}/>
+                            <span style = {{'margin-right': '10px'}}>Descending</span>
                         </span>
                     </div>
                     <div className = {pageContainer}>
@@ -295,14 +298,14 @@ class AllBangumi extends Component {
                 <MainMenu history = {this.props.history} current = 'bangumi'/>
                 <div className = {radioStyle}>
                     <span style = {{'margin-right': '50px'}}>
-                        <span style = {{'margin-right': '10px'}}>Sort by Date</span>
-                        <Radio slider onChange = {this.sortHandler}/>
                         <span style = {{'margin-left': '10px'}}>Sort by Rating</span>
+                        <Radio slider onChange = {this.sortHandler}/>
+                        <span style = {{'margin-right': '10px'}}>Sort by Date</span>
                     </span>
                     <span>
-                        <span style = {{'margin-right': '10px'}}>Descending</span>
-                        <Radio slider onChange = {this.orderHandler}/>
                         <span style = {{'margin-left': '10px'}}>Ascending</span>
+                        <Radio slider onChange = {this.orderHandler}/>
+                        <span style = {{'margin-right': '10px'}}>Descending</span>
                     </span>
                 </div>
                 <div className = {pageStyle}>
@@ -311,11 +314,14 @@ class AllBangumi extends Component {
                     </div>
                     <div className ={numberlistStyle}>
                         <Button color = 'blue' onClick = {this.toPage.bind(this, 1)}>Page</Button>
-                        <Button basic color = 'blue' style = {previousStyle} onClick = {this.toPrevious}>Prev</Button>
+                        <Button basic color = 'blue' style = {previousStyle} 
+                        onClick = {this.toPrevious}>Prev</Button>
                         {pageList}
-                        <Button basic color = 'blue' style = {nextStyle} onClick = {this.toNext}>Next</Button>
+                        <Button basic color = 'blue' style = {nextStyle} 
+                        onClick = {this.toNext}>Next</Button>
                         <Form onSubmit = {this.toPage.bind(this, this.state.inputPage)}>
-                            <Input size = 'big' placeholder = 'Enter page number'onChange = {this.pageHandler}></Input>
+                            <Input size = 'big' placeholder = 'Enter page number'
+                            onChange = {this.pageHandler}></Input>
                         </Form>
                     </div>
                 </div>

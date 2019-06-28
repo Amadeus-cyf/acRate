@@ -6,7 +6,7 @@
 .radioStyle {
     background: white;
     margin: 0 auto;
-    padding: 1% 15% 0% 15%;
+    padding: 1% 10% 0% 10%;
     font-size: 12pt;
 }
 
@@ -23,9 +23,10 @@
 }
 
 .introStyle {
-    font-size: 11pt;
-    margin-top: 10px;
+    font-size: 10pt;
+    margin-top: 20px;
     color: rgba(120, 120, 120, 0.8);
+    line-height: 1.4em;
 }
 
 .scoreCss {
@@ -36,7 +37,7 @@
 }
 
 .dateCss {
-    font-size:11pt;
+    font-size: 11pt;
     color: rgba(100, 100, 100, 0.8);
 }
 

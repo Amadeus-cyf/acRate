@@ -17,7 +17,7 @@ class Bangumi extends Component {
     constructor() {
         super();
         this.state = {
-            bangumiList: [],
+            bangumiList: 'undefined',
             currentBangumi: [],
             pageNumber: 1,
             currentPage: 1,
@@ -53,18 +53,17 @@ class Bangumi extends Component {
     }
 
     pageHandler(event) {
-        let currentPage = this.state.currentPage;
         for (let i = 0; i < event.target.value.length; i++) {
             if (isNaN(parseInt(event.target.value[i]))) {
                 this.setState({
-                    inputPage: currentPage,
+                    inputPage: '',
                 });
                 return;
             }
         }
         if (event.target.value > this.state.pageNumber || event.target.value < 1) {
             this.setState({
-                inputPage: currentPage,
+                inputPage: '',
             });
             return;
         }
@@ -102,6 +101,9 @@ class Bangumi extends Component {
     }
 
     toPage(pageNumber) {
+        if (pageNumber === '') {
+            return;
+        }
         let currentBangumi = this.state.bangumiList.slice(15*(pageNumber-1), 15*pageNumber);
         this.setState({
             currentBangumi: currentBangumi,
@@ -110,7 +112,7 @@ class Bangumi extends Component {
     }
 
     render() {
-        if (this.props.user === 'undefined') {
+        if (this.props.user === 'undefined' || this.state.bangumiList === 'undefined') {
             let pageStyle = {
                 display: 'block',
                 margin: '10px auto',
@@ -129,6 +131,19 @@ class Bangumi extends Component {
                         <p className = {textStyle}>
                             Loading ... 
                         </p>
+                    </Label>
+                </div>
+            )
+        }
+        if (this.state.bangumiList.length === 0) {
+            return (
+                <div>
+                    <Navibar/>
+                    <AvatarSection/>
+                    <Subnavibar user = {this.props.user} current = 'bangumi'/>
+                    <Label style = {{width: '80%', height: 'auto', display: 'block', margin: '20px auto',
+                    textAlign: 'center', paddingTop: '100px', paddingBottom: '100px', background: 'white'}}>
+                        <h2  style = {{color: 'rgba(100, 100, 100, 0.6)'}}>No scored bangumi yet</h2>
                     </Label>
                 </div>
             )

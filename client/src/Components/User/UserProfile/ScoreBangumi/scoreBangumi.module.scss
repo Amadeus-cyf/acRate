@@ -3,15 +3,14 @@
 }
 
 .bangumiSection {
-    margin: 1% 1% 1% 6%;
+    margin: 1% 2% 1% 2%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: space-around;
 }
 
 .titleStyle {
-    position: relative;
-    padding: 2% 1% 0% 6%;
+    margin: 2% 2% 0% 2%;
 }
 
 .hoverStyle:hover{
@@ -19,7 +18,7 @@
 }
 
 .textSection {
-    margin-left: 20px;
+    margin-bottom: 20px;
     font-size: 10pt;
     white-space: normal;
     width: 170px;

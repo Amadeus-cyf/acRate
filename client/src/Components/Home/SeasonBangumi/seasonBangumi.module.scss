@@ -1,12 +1,16 @@
 .pageStyle {
     background: white;
+    display: flex;
 }
 
 .selectStyle {
-    padding-top: 1%;
-    padding-left: 13%;
+    height: 180px;
+    margin-top: 100px;
+    margin-right: 12%;
     display: flex;
-    align-items: flex-start;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
 }
 
 .selectCss {
@@ -15,7 +19,7 @@
 }
 
 .bangumiSection {
-    margin: 2% 13% 2% 15%;
+    margin: 2% 1% 0% 12%;
     font-family: 'PT Sans Caption', sans-serif;
 }
 .bangumiStyle {
@@ -37,6 +41,7 @@
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
+    padding-bottom: 20px;
 }
 
 .pageContainer {

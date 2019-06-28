@@ -83,7 +83,8 @@ class Searchbar extends Component {
         }
         let filterList = this.state.filterList.map(bangumi => {
             return (
-                <p onClick = {this.toDetailPage.bind(this, bangumi)} className = {titleStyle}>{bangumi.title}</p>
+                <p onClick = {this.toDetailPage.bind(this, bangumi)} 
+                className = {titleStyle}>{bangumi.title}</p>
             )
         })
         return(
