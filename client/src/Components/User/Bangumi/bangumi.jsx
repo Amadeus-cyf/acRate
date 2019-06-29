@@ -10,7 +10,7 @@ from '../../Home/SeasonBangumi/seasonBangumi.module.scss';
 import loadingGif from '../../searchloading.gif';
 import NoneditStarRating from '../../DetailPage/Information/Score/noneditRating.jsx';
 import {bangumiSection, title, numberlistStyle, hoverStyle,
-textSection} from './bangumi.module.scss';
+textSection, bangumiTitle} from './bangumi.module.scss';
 import paging from '../../Home/paging.jsx';
 
 class Bangumi extends Component {
@@ -167,7 +167,7 @@ class Bangumi extends Component {
                     onClick = {this.toDetail.bind(this, bangumi)} 
                     src = {bangumi.image_url} rounded/>
                     <div className = {textSection}>
-                        <h3>{bangumi.title}</h3>
+                        <h3 className = {bangumiTitle} onClick = {this.toDetail.bind(this, bangumi)}>{bangumi.title}</h3>
                         <NoneditStarRating average = {bangumi.score/2}/>
                         <p>{bangumi.synopsis.slice(0, 50) + '...'}</p>
                     </div>

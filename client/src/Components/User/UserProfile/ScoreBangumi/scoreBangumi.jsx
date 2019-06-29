@@ -67,7 +67,7 @@ class  ScoreBangumi extends Component {
                     onClick = {this.toDetail.bind(this, bangumi)} 
                     src = {bangumi.image_url} rounded/>
                     <div className = {textSection}>
-                        <h3 className = {bangumiTitle}>{bangumi.title}</h3>
+                        <h3 className = {bangumiTitle} onClick = {this.toDetail.bind(this, bangumi)}>{bangumi.title}</h3>
                         <NoneditStarRating average = {bangumi.score/2}/>
                         <p>{bangumi.synopsis.slice(0, 40) + '...'}</p>
                     </div>

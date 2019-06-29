@@ -18,8 +18,13 @@
     justify-content: flex-start;
 }
 
-.hoverStyle:hover{
+.hoverStyle:hover {
     cursor: pointer;
+}
+
+.bangumiTitle:hover {
+    cursor: pointer;
+    color: rgba(30, 150, 255, 1);
 }
 
 .textSection {
