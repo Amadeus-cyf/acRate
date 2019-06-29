@@ -45,7 +45,11 @@ app.use(passport.session());
 require('./routes/')(app, router);
 
 require('./connection/connection')();
-app.use('/static', express.static(path.join(__dirname, 'client/public')));
+
+app.get('*', function (req, res) {
+  const index = path.join(__dirname, 'client/public', 'index.html');
+  res.sendFile(index);
+});
 
 var port = 4000;
 app.listen(process.env.PORT || port);
