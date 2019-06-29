@@ -47,7 +47,7 @@ require('./routes/')(app, router);
 require('./connection/connection')();
 
 app.get('*', function (req, res) {
-  const index = path.join(__dirname, 'public', 'index.html');
+  const index = path.join(__dirname, 'client', 'public', 'index.html');
   res.sendFile(index);
 });
 
