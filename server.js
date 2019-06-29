@@ -6,7 +6,8 @@ var express = require('express'),
     passport = require('passport'),
     flash = require('connect-flash'),
     logger = require('morgan'),
-    cookieParser = require('cookie-parser');
+    cookieParser = require('cookie-parser'),
+    path = require('path');
 
 var app = express();
 var allowCrossDomain =  function (req, res, next) {
