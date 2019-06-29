@@ -4,7 +4,14 @@ import defaultState from './state.js';
 function currentUser (state = defaultState.currentUser, action) {
     switch(action.type) {
         case 'SET_CURRENT_USER':
-            sessionStorage.setItem('currentUser', JSON.stringify(action.data))
+            try {
+                sessionStorage.setItem('currentUser', JSON.stringify(action.data))
+            } catch(err) {
+                if(err.name == 'QuotaExceededError'){
+                    sessionStorage.clear();
+                    sessionStorage.setItem('currentUser', JSON.stringify(action.data));
+                }
+            }
             return action.data
         case 'USER_LOGOUT':
             sessionStorage.removeItem('currentUser')
@@ -20,7 +27,14 @@ function currentUser (state = defaultState.currentUser, action) {
 function user (state = defaultState.user, action) {
     switch(action.type) {
         case 'SET_USER':
-            sessionStorage.setItem('user', JSON.stringify(action.data))
+            try {
+                sessionStorage.setItem('user', JSON.stringify(action.data))
+            } catch(err) {
+                if(err.name == 'QuotaExceededError'){
+                    sessionStorage.clear();
+                    sessionStorage.setItem('user', JSON.stringify(action.data));
+                }
+            }
             return action.data
         case 'CLEAR_USER':  
             sessionStorage.removeItem('user')
