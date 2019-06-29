@@ -15,6 +15,11 @@ var allowCrossDomain =  function (req, res, next) {
     res.header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
     next();
 }
+app.get('*', function (req, res) {
+  const index = path.join(__dirname, 'build', 'index.html');
+  res.sendFile(index);
+});
+
 app.use(express.static(__dirname + '/public'));
 app.use(allowCrossDomain);
 
@@ -43,16 +48,6 @@ app.use(passport.session());
 require('./routes/')(app, router);
 
 require('./connection/connection')();
-
-if (process.env.NODE_ENV === 'production') {
-    // Express will serve up production assets
-    app.use(express.static('client/build'));
-    // Express serve up index.html file if it doesn't recognize route
-    const path = require('path');
-    app.get('*', (req, res) => {
-      res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-    });
-  }
 
 var port = 4000;
 app.listen(process.env.PORT || port);
