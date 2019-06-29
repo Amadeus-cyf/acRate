@@ -44,6 +44,6 @@ require('./routes/')(app, router);
 
 require('./connection/connection')();
 
-var port = 4000;
+var port = 4000 || process.env.PORT;
 app.listen(port);
 console.log('Server running on port ' + port);
