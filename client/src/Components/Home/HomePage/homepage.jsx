@@ -74,6 +74,9 @@ class HomePage extends Component {
                         </div>
                         <Rank/>
                     </div>
+                    <div className = {footerStyle}>
+                        <h2>Aniscore </h2>
+                    </div>
                 </div>
             )
         }

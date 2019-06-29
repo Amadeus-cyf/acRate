@@ -23,7 +23,6 @@ router.get('/count', (req, res) => {
 
 //get highest number of total score
 router.get('/rank/:number', (req, res) => {
-
     BangumiList.find({totalScore: {$gt: 0}}).sort({totalScore: -1}).limit(parseInt(req.params.number)).exec()
     .then(bangumiList => {
         return res.status(200).json({message: 'Succesfully find top 10 bangumis', data:{bangumiList}});
