@@ -71,7 +71,7 @@ class DetailPage extends Component {
                 'content-type': 'application/json',
             },
             data: {
-                user_id: this.state.currentUser._id,
+                user_id: this.props.currentUser._id,
                 score: this.state.rating,
                 image_url: this.state.bangumi.image_url,
                 title: this.state.bangumi.title,

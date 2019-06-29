@@ -66,7 +66,7 @@ router.put('/:anime_id', (req, res) => {
     let title = req.body.title;
     let synopsis = req.body.synopsis;
     if (!score || score > 5 || !user_id) {
-        return res.status.json({message: 'Invalid score or user id'});
+        return res.status(404).json({message: 'Invalid score or user id'});
     }
     User.findById(user_id).exec()
     .then(user => {

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
-import {setCurrentUser} from '../../../store/action.js';
+import {setCurrentUser, setUser} from '../../../store/action.js';
 import {Image, Button, Input} from  'semantic-ui-react';
 import Navibar from '../../Home/MainMenu/Navibar/navibar.jsx';
 import {pageStyle, bodyStyle, footerStyle} from './editAvatar.module.scss';
@@ -65,6 +65,7 @@ class EditAvatar extends Component {
         axios.put('api/avatar/' + this.props.currentUser._id, formData)
         .then(() => {
             this.props.setCurrentUser();
+            this.props.setUser(this.props.currentUser._id);
         }).catch(err => {
             alert(err);
         })
@@ -127,4 +128,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, {setCurrentUser})(EditAvatar);
+export default connect(mapStateToProps, {setCurrentUser, setUser})(EditAvatar);

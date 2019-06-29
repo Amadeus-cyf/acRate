@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
-import {setCurrentUser} from '../../../store/action.js';
+import {setUser} from '../../../store/action.js';
 import {Input, Button, Image} from 'semantic-ui-react';
 import Navibar from '../../Home/MainMenu/Navibar/navibar.jsx';
 import {pageStyle, bodyStyle, footerStyle} from './editBackground.module.scss';
@@ -63,7 +63,7 @@ class EditBackground extends Component {
         formData.append('background', this.state.background);
         axios.put('api/background/' + this.props.currentUser._id, formData)
         .then(() => {
-            this.props.setCurrentUser();
+            this.props.setUser(this.props.currentUser._id);
         }).catch(err => {
             alert(err);
         })
@@ -126,4 +126,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, {setCurrentUser})(EditBackground);
+export default connect(mapStateToProps, {setUser})(EditBackground);
