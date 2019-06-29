@@ -133,7 +133,7 @@ class NewBangumi extends Component {
         }
         let imgStyle = {
             width: '160px',
-            height: '200px',
+            height: '210px',
         }
         let previousStyle = {
             display: 'inline',

@@ -26,6 +26,17 @@
     text-align: center;
 }
 
+.titleStyle {
+    color: rgba(30, 144, 255, 1);
+    font-size: 15pt;
+}
+
+.titleStyle:hover{
+    cursor: pointer;
+    color: rgba(255, 120, 195, 1);
+}
+
+
 .bangumiStyle {
     display: flex;
     flex-direction: row;

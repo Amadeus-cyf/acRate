@@ -4,7 +4,7 @@ import {withRouter} from 'react-router-dom';
 import {List, Button, Divider} from 'semantic-ui-react';
 import CommentBox from './CommentBox/commentBox.jsx';
 import Comment from './Comment/comment.jsx';
-import {commentStyle, numberlistStyle, numberStyle, footerStyle} from './commentlist.module.scss';
+import {commentStyle, numberlistStyle, numberStyle} from './commentlist.module.scss';
 import paging from '../../Home/paging.jsx';
 
 class Commentlist extends Component {
@@ -176,9 +176,6 @@ class Commentlist extends Component {
                         newComment = {this.state.newComment} inputComment = {this.inputComment} 
                         submitComment = {this.submitComment} cancelComment = {this.cancelComment}/>
                     </div>
-                    <div className = {footerStyle}>
-                        <h2>Aniscore </h2>
-                    </div>
                 </div>
             )
         }
@@ -248,9 +245,6 @@ class Commentlist extends Component {
                         <Button size = 'small' basic color = 'blue' 
                         style = {nextStyle} onClick = {this.toNext}>Next</Button>
                     </div>
-                </div>
-                <div className = {footerStyle}>
-                    <h2>Aniscore </h2>
                 </div>
             </div>
         )

@@ -1,14 +1,24 @@
 .bangumiStyle {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: flex-start;
 }
 
 .hoverPart {
-    font-size: 11pt;
+    font-size: 10pt;
     margin-top: 10px;
 }
 
 .hoverPart:hover {
     cursor: pointer;
+    color: rgba(30, 144, 255, 1);
+}
+
+.titleStyle {
+    font-family: 'PT Sans Caption', sans-serif;
+}
+
+.titleStyle:hover {
+    cursor: pointer;
+    color: rgba(30, 150, 255, 1);
 }

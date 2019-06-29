@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 import axios from 'axios';
 import {Label, Image, Button} from 'semantic-ui-react';
-import {bangumiStyle, hoverPart} from './currentBangumi.module.scss';
+import {bangumiStyle, hoverPart,  titleStyle} from './currentBangumi.module.scss';
 import {pageContainer, textStyle, imageStyle} from '../../SeasonBangumi/seasonBangumi.module.scss';
 import loadingGif from '../../../loading.gif';
 
@@ -89,13 +89,13 @@ class CurrentBangumi extends Component {
         let bangumi = this.state.bangumi;
         let currentList = bangumi.map(bangumi => {
             let labelStyle = {
-                width: '200px',
+                width: '180px',
                 height: 'auto',
                 background: 'white',
             }
             let imgStyle = {
                 width: '160px',
-                height: '200px',
+                height: '210px',
             }
             return(
                 <Label onClick ={this.toDetailPage.bind(this, bangumi)} style = {labelStyle}>
@@ -106,7 +106,8 @@ class CurrentBangumi extends Component {
         })
         return(
             <div>
-                <h3>{this.state.year}年{this.state.month}月新番</h3>
+                <h2 className = {titleStyle} onClick = {this.currentViewMore}>
+                {this.state.year}年{this.state.month}月新番</h2>
                 <div className = {bangumiStyle}>
                         {currentList}
                 </div>

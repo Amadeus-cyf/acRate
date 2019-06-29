@@ -21,13 +21,14 @@ router.get('/count', (req, res) => {
     })
 })
 
-//get highest 10 total score
-router.get('/rank', (req, res) => {
-    BangumiList.find({totalScore: {$gt: 0}}).sort({totalScore: -1}).limit(10).exec()
+//get highest number of total score
+router.get('/rank/:number', (req, res) => {
+
+    BangumiList.find({totalScore: {$gt: 0}}).sort({totalScore: -1}).limit(parseInt(req.params.number)).exec()
     .then(bangumiList => {
         return res.status(200).json({message: 'Succesfully find top 10 bangumis', data:{bangumiList}});
     }).catch(err => {
-        return res.status(500).json({meesage: err});
+        return res.status(500).json({message: err});
     })
 })
 

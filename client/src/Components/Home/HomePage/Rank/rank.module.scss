@@ -1,0 +1,27 @@
+.numberStyle {
+    max-height: 30px;
+    padding: 3px 10px 3px 10px;
+    border-radius: 5px;
+    background: rgba(255, 120, 195, 1);
+    margin-right: 20px;
+    font-size: 12pt;
+    color: white;
+    text-align: center;
+}
+
+.titleStyle {
+    line-height: 1.2em;
+    font-family: 'PT Sans Caption', sans-serif;
+    margin-left: 15px;
+    margin-top: 10px;
+    font-size: 10pt;
+}
+
+.titleStyle:hover {
+    cursor: pointer;
+    color: rgba(94, 180, 255, 1);
+}
+
+.hoverPart:hover {
+    cursor: pointer;
+}

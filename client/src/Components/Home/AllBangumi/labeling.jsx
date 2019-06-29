@@ -12,7 +12,7 @@ function labeling(bangumi, selectSort, toDetailPage, hoverPart, introStyle, scor
     }
     let imgStyle = {
         width: '160px',
-        height: '200px',
+        height: '210px',
         'margin-right': '20px',
     }
     let dateStyle = {

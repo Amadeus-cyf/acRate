@@ -148,7 +148,7 @@ class CurrentBangumi extends Component {
             }
             let imgStyle = {
                 width: '160px',
-                height: '200px',
+                height: '210px',
             }
             return(
                 <Label onClick = {this.toDetailPage.bind(this, bangumi)} style = {labelStyle}>

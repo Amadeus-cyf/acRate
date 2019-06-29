@@ -10,7 +10,7 @@ import Commentlist from './Comments/commentlist.jsx';
 import Navibar from '../Home/MainMenu/Navibar/navibar.jsx';
 import {pageContainer,textStyle, imageStyle} from '../Home/SeasonBangumi/seasonBangumi.module.scss';
 import loadingGif from '../searchloading.gif';
-import {labelStyle} from './detailPage.module.scss';
+import {labelStyle, footerStyle} from './detailPage.module.scss';
 
 class DetailPage extends Component {
     constructor() {
@@ -167,6 +167,9 @@ class DetailPage extends Component {
                     <Synopsis bangumi = {this.state.bangumi}/>
                     <Recommend bangumi = {this.state.bangumi} currentUser = {this.props.currentUser}/>
                     <Commentlist bangumi = {this.state.bangumi} currentUser = {this.props.currentUser}/>
+                    <div className = {footerStyle}>
+                        <h2>Aniscore </h2>
+                    </div>
                 </div>
                 <div className = {labelStyle}>
                     <Label style = {ratingStyle}>

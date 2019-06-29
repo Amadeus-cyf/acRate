@@ -157,18 +157,17 @@ class SeasonBangumi extends Component {
     }
 
     pageHandler(event) {
-        let currentPage = this.state.currentPage;
         for (let i = 0; i < event.target.value.length; i++) {
             if (isNaN(parseInt(event.target.value[i]))) {
                 this.setState({
-                    inputPage: currentPage,
+                    inputPage: '',
                 });
                 return;
             }
         }
         if (event.target.value > this.state.pageNumber || event.target.value < 1) {
             this.setState({
-                inputPage: currentPage,
+                inputPage: '',
             });
             return;
         }

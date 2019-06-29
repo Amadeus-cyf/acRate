@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import MainMenu from '../MainMenu/mainMenu.jsx';
-import {bangumiSection, bangumiStyle, homeStyle} from './homepage.module.scss';
+import {bangumiSection, homeStyle, pageStyle, footerStyle} from './homepage.module.scss';
 import PastBangumi from './PastBangumi/pastBangumi.jsx';
 import CurrentBangumi from './CurrentBangumi/currentBangumi.jsx';
 import UpcomingBangumi from './UpcomingBangumi/upcomingBangumi.jsx';
+import Rank from './Rank/rank.jsx';
 
 class HomePage extends Component {
     constructor() {
@@ -66,23 +67,31 @@ class HomePage extends Component {
             return (
                 <div>
                     <MainMenu current = 'home'/>
-                    <div className = {bangumiSection}>
-                        <CurrentBangumi/>
-                        <PastBangumi className = {bangumiStyle}/>
-                    </div>
-                </div>
-            )
-        } else {
-            return (
-                <div className = {homeStyle}>
-                    <MainMenu current = 'home'/>
-                    <div className = {bangumiSection}>
-                        <CurrentBangumi className = {bangumiStyle}/>
-                        <UpcomingBangumi className = {bangumiStyle}/>
+                    <div className = {pageStyle}>
+                        <div className = {bangumiSection}>
+                            <CurrentBangumi/>
+                            <PastBangumi/>
+                        </div>
+                        <Rank/>
                     </div>
                 </div>
             )
         }
+        return (
+            <div className = {homeStyle}>
+                <MainMenu current = 'home'/>
+                <div className = {pageStyle}>
+                    <div className = {bangumiSection}>
+                        <CurrentBangumi/>
+                        <UpcomingBangumi/>
+                    </div>
+                    <Rank/>
+                </div>
+                <div className = {footerStyle}>
+                    <h2>Aniscore </h2>
+                </div>
+            </div>
+        )
     }
 }
 

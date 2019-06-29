@@ -248,8 +248,8 @@ class SearchResult extends Component {
                 <Searchbar/>
                 <Divider style = {dividerStyle}/>
                 <div className = {searchResultStyle}>
-                    <h2 className = {headStyle}> {this.state.result.length} 
-                    search result(s) for "{this.props.match.params.keyword}"</h2>
+                    <h2 className = {headStyle}> {this.state.result.length} search result(s) for 
+                    "{this.props.match.params.keyword}"</h2>
                     {bangumiLabels}
                     <div className = {numberlistStyle} style = {listStyle}>
                         <Button color = 'blue' onClick = {this.toPage.bind(this, 1)}>Page</Button>

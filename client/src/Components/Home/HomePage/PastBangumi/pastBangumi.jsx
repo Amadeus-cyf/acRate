@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 import axios from 'axios';
 import {Label, Image, Button} from 'semantic-ui-react';
-import {bangumiStyle, hoverPart, title} from './pastBangumi.module.scss';
+import {bangumiStyle, hoverPart, titleStyle} from './pastBangumi.module.scss';
 import {pageContainer, textStyle, imageStyle} from '../../SeasonBangumi/seasonBangumi.module.scss';
 import loadingGif from '../../../loading.gif';
 
@@ -93,13 +93,13 @@ class PastBangumi extends Component {
         let pastBangumi = this.state.pastBangumi;
         let pastList = pastBangumi.map(bangumi => {
             let labelStyle = {
-                width: '200px',
+                width: '180px',
                 height: 'auto',
                 background: 'white',
             }
             let imgStyle = {
                 width: '160px',
-                height: '200px',
+                height: '210px',
             }
             return(
                 <Label onClick ={this.toDetailPage.bind(this, bangumi)} style = {labelStyle}>
@@ -110,7 +110,8 @@ class PastBangumi extends Component {
         })
         return(
             <div>
-                <h3 className = {title}>{this.state.pastYear}年{this.state.pastMonth}月番</h3>
+                <h2 className = {titleStyle} onClick = {this.currentViewMore}>
+                {this.state.pastYear}年{this.state.pastMonth}月番</h2>
                 <div className = {bangumiStyle}>
                     {pastList}
                 </div>

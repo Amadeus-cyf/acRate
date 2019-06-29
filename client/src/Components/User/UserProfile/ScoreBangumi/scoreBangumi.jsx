@@ -4,7 +4,8 @@ import {connect} from 'react-redux';
 import {clearUser} from '../../../../store/action.js';
 import {Label, Image, Button} from 'semantic-ui-react';
 import NoneditStarRating from '../../../DetailPage/Information/Score/noneditRating.jsx';
-import {bangumiSection, titleStyle, textSection, hoverStyle} from './scoreBangumi.module.scss';
+import {bangumiSection, titleStyle, textSection,
+hoverStyle, bangumiTitle} from './scoreBangumi.module.scss';
 
 class  ScoreBangumi extends Component {
     constructor() {
@@ -66,7 +67,7 @@ class  ScoreBangumi extends Component {
                     onClick = {this.toDetail.bind(this, bangumi)} 
                     src = {bangumi.image_url} rounded/>
                     <div className = {textSection}>
-                        <h3>{bangumi.title}</h3>
+                        <h3 className = {bangumiTitle}>{bangumi.title}</h3>
                         <NoneditStarRating average = {bangumi.score/2}/>
                         <p>{bangumi.synopsis.slice(0, 40) + '...'}</p>
                     </div>

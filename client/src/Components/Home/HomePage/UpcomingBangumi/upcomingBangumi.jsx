@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 import axios from 'axios';
 import {Label, Image, Button} from 'semantic-ui-react';
-import {bangumiStyle, hoverPart} from './upcomingBangumi.module.scss';
+import {bangumiStyle, hoverPart, titleStyle} from './upcomingBangumi.module.scss';
 import {pageContainer, textStyle, imageStyle} from '../../SeasonBangumi/seasonBangumi.module.scss';
 import loadingGif from '../../../loading.gif';
 
@@ -57,7 +57,7 @@ class UpcomingBangumi extends Component {
         axios.get('https://api.jikan.moe/v3/season/' + upcomingYear + '/' + upcoming)
         .then(response => {
             this.setState({
-                upcomingBangumi: response.data.anime.slice(0, 20),
+                upcomingBangumi: response.data.anime.slice(0, 10),
             })
         }).catch(err => {
             alert(err);
@@ -90,13 +90,13 @@ class UpcomingBangumi extends Component {
         let bangumi = this.state.upcomingBangumi;
         let upcomingList = bangumi.map(bangumi => {
             let labelStyle = {
-                width: '200px',
+                width: '180px',
                 height: 'auto',
                 background: 'white',
             }
             let imgStyle = {
                 width: '160px',
-                height: '200px',
+                height: '210px',
             }
             return(
                 <Label onClick ={this.toDetailPage.bind(this, bangumi)} style = {labelStyle}>
@@ -107,7 +107,8 @@ class UpcomingBangumi extends Component {
         })
         return(
             <div style = {{marginTop: '20px'}}>
-                <h3>{this.state.upcomingYear}年{this.state.upcomingMonth}月新番</h3>
+                <h2 onClick = {this.upcomingViewMore} className = {titleStyle}>
+                {this.state.upcomingYear}年{this.state.upcomingMonth}月新番</h2>
                 <div className = {bangumiStyle}>
                         {upcomingList}
                 </div>

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import {Label, Image, Divider} from 'semantic-ui-react';
 import {pageStyle, title, numberStyle, bangumiSection, 
-    bangumiStyle, textSection, hoverPart} from './ranking.module.scss';
+    bangumiStyle, textSection, hoverPart, titleStyle} from './ranking.module.scss';
 import MainMenu from '../MainMenu/mainMenu.jsx';
 import {pageContainer,textStyle, imageStyle} from '../SeasonBangumi/seasonBangumi.module.scss';
 import loadingGif from '../../loading.gif'
@@ -16,8 +16,8 @@ class Ranking extends Component {
         }
     }
 
-    async componentDidMount() {
-       axios.get('api/bangumiList/rank')
+    componentDidMount() {
+       axios.get('api/bangumiList/rank/' + 20)
        .then(response => {
            this.setState({
                rankList: response.data.data.bangumiList,
@@ -62,25 +62,26 @@ class Ranking extends Component {
         let rankList = this.state.rankList.map((bangumi, index) => {
             let labelStyle = {
                 background: 'white',
+                marginTop: '40px',
             }
             let imageStyle = {
-                width: '170px',
-                height: '220px',
+                width: '160px',
+                height: '210px',
             }
             return (
                 <div>
                     <Label style = {labelStyle}>
-                    <div className = {bangumiStyle}>
-                        <p className = {numberStyle}>{index+1}</p>
-                        <Image onClick = {this.toDetailPage.bind(this, bangumi)} 
-                        className = {hoverPart} style = {imageStyle} src = {bangumi.image_url} rounded/>
-                        <div className = {textSection}>
-                            <h3 style = {{color: 'rgba(30, 144, 255, 1)', fontSize: '15pt'}}>{bangumi.title}</h3>
-                            <p>{bangumi.synopsis.slice(0, 120) + '...'}</p>
-                            <p style = {{color: 'rgba(255, 180, 94, 1)', 
-                            fontSize: '14pt'}}>Total Score: {bangumi.totalScore}</p>
+                        <div className = {bangumiStyle}>
+                            <p className = {numberStyle}>{index+1}</p>
+                            <Image onClick = {this.toDetailPage.bind(this, bangumi)} 
+                            className = {hoverPart} style = {imageStyle} src = {bangumi.image_url} rounded/>
+                            <div className = {textSection}>
+                                <h3 className = {titleStyle}>{bangumi.title}</h3>
+                                <p>{bangumi.synopsis.slice(0, 120) + '...'}</p>
+                                <p style = {{color: 'rgba(255, 180, 94, 1)', 
+                                fontSize: '14pt'}}>Total Score: {bangumi.totalScore}</p>
+                            </div>
                         </div>
-                    </div>
                     </Label>
                 </div>
             )
@@ -88,7 +89,7 @@ class Ranking extends Component {
         return (
             <div className = {pageStyle}>
                 <MainMenu history = {this.props.history} current = {'rank'}/>
-                <h2 className = {title}>Top Bangumis</h2>
+                <h2 className = {title}>Bangumi Rank</h2>
                 <div className = {bangumiSection}>
                     <Divider/>
                         {rankList}

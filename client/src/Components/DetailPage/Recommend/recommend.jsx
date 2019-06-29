@@ -128,7 +128,7 @@ class Recommend extends Component {
             height: 'auto',
         }
         let imageStyle = {
-            width: '170px',
+            width: '160px',
             height: '210px',
         }
         let bangumiList = this.state.bangumiList.map(bangumi => {
