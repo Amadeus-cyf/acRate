@@ -24,8 +24,8 @@ class UserMenu extends Component {
                 <Label style = {labelstyle}>
                     <p className = {textStyle}> When you log in, you can:</p>
                     <ol> 
-                        <li className = {listStyle}>Score bangumi and manga</li>
-                        <li className = {listStyle}>Comments</li>
+                        <li className = {listStyle}>Rate bangumi</li>
+                        <li className = {listStyle}>Comment bangumi</li>
                         <li className = {listStyle}>Following others</li>
                         <li className = {listStyle}>Select avatar and background image</li>
                     </ol>
