@@ -138,7 +138,7 @@ class Recommend extends Component {
                     style = {imageStyle} src = {bangumi.image_url} rounded/>
                     <div className = {titleStyle}>
                         <p className = {bangumiTitle} onClick = {this.toDetailPage.bind(this, bangumi)}>{bangumi.title}</p>
-                        <p className = {scoreStyle}>total score: {bangumi.score}</p>
+                        <span className = {scoreStyle}>total score: {bangumi.score}</span>
                     </div>
                 </Label>
             )

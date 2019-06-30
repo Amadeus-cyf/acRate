@@ -7,7 +7,7 @@ function currentUser (state = defaultState.currentUser, action) {
             try {
                 sessionStorage.setItem('currentUser', JSON.stringify(action.data))
             } catch(err) {
-                if(err.name == 'QuotaExceededError'){
+                if(err.name === 'QuotaExceededError'){
                     sessionStorage.removeItem('currentUser');
                     sessionStorage.setItem('currentUser', JSON.stringify(action.data));
                 }
@@ -30,7 +30,7 @@ function user (state = defaultState.user, action) {
             try {
                 sessionStorage.setItem('user', JSON.stringify(action.data))
             } catch(err) {
-                if(err.name == 'QuotaExceededError'){
+                if(err.name === 'QuotaExceededError'){
                     sessionStorage.removeItem('user');
                     sessionStorage.setItem('user', JSON.stringify(action.data));
                 }
