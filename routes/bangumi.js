@@ -99,12 +99,12 @@ router.get('/:year/:season/:page', (req, res) => {
 
 router.post('/:year/:season', (req, res) => {
     let bangumi = new Bangumi(req.body);
-    Bangumi.findOne({anime_id: bangumi.anime_id, year: req.params.year, season: req.params.season}, (err, bangumi) => {
+    Bangumi.findOne({anime_id: bangumi.anime_id, year: req.params.year, season: req.params.season}, (err, existBangumi) => {
         if (err) {
             return res.status(500).json({message: err});
         }
-        if (bangumi) {
-            return res.status(200).json({message: 'Bangumi already exists', data: {bangumi}})
+        if (existBangumi) {
+            return res.status(200).json({message: 'Bangumi already exists', data: {existBangumi}})
         }
         bangumi.save()
         .then(() => {

@@ -4,7 +4,7 @@ import {withRouter} from 'react-router-dom';
 import {Label, Image} from 'semantic-ui-react';
 import mapping from './mapping.jsx';
 import {loadingStyle, recommendStyle, noRecommendStyle, titleStyle, 
-    hoverPart, scoreStyle, bangumiStyle} from './recommend.module.scss';
+    hoverPart, scoreStyle, bangumiStyle, bangumiTitle} from './recommend.module.scss';
 
 class Recommend extends Component {
     constructor() {
@@ -134,9 +134,10 @@ class Recommend extends Component {
         let bangumiList = this.state.bangumiList.map(bangumi => {
             return (
                 <Label style = {labelStyle}>
-                    <Image className = {hoverPart} onClick = {this.toDetailPage.bind(this, bangumi)} style = {imageStyle} src = {bangumi.image_url} rounded/>
+                    <Image className = {hoverPart} onClick = {this.toDetailPage.bind(this, bangumi)} 
+                    style = {imageStyle} src = {bangumi.image_url} rounded/>
                     <div className = {titleStyle}>
-                        {bangumi.title}
+                        <p className = {bangumiTitle} onClick = {this.toDetailPage.bind(this, bangumi)}>{bangumi.title}</p>
                         <p className = {scoreStyle}>total score: {bangumi.score}</p>
                     </div>
                 </Label>

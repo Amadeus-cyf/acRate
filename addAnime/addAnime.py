@@ -46,11 +46,9 @@ def postAnime(year, season):
         bangumi.pop('r18')
         bangumi.pop('kids')
         requests.post(database_url, bangumi)
-        break
-
     
 def main():
-    postAnime('2019', 'spring')
+    postAnime('2019', 'summer')
 
 if __name__ == '__main__':
     main()

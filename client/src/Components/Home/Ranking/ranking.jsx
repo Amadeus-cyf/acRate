@@ -76,7 +76,8 @@ class Ranking extends Component {
                             <Image onClick = {this.toDetailPage.bind(this, bangumi)} 
                             className = {hoverPart} style = {imageStyle} src = {bangumi.image_url} rounded/>
                             <div className = {textSection}>
-                                <h3 className = {titleStyle}>{bangumi.title}</h3>
+                                <h3 className = {titleStyle} 
+                                onClick = {this.toDetailPage.bind(this, bangumi)}>{bangumi.title}</h3>
                                 <p>{bangumi.synopsis.slice(0, 120) + '...'}</p>
                                 <p style = {{color: 'rgba(255, 180, 94, 1)', 
                                 fontSize: '14pt'}}>Total Score: {bangumi.totalScore}</p>

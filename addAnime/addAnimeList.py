@@ -37,6 +37,7 @@ def postAnimeList(year, season):
         requests.post(database_url, bangumi)
 
 def main():
+    postAnimeList('2019', 'summer')
     postAnimeList('2019', 'spring')
     postAnimeList('2019', 'winter')
     seasons = ['winter', 'spring', 'summer', 'fall']

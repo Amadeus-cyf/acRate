@@ -23,7 +23,6 @@
 
 .titleStyle {
     margin-top: 10px;
-    font-size: 12pt;
     text-align: center;
     line-height: 1.2em;
 }
@@ -32,7 +31,14 @@
     cursor: pointer;
 }
 
+.bangumiTitle:hover {
+    font-size: 10pt;
+    cursor: pointer;
+    color: rgba(30, 144, 255, 1);
+}
+
 .scoreStyle {
+    font-size: 10pt;
     padding-top: 5px;
     color: rgba(255, 180, 94, 1);
 }

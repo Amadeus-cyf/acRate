@@ -205,7 +205,7 @@ class SeasonBangumi extends Component {
         let currentYear = date.getFullYear();
         let currentMonth = date.getMonth()+1;
         // not available bangumi
-        if (year === currentYear && month >= currentMonth) {
+        if (year === currentYear && month > currentMonth) {
             alert(year + '年' + month + '月' + '由于番剧未上映无法查看');
             return;
         } else {
