@@ -5,14 +5,14 @@ Aniscore is an app for scoring bangumi, implemented with reactjs, nodejs, expres
 ## Usage
 To run the app locally, secrets.js file needs to be added to config folder. Mongodb needs to be signed on [mongo alias](https://cloud.mongodb.com/v2/5cd3536d79358e6972f80720#clusters).
 
-Then, 
+Then, cd to the root directory, run
 ```unix
-cd client 
 npm install
 ```
 and 
 
 ```unix
+cd client 
 npm install
 ```
 
@@ -21,7 +21,7 @@ Open a window, and run the command
 node server.js
 ```
 
-Open another window and run following commands
+Open another window, cd to the root directory and run following commands
 ```unix
 cd client
 npm start
