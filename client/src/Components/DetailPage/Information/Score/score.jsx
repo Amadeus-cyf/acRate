@@ -9,6 +9,9 @@ class Score extends Component {
     constructor() {
         super();
         this.state = {
+            style: {
+                colors: ['#123456'],
+            },
             options: {
                 plotOptions: {
                     bar: {
@@ -16,7 +19,7 @@ class Score extends Component {
                     }
                 },
                 dataLabels: {
-                    enabled: false,
+                    enabled: true,
                 },
                 yaxis: {
                     labels: {
@@ -88,7 +91,7 @@ class Score extends Component {
         }
         let barStyle = {
             width: '320px',
-            color: 'white',
+            color: 'black',
             'margin-top': '20px',
         }
         if (this.state.userNumber !== 0) {

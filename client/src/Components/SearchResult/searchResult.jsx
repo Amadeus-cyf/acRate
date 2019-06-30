@@ -146,9 +146,10 @@ class SearchResult extends Component {
             }
             let labelStyle = {
                 background: 'white',
-                'display': 'flex',
-                'padding-top': '30px',
-                'font-family': "'PT Sans Caption', sans-serif",
+                display: 'flex',
+                flexWrap: 'wrap',
+                paddingTop: '30px',
+                fontFamily: "'PT Sans Caption', sans-serif",
             }
             let imgStyle = {
                 width: '165px',
@@ -188,8 +189,8 @@ class SearchResult extends Component {
                                 </h2>
                             </div>
                         </div>
-                        <p>Date: {date.getFullYear()}-{date.getMonth()+1}-{date.getDate()}</p>
-                        <p>Introduction: {intro}</p>
+                        <p>Airing start on {date.getFullYear()}-{date.getMonth()+1}-{date.getDate()}</p>
+                        <p>{intro}</p>
                     </div>
                 </Label>
             )
@@ -240,10 +241,10 @@ class SearchResult extends Component {
         let dividerStyle = {
             display: 'block',
             margin: '0 auto',
-            width: '70%',
+            width: '76%',
         }
         return(
-            <div style = {{background: 'white', height: '100vh'}}>
+            <div style = {{background: 'white', minHeight: '100vh'}}>
                 <Navibar/>
                 <Searchbar/>
                 <Divider style = {dividerStyle}/>
