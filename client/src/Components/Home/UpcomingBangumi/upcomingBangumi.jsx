@@ -116,13 +116,13 @@ class UpcomingBangumi extends Component {
             )
         }
         let labelStyle = {
-            'width': '200px',
+            'width': '180px',
             'height': 'auto',
             background: 'white',
         }
         let imgStyle = {
             width: '160px',
-            height: '200px',
+            height: '210px',
         }
         let previousStyle = {
             display: 'inline',
@@ -172,7 +172,7 @@ class UpcomingBangumi extends Component {
                 <MainMenu current = 'upcoming'/>
                 <div className = {bangumiContainer}>
                     <div className = {bangumiSection}>
-                        <h3>{this.state.year}年新番</h3>
+                        <h2>{this.state.year}年新番</h2>
                         <div className = {bangumiStyle}>
                             {currentList}
                         </div>

@@ -243,7 +243,7 @@ class SearchResult extends Component {
             width: '70%',
         }
         return(
-            <div style = {{background: 'white'}}>
+            <div style = {{background: 'white', height: '100vh'}}>
                 <Navibar/>
                 <Searchbar/>
                 <Divider style = {dividerStyle}/>

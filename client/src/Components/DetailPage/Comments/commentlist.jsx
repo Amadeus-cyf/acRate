@@ -116,6 +116,9 @@ class Commentlist extends Component {
     }
 
     toPage(pageNumber) {
+        if (this.state.currentPage === pageNumber) {
+            return;
+        }
         this.setState({
             currentPage: pageNumber,
             currentComments: 'undefined',
