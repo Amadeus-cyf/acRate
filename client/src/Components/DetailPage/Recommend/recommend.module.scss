@@ -25,14 +25,20 @@
     margin-top: 10px;
     text-align: center;
     line-height: 1.2em;
+    font-size: 10pt;
+    font-family: 'PT Sans Caption', sans-serif; 
 }
 
 .hoverPart:hover{
     cursor: pointer;
 }
 
-.bangumiTitle:hover {
+.bangumiTitle {
     font-size: 10pt;
+    font-family: 'PT Sans Caption', sans-serif; 
+}
+
+.bangumiTitle:hover {
     cursor: pointer;
     color: rgba(30, 144, 255, 1);
 }
