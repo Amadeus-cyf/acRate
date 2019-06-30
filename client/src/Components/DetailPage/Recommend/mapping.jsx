@@ -21,8 +21,8 @@ function mapping(userList, map, id) {
     bangumis = bangumis.sort(function (first, second) {
         return second.score - first.score;
     })
-    if (bangumis.length > 10) {
-        bangumis = bangumis.slice(0, 10);
+    if (bangumis.length > 12) {
+        bangumis = bangumis.slice(0, 12);
     }
     return bangumis;
 }
