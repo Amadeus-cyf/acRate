@@ -14,7 +14,7 @@ and
 
 ```unix
 npm install
-```.
+```
 
 Open a window, and run the command
 ```unix
