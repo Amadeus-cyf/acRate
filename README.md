@@ -32,7 +32,7 @@ To add data to the mongodb, cd to the root directory and run following commands,
 ```unix
 cd addAnime
 ```
-Run the three files seperately with python3, passing year and season to the main function.
+Run the three files seperately with python3, passing year and season in the main function.
 The year ranges from 2005-2019.
 
 
