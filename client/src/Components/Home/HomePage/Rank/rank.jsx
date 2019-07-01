@@ -13,7 +13,6 @@ class Rank extends Component {
         this.toRank = this.toRank.bind(this);
     }
 
-
     componentDidMount() {
         axios.get('api/bangumiList/rank/' + 10)
         .then(response => {
