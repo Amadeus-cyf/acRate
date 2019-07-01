@@ -27,29 +27,45 @@ class Information extends Component {
             border: '4px solid white',
         }
         let producers = this.props.bangumi.producers.map(producer => {
-            return (
-                <p>{producer.name}</p>
-            )
-        })
+                if (producer.name) {
+                    return (
+                        <p>{producer.name}</p>
+                    )
+                } else {
+                    return (
+                        <p>{producer}</p>
+                    )
+                }
+            })
         if (producers.length === 0) {
-            producers = <p>unknown</p>
+            producers = 'unknown';
         }
         let genres = this.props.bangumi.genres.map(genre => {
-            return (
-                <span className = {genreStyle}>{genre.name}</span>
-            )
+            if (genre.name) {
+                return (
+                    <span className = {genreStyle}>{genre.name}</span>
+                )
+            } else {
+                return <span className = {genreStyle}>{genre}</span>
+            }
         })
-        let studios = this.props.bangumi.studios.map(studio => {
-            return (
-                <p>{studio.name}</p>
-            )
-        })
-        if (studios.length === 0) {
-            studios = <p>unknown</p>;
+        let studios = <p>unknown</p>
+        if (this.props.bangumi.studios) {
+            studios = this.props.bangumi.studios.map(studio => {
+                return (
+                    <p>{studio.name}</p>
+                )
+            })
         }
         let episodes = this.props.bangumi.episodes;
         let airing_status = this.props.bangumi.status;
-        let date = this.props.bangumi.aired.prop.from;
+        if (!airing_status) {
+            airing_status = 'unknown';
+        }
+        let date = 'unknown';
+        if (this.props.bangumi.aired) {
+            date = this.props.bangumi.aired.prop.from;
+        }
         if (!episodes) {
             episodes = <span>unknown</span>
         }
@@ -66,7 +82,6 @@ class Information extends Component {
             'background-position': 'center',
             'background-size': 'cover',
         }
-
         return (
             <div>
                 <div className = {introStyle} style = {backgroundStyle}> 

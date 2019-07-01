@@ -38,7 +38,7 @@ class Rank extends Component {
             let labelStyle = {
                 background: 'white',
                 marginRight: '12%',
-                width: '400px',
+                width: '300px',
                 height: '300px',
                 display: 'flex',
                 justifyContent: 'center',
@@ -46,7 +46,7 @@ class Rank extends Component {
             }
             return (
                 <Label style = {labelStyle}>
-                    <h3 style = {{color: 'rgba(100, 100, 100, 0.7)', fontSize: '25pt'}}>Loading...</h3>
+                    <h3 style = {{color: 'rgba(100, 100, 100, 0.7)', fontSize: '20pt'}}>Loading...</h3>
                 </Label>
             )
         }

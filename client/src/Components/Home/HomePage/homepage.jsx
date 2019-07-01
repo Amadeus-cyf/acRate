@@ -65,7 +65,7 @@ class HomePage extends Component {
     render() {
         if (this.state.past) {
             return (
-                <div>
+                <div className = {homeStyle}>
                     <MainMenu current = 'home'/>
                     <div className = {pageStyle}>
                         <div className = {bangumiSection}>

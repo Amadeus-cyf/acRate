@@ -19,7 +19,7 @@ class Score extends Component {
                     }
                 },
                 dataLabels: {
-                    enabled: true,
+                    enabled: false,
                 },
                 yaxis: {
                     labels: {

@@ -38,7 +38,17 @@ class DetailPage extends Component {
                 bangumi: response.data,
             })
         }).catch(err => {
-            alert(err);
+            // api get detail failed, then get info from local database
+            axios.get('api/bangumi/' + this.props.match.params.anime_id)
+            .then(response => {
+                let bangumi = response.data.data.bangumi;
+                bangumi.mal_id = bangumi.anime_id
+                this.setState({
+                    bangumi: bangumi,
+                })
+            }).catch(err => {
+                alert(err);
+            })
         })
     }
 
