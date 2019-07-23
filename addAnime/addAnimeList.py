@@ -46,5 +46,6 @@ def main():
         for season in seasons:
             postAnimeList(str(year), season)
         year -= 1
+        
 if __name__ == '__main__':
     main()
