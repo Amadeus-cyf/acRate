@@ -96,7 +96,7 @@ class Searchbar extends Component {
                 <div className = {searchStyle}>
                     <div style = {{'padding-right': '30px'}}>
                         <Input style = {inputStyle} size = 'huge' type = 'text' placeholder = 'Enter bangumi name'
-                        value = {this.state.searchInput} onChange = {this.inputHandler}></Input>
+                               value = {this.state.searchInput} onChange = {this.inputHandler}></Input>
                         <Label style = {labelDisplay}>{filterList}</Label>
                     </div>
                     <Button style = {buttonStyle} content = 'Search' icon = 'search' 

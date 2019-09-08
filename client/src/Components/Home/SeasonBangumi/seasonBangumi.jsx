@@ -17,7 +17,7 @@ class SeasonBangumi extends Component {
             displayYear: '2018',
             selectSeason: {},
             displaySeason: 'winter',    // currentSeason
-            month: '',                  // month to display*/
+            month: '',                  // month to display
             pageNumber: 0,
             currentPage: 1,
             inputPage: '',
@@ -213,7 +213,7 @@ class SeasonBangumi extends Component {
                 currentBangumi: [],
                 selectYear: {},
                 selectSeason: {},
-            })
+            });
             // get first page of bangumi of selected time
             axios.get('api/bangumi/' + year + '/' + season + '/' + pageNumber)
             .then(response => {
@@ -227,7 +227,7 @@ class SeasonBangumi extends Component {
                 })
             }).catch(err => {
                 alert(err);
-            })
+            });
             // get number of bangumi
             axios.get('api/bangumi/' + year + '/' + season + '/count')
             .then(response => {
@@ -263,7 +263,7 @@ class SeasonBangumi extends Component {
         }
         let titleStyle = {
             display: 'block',
-        }
+        };
         if (this.state.month === 'All year') {
             titleStyle = {
                 display: 'none',
@@ -271,10 +271,10 @@ class SeasonBangumi extends Component {
         }
         let previousStyle = {
             display: 'inline',
-        }
+        };
         let nextStyle = {
             display: 'inline',
-        }
+        };
         if (this.state.currentPage === 1) {
             previousStyle = {
                 display: 'none',
@@ -334,7 +334,7 @@ class SeasonBangumi extends Component {
                             onClick = {this.toNext}>Next</Button>
                             <Form onSubmit = {this.toPage.bind(this, this.state.inputPage)}>
                                 <Input style = {{'width': '150px'}} placeholder = 'Enter page number'
-                                onChange = {this.pageHandler}></Input>
+                                onChange = {this.pageHandler}/>
                             </Form>
                         </div>
                     </div>
