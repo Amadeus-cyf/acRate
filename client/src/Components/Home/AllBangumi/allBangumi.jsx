@@ -216,6 +216,7 @@ class AllBangumi extends Component {
             .then(response => {
                 this.setState({
                     currentBangumi: response.data.data.bangumiList,
+                    currentPage: 1,
                 })
             }).catch(err => {
                 alert(err);
@@ -229,6 +230,7 @@ class AllBangumi extends Component {
             .then(response => {
                 this.setState({
                     currentBangumi: response.data.data.bangumiList,
+                    currentPage: 1,
                 })
             }).catch(err => {
                 alert(err);
