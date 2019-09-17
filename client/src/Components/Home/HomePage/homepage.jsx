@@ -20,7 +20,7 @@ class HomePage extends Component {
         let month = date.getMonth() + 1;
         let day = date.getDate();
         if (month >= 1 && month < 4) {
-            if (month == 3 && day > 24) {
+            if (month === 3 && day > 24) {
                 this.setState({
                     upcoming: true,
                 })
@@ -30,7 +30,7 @@ class HomePage extends Component {
                 })
             }
         } else if (month >= 4 && month < 7) {
-            if (month == 6 && day > 24) {
+            if (month === 6 && day > 24) {
                 this.setState({
                     upcoming: true,
                 })
@@ -40,7 +40,7 @@ class HomePage extends Component {
                 })
             }
         } else if (month >= 7 && month < 10) {
-            if (month == 9 && day > 24) {
+            if (month === 9 && day > 24) {
                 this.setState({
                     upcoming: true,
                 })
@@ -50,7 +50,7 @@ class HomePage extends Component {
                 })
             }
         } else if (month >=10) {
-            if (month == 12 && day > 24) {
+            if (month === 12 && day > 24) {
                 this.setState({
                     upcoming: true,
                 })

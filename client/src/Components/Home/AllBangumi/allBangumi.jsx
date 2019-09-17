@@ -66,7 +66,7 @@ class AllBangumi extends Component {
         if (this.state.selectOrder === 'ascending') {
             order = 1;
         }
-        if (this.state.selectSort === 'sort') {
+        if (this.state.selectSort === 'date') {
             axios.get('/api/bangumiList/date/' + pageNumber + '/order/' + order)
             .then(response => {
                 this.setState({
@@ -98,7 +98,7 @@ class AllBangumi extends Component {
         if (this.state.selectOrder === 'ascending') {
             order = 1;
         }
-        if (this.state.selectSort === 'sort') {
+        if (this.state.selectSort === 'date') {
             axios.get('/api/bangumiList/date/' + pageNumber + '/order/' + order)
             .then(response => {
                 this.setState({
