@@ -29,5 +29,3 @@ const mapStateToProps = state => {
 }
   
 export default connect(mapStateToProps, {clearCurrentUser})(Logout);
-
-//export default Logout;
