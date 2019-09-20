@@ -4,15 +4,19 @@ Aniscore is an app for scoring bangumi, implemented with reactjs, nodejs, expres
 
 ## Web View
 ### Home Page
+This is the home page of the web app
 ![Home Page](./screenshots/homePage.png)
 
 ### Detail Page
+This is the detail page of one bangumi
 ![Detail Page](./screenshots/detailPage.png)
 
-### Comment Page
+### Comment
+Comment section in each detail page
 ![Comment](./screenshots/comment.png)
 
 ### User Page
+This is user page
 ![User Page](./screenshots/userPage.png)
 
 ## Run App Locally
