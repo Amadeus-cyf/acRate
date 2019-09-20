@@ -11,10 +11,6 @@ This is the home page of the web app
 This is the detail page of one bangumi
 ![Detail Page](./screenshots/detailPage.png)
 
-### Comment
-Comment section in each detail page
-![Comment](./screenshots/comment.png)
-
 ### User Page
 This is user page
 ![User Page](./screenshots/userPage.png)
