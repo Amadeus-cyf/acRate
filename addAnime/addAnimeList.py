@@ -28,6 +28,9 @@ def postAnimeList(year, season):
         image_url = bangumi['image_url']
         synopsis = bangumi['synopsis']
         airing_start = bangumi['airing_start']
+        if (bangumi['airing_start'] is None) {
+            
+        }
         bangumi.clear()
         bangumi['anime_id'] = anime_id
         bangumi['title'] = title
