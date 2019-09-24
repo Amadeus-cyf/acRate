@@ -1,5 +1,6 @@
 /.vscode
 .idea
+config/secrets.js
 node_modules
 .DS_store
 package-lock.json
