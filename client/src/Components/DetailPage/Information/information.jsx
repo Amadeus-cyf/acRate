@@ -76,7 +76,7 @@ class Information extends Component {
             date = new Date(date);
             year = date.getFullYear();
             month = date.getMonth()+1;
-            day = date.getDate()+1;
+            day = date.getDate();
         }
         let backgroundStyle = {
             background: 'url(' + this.props.bangumi.image_url + ')',

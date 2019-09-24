@@ -42,7 +42,7 @@ function labeling(bangumi, selectSort, toDetailPage, hoverPart, introStyle, scor
         date = new Date(bangumi.airing_start);
         year = date.getFullYear();
         month = '-' + (date.getMonth()+1);
-        day = '-' + (date.getDate()+1);
+        day = '-' + date.getDate();
     }
     return(
         <Label onClick ={toDetailPage} style = {labelStyle}>

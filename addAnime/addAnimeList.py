@@ -15,6 +15,18 @@ def getAnimeList(year, season):
     else:
         return None
 
+def getSingleAnimeAiring(id):
+    headers = {
+        'Content-Type': 'application-json',
+    }
+    api_url = 'https://api.jikan.moe/v3/anime/' + str(id)
+    response = requests.get(api_url, headers = headers)
+    if response.status_code == 200:
+        content = json.loads(response.content.decode('utf-8'))
+        return content['aired']['from']
+    else:
+        return None
+
 def postAnimeList(year, season):
     bangumilist = getAnimeList(year, season)
     if bangumilist == None:
@@ -28,9 +40,8 @@ def postAnimeList(year, season):
         image_url = bangumi['image_url']
         synopsis = bangumi['synopsis']
         airing_start = bangumi['airing_start']
-        if (bangumi['airing_start'] is None) {
-            
-        }
+        if bangumi['airing_start'] is None:
+            airing_start = getSingleAnimeAiring(anime_id)
         bangumi.clear()
         bangumi['anime_id'] = anime_id
         bangumi['title'] = title
@@ -41,9 +52,13 @@ def postAnimeList(year, season):
 
 def main():                        
     ## some examples for using postAnimeList
-    postAnimeList('2019', 'fall')
-    postAnimeList('2019', 'summer')
-    postAnimeList('2019', 'winter')
+    seasons = ['winter', 'spring', 'summer', 'fall']
+    year = 2018
+    while year >= 2005:
+        for season in seasons:
+            postAnimeList(str(year), season)
+        year -= 1
+    
         
 if __name__ == '__main__':
     main()
