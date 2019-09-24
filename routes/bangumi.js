@@ -104,14 +104,22 @@ router.post('/:year/:season', (req, res) => {
             return res.status(500).json({message: err});
         }
         if (existBangumi) {
-            return res.status(200).json({message: 'Bangumi already exists', data: {existBangumi}})
+            existBangumi.image_url = req.body.image_url;
+            existBangumi.airing_start = req.body.airing_start;
+            existBangumi.synopsis = req.body.synopsis;
+            existBangumi.save().then(() => {
+                return res.status(200).json({message: 'Bangumi already exists, update bangumi information', data: {existBangumi}})
+            }).catch(err => {
+                return res.status(500).json({message: err});
+            })
+        } else {
+            bangumi.save()
+            .then(() => {
+                return res.status(201).json({message: 'Succssfully add bangumi', data: {bangumi}});
+            }).catch(err => {
+                return res.status(500).json({message: err});
+            })
         }
-        bangumi.save()
-        .then(() => {
-            return res.status(201).json({message: 'Succssfully add bangumi', data: {bangumi}});
-        }).catch(err => {
-            return res.status(500).json({message: err});
-        })
     })
 })
 

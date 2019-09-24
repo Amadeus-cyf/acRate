@@ -101,14 +101,21 @@ router.post('/', (req, res) => {
             return res.status(500).json({message: err});
         }
         if (bangumi) {
-            return res.json({message: 'Bangumi already exists'});
+            bangumi.synopsis = req.body.synopsis
+            bangumi.airing_start = req.body.airing_start 
+            bangumi.save().then(() => {
+                return res.status(200).json({message: 'Bangumi already exists, update bangumi'});
+            }).catch(err => {
+                return res.status(500).json({message: err});
+            })
+        } else {
+            bangumiList.save()
+            .then(() => {
+                return res.status(201).json({message: 'Successfully upload the bangumi', data: {bangumiList}});
+            }).catch(err => {
+                return res.status(500).json({message: err});
+            })
         }
-        bangumiList.save()
-        .then(() => {
-            return res.status(201).json({message: 'Successfully upload the bangumi', data: {bangumiList}});
-        }).catch(err => {
-            return res.status(500).json({message: err});
-        })
     })
 })
 
