@@ -64,17 +64,19 @@ class Information extends Component {
         }
         let date = 'unknown';
         if (this.props.bangumi.aired) {
-            date = this.props.bangumi.aired.prop.from;
+            date = this.props.bangumi.aired.from;
         }
         if (!episodes) {
             episodes = <span>unknown</span>
         }
-        if (!date.year) {
-            date = {
-                year: 'unknown',
-                month: '',
-                day: '',
-            }
+        let year = ''
+        let month = ''
+        let day = ''
+        if (date !== 'unknown') {
+            date = new Date(date);
+            year = date.getFullYear();
+            month = date.getMonth()+1;
+            day = date.getDate()+1;
         }
         let backgroundStyle = {
             background: 'url(' + this.props.bangumi.image_url + ')',
@@ -91,7 +93,7 @@ class Information extends Component {
                         <p className = {titleStyle}> {this.props.bangumi.title_japanese}</p>
                         <p className = {genreListStyle}>{genres}</p>
                         <div className = {episodeStyle}>
-                            <p>Airing Start: {date.year}.{date.month}</p>
+                            <p>Airing Start: {year}.{month}.{day}</p>
                             <p>Episodes: {episodes}</p>
                             <p>{airing_status}</p>
                         </div>
