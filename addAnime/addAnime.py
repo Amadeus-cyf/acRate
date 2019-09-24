@@ -48,6 +48,7 @@ def postAnime(year, season):
         requests.post(database_url, bangumi)
     
 def main():
+    ## some examples for using postAnime
     postAnime('2019', 'fall')
     postAnime('2019', 'summer')
     postAnime('2019', 'winter')

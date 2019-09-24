@@ -36,7 +36,8 @@ def postAnimeList(year, season):
         bangumi['airing_start'] = airing_start
         requests.post(database_url, bangumi)
 
-def main():
+def main():                        
+    ## some examples for using postAnimeList
     postAnimeList('2019', 'fall')
     postAnimeList('2019', 'summer')
     postAnimeList('2019', 'winter')
