@@ -116,13 +116,13 @@ class UpcomingBangumi extends Component {
             )
         }
         let labelStyle = {
-            'width': '180px',
+            'width': '170px',
             'height': 'auto',
             background: 'white',
         }
         let imgStyle = {
-            width: '160px',
-            height: '210px',
+            width: '150px',
+            height: '200px',
         }
         let previousStyle = {
             display: 'inline',

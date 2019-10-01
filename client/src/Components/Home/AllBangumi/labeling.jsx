@@ -11,8 +11,8 @@ function labeling(bangumi, selectSort, toDetailPage, hoverPart, introStyle, scor
         'margin-top': '20px',
     }
     let imgStyle = {
-        width: '160px',
-        height: '210px',
+        width: '150px',
+        height: '200px',
         'margin-right': '20px',
     }
     let dateStyle = {

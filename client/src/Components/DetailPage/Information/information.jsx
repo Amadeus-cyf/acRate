@@ -22,8 +22,8 @@ class Information extends Component {
 
     render() {
         let imageStyle = {
-            width: '240px',
-            height: '320px',
+            width: '220px',
+            height: '300px',
             border: '4px solid white',
         }
         let producers = this.props.bangumi.producers.map(producer => {
