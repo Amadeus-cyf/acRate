@@ -29,10 +29,10 @@ class UpcomingBangumi extends Component {
             let animelist = response.data.anime.filter(anime => {
                 return !anime.r18 && !anime.kids;
             })
-            if (animelist.length > 30) {
+            if (animelist.length > 20) {
                 this.setState({
                     bangumi: animelist,
-                    currentBangumi: animelist.slice(0, 30),
+                    currentBangumi: animelist.slice(0, 20),
                     year: year,
                 })
             } else {
@@ -42,13 +42,13 @@ class UpcomingBangumi extends Component {
                     year: year,
                 })
             }
-            if (animelist.length % 30) {
+            if (animelist.length % 20) {
                 this.setState({
-                    pageNumber: (animelist.length-animelist.length%30)/30 + 1
+                    pageNumber: (animelist.length-animelist.length%20)/20 + 1
                 })
             } else {
                 this.setState({
-                    pageNumber: animelist.length/30,
+                    pageNumber: animelist.length/20,
                 })
             }
         }).catch(err => {
@@ -60,7 +60,7 @@ class UpcomingBangumi extends Component {
         if (pageNumber === '') {
             return;
         }
-        let currentBangumi = this.state.bangumi.slice((pageNumber-1)*30, pageNumber*30);
+        let currentBangumi = this.state.bangumi.slice((pageNumber-1)*20, pageNumber*20);
         this.setState({
             currentPage: pageNumber,
             currentBangumi: currentBangumi,
@@ -70,10 +70,10 @@ class UpcomingBangumi extends Component {
     toPrevious() {
         let pageNumber = this.state.currentPage-1;
         let currentBangumi = [];
-        if (30*pageNumber <= this.state.bangumi.length) {
-            currentBangumi = this.state.bangumi.slice(30*(pageNumber-1), 30*pageNumber);
+        if (20*pageNumber <= this.state.bangumi.length) {
+            currentBangumi = this.state.bangumi.slice(20*(pageNumber-1), 20*pageNumber);
         } else {
-            currentBangumi = this.state.bangumi.slice(30*(pageNumber-1));
+            currentBangumi = this.state.bangumi.slice(20*(pageNumber-1));
         }
         this.setState({
             currentPage: pageNumber,
@@ -84,10 +84,10 @@ class UpcomingBangumi extends Component {
     toNext() {
         let pageNumber = this.state.currentPage+1;
         let currentBangumi = [];
-        if (30*pageNumber <= this.state.bangumi.length) {
-            currentBangumi = this.state.bangumi.slice(30*(pageNumber-1), 30*(pageNumber));
+        if (20*pageNumber <= this.state.bangumi.length) {
+            currentBangumi = this.state.bangumi.slice(20*(pageNumber-1), 20*(pageNumber));
         } else {
-            currentBangumi = this.state.bangumi.slice(30*(pageNumber-1));
+            currentBangumi = this.state.bangumi.slice(20*(pageNumber-1));
         }
         this.setState({
             currentPage: pageNumber,

@@ -289,13 +289,13 @@ class SeasonBangumi extends Component {
         let currentBangumi = this.state.currentBangumi;
         let currentList = currentBangumi.map(bangumi => {
             let labelStyle = {
-                'width': '200px',
+                'width': '180px',
                 'height': 'auto',
                 background: 'white',
             }
             let imgStyle = {
-                width: '160px',
-                height: '200px',
+                width: '150px',
+                height: '190px',
             }
             return(
                 <Label onClick ={this.toDetailPage.bind(this, bangumi)} style = {labelStyle}>

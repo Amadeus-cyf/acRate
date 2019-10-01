@@ -150,7 +150,7 @@ class Bangumi extends Component {
         }
         let labelStyle = {
             background: 'white',
-            width: '350px',
+            width: '320px',
             height: 'auto',
             display: 'flex',
             marginTop: '20px',
