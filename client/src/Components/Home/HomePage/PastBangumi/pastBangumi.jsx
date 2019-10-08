@@ -110,7 +110,7 @@ class PastBangumi extends Component {
         })
         return(
             <div>
-                <h2 className = {titleStyle} onClick = {this.currentViewMore}>
+                <h2 className = {titleStyle} onClick = {this.pastViewMore}>
                 {this.state.pastYear}年{this.state.pastMonth}月番</h2>
                 <div className = {bangumiStyle}>
                     {pastList}
