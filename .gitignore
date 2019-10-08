@@ -4,4 +4,3 @@ node_modules
 .DS_store
 package-lock.json
 public
-config/secrets.js
