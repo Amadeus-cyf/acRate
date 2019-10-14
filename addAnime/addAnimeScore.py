@@ -1,5 +1,5 @@
-import json;
-import requests;
+import json
+import requests
 import pandas as pd
 import bs4
 
