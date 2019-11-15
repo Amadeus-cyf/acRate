@@ -39,7 +39,7 @@ class FollowerSection extends Component {
                         let user = {
                             user_id: res.data.data.user._id,
                             username: res.data.data.user.username,
-                            avatar: 'http://localhost:4000/' + res.data.data.user.avatar
+                            avatar: res.data.data.user.avatar
                         }
                         followerlist.push(user);
                     } else {

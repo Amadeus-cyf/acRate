@@ -22,13 +22,6 @@ class EditAvatar extends Component {
         this.updateAvatar = this.updateAvatar.bind(this);
         this.cancel = this.cancel.bind(this);
     } 
-
-    arrayBufferToBase64(buffer) {
-        var binary = '';
-        var bytes = [].slice.call(new Uint8Array(buffer));
-        bytes.forEach((b) => binary += String.fromCharCode(b));
-        return window.btoa(binary);
-    };
     
     componentDidMount() {
         if (this.props.currentUser.avatar) {

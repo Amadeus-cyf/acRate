@@ -45,9 +45,9 @@ class Login extends Component {
                 password: this.state.password,
             }
         }).then(response => {
-            if (response.data.status === 'Successfully Login') {
-                this.props.setCurrentUser(this.props.history);        
-            } else if (response.data.status === 'Could not find user') {
+            if (response.data.message === 'Successfully Login') {
+                this.props.setCurrentUser(response.data.data, this.props.history);        
+            } else if (response.data.message === 'Could not find user') {
                 this.setState({
                     password: '',
                     message: 'error',

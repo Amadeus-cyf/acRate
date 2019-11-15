@@ -82,13 +82,13 @@ class SeasonBangumi extends Component {
         axios.get('api/bangumi/' + this.state.displayYear + '/' + this.state.displaySeason + '/count')
         .then(response => {
             let bangumiNumber = response.data.data.bangumiNumber;
-            if (bangumiNumber % 40) {
+            if (bangumiNumber % 20) {
                 this.setState({
-                    pageNumber: (bangumiNumber - bangumiNumber%40)/40 + 1
+                    pageNumber: (bangumiNumber - bangumiNumber%20)/20 + 1
                 })
             } else {
                 this.setState({
-                    pageNumber: bangumiNumber/40,
+                    pageNumber: bangumiNumber/20,
                 })
             }
         })
@@ -232,13 +232,13 @@ class SeasonBangumi extends Component {
             axios.get('api/bangumi/' + year + '/' + season + '/count')
             .then(response => {
                 let bangumiNumber = response.data.data.bangumiNumber;
-                if (bangumiNumber % 40) {
+                if (bangumiNumber % 20) {
                     this.setState({
-                        pageNumber: (bangumiNumber - bangumiNumber%40)/40 + 1
+                        pageNumber: (bangumiNumber - bangumiNumber%20)/20 + 1
                     })
                 } else {
                     this.setState({
-                        pageNumber: bangumiNumber/40,
+                        pageNumber: bangumiNumber/20,
                     })
                 }
             })

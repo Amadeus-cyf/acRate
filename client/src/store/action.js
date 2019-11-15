@@ -1,18 +1,13 @@
 import axios from "axios";
 
-export const setCurrentUser = (history) => dispatch => {
-    axios.get('/api/auth/currentUser')
-    .then(response => {
-        dispatch({
-            type: 'SET_CURRENT_USER',
-            data: response.data.data,
-        })
-        if (history) {
-            history.push('/');
-        }
-    }).catch(err => {
-        alert(err);
+export const setCurrentUser = (user, history) => dispatch => {
+    dispatch({
+        type: 'SET_CURRENT_USER',
+        data: user,
     })
+    if (history) {
+        history.push('/');
+    }
 }
 
 export const clearCurrentUser = (history) => dispatch => {

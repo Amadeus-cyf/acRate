@@ -12,17 +12,17 @@ router.post('/login', (req, res, next) => {
       }
       if (!user) {
           return res.json({
-                status: "Could not find user"
+                message: "Could not find user"
           });
       }
       req.logIn(user, function(err) {
           if (err) {
               return res.status(500).json({
-                  status: "Server error",
+                  message: "Server error",
               });
           }
           res.status(200).json({
-              status: 'Successfully Login',
+              message: 'Successfully Login',
               data: req.user
           });
           //res.cookie("username", req.user.username);
