@@ -32,8 +32,7 @@ var CommentSchema = new mongoose.Schema({
     },
     // the avatar of the user
     avatar: {
-        data: Buffer,
-        contentType: String,
+        type: String,
     },
      // the id of comment(CommentSchema or ReplySchema) where the user replies, 
     // if the comment is not a reply, the replied comment id is 'none'

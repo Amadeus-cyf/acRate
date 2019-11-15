@@ -40,12 +40,10 @@ class FollowerList extends Component {
         .then(response => {
             response.forEach(res => {
                 if (res.data.data.user.avatar) {
-                    let base64Flag = 'data:image/jpeg;base64,';
-                    let avatarStr = this.arrayBufferToBase64(res.data.data.user.avatar.data.data);
                     let user = {
                         user_id: res.data.data.user._id,
                         username: res.data.data.user.username,
-                        avatar: base64Flag + avatarStr,
+                        avatar: 'http://localhost:4000/' + res.data.data.user.avatar,
                     }
                     followerlist.push(user);
                 } else {

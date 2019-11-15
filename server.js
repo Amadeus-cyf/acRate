@@ -24,6 +24,8 @@ app.use(allowCrossDomain);
 app.use(bodyParser.json({limit: '20mb'}));
 app.use(bodyParser.urlencoded({limit: '20mb', extended: true}));
 app.use(express.static(path.join(__dirname, 'client', 'build')));
+app.use('/avatars', express.static('avatars'));
+app.use('/backgrounds', express.static('backgrounds'));
 
 app.use(logger('dev'));
 app.use(cookieParser());

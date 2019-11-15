@@ -25,12 +25,10 @@ var UserSchema = new mongoose.Schema({
         default: [],
     },
     avatar: {
-        data: Buffer,
-        contentType: String,
+        type: String,
     },
     background: {
-        data: Buffer,
-        contentType: String,
+        type: String, 
     },
     following: {
         type: Array,

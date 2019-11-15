@@ -50,10 +50,10 @@ class Navibar extends Component {
             })
         }
         if (this.props.currentUser.avatar) {
-            let base64Flag = 'data:image/jpeg;base64,';
-            let avatarStr = this.arrayBufferToBase64(this.props.currentUser.avatar.data.data);
+            //let base64Flag = 'data:image/jpeg;base64,';
+            //let avatarStr = this.arrayBufferToBase64(this.props.currentUser.avatar.data.data);
             this.setState({
-                avatar: base64Flag + avatarStr,
+                avatar: "http://localhost:4000/" + this.props.currentUser.avatar
             })
         } else {
             this.setState({

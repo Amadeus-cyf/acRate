@@ -113,15 +113,11 @@ class AvatarSection extends Component {
         }
         let avatar = 'https://react.semantic-ui.com/images/avatar/small/daniel.jpg';
         if (this.props.user.avatar) {
-            let base64Flag = 'data:image/jpeg;base64,';
-            let avatarStr = this.arrayBufferToBase64(this.props.user.avatar.data.data);
-            avatar = base64Flag + avatarStr;
+            avatar = "http://localhost:4000/" + this.props.user.avatar;
         }
         let background = 'http://img.ecyss.com/original/20/20438/21435bb1f5454a70.jpg';
         if (this.props.user.background) {
-            let base64Flag = 'data:image/jpeg;base64,';
-            let backgroundStr = this.arrayBufferToBase64(this.props.user.background.data.data);
-            background =  base64Flag + backgroundStr;
+            background =  "http://localhost:4000/" + this.props.user.background;
         }
         let backgroundStyle = {
             position: 'relative',

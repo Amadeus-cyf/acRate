@@ -7,27 +7,25 @@ const express = require('express');
 const router = express.Router();
 
 const storage = multer.diskStorage({
-    destination: './public/uploads',
+    destination: './avatars',
     filename: (req, file, cb) => {
-        cb(null, 'avatar-' + Date.now() + path.extname(file.originalname));
+        cb(null, 'avatar-' + req.params.id + path.extname(file.originalname));
     }
 });
 
 const upload = multer({
     storage: storage,
-    limits: {fileSize: 1000000}
+    limits: {fileSize: 1024 * 1024 * 5}
 })
 
 //change avatar
 router.put('/:id', upload.single('avatar'), (req, res) => {
-    let imageData = fs.readFileSync(req.file.path);
     Comment.find({user_id: req.params.id})
     .then(comments => {
         if (comments.length > 0) {
             comments.forEach(comment => {
-                comment.avatar.data = imageData;
-                comment.avatar.contentType = 'image/png';
-                comment.save();
+                comment.avatar = req.file.path;
+                comment.save()
             })
         }
     }).catch(err => {
@@ -35,8 +33,7 @@ router.put('/:id', upload.single('avatar'), (req, res) => {
     })
     User.findById(req.params.id).exec()
     .then(user => {
-        user.avatar.data = imageData;
-        user.avatar.contentType = 'image/png';
+        user.avatar = req.file.path
         user.save()
         .then(() => {
             return res.status(200).json({message: 'Successfully upload the avatar', data: {user}});

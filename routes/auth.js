@@ -18,12 +18,14 @@ router.post('/login', (req, res, next) => {
       req.logIn(user, function(err) {
           if (err) {
               return res.status(500).json({
-                  status: "Server error"
+                  status: "Server error",
               });
           }
           res.status(200).json({
-              status: 'Successfully Login'
+              status: 'Successfully Login',
+              data: req.user
           });
+          //res.cookie("username", req.user.username);
       });
     })(req, res, next);
 });

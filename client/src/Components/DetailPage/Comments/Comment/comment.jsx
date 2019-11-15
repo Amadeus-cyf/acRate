@@ -129,9 +129,7 @@ class Comment extends Component {
                 }
                 let avatar = '';
                 if (reply.avatar) {
-                    let base64Flag = 'data:image/jpeg;base64,';
-                    let avatarStr = this.arrayBufferToBase64(reply.avatar.data.data);
-                    avatar = base64Flag + avatarStr;
+                    avatar = 'http://localhost:4000/' + reply.avatar;
                 } else {
                     avatar = 'https://react.semantic-ui.com/images/avatar/small/daniel.jpg';
                 }
@@ -168,9 +166,7 @@ class Comment extends Component {
         }
         let avatar = '';
         if (this.props.comment.avatar) {
-            let base64Flag = 'data:image/jpeg;base64,';
-            let avatarStr = this.arrayBufferToBase64(this.props.comment.avatar.data.data);
-            avatar = base64Flag + avatarStr;
+            avatar = 'http://localhost:4000/' + this.props.comment.avatar;
         } else {
             avatar = 'https://react.semantic-ui.com/images/avatar/small/daniel.jpg';
         }
