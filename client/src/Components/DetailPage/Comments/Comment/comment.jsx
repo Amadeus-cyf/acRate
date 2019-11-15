@@ -23,13 +23,6 @@ class Comment extends Component {
         this.cancelReply = this.cancelReply.bind(this);
     }
 
-    arrayBufferToBase64(buffer) {
-        var binary = '';
-        var bytes = [].slice.call(new Uint8Array(buffer));
-        bytes.forEach((b) => binary += String.fromCharCode(b));
-        return window.btoa(binary);
-    };
-
     componentDidMount() {
         axios.get('api/comment/reply/' + this.props.comment._id)
         .then(response => {
@@ -129,7 +122,7 @@ class Comment extends Component {
                 }
                 let avatar = '';
                 if (reply.avatar) {
-                    avatar = 'http://localhost:4000/' + reply.avatar;
+                    avatar = reply.avatar;
                 } else {
                     avatar = 'https://react.semantic-ui.com/images/avatar/small/daniel.jpg';
                 }
@@ -166,7 +159,7 @@ class Comment extends Component {
         }
         let avatar = '';
         if (this.props.comment.avatar) {
-            avatar = 'http://localhost:4000/' + this.props.comment.avatar;
+            avatar = this.props.comment.avatar;
         } else {
             avatar = 'https://react.semantic-ui.com/images/avatar/small/daniel.jpg';
         }

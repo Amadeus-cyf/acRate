@@ -22,20 +22,11 @@ class EditBackground extends Component {
         this.cancel = this.cancel.bind(this);
     }
 
-    arrayBufferToBase64(buffer) {
-        var binary = '';
-        var bytes = [].slice.call(new Uint8Array(buffer));
-        bytes.forEach((b) => binary += String.fromCharCode(b));
-        return window.btoa(binary);
-    };
-
     componentDidMount() {
         if (this.props.currentUser.background) {
-            let base64Flag = 'data:image/jpeg;base64,';
-            let backgroundStr = this.arrayBufferToBase64(this.props.currentUser.background.data.data);
             this.setState({
-                background: base64Flag + backgroundStr,
-                previewUrl: base64Flag + backgroundStr,
+                background: this.props.currentUser.background,
+                previewUrl: this.props.currentUser.background,
             })
         } else {
             this.setState({

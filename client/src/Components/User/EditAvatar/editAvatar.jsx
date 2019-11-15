@@ -32,11 +32,9 @@ class EditAvatar extends Component {
     
     componentDidMount() {
         if (this.props.currentUser.avatar) {
-            let base64Flag = 'data:image/jpeg;base64,';
-            let avatarStr = this.arrayBufferToBase64(this.props.currentUser.avatar.data.data);
             this.setState({
-                avatar: base64Flag + avatarStr,
-                previewUrl: base64Flag + avatarStr,
+                avatar: this.props.currentUser.avatar,
+                previewUrl: this.props.currentUser.avatar,
             })
         } else {
             this.setState({

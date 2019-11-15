@@ -26,13 +26,6 @@ class Navibar extends Component {
         this.menuLeave = this.menuLeave.bind(this);
         this.toProfile = this.toProfile.bind(this);
     }
-    
-    arrayBufferToBase64(buffer) {
-        var binary = '';
-        var bytes = [].slice.call(new Uint8Array(buffer));
-        bytes.forEach((b) => binary += String.fromCharCode(b));
-        return window.btoa(binary);
-    };
 
     componentDidMount() {
         if (this.props.currentUser === 'undefined') {
@@ -53,7 +46,7 @@ class Navibar extends Component {
             //let base64Flag = 'data:image/jpeg;base64,';
             //let avatarStr = this.arrayBufferToBase64(this.props.currentUser.avatar.data.data);
             this.setState({
-                avatar: "http://localhost:4000/" + this.props.currentUser.avatar
+                avatar: this.props.currentUser.avatar
             })
         } else {
             this.setState({
