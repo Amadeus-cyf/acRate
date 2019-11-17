@@ -8,7 +8,7 @@ const router = express.Router();
 const storage = multer.diskStorage({
     destination: './backgrounds',
     filename: (req, file, cb) => {
-        cb(null, 'background-' + Date.now() + path.extname(file.originalname));
+        cb(null, 'background-' + req.params.id+ path.extname(file.originalname));
     }
 });
 

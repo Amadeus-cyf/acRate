@@ -38,7 +38,7 @@ class Follower extends Component {
             this.setState({
                 isFollow: false,
             })
-            axios('api/user/' + this.props.currentUser._id, {
+            axios('api/user/unfollow/' + this.props.currentUser._id, {
                 method: 'DELETE',
                 headers: {
                     'content-type': 'application/json',
@@ -47,7 +47,6 @@ class Follower extends Component {
                     unfollow_id: this.props.follower.user_id,
                 }
             }).then(() => {
-                this.props.setCurrentUser();
                 this.props.setUser(this.props.currentUser._id);
             }).catch(err => {
                 alert(err);
@@ -57,7 +56,7 @@ class Follower extends Component {
             this.setState({
                 isFollow: true,
             })
-            axios('api/user/' + this.props.currentUser._id, {
+            axios('api/user/follow/' + this.props.currentUser._id, {
                 method: 'PUT',
                 headers: {
                     'content-type': 'application/json',
@@ -66,7 +65,6 @@ class Follower extends Component {
                     following_id: this.props.follower.user_id,
                 }
             }).then(() => {
-                this.props.setCurrentUser();
                 this.props.setUser(this.props.currentUser._id);
             }).catch(err => {
                 alert(err);

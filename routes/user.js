@@ -27,7 +27,7 @@ router.get('/:id', (req, res) => {
 })
 
 //user with given id follow the user with id in the req body
-router.put('/:id', (req, res) => {
+router.put('/follow/:id', (req, res) => {
     let following = req.body.following_id;
     User.findById(req.params.id, (err, user) => {
         if (err) {
@@ -64,7 +64,7 @@ router.put('/:id', (req, res) => {
 })
 
 //unfollow the user with id in the req body
-router.delete('/:id', (req, res) => {
+router.delete('/unfollow/:id', (req, res) => {
     let unfollow = req.body.unfollow_id;
     User.findById(req.params.id, (err, user) => {
         if (err) {

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {setCurrentUser, setUser} from '../../../store/action.js';
+import {setUser} from '../../../store/action.js';
 import axios from 'axios';
 import {Image, Button, Label} from  'semantic-ui-react';
 import {hoverStyle, labelStyle} from './avatarSection.module.scss';
@@ -28,13 +28,6 @@ class AvatarSection extends Component {
         }
     }
 
-    arrayBufferToBase64(buffer) {
-        var binary = '';
-        var bytes = [].slice.call(new Uint8Array(buffer));
-        bytes.forEach((b) => binary += String.fromCharCode(b));
-        return window.btoa(binary);
-    };
-
     editAvatar() {
         if (this.props.user === 'undefined' || this.props.currentUser === 'undefined') {
             return;
@@ -50,7 +43,7 @@ class AvatarSection extends Component {
 
     followHandler() {
         if (this.state.status === 'follow') {
-            axios('api/user/' + this.props.currentUser._id, {
+            axios('api/user/follow/' + this.props.currentUser._id, {
                 method: 'PUT',
                 headers: {
                     'content-type': 'application/json',
@@ -59,7 +52,6 @@ class AvatarSection extends Component {
                     following_id: this.props.user._id,
                 }
             }).then(() => {
-                this.props.setCurrentUser();
                 this.props.setUser(this.props.user._id);
             })
             .catch(err => {
@@ -69,7 +61,7 @@ class AvatarSection extends Component {
                 status: 'following',
             })
         } else {
-            axios('api/user/' + this.props.currentUser._id, {
+            axios('api/user/unfollow/' + this.props.currentUser._id, {
                 method: 'DELETE',
                 headers: {
                     'content-type': 'application/json',
@@ -78,7 +70,6 @@ class AvatarSection extends Component {
                     unfollow_id: this.props.user._id,
                 }
             }).then(() => {
-                this.props.setCurrentUser();
                 this.props.setUser(this.props.user._id);
             })
             .catch(err => {
@@ -113,11 +104,11 @@ class AvatarSection extends Component {
         }
         let avatar = 'https://react.semantic-ui.com/images/avatar/small/daniel.jpg';
         if (this.props.user.avatar) {
-            avatar = "http://localhost:4000/" + this.props.user.avatar;
+            avatar = this.props.user.avatar;
         }
         let background = 'http://img.ecyss.com/original/20/20438/21435bb1f5454a70.jpg';
         if (this.props.user.background) {
-            background =  "http://localhost:4000/" + this.props.user.background;
+            background =  this.props.user.background;
         }
         let backgroundStyle = {
             position: 'relative',
@@ -173,4 +164,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, {setCurrentUser, setUser})(withRouter(AvatarSection));
+export default connect(mapStateToProps, {setUser})(withRouter(AvatarSection));

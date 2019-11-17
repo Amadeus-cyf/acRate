@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {setCurrentUser, setUser, clearUser} from '../../../../store/action.js';
+import {setUser, clearUser} from '../../../../store/action.js';
 import {Image, Button, List, Divider} from 'semantic-ui-react';
 import {hoverPart} from './following.module.scss';
 
@@ -30,7 +30,7 @@ class Following extends Component {
             this.setState({
                 isFollow: false,
             })
-            axios('api/user/' + this.props.currentUser._id, {
+            axios('api/user/unfollow/' + this.props.currentUser._id, {
                 method: 'DELETE',
                 headers: {
                     'content-type': 'application/json',
@@ -38,8 +38,7 @@ class Following extends Component {
                 data: {
                     unfollow_id: this.props.following.user_id
                 }
-            }).then(() => {
-                this.props.setCurrentUser();
+            }).then(res => {
                 this.props.setUser(this.props.currentUser._id);
             }).catch(err => {
                 alert(err);
@@ -48,7 +47,7 @@ class Following extends Component {
             this.setState({
                 isFollow: true,
             })
-            axios('api/user/' + this.props.currentUser._id, {
+            axios('api/user/follow/' + this.props.currentUser._id, {
                 method: 'PUT',
                 headers: {
                     'content-type': 'application/json',
@@ -56,8 +55,7 @@ class Following extends Component {
                 data: {
                     following_id: this.props.following.user_id,
                 }
-            }).then(() => {
-                this.props.setCurrentUser();
+            }).then(res => {
                 this.props.setUser(this.props.currentUser._id);
             }).catch(err => {
                 alert(err);
@@ -133,4 +131,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, {setCurrentUser, setUser, clearUser})(withRouter(Following));
+export default connect(mapStateToProps, {setUser, clearUser})(withRouter(Following));
