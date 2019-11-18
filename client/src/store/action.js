@@ -28,13 +28,17 @@ export const clearCurrentUser = (history) => dispatch => {
     })
 }
 
-export const setUser = (user_id) => dispatch => {
+export const setUser = (user_id, history, url) => dispatch => {
     axios.get('api/user/' + user_id)
     .then(response => {
         dispatch({
             type: 'SET_USER',
             data: response.data.data.user,
         })
+        if (history) {
+            history.push(url)
+            window.location.reload();
+        }
     }).catch(err => {
         alert(err);
     })

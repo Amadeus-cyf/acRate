@@ -22,7 +22,7 @@ class EditAvatar extends Component {
         this.updateAvatar = this.updateAvatar.bind(this);
         this.cancel = this.cancel.bind(this);
     } 
-    
+
     componentDidMount() {
         if (this.props.currentUser.avatar) {
             this.setState({
@@ -54,13 +54,12 @@ class EditAvatar extends Component {
         const formData = new FormData();
         formData.append('avatar', this.state.avatar);
         axios.put('api/avatar/' + this.props.currentUser._id, formData)
-        .then(() => {
-            this.props.setCurrentUser();
-            this.props.setUser(this.props.currentUser._id);
+        .then(res => {
+            this.props.setCurrentUser(res.data.data.user)
+            this.props.setUser(this.props.currentUser._id, this.props.history, '/user/userProfile/' + this.props.currentUser._id)
         }).catch(err => {
             alert(err);
         })
-        this.props.history.push('/user/userProfile/' + this.props.currentUser._id);
     }
 
     cancel() {

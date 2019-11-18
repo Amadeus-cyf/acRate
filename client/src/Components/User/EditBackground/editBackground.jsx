@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
-import {setUser} from '../../../store/action.js';
+import {setCurrentUser, setUser} from '../../../store/action.js';
 import {Input, Button, Image} from 'semantic-ui-react';
 import Navibar from '../../Home/MainMenu/Navibar/navibar.jsx';
 import {pageStyle, bodyStyle, footerStyle} from './editBackground.module.scss';
@@ -25,7 +25,7 @@ class EditBackground extends Component {
     componentDidMount() {
         if (this.props.currentUser.background) {
             this.setState({
-                background: this.props.currentUser.background,
+                background:  this.props.currentUser.background,
                 previewUrl: this.props.currentUser.background,
             })
         } else {
@@ -53,12 +53,12 @@ class EditBackground extends Component {
         const formData = new FormData();
         formData.append('background', this.state.background);
         axios.put('api/background/' + this.props.currentUser._id, formData)
-        .then(() => {
-            this.props.setUser(this.props.currentUser._id);
+        .then(res => {
+            this.props.setCurrentUser(res.data.data.user)
+            this.props.setUser(this.props.currentUser._id, this.props.history, '/user/userProfile/' + this.props.currentUser._id)
         }).catch(err => {
             alert(err);
         })
-        this.props.history.push('/user/userProfile/' + this.props.currentUser._id);
     }
 
     cancel() {
@@ -117,4 +117,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, {setUser})(EditBackground);
+export default connect(mapStateToProps, {setCurrentUser, setUser})(EditBackground);
