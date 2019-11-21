@@ -50,13 +50,13 @@ class CurrentBangumi extends Component {
         axios.get('api/bangumi/' + year + '/' + season + '/count')
         .then(response => {
             let bangumiNumber = response.data.data.bangumiNumber;
-            if (bangumiNumber % 36) {
+            if (bangumiNumber % 20) {
                 this.setState({
-                    pageNumber: (bangumiNumber - bangumiNumber%36)/36 + 1
+                    pageNumber: (bangumiNumber - bangumiNumber%20)/20 + 1
                 })
             } else {
                 this.setState({
-                    pageNumber: bangumiNumber/36,
+                    pageNumber: bangumiNumber/20,
                 })
             }
         })
