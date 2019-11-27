@@ -21,6 +21,15 @@ router.get('/parentcomment/:anime_id', (req, res) => {
     })
 })
 
+router.get('/singlecomment/:comment_id', (req, res) => {
+    Comment.find({_id: req.params.comment_id}, (err, comments) => {
+        if (err) {
+            return res.status(500).json({message: err});
+        }
+        return res.status(200).json({message: 'Successfully find the comment', data: {comments}});
+    })
+})
+
 router.get('/parentcomment/:anime_id/count', (req, res) => {
     Comment.find({anime_id: req.params.anime_id, parentComment_id: 'none'}).countDocuments().exec()
     .then(commentNumber => {
@@ -49,6 +58,15 @@ router.get('/reply/:_id', (req, res) => {
     })
 })
 
+router.get('/reply/:_id/:page', (req, res) => {
+    let page = req.params.page;
+    Comment.find({parentComment_id: req.params._id}).skip((page-1)*20).limit(20).exec()
+    .then(comments => {
+        return res.status(200).json({message: 'Succesfully find all replies of the comment', data:{comments}})
+    }).catch(err => {
+        return res.status(500).json({message: err});
+    })
+})
 
 router.post('/', (req, res) => {
     let comment = new Comment(req.body);
