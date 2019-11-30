@@ -34,7 +34,7 @@ router.get('/parentcomment/:anime_id/count', (req, res) => {
     Comment.find({anime_id: req.params.anime_id, parentComment_id: 'none'}).countDocuments().exec()
     .then(commentNumber => {
         return res.status(200).json({message: 'Successfully find number of comments', data: {commentNumber}});
-    }).catch(err => {8
+    }).catch(err => {
         return res.status(500).json({messgae: err});
     })
 })

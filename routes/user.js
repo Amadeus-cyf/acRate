@@ -26,6 +26,25 @@ router.get('/:id', (req, res) => {
     })
 })
 
+router.get('/search/:keyword', (req, res) => {
+    keyword = '\"' + req.params.keyword + '\"'
+    User.find({$text : {$search: keyword}}).exec()
+    .then(users => {
+        if (users.length === 0) {
+            User.find({$text: {$search: req.params.keyword}}).exec()
+            .then(users => {
+                return res.status(200).json({message: 'Successfully find all matched users', data: {users}});
+            }).catch(err => {
+                return res.status(500).json({message: err});
+            })
+        } else {
+            return res.status(200).json({message: 'Successfully find all matched users', data: {users}});
+        }
+    }).catch(err => {
+        return res.status(500).json({message: err});
+    })
+})
+
 //user with given id follow the user with id in the req body
 router.put('/follow/:id', (req, res) => {
     let following = req.body.following_id;

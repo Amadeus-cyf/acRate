@@ -5,6 +5,8 @@ const BangumiList = require('../models/bangumiListSchema');
 const User = require('../models/userSchema');
 const router = express.Router();
 
+mongoose.set('useFindAndModify', false);
+
 // get all bangumi and corresponding score
 router.get('/', (req, res) => {
     BangumiScore.find().exec()
@@ -119,7 +121,7 @@ router.put('/:anime_id', (req, res) => {
         bangumiScore.totalScore = totalScore;
         let userNumber = bangumiScore.userNumber;
         bangumiScore.averageScore = (totalScore/userNumber).toFixed(1);
-        BangumiList.findOneAndUpdate({anime_id: req.params.anime_id}, {$set: {
+        BangumiList.findOneAndUpdate({anime_id: req.params.anime_id},{$set: {
             score: bangumiScore.averageScore,
             userNumber: bangumiScore.userNumber,
             totalScore: bangumiScore.totalScore,
