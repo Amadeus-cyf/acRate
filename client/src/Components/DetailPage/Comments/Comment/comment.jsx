@@ -128,18 +128,18 @@ class Comment extends Component {
                 }
                 return (
                     <List.Item style = {{'font-family': "'PT Sans Caption', sans-serif", 'margin-top': '20px'}}>
-                        <List.Content style = {{'margin-left': '60px'}}>
-                            <List.Header style = {{'font-size': '12pt'}}>
+                        <List.Content style = {{'margin-left': '55px'}}>
+                            <List.Header style = {{'font-size': '10pt'}}>
                                 <Image onClick = {this.toProfile.bind(this, reply.user_id)}
-                                className = {replyAvatarStyle} style = {{'margin-right': '10px'}} avatar src = {avatar}/>
+                                className = {replyAvatarStyle} style = {{'margin-right': '18px'}} avatar src = {avatar}/>
                                 {reply.username} 
                                 <span style = {atstyle}>@ {reply.repliedUsername}</span>
                             </List.Header>
-                            <p style = {{'margin-top': '10px'}}>
+                            <p style = {{'marginTop': '10px', 'fontSize': '9pt'}}>
                                 {date.getFullYear()}-{date.getMonth()+1}-{date.getDate()}
                                 <span style = {{'padding-left': '5px'}}>{date.getHours()}:{minute}</span>
                             </p>
-                            <List.Description style = {{'font-size': '11pt', 'margin-top': '10px'}}>
+                            <List.Description style = {{'font-size': '10pt'}}>
                                 {reply.commentContent}
                             </List.Description>
                             <Button icon='edit' content = 'Reply' 
@@ -166,32 +166,33 @@ class Comment extends Component {
         return(
             <List.Item style = {{'font-family': "'PT Sans Caption', sans-serif"}}>
                 <Divider/>
-                <Image onClick = {this.toProfile.bind(this, this.props.comment.user_id)} 
-                className = {avatarStyle} avatar src = {avatar}/>
-                <List.Content style = {{'margin-left': '30px', 'margin-top': '50px'}}>
-                    <List.Header style = {{'font-size': '14pt'}}>
-                        <div className = {usernameStyle}>
-                            <p style = {{'padding-right': '10px'}}>{this.props.comment.username}</p>
-                            <span style = {this.props.starDisplay}>
-                                <NoneditStarRating average = {this.props.score}/>
-                            </span>
-                        </div>
-                    </List.Header>
-                    <p style = {{'margin-top': '10px'}}>
-                        {date.getFullYear()}-{date.getMonth()+1}-{date.getDate()}
-                        <span style = {{'padding-left': '5px'}}>{date.getHours()}:{minute}</span>
-                        <span style = {{'margin-left': '10px'}}>{replyList.length} reply/replies</span>
-                    </p>
-                    <List.Description style = {{'font-size': '12pt', 'margin-top': '20px'}}>
-                        {this.props.comment.commentContent}
-                    </List.Description>
-                    <Button icon = 'edit' content = 'Reply' 
-                    onClick = {this.replyComment.bind(this, this.props.comment)} 
-                    style = {{'margin-top': '20px'}} size = 'tiny' color = 'blue' 
-                    disabled = {this.props.currentUser && 
-                    this.props.comment.username === this.props.currentUser.username}/>
-                    <Likebar currentUser = {this.props.currentUser} comment = {this.props.comment}/>
-                </List.Content>
+                <div style = {{display: 'flex', alignItems:'flex-start'}}>
+                    <Image onClick = {this.toProfile.bind(this, this.props.comment.user_id)} className = {avatarStyle} avatar src = {avatar}/>
+                    <List.Content style = {{'margin-left': '25px', 'margin-top': '20px'}}>
+                        <List.Header style = {{'font-size': '12pt'}}>
+                            <div className = {usernameStyle}>
+                                <p style = {{'padding-right': '10px'}}>{this.props.comment.username}</p>
+                                <span style = {this.props.starDisplay}>
+                                    <NoneditStarRating average = {this.props.score}/>
+                                </span>
+                            </div>
+                        </List.Header>
+                        <p style = {{'fontSize': '9pt'}}>
+                            {date.getFullYear()}-{date.getMonth()+1}-{date.getDate()}
+                            <span style = {{'padding-left': '5px'}}>{date.getHours()}:{minute}</span>
+                            <span style = {{'margin-left': '10px'}}>{replyList.length} reply/replies</span>
+                        </p>
+                        <List.Description style = {{'font-size': '11pt', 'margin-top': '20px'}}>
+                            {this.props.comment.commentContent}
+                        </List.Description>
+                        <Button icon = 'edit' content = 'Reply' 
+                        onClick = {this.replyComment.bind(this, this.props.comment)} 
+                        style = {{'margin-top': '20px'}} size = 'tiny' color = 'blue' 
+                        disabled = {this.props.currentUser && 
+                        this.props.comment.username === this.props.currentUser.username}/>
+                        <Likebar currentUser = {this.props.currentUser} comment = {this.props.comment}/>
+                    </List.Content>
+                </div>
                 <List>
                     {replyList}
                 </List>
