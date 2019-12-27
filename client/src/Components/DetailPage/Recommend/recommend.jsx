@@ -110,7 +110,7 @@ class Recommend extends Component {
         if (this.state.bangumiList.length === 0) {
             return (
                 <div>
-                    <h2 style = {{marginLeft: '10%'}}>Recommendation</h2>
+                    <h3 style = {{marginLeft: '10%'}}>Recommendation</h3>
                     <div className = {noRecommendStyle}>
                         <p>No recommendation yet</p>
                     </div>
@@ -124,12 +124,12 @@ class Recommend extends Component {
         }
         let labelStyle = {
             background: 'white',
-            width: '190px',
+            width: '165px',
             height: 'auto',
         }
         let imageStyle = {
-            width: '160px',
-            height: '210px',
+            width: '130px',
+            height: '165px',
         }
         let bangumiList = this.state.bangumiList.map(bangumi => {
             return (
@@ -137,7 +137,8 @@ class Recommend extends Component {
                     <Image className = {hoverPart} onClick = {this.toDetailPage.bind(this, bangumi)} 
                     style = {imageStyle} src = {bangumi.image_url} rounded/>
                     <div className = {titleStyle}>
-                        <p className = {bangumiTitle} onClick = {this.toDetailPage.bind(this, bangumi)}>{bangumi.title}</p>
+                        <span className = {bangumiTitle} onClick = {this.toDetailPage.bind(this, bangumi)}>{bangumi.title}</span> 
+                        <br/>
                         <span className = {scoreStyle}>total score: {bangumi.score}</span>
                     </div>
                 </Label>
@@ -145,7 +146,7 @@ class Recommend extends Component {
         })
         return(
             <div className = {recommendStyle}>
-                <h2>Recommendation</h2>
+                <h3>Recommendation</h3>
                 <div className = {bangumiStyle}>
                     {bangumiList}
                 </div>

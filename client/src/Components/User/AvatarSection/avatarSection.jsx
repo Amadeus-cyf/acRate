@@ -5,6 +5,7 @@ import {setUser} from '../../../store/action.js';
 import axios from 'axios';
 import {Image, Button, Label} from  'semantic-ui-react';
 import {hoverStyle, labelStyle} from './avatarSection.module.scss';
+import default_background from './default_background.jpg';
 
 class AvatarSection extends Component {
     constructor() {
@@ -106,7 +107,7 @@ class AvatarSection extends Component {
         if (this.props.user.avatar) {
             avatar = this.props.user.avatar;
         }
-        let background = 'http://img.ecyss.com/original/20/20438/21435bb1f5454a70.jpg';
+        let background = default_background;
         if (this.props.user.background) {
             background =  this.props.user.background;
         }

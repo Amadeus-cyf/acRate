@@ -23,19 +23,14 @@
 
 .titleStyle {
     margin-top: 10px;
-    text-align: center;
-    line-height: 1.2em;
-    font-size: 10pt;
+    text-align: left;
+    line-height: 1.5em;
+    font-size: 8.5pt;
     font-family: 'PT Sans Caption', sans-serif; 
 }
 
 .hoverPart:hover{
     cursor: pointer;
-}
-
-.bangumiTitle {
-    font-size: 10pt;
-    font-family: 'PT Sans Caption', sans-serif; 
 }
 
 .bangumiTitle:hover {
@@ -44,7 +39,6 @@
 }
 
 .scoreStyle {
-    font-size: 10pt;
     color: rgba(255, 180, 94, 1);
 }
 

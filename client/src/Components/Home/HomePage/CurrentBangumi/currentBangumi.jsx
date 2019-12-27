@@ -106,8 +106,8 @@ class CurrentBangumi extends Component {
         })
         return(
             <div>
-                <h2 className = {titleStyle} onClick = {this.currentViewMore}>
-                {this.state.year}年{this.state.month}月新番</h2>
+                <h3 className = {titleStyle} onClick = {this.currentViewMore}>
+                {this.state.year}年{this.state.month}月新番</h3>
                 <div className = {bangumiStyle}>
                         {currentList}
                 </div>

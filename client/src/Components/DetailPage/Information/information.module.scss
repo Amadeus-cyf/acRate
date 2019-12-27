@@ -27,7 +27,7 @@
 }
 
 .titleStyle {
-    font-size: 16pt;
+    font-size: 13.5pt;
     white-space: normal;
     width: 400px;
 }
@@ -48,18 +48,17 @@
 .genreStyle {
     border: 2px solid white;
     border-radius: 5px;
-    font-size:13pt;
+    font-size:10pt;
     padding: 5px 10px 5px 10px;
     margin: 5px 10px 5px 0px;
 }
 
 .episodeStyle {
     display: flex;
-    justify-content: space-around;
-    font-size: 12pt;
+    justify-content: flex-start;
+    font-size: 11pt;
     margin-top: 10px;
     white-space: normal;
-    width: 420px
 }
 
 .producerStyle {
@@ -69,17 +68,16 @@
     width: 410px;
     p {
         padding-right: 10px;
-        font-size: 12pt;
+        font-size: 11pt;
     }
 }
 
 .studioStyle {
-    padding-top: 10px;
     display: flex;
     white-space: normal;
     width: 400px;
     p {
         padding-right: 10px;
-        font-size: 12pt;
+        font-size: 11pt;
     }
 }

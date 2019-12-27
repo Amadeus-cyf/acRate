@@ -79,7 +79,7 @@ class Follower extends Component {
                     <Image className = {hoverPart} onClick = {this.toProfile}
                     style = {{transform: 'scale(2)', margin: '40px 3% 40px 8%'}} 
                     avatar src = {this.props.follower.avatar}/>
-                    <List.Content style = {{fontSize: '14pt'}}> 
+                    <List.Content style = {{fontSize: '11.5.5pt'}}> 
                         <List.Header>    
                             {this.props.follower.username}
                         </List.Header>
@@ -100,7 +100,7 @@ class Follower extends Component {
                     <Image className = {hoverPart} onClick = {this.toProfile}
                     style = {{transform: 'scale(2)', margin: '40px 3% 40px 8%'}} 
                     avatar src = {this.props.follower.avatar}/>
-                    <List.Content style = {{fontSize: '14pt'}}> 
+                    <List.Content style = {{fontSize: '11.5.5pt'}}> 
                         <List.Header>    
                             {this.props.follower.username}
                         </List.Header>
@@ -119,7 +119,7 @@ class Follower extends Component {
                 <Image className = {hoverPart} onClick = {this.toProfile}
                 style = {{transform: 'scale(2)', margin: '40px 3% 40px 8%'}} 
                 avatar src = {this.props.follower.avatar}/>
-                <List.Content style = {{fontSize: '14pt'}}> 
+                <List.Content style = {{fontSize: '11.5.5pt'}}> 
                     <List.Header>    
                         {this.props.follower.username}
                     </List.Header>

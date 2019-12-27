@@ -131,7 +131,7 @@ class Comment extends Component {
                         <List.Content style = {{'margin-left': '55px'}}>
                             <List.Header style = {{'font-size': '10pt'}}>
                                 <Image onClick = {this.toProfile.bind(this, reply.user_id)}
-                                className = {replyAvatarStyle} style = {{'margin-right': '18px'}} avatar src = {avatar}/>
+                                className = {replyAvatarStyle} style = {{'margin-right': '10px'}} avatar src = {avatar}/>
                                 {reply.username} 
                                 <span style = {atstyle}>@ {reply.repliedUsername}</span>
                             </List.Header>
@@ -180,7 +180,7 @@ class Comment extends Component {
                         <p style = {{'fontSize': '9pt'}}>
                             {date.getFullYear()}-{date.getMonth()+1}-{date.getDate()}
                             <span style = {{'padding-left': '5px'}}>{date.getHours()}:{minute}</span>
-                            <span style = {{'margin-left': '10px'}}>{replyList.length} reply/replies</span>
+                            <span style = {{'margin-left': '10px'}}>{replyList.length} replies</span>
                         </p>
                         <List.Description style = {{'font-size': '11pt', 'margin-top': '20px'}}>
                             {this.props.comment.commentContent}

@@ -31,6 +31,7 @@ class NewBangumi extends Component {
         let month = date.getMonth() + 1;
         let upcomingSeason = 'winter';
         let upcomingMonth = month;
+        // get upcoming year and season
         if (month >= 1 && month < 4) {
             upcomingSeason = 'spring';
             upcomingMonth = 4;
@@ -43,8 +44,9 @@ class NewBangumi extends Component {
         } else if (month >= 10) {
             upcomingSeason = 'winter';
             upcomingMonth = 1;
+            year += 1;
         }
-        //get current season anime
+        //get upcoming season anime
         axios.get('https://api.jikan.moe/v3/season/' + year + '/' + upcomingSeason)
         .then(response => {
             let animelist = response.data.anime.filter(anime => {

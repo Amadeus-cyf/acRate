@@ -114,7 +114,7 @@ class FollowerList extends Component {
                 <Subnavibar user = {this.props.user} current = 'follower'/>
                 <List style = {{width: '80%', height: 'auto', background: 'white', display: 'block',
                 margin: '20px auto', paddingBottom: '5px'}}>
-                    <h2 style = {{marginLeft: '2%', paddingTop: '2%'}}>Follower</h2>
+                    <h3 style = {{marginLeft: '2%', paddingTop: '2%'}}>Follower</h3>
                     <Divider style = {{margin: '0 5% 0 5%'}}/>
                     {followerlist}
                 </List>

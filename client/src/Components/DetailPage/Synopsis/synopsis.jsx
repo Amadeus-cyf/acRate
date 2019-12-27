@@ -55,7 +55,7 @@ class Synopsis extends Component {
         }
         return (
             <div className = {synopsisStyle}>
-                <h2>Synopsis:</h2>
+                <h3>Synopsis:</h3>
                 <p>{this.state.displayContent}</p>
                 <Button style = {viewmoreStyle} onClick = {this.viewMore} size = 'tiny' color = 'blue'>View more</Button>
                 <Button style = {viewlessStyle} onClick = {this.viewLess} size = 'tiny' color = 'blue'>View less</Button>

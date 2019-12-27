@@ -174,7 +174,7 @@ class Commentlist extends Component {
             return(
                 <div>
                     <div className = {commentStyle}>
-                        <h2>Be the first to comment</h2>
+                        <h3>Be the first to comment</h3>
                         <CommentBox bangumi = {this.props.bangumi} currentUser = {this.props.currentUser}
                         newComment = {this.state.newComment} inputComment = {this.inputComment} 
                         submitComment = {this.submitComment} cancelComment = {this.cancelComment}/>
@@ -230,7 +230,7 @@ class Commentlist extends Component {
         return(
             <div>
                 <div className = {commentStyle}>
-                    <h2>{this.state.commentNumber} comments</h2>
+                    <h3>{this.state.commentNumber} comments</h3>
                     <CommentBox 
                     bangumi = {this.props.bangumi} currentUser = {this.props.currentUser}
                     newComment = {this.state.newComment} inputComment = {this.inputComment} 

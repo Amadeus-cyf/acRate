@@ -70,7 +70,7 @@ class Following extends Component {
                     <Image className = {hoverPart} onClick = {this.toProfile}
                     style = {{transform: 'scale(2)', margin: '40px 3% 40px 8%'}} 
                     avatar src = {this.props.following.avatar}/>
-                    <List.Content style = {{fontSize: '14pt'}}> 
+                    <List.Content style = {{fontSize: '11.5pt'}}> 
                         <List.Header>    
                             {this.props.following.username}
                         </List.Header>
@@ -90,7 +90,7 @@ class Following extends Component {
                     <Image className = {hoverPart}  onClick = {this.toProfile}
                     style = {{transform: 'scale(2)', margin: '40px 3% 40px 8%'}} 
                     avatar src = {this.props.following.avatar}/>
-                    <List.Content style = {{fontSize: '14pt'}}> 
+                    <List.Content style = {{fontSize: '11.5pt'}}> 
                         <List.Header>    
                             {this.props.following.username}
                         </List.Header>
@@ -108,8 +108,8 @@ class Following extends Component {
                 <Image className = {hoverPart}  onClick = {this.toProfile}
                 style = {{transform: 'scale(2)', margin: '40px 3% 40px 8%'}} 
                 avatar src = {this.props.following.avatar}/>
-                <List.Content style = {{fontSize: '14pt'}}> 
-                    <List.Header>    
+                <List.Content style = {{fontSize: '11.5pt'}}> 
+                    <List.Header >    
                         {this.props.following.username}
                     </List.Header>
                 </List.Content>

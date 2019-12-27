@@ -69,7 +69,7 @@ class  ScoreBangumi extends Component {
                     <div className = {textSection}>
                         <h3 className = {bangumiTitle} onClick = {this.toDetail.bind(this, bangumi)}>{bangumi.title}</h3>
                         <NoneditStarRating average = {bangumi.score/2}/>
-                        <p>{bangumi.synopsis.slice(0, 40) + '...'}</p>
+                        <p>{bangumi.synopsis.slice(0, 70) + '...'}</p>
                     </div>
                 </Label>
             )
@@ -77,7 +77,7 @@ class  ScoreBangumi extends Component {
         return (
             <Label style = {{background: 'white', position: 'relative',
             width: '57%', height: 'auto'}}>
-                <h3 className = {titleStyle}>
+                <h3 className = {titleStyle} style={{marginTop: '10px'}}>
                     Scored Bangumi 
                 </h3>
                 <div className = {bangumiSection}>

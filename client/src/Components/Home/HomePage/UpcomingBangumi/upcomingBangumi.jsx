@@ -107,8 +107,8 @@ class UpcomingBangumi extends Component {
         })
         return(
             <div style = {{marginTop: '20px'}}>
-                <h2 onClick = {this.upcomingViewMore} className = {titleStyle}>
-                {this.state.upcomingYear}年{this.state.upcomingMonth}月新番</h2>
+                <h3 onClick = {this.upcomingViewMore} className = {titleStyle}>
+                {this.state.upcomingYear}年{this.state.upcomingMonth}月新番</h3>
                 <div className = {bangumiStyle}>
                         {upcomingList}
                 </div>

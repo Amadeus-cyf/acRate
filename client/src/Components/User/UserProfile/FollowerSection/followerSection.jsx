@@ -87,14 +87,14 @@ class FollowerSection extends Component {
         if (this.state.follower === 'undefined') {
             return (
                 <Label style = {labelStyle}>
-                    <h2 style = {{color: 'rgba(100, 100, 100, 0.6)'}}>Loading...</h2>
+                    <h3 style = {{color: 'rgba(100, 100, 100, 0.6)'}}>Loading...</h3>
                 </Label>
             )
         }
         if(this.state.follower.length === 0) {
             return (
                 <Label style = {labelStyle}>
-                    <h2 style = {{color: 'rgba(100, 100, 100, 0.6)'}}>No follower</h2>
+                    <h3 style = {{color: 'rgba(100, 100, 100, 0.6)'}}>No follower</h3>
                 </Label>
             )
         }
@@ -102,6 +102,8 @@ class FollowerSection extends Component {
             background: 'white',
             marginTop: '10px',
             textAlign: 'center',
+            marginLeft: '10px',
+            marginRight: '10px',
         }
         let followerList = this.state.follower.map(user => {
             return(
@@ -109,7 +111,7 @@ class FollowerSection extends Component {
                     <Image className = {hoverPart} onClick = {this.toProfile.bind(this, user)}
                     style = {{transform: 'scale(2)', marginRight: '10px'}} 
                     avatar src = {user.avatar}></Image>
-                    <h3> {user.username} </h3>
+                    <h5> {user.username} </h5>
                 </Label>
             )
         })

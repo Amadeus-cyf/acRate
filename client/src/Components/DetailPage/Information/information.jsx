@@ -38,7 +38,7 @@ class Information extends Component {
                 }
             })
         if (producers.length === 0) {
-            producers = 'unknown';
+            producers = <p>unknown</p>;
         }
         let genres = this.props.bangumi.genres.map(genre => {
             if (genre.name) {
@@ -50,7 +50,7 @@ class Information extends Component {
             }
         })
         let studios = <p>unknown</p>
-        if (this.props.bangumi.studios) {
+        if (this.props.bangumi.studios && this.props.bangumi.studios.length > 0) {
             studios = this.props.bangumi.studios.map(studio => {
                 return (
                     <p>{studio.name}</p>
@@ -93,8 +93,8 @@ class Information extends Component {
                         <p className = {titleStyle}> {this.props.bangumi.title_japanese}</p>
                         <p className = {genreListStyle}>{genres}</p>
                         <div className = {episodeStyle}>
-                            <p>Airing Start: {year}.{month}.{day}</p>
-                            <p>Episodes: {episodes}</p>
+                            <p style={{paddingRight: '20px'}}>Airing Start in {year}.{month}.{day}</p> 
+                            <p style={{paddingRight: '20px'}}>{episodes} episodes</p>
                             <p>{airing_status}</p>
                         </div>
                         <div className = {producerStyle}>

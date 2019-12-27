@@ -150,7 +150,7 @@ class Bangumi extends Component {
         }
         let labelStyle = {
             background: 'white',
-            width: '320px',
+            width: '340px',
             height: 'auto',
             display: 'flex',
             marginTop: '20px',
@@ -169,7 +169,7 @@ class Bangumi extends Component {
                     <div className = {textSection}>
                         <h3 className = {bangumiTitle} onClick = {this.toDetail.bind(this, bangumi)}>{bangumi.title}</h3>
                         <NoneditStarRating average = {bangumi.score/2}/>
-                        <p>{bangumi.synopsis.slice(0, 50) + '...'}</p>
+                        <p>{bangumi.synopsis.slice(0, 70) + '...'}</p>
                     </div>
                 </Label>
             )
@@ -206,7 +206,7 @@ class Bangumi extends Component {
                 <Subnavibar user = {this.props.user} current = 'bangumi'/>
                 <Label style = {{background: 'white',  display: 'block', margin: '10px auto',
                 width: '80%', height: 'auto'}}>
-                    <h2 className = {title}>Scored Bangumi</h2>
+                    <h3 className = {title}>Scored Bangumi</h3>
                     <div className = {bangumiSection}>
                         {bangumiList}
                     </div>
@@ -228,7 +228,6 @@ class Bangumi extends Component {
         )
     }
 }
-
 
 const mapStateToProps = state => {
     return {

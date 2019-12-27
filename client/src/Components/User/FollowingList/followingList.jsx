@@ -97,7 +97,7 @@ class FollowingList extends Component {
                     <AvatarSection/>
                     <Subnavibar user = {this.props.user} current = 'following'/>
                     <Label style = {labelStyle}>
-                        <h2 style = {{color: 'rgba(100, 100, 100, 0.6)'}}>No following</h2>
+                        <h3 style = {{color: 'rgba(100, 100, 100, 0.6)'}}>No following</h3>
                     </Label>
                 </div>
             )
@@ -114,7 +114,7 @@ class FollowingList extends Component {
                 <Subnavibar user = {this.props.user} current = 'following'/>
                 <List style = {{width: '80%', height: 'auto', background: 'white', display: 'block',
                 margin: '20px auto', paddingBottom: '5px'}}>
-                    <h2 style = {{marginLeft: '2%', paddingTop: '2%'}}>Following</h2>
+                    <h3 style = {{marginLeft: '2%', paddingTop: '2%'}}>Following</h3>
                     <Divider style = {{margin: '0 5% 0 5%'}}/>
                     {followinglist}
                 </List>
