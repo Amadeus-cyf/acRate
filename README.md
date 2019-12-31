@@ -1,6 +1,9 @@
-<h1 align="center">Aniscore Android</h1>
+<h2 align="center">Aniscore</h1>
+<p align="center">
+  <img src="./screenshots/moe.jpeg" alt="moe" width="auto" height="120"/>
+</p>
 
-## Intro
+![Home Page](./screenshots/icon.jpeg)
 Aniscore is an app for scoring bangumi(japanese anime), implemented with reactjs, nodejs, express, mongodb and redux.
 
 ## Web View
@@ -9,6 +12,7 @@ Aniscore is an app for scoring bangumi(japanese anime), implemented with reactjs
 
 ### Detail Page
 ![Detail Page](./screenshots/detailpage.png) <br>
+<br>
 ![Detail Page](./screenshots/detailpage1.png)
 
 ## Comment
