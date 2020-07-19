@@ -57,7 +57,7 @@ class PastBangumi extends Component {
             })
         }
         // get previous season anime
-        axios.get('api/bangumi/' + pastYear + '/' + past + '/limit')
+        axios.get('api/bangumi/' + pastYear + '/' + past + '/limit/' + 10)
         .then(response => {
             this.setState({
                 pastBangumi: response.data.data.bangumiList,

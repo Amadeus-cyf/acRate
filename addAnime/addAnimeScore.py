@@ -29,15 +29,15 @@ def postAnimeScore(year, season):
         requests.post(database_url, bangumi)
 
 def main():
-    postAnimeScore('2019', 'summer')
-    postAnimeScore('2019', 'spring')
-    postAnimeScore('2019', 'winter')
-    seasons = ['winter', 'spring', 'summer', 'fall']
-    year = 2018
-    while year >= 2005:
-        for season in seasons:
-            postAnimeScore(str(year), season)
-        year -= 1
+    postAnimeScore('2020', 'spring')
+    #postAnimeScore('2019', 'spring')
+    #postAnimeScore('2019', 'winter')
+    #seasons = ['winter', 'spring', 'summer', 'fall']
+    #year = 2018
+    #while year >= 2005:
+    #    for season in seasons:
+    #        postAnimeScore(str(year), season)
+    #    year -= 1
 
 if __name__ == '__main__':
     main()

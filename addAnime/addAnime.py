@@ -49,9 +49,9 @@ def postAnime(year, season):
     
 def main():
     ## some examples for using postAnime
-    postAnime('2019', 'fall')
-    postAnime('2019', 'summer')
-    postAnime('2019', 'winter')
+    postAnime('2020', 'spring')
+    #postAnime('2019', 'summer')
+    #postAnime('2019', 'winter')
 
 if __name__ == '__main__':
     main()

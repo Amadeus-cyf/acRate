@@ -45,10 +45,11 @@ router.get('/:year/:season', (req, res) => {
     }
 })
 
-router.get('/:year/:season/limit', (req, res) => {
+router.get('/:year/:season/limit/:number', (req, res) => {
     let year = req.params.year;
+    let number = req.params.number
     let season = req.params.season;
-    Bangumi.find({year: year, season: season}).limit(10).exec()
+    Bangumi.find({year: year, season: season}).limit(parseInt(number)).exec()
     .then(bangumiList => {
         return res.status(200).json({message: 'Succesfully find all bangumi of corresponding time', data: {bangumiList}});
     }).catch(err => {

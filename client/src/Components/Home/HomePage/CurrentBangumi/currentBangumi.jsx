@@ -53,7 +53,7 @@ class CurrentBangumi extends Component {
             })
         }
         //get current season anime
-        axios.get('api/bangumi/' + year + '/' + season + '/limit')
+        axios.get('api/bangumi/' + year + '/' + season + '/limit/' + 10)
         .then(response => {
             this.setState({
                 bangumi: response.data.data.bangumiList,
