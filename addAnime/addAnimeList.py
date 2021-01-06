@@ -53,7 +53,7 @@ def postAnimeList(year, season):
 
 def main():                        
     ## some examples for using postAnimeList
-    postAnimeList('2020', 'spring')
+    postAnimeList('2021', 'winter')
     #seasons = ['winter', 'spring', 'summer', 'fall']
     #year = 2018
     #while year >= 2005:
